@@ -27,8 +27,8 @@ outputs/              Local generated runs and figures; ignored by Git
 The tested reference environment uses Linux, Python 3.9, and PyTorch 2.1.2. The pinned scientific dependencies are in `requirements-reference.txt`; `requirements.txt` records broader supported dependency ranges.
 
 ```bash
-git clone https://github.com/Rojin-M/rojin-ml-exoplanet.git
-cd rojin-ml-exoplanet
+git clone https://github.com/Rojin-M/Thesis-Rojin.git
+cd Thesis-Rojin
 export PROJECT_ROOT="$(pwd)"
 python3.9 -m venv .venv
 source .venv/bin/activate
@@ -67,12 +67,12 @@ python -m unittest discover -s tests -v
 
 ## Run the story in order
 
-Run commands from the repository root: the `rojin-ml-exoplanet/` directory containing `README.md` and `scripts/`.
+Run commands from the repository root: the `Thesis-Rojin/` directory containing `README.md` and `scripts/`.
 
-If setup is already complete and you opened a new terminal, enter your clone and reactivate the existing environment first. Replace `/path/to/rojin-ml-exoplanet` with your clone's actual location:
+If setup is already complete and you opened a new terminal, enter your clone and reactivate the existing environment first. Replace `/path/to/Thesis-Rojin` with your clone's actual location:
 
 ```bash
-cd /path/to/rojin-ml-exoplanet
+cd /path/to/Thesis-Rojin
 source .venv/bin/activate
 export PROJECT_ROOT="$(pwd)"
 export OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2
