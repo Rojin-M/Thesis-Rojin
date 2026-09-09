@@ -7,5 +7,7 @@ scikit-learn==1.6.1
 tqdm==4.67.3
 astropy==6.0.1
 lightkurve==2.5.1
+astroquery==0.4.11
+requests==2.32.5
 matplotlib==3.9.4
 pyarrow==17.0.0
