@@ -4,6 +4,8 @@ A reproducible pipeline comparing tabular HistGradientBoosting, a multi-view CNN
 
 Read the [experimental storyline](STORYLINE.md) for the questions, findings, and limitations. The [published results](results/README.md) include the [complete model comparison](results/comparison/COMPARISON.md) from the latest completed reproduction. The workflow below generates your own runs and plots under `outputs/`.
 
+The [TESS acquisition section](#thesis-extension-fetch-tess-light-curves) starts the thesis extension after the Kepler practical workflow.
+
 CNN v1 is the main practical model. Transformer v1 has a tiny mean test AP lead (0.960631 versus 0.960548), while CNN v1 has higher mean accuracy, F1, and ROC-AUC and fewer parameters. Both metadata extensions improved all four metrics in every matched seed on the fixed split.
 
 ## Repository layout
@@ -14,6 +16,7 @@ scripts/data/         Downloading, preprocessing, metadata preparation, verifica
 scripts/experiments/  Training launchers and the complete reproduction workflow
 scripts/analysis/     Metric checks, aggregation, and plots
 training/             Tabular, CNN, blending/stacking, and transformer implementations
+data/raw/tess/        Local TESS catalog, light curves, and acquisition records; ignored by Git
 data/processed/kepler/
   v0/                 Base views, scalar/flat inputs, labels, manifest, and split
   v1/                 Identical base inputs plus auxiliary metadata and its provenance
@@ -63,7 +66,7 @@ python scripts/data/check_processed.py
 python -m unittest discover -s tests -v
 ```
 
-**Both processed datasets are included.** Training and evaluation require no raw download, interim cache, catalog request, or W&B account. The dataset has 5,518 candidates and a fixed star-grouped train/validation/test split of 3,853/836/829.
+**Both processed Kepler datasets are included.** The Kepler training and evaluation below require no raw download, interim cache, catalog request, or W&B account. The dataset has 5,518 candidates and a fixed star-grouped train/validation/test split of 3,853/836/829.
 
 ## Run the story in order
 
@@ -367,3 +370,35 @@ python scripts/data/kepler_prepare_aux_v1.py \
 ```
 
 Audit/output directories must be new. Use explicit dataset, split, and manifest paths in a separate config when training on a rebuilt dataset; the committed experiment configs continue to select the published artifacts.
+
+## Thesis extension: fetch TESS light curves
+
+TESS acquisition is the first step toward comparing models across Kepler and TESS. After completing the environment setup, run this command from the repository root to download one file at a time:
+
+```bash
+export PROJECT_ROOT="$(pwd)"
+python scripts/data/tess_download_raw.py \
+  --base_dir "$PROJECT_ROOT" \
+  --max_sector 105 \
+  --dispositions CP KP FP FA \
+  --download_workers 1
+```
+
+The downloader saves the full [NASA TESS Objects of Interest catalog](https://exoplanetarchive.ipac.caltech.edu/docs/API_TOI_columns.html), selects stars with a confirmed planet (`CP`), known planet (`KP`), false positive (`FP`), or false alarm (`FA`), and fetches their available native SPOC two-minute light curves through Sector 105 from [MAST](https://archive.stsci.edu/tess/bulk_downloads/bulk_downloads_ffi-tp-lc-dv.html). Stars without matching light curves are recorded in the coverage report. It retains every catalog candidate on the selected stars; unconfirmed `PC`/`APC` candidates are not assigned negative labels.
+
+Only the catalog and light-curve FITS files are fetched. PDFs, validation time series, XML reports, and pixel files are excluded from this first light-curve experiment.
+
+```text
+data/raw/tess/
+  lightcurves/TIC.../       Original SPOC light-curve FITS files
+  metadata/                Catalog snapshot, candidates, manifest, coverage, and checksums
+logs/tess_download_raw.log  Acquisition progress and errors
+```
+
+**Speed:** on our server, we use `--download_workers 4` to overlap four transfers. The default of one keeps downloads sequential. We also reduced the download list to the model's inputs and obtain light-curve URLs directly from archive observation records; the [storyline](STORYLINE.md#10-start-the-thesis-extension-with-tess-acquisition) records the measured speed comparison.
+
+Add `--dry_run` to the command to fetch or reuse the metadata and show the plan without downloading FITS files. Rerun the same command to resume: the saved catalog and manifest are reused, and completed files are checked against their recorded hashes. The worker count can change when resuming; use a separate `--base_dir` for a different sector limit or candidate selection. Keep the metadata and receipts with the files to preserve the exact input snapshot; a fresh catalog query later may select different candidates even with the same sector limit.
+
+For a download that continues after disconnecting from SSH, start `tmux new -s tess-download`, activate the project environment inside that session, and run the command above. Detach with **Ctrl+B**, then **D**, and reconnect with `tmux attach -t tess-download`.
+
+These are raw acquisition inputs. Candidate-specific transit matching, preprocessing, and star-grouped train/validation/test splits still need to be implemented for TESS before using the models. The existing processed datasets and reported classification results remain Kepler experiments.
