@@ -4,7 +4,7 @@ A reproducible pipeline comparing tabular HistGradientBoosting, a multi-view CNN
 
 Read the [experimental storyline](STORYLINE.md) for the questions, findings, and limitations. The [published results](results/README.md) include the [complete model comparison](results/comparison/COMPARISON.md) from the latest completed reproduction. The workflow below generates your own runs and plots under `outputs/`.
 
-The [TESS acquisition section](#thesis-extension-fetch-tess-light-curves) starts the thesis extension after the Kepler practical workflow.
+The TESS [acquisition](#thesis-extension-fetch-tess-light-curves), [preparation](#thesis-extension-prepare-tess-inputs), and [first CNN comparison](#thesis-extension-compare-cnns-on-tess) sections follow the Kepler practical workflow.
 
 CNN v1 is the main practical model. Transformer v1 has a tiny mean test AP lead (0.960631 versus 0.960548), while CNN v1 has higher mean accuracy, F1, and ROC-AUC and fewer parameters. Both metadata extensions improved all four metrics in every matched seed on the fixed split.
 
@@ -17,6 +17,8 @@ scripts/experiments/  Training launchers and the complete reproduction workflow
 scripts/analysis/     Metric checks, aggregation, and plots
 training/             Tabular, CNN, blending/stacking, and transformer implementations
 data/raw/tess/        Local TESS catalog, light curves, and acquisition records; ignored by Git
+data/interim/tess/    Reusable star feature caches; ignored by Git
+data/processed/tess/  Local prepared TESS inputs, audits, splits, and normalization; ignored by Git
 data/processed/kepler/
   v0/                 Base views, scalar/flat inputs, labels, manifest, and split
   v1/                 Identical base inputs plus auxiliary metadata and its provenance
@@ -401,4 +403,90 @@ Add `--dry_run` to the command to fetch or reuse the metadata and show the plan 
 
 For a download that continues after disconnecting from SSH, start `tmux new -s tess-download`, activate the project environment inside that session, and run the command above. Detach with **Ctrl+B**, then **D**, and reconnect with `tmux attach -t tess-download`.
 
-These are raw acquisition inputs. Candidate-specific transit matching, preprocessing, and star-grouped train/validation/test splits still need to be implemented for TESS before using the models. The existing processed datasets and reported classification results remain Kepler experiments.
+These are raw acquisition inputs. Continue with the preparation stage below before using the models. The published classification results remain Kepler experiments.
+
+## Thesis extension: prepare TESS inputs
+
+The preparation script reads the completed TESS download and the preserved Kepler reference. It labels `CP`/`KP` as positive and `FP`/`FA` as negative, applies the Kepler period/duration limits, and quarantines TESS stars within five arcseconds of a processed Kepler star. Unknown companions remain available for transit masking. Nearby TESS identifiers share a split group.
+
+The saved Kepler KOI catalog is needed for sky-coordinate checks. Use the copy from Kepler raw acquisition, or fetch this catalog once if it is missing:
+
+```bash
+python - <<'PY'
+import io
+from pathlib import Path
+from urllib.request import urlopen
+import pandas as pd
+
+path = Path("data/raw/kepler/metadata/koi_cumulative.csv")
+if not path.exists():
+    url = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+*+from+cumulative&format=csv"
+    with urlopen(url, timeout=180) as response:
+        content = response.read()
+    if not {"kepid", "ra", "dec"}.issubset(pd.read_csv(io.BytesIO(content)).columns):
+        raise ValueError("Unexpected KOI catalog columns")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("xb") as stream:
+        stream.write(content)
+PY
+```
+
+An existing catalog is preserved. If it is stored elsewhere, pass the same `--kepler_catalog /path/to/koi_cumulative.csv` to both preparation commands. Keep this snapshot with the dataset; changed catalogs can change the overlap exclusions.
+
+Start with a balanced pilot and verify its outputs:
+
+```bash
+python scripts/data/tess_prepare_features.py \
+  --base_dir "$PROJECT_ROOT" \
+  --output_dir "$PROJECT_ROOT/outputs/tess_preparation/pilot" \
+  --pilot_candidates 24 --prepare_workers 1
+python scripts/data/check_tess_prepared.py \
+  --prepared_dir "$PROJECT_ROOT/outputs/tess_preparation/pilot" --check_models
+```
+
+Inspect the time-series and folded plots under `outputs/tess_preparation/pilot/figures/`. The pilot has no test split; all inspected star groups are reserved for training in the full dataset. `--check_models` only checks finite forward outputs from the existing CNN and transformer architectures; it produces no accuracy result.
+
+After inspecting the pilot, prepare the full set and verify it:
+
+```bash
+python scripts/data/tess_prepare_features.py \
+  --base_dir "$PROJECT_ROOT" \
+  --pilot_dir "$PROJECT_ROOT/outputs/tess_preparation/pilot" \
+  --prepare_workers 1
+python scripts/data/check_tess_prepared.py \
+  --prepared_dir "$PROJECT_ROOT/data/processed/tess/v0" --check_models
+```
+
+The default processes one star at a time. On our server we use four workers for the pilot and eight for the full run, with `OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1`. The exact Kepler BLS period search is computed once per star and can take hours over the full set. Run inside `tmux` for SSH disconnections, as in the acquisition section. Progress is recorded in the output directory's `prepare.log` and `preparation_summary.json`.
+
+Rerunning the same command reuses matching star caches. To verify a completed preparation without rewriting its artifacts, use `check_tess_prepared.py`. Changed inputs or scientific preparation settings/code require a new pilot and a new full `--output_dir`. Compatible scientific star caches under `data/interim/tess/` remain reusable; changes limited to output reporting need a new output directory but can retain a scientifically matching pilot. Raw inputs and the published Kepler datasets are preserved.
+
+The full output under `data/processed/tess/v0/` includes:
+
+- `dataset_tess_v0.npz`: global `(N, 200, 3)` and local `(N, 100, 3)` views, seven scalars, 907 flat features, and labels.
+- `manifest_tess_v0.csv` and `splits_tess_v0_seed42.npz`: candidate identities and approximately 70/15/15 percent training/validation/test groups.
+- Catalog, overlap, and processing audits, plus input/code provenance and output checksums.
+- `kepler_train_normalization.npz` and `tess_train_normalization.npz`: statistics fitted exclusively on each source mission's training rows.
+
+TESS uses sector- and gap-local detrending with known transit windows protected. Other candidates' transit windows are masked before folding. Candidates need at least two sampled transit events after this masking, each with at least half the expected two-minute samples and a minimum of three points. This checks sampling, not signal detection. Missing companion ephemerides and insufficient coverage are recorded as exclusions.
+
+The feature geometry and calculations match Kepler v0; TESS quality filtering and detrending differ from the historical Kepler preparation. The legacy names `feat_odd_even` and `bls_snr` retain their original meanings: alternating phase-bin difference and BLS likelihood power. Full Kepler v1 auxiliary metadata is not supplied here.
+
+For independent transfer, apply the source mission's saved normalization unchanged to the target inputs. The current training loader fits normalization on the supplied training split, so substituting TESS paths alone does not perform frozen Kepler inference. The comparison below handles this explicitly; the [storyline](STORYLINE.md#11-prepare-tess-inputs-and-check-a-small-batch) records completed preparation checks.
+
+## Thesis extension: compare CNNs on TESS
+
+After full TESS preparation passes verification, compare two CNN v0 models on the same fixed TESS test candidates: one trained from scratch on TESS, and the existing Kepler model applied with frozen weights. The Kepler baseline from stage 4 must already be complete.
+
+```bash
+python scripts/experiments/run_tess_baseline.py \
+  --base_dir "$PROJECT_ROOT" --device auto
+```
+
+The script locates the source run through `outputs/reproduce/cnn_baseline/run.json`. For a source run stored elsewhere, add `--source_run_dir /path/to/completed/cnn/run`. Use `--device cpu` or an explicit CUDA device if needed.
+
+Before training, the script records the dataset, splits, checkpoint hashes, and comparison settings in `outputs/tess_baseline/seed42/protocol.json`. It retains the source CNN's architecture and training recipe with seed 42. The TESS model uses only TESS training rows for normalization; validation average precision selects its checkpoint, and validation F1 selects its classification threshold. The frozen Kepler model keeps its original Kepler training normalization and Kepler validation threshold, with no TESS fine-tuning or recalibration.
+
+Results are written to `comparison.csv`, per-model prediction and metric files, and `completion.json` in that comparison directory. Rerunning the same command verifies and reuses completed results. Changed settings or incomplete training require a new `--output_dir`; existing runs are preserved.
+
+This is an initial, single-seed comparison on a curated labelled TOI subset. It does not establish performance on all TESS detections. The differing mission preprocessing described above also affects interpretation. These CNN v0 results use fewer inputs than the practical CNN v1 results. The [storyline](STORYLINE.md#12-first-cnn-comparison-on-tess) records the first completed comparison and its limitations.

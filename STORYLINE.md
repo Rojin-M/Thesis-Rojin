@@ -184,7 +184,7 @@ The latest [blend](results/blend/README.md) selected 0.52 CNN probability plus 0
 
 **CNN v1 is the main practical model.** Transformer v1 has the highest mean test AP at 0.960631 versus CNN v1's 0.960548, a difference of only 0.000083, far smaller than either model's observed seed SD. This does not establish a clear AP advantage. CNN v1 has higher mean accuracy, F1, and ROC-AUC and about 0.82 million parameters, compared with about 2.19 million for transformer v1. The comparison is descriptive because the model families use different training recipes and precision modes; the transformer remains a useful close competitor.
 
-The published results come from repeated training on the same previously consulted holdout, not a new independent assessment. Further work can test feature groups, additional independent splits, or a new untouched dataset. TESS preparation and Kepler-to-TESS transfer are separate thesis extensions; none of the present results establishes cross-mission performance.
+The published results come from repeated training on the same previously consulted holdout, not a new independent assessment. Further work can test feature groups, additional independent splits, or a new untouched dataset. TESS preparation and Kepler-to-TESS transfer are separate thesis extensions; the Kepler results above do not establish cross-mission performance.
 
 ## 10. Start the thesis extension with TESS acquisition
 
@@ -194,4 +194,45 @@ The first download plan included 95,414 files totaling about 783 GiB. Most were 
 
 To reduce time spent waiting for individual requests, we added concurrent transfers and selected four workers for our server. In a small network test with the same eight light curves (14.80 MiB), sequential transfers took 5.9–6.5 seconds, while four workers took 2.3–2.4 seconds, about 2.6 times faster. Eight workers were less consistent. These measurements streamed files into memory and do not establish the speed of a full download to disk. Completed files have checksum receipts so interrupted runs can reuse them.
 
-This is an acquisition improvement, not a classification result. The replacement bulk download and TESS preprocessing have not been completed; the practical results above do not yet include TESS or cross-mission evaluation.
+The replacement bulk download completed on **9 September 2026**. The saved `data/raw/tess/metadata/download_summary.json` records all **15,744 planned light-curve FITS files**, totaling **28.6 GiB**, with **zero failed downloads** using four workers.
+
+TESS acquisition is complete. The preparation stage below converts these files into candidate-specific model inputs. The practical results above remain Kepler experiments.
+
+## 11. Prepare TESS inputs and check a small batch
+
+On **11 September 2026**, we implemented TESS candidate selection, light-curve preparation, and grouped splits. Applying the common period/duration limits and a conservative five-arcsecond exclusion around processed Kepler stars leaves **2,237 candidates on 2,129 TESS identifiers** before light-curve quality and coverage checks: **1,209 planet labels and 1,028 false-positive/false-alarm labels**. Sky proximity is used to prevent possible leakage; it does not establish a definitive cross-catalog identity. Nearby TESS identifiers are also grouped together.
+
+The new inputs have the same global/local view shapes and seven feature definitions as Kepler v0. TESS times are aligned with catalog transit epochs, and known transit windows are protected during sector- and gap-local detrending. Companion transits are masked before folding each target. A candidate must retain at least two sufficiently sampled expected transit events. This criterion checks observation coverage, rather than whether a planet signal is actually detected. Missing companion ephemerides and failed quality/coverage checks are audited.
+
+The balanced pilot completed with **24 of 24 candidates retained**, comprising **12 positive and 12 negative labels**. Its time-series and folded plots were inspected. Several planet-labelled examples show clear phase-zero dips; others are weak or noisy, including the high-scatter TOI-1690.01. False positives include both eclipse-like and noise-like curves. No labels were changed based on this visual inspection. All pilot groups are reserved for the full training split, and the pilot has no test split.
+
+The artifact checker verified feature ordering, finite arrays, output hashes, and normalization reconstructed from the **3,853 original Kepler training rows**. Both existing neural architectures accepted a small pilot batch with finite forward outputs. These were interface checks with random model initialization, so they provide no classification score.
+
+The full run completed with eight workers in `tmux` in **129.3 minutes**, retaining **2,208 candidates on 2,105 TESS identifiers**, grouped into **2,102 split groups**. Of the 29 exclusions, 15 lacked usable companion ephemerides and 14 had insufficient sampled transit events. The retained labels comprise **1,191 positives and 1,017 negatives**.
+
+| Fixed seed-42 split | Candidates | Positive labels | Negative labels |
+| --- | ---: | ---: | ---: |
+| Training | 1,548 | 837 | 711 |
+| Validation | 325 | 171 | 154 |
+| Test | 335 | 183 | 152 |
+
+All 24 inspected pilot groups belong to training. The completed dataset passed the artifact checker, including disjoint stars/groups, all nine output checksums, source normalization, and both model interfaces on training rows. All **81 repository tests** passed, and the seven published Kepler artifacts retained their recorded hashes. The exact Kepler BLS search is computed once per star, with completed star features cached for recovery. The [README](README.md#thesis-extension-prepare-tess-inputs) provides the reproducible commands.
+
+The TESS quality filtering, transit protection, and companion masking differ from the preserved Kepler preprocessing and must be considered when interpreting transfer. Separate source-training normalization files prevent accidental fitting on the target test data. The first comparison below uses these verified inputs.
+
+## 12. First CNN comparison on TESS
+
+On **11 September 2026**, we compared the existing Kepler CNN v0 with the same architecture trained from scratch on TESS. Both models were evaluated on the same **335 TESS test candidates: 183 positive and 152 negative labels**. The data, source checkpoint, training recipe, and selection rules were recorded before training in `outputs/tess_baseline/seed42/protocol.json`. The [README](README.md#thesis-extension-compare-cnns-on-tess) provides the command.
+
+The TESS model retained the source model's training recipe and seed 42. Training stopped after 50 epochs; TESS validation AP selected epoch 40, and validation F1 selected its threshold of **0.165**. The frozen Kepler model retained its original epoch-35 weights, Kepler training normalization, and Kepler validation threshold of **0.83**. This source evaluation is zero-shot transfer: it uses the trained Kepler model directly on TESS inputs.
+
+| Single-seed TESS test result | Accuracy | F1 | AP | ROC-AUC |
+| --- | ---: | ---: | ---: | ---: |
+| TESS-trained CNN v0 | 0.7672 | 0.8020 | 0.8595 | 0.8401 |
+| Frozen Kepler CNN v0 on TESS | 0.7254 | 0.7294 | 0.8021 | 0.7767 |
+
+The TESS-trained model has higher AP by **5.74 percentage points** in this run. At their respective validation-selected thresholds, it recovered **158 of 183 positive labels with 53 false positives**, versus **124 positives with 33 false positives** for the frozen Kepler model. The extra 34 recovered positives came with 20 additional false positives. These threshold-based counts describe different operating points; AP compares their probability rankings without selecting a threshold.
+
+The saved predictions reproduce all reported metrics, and all 14 recorded comparison artifacts passed checksum verification. The run's predictions, metrics, TESS-trained checkpoint, and completion record are under `outputs/tess_baseline/seed42/`. The protocol references the preserved Kepler checkpoint under `outputs/reproduce/cnn_baseline/`.
+
+The available TESS data is sufficient for this initial supervised and cross-mission baseline. This is one seed on a curated labelled TOI subset, with different mission preprocessing and training cohorts. The result does not isolate the effect of the mission alone or establish performance on all TESS detections. Repeated seeds and later transfer experiments remain separate research steps.
