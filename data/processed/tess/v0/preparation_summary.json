@@ -1,0 +1,117 @@
+{
+  "accepted_candidates": 2208,
+  "cache_dir": "/restricteddata/t_comp/moradian/Thesis-Rojin/data/interim/tess/tess_v0/47b299e27e75a30b08fd21f21c88f0272081d3a83c2957d66d4ba720ef7c7f13",
+  "cached_stars": 0,
+  "completed_stars": 2129,
+  "elapsed_seconds": 7758.288438891992,
+  "finished_utc": "2026-09-11T14:35:14.175049+00:00",
+  "outputs": {
+    "catalog_audit.csv": "a35840928df4b013094fb64a64a63b5fcd4063879f5139c4f77017164c017164",
+    "dataset_tess_v0.npz": "eb15cf094aaf6213ed08bad948524ca7b0d3350473fbf66c1d6d3fdebe07b2e3",
+    "kepler_overlap.csv": "ac57648fd6c56ac490c55d37e77d6e6f0a51eeb6665fe318014452c182d86ac5",
+    "kepler_train_normalization.npz": "754abfa2d8236dd7e0129679b6029a5bcad96e5f364d9edca40fac35953ed43c",
+    "manifest_tess_v0.csv": "04fbc1bb071b8eea9c65f639fd5a9f58dba008d8fee8858d4b431dc9063b1c24",
+    "processing_audit.csv": "ac2469289e1214c78065e6b82d8f6f00746d0d1d0acf3194d1040f70c2c56e34",
+    "selection.csv": "7a9efcc233d32975afb30b70166720f445dc88c0d65777e56c9d08d99b8d6ddf",
+    "splits_tess_v0_seed42.npz": "875315696dd8cfa2c38c92bcb9dc0f2fe94195ed371a8c83933158e2608a60bb",
+    "tess_train_normalization.npz": "de74250ed31ca0beb86b6e8ed0c57595eff5ba12ece518a1606d5e283aa3db4e"
+  },
+  "pilot_groups_reserved_for_training": [
+    "TIC-143032776",
+    "TIC-150030205",
+    "TIC-232967440",
+    "TIC-267527924",
+    "TIC-267574918",
+    "TIC-27039476",
+    "TIC-270841724",
+    "TIC-317520667",
+    "TIC-32830028",
+    "TIC-330687113",
+    "TIC-334911765",
+    "TIC-346338552",
+    "TIC-360816293",
+    "TIC-369864738",
+    "TIC-380619414",
+    "TIC-40292751",
+    "TIC-420814525",
+    "TIC-42821097",
+    "TIC-45684223",
+    "TIC-4999813",
+    "TIC-58542531",
+    "TIC-73244652",
+    "TIC-90504905",
+    "TIC-93594834"
+  ],
+  "planned_stars": 2129,
+  "prepare_workers": 8,
+  "rejected_candidates": 29,
+  "rejection_reasons": {
+    "companion_missing_or_invalid_ephemeris": 15,
+    "insufficient_sampled_transit_events": 14
+  },
+  "selected_candidates": 2237,
+  "started_utc": "2026-09-11T12:25:55.871226+00:00",
+  "status": "complete",
+  "validation": {
+    "class_counts": {
+      "0": 1017,
+      "1": 1191
+    },
+    "n_candidates": 2208,
+    "n_groups": 2102,
+    "n_stars": 2105,
+    "shapes": {
+      "X": [
+        2208,
+        907
+      ],
+      "X_global": [
+        2208,
+        200,
+        3
+      ],
+      "X_local": [
+        2208,
+        100,
+        3
+      ],
+      "X_scalar": [
+        2208,
+        7
+      ],
+      "y": [
+        2208
+      ]
+    },
+    "splits": {
+      "test": {
+        "class_counts": {
+          "0": 152,
+          "1": 183
+        },
+        "n_candidates": 335,
+        "n_groups": 316,
+        "n_stars": 316
+      },
+      "train": {
+        "class_counts": {
+          "0": 711,
+          "1": 837
+        },
+        "n_candidates": 1548,
+        "n_groups": 1470,
+        "n_stars": 1473
+      },
+      "val": {
+        "class_counts": {
+          "0": 154,
+          "1": 171
+        },
+        "n_candidates": 325,
+        "n_groups": 316,
+        "n_stars": 316
+      }
+    },
+    "validated": true
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "code": {
+    "kepler_pipeline_lib.py": "279ebd1929b0903c6eefa5f979469e14f1199509a827690c194da26c080c199b",
+    "tess_dataset.py": "50a9dda01931486fee56dc3d5c55cf88f8ec110dde36edfad146638bb7495a31",
+    "tess_prepare_features.py": "8e05bbadd0f1c18fc7b3b26ca6b73610d490723dcd8c506ec59111a7aa76f525",
+    "tess_preprocessing.py": "0a1995c85a663aa693218ffb0c3b5e08a96e59b4342d997cddcb3d4ad6f5b0ac",
+    "tess_selection.py": "c52c3dac20453026d72497a8a28e95281d39a97f8ea346600e6055cc5f15dd94"
+  },
+  "environment": {
+    "astropy": "6.0.1",
+    "lightkurve": "2.5.1",
+    "numpy": "1.26.4",
+    "pandas": "2.3.3",
+    "python": "3.9.25",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.13.1"
+  },
+  "inputs": {
+    "/restricteddata/t_comp/moradian/Thesis-Rojin/data/processed/kepler/v0/dataset_kepler_v0_target10000_g200_l100_gw0.5_lwm4.0_bls1_seed42.npz": "fe5774b8358c4f226e740cb1fa5dbc53a2df35b7d67722d3b1aa526c2c386f92",
+    "/restricteddata/t_comp/moradian/Thesis-Rojin/data/processed/kepler/v0/manifest_kepler_v0.csv": "7d858aaa14f15e7f46bd354612f443aef0696a5d582cd5c66a4f5fcfdaaa48a2",
+    "/restricteddata/t_comp/moradian/Thesis-Rojin/data/processed/kepler/v0/splits_kepler_v0_seed42.npz": "3d2df76a8e9ef30fa812a456496a00f091e759fe910eec0a3239e643157e1a94",
+    "/restricteddata/t_comp/moradian/Thesis-Rojin/data/raw/kepler/metadata/koi_cumulative.csv": "f573120900581e9d7e79699964fc3dd29f45d0127a63847a5ad0651730b2732f",
+    "/restricteddata/t_comp/moradian/Thesis-Rojin/data/raw/tess/metadata/candidates.csv": "1379767fd58178c72aec9cea40b434fe3b7fdc56601bb265b1ca57dc42d31f5e",
+    "/restricteddata/t_comp/moradian/Thesis-Rojin/data/raw/tess/metadata/manifest.csv": "43f99a662524f9c9dcdff86208586daae5b54c24b53b67bd34acfc5c27b37a1b",
+    "/restricteddata/t_comp/moradian/Thesis-Rojin/data/raw/tess/metadata/toi.csv": "f825d3e776521a32e86314bad25156ccb401df0b048ad26ac657d021ce3b4de8",
+    "product_receipts": "20681316147d8d5128fd61f48233947e4490e52ff0b7d7332ac717e2dc23ad16"
+  },
+  "science": {
+    "config": {
+      "baseline_min_points": 5,
+      "bls_grid_size": 2000,
+      "bls_max_period": 30.0,
+      "bls_min_period": 0.5,
+      "cadence_seconds": 120.0,
+      "cadence_tolerance_seconds": 1.0,
+      "detrend_window_days": 1.5,
+      "gap_cadences": 5.0,
+      "global_bins": 200,
+      "global_window": 0.5,
+      "local_bins": 100,
+      "local_window_mult": 4.0,
+      "min_transit_events": 2,
+      "min_transit_fraction": 0.5,
+      "min_transit_points": 3,
+      "min_usable_points": 200,
+      "preview_points": 0
+    },
+    "pilot_candidates": 0,
+    "seed": 42,
+    "selection": {
+      "duration_hours": [
+        0.1,
+        20.0
+      ],
+      "negative": [
+        "FP",
+        "FA"
+      ],
+      "overlap_arcsec": 5.0,
+      "period_days": [
+        0.5,
+        30.0
+      ],
+      "positive": [
+        "CP",
+        "KP"
+      ]
+    },
+    "train_only_groups": [
+      "TIC-143032776",
+      "TIC-150030205",
+      "TIC-232967440",
+      "TIC-267527924",
+      "TIC-267574918",
+      "TIC-27039476",
+      "TIC-270841724",
+      "TIC-317520667",
+      "TIC-32830028",
+      "TIC-330687113",
+      "TIC-334911765",
+      "TIC-346338552",
+      "TIC-360816293",
+      "TIC-369864738",
+      "TIC-380619414",
+      "TIC-40292751",
+      "TIC-420814525",
+      "TIC-42821097",
+      "TIC-45684223",
+      "TIC-4999813",
+      "TIC-58542531",
+      "TIC-73244652",
+      "TIC-90504905",
+      "TIC-93594834"
+    ],
+    "version": "tess_v0"
+  },
+  "signature": "d8f7dd6fbf6948932657c82c755566a7928973a297d018ca287c12adfb57562e"
+}
