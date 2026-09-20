@@ -1,0 +1,125 @@
+{
+  "schema_version": "candidate-registry-control-result-v1",
+  "purpose": "Positive control for known-planet recognition; not a discovery claim.",
+  "generated_at_utc": "2026-09-20T22:29:37.371142Z",
+  "candidate": {
+    "candidate_id": "TOI-700.02",
+    "tic_id": "150428135",
+    "period_days": 37.4236838,
+    "epoch_bjd_tdb": 2458330.486155,
+    "epoch_time_system": "BJD-TDB",
+    "duration_hours": 3.365
+  },
+  "assessment": {
+    "status": "CONFIRMED_PLANET",
+    "coverage": "COMPLETE",
+    "freshness": "CURRENT",
+    "human_review_required": false,
+    "reason_codes": [
+      "NASA_PS_DIRECT_EPHEMERIS_MATCH"
+    ],
+    "summary": "NASA Exoplanet Archive currently lists TOI-700 d as a confirmed planet with a matching host and ephemeris."
+  },
+  "study_evidence": {
+    "stage": "CONFIRMED_IN_NASA_ARCHIVE",
+    "currently_being_studied": "NOT_DETERMINABLE_FROM_PUBLIC_CATALOGS",
+    "public_follow_up_recorded": true,
+    "target_follow_up_counts": {
+      "imaging_observations": 3,
+      "spectroscopy_observations": 3,
+      "time_series_observations": 16
+    },
+    "papers_or_references": [
+      "Gilbert et al. 2020"
+    ],
+    "research_completion_percentage": null
+  },
+  "source_snapshots": [
+    {
+      "source_id": "exofop_ctoi",
+      "state": "NOT_MODIFIED",
+      "retrieved_at_utc": "2026-09-20T22:29:38.168144Z",
+      "catalog_updated_at": "Sun, 20 Sep 2026 17:15:32 GMT",
+      "matching_record_count": 0,
+      "payload_sha256": "ce983bfab30ba77914e1dbf8f1c973f0b6d0d6d75efdfab579f1d00ff96a85a7"
+    },
+    {
+      "source_id": "exofop_toi",
+      "state": "NOT_MODIFIED",
+      "retrieved_at_utc": "2026-09-20T22:29:37.371181Z",
+      "catalog_updated_at": "Sun, 20 Sep 2026 18:15:36 GMT",
+      "matching_record_count": 4,
+      "payload_sha256": "8cb5f634d4cc52d40e86c53e53cbfc1d2c0f6bfbf4f5b6c44ed0e96c091c8d74"
+    },
+    {
+      "source_id": "nasa_ps",
+      "state": "OK",
+      "retrieved_at_utc": "2026-09-20T22:29:38.406165Z",
+      "catalog_updated_at": "2023-01-18",
+      "matching_record_count": 4,
+      "payload_sha256": "839bb560d1e33cc99b2aca39cef308b15d1d0e655333dc7a51c8a1b59fed2d46"
+    },
+    {
+      "source_id": "nasa_toi",
+      "state": "OK",
+      "retrieved_at_utc": "2026-09-20T22:29:39.982947Z",
+      "catalog_updated_at": "2024-02-15 10:08:02",
+      "matching_record_count": 4,
+      "payload_sha256": "235f5957fa17cb655faa0a1d356a1cffc02563360dbd82ae186e6ca918a8261e"
+    }
+  ],
+  "direct_matches": [
+    {
+      "source_id": "exofop_toi",
+      "record_id": "TOI-700.02",
+      "disposition": "CP",
+      "period_days": 37.423683827416,
+      "epoch_bjd_tdb": 2458330.486155,
+      "period_difference_days": 2.7416000136781804e-08,
+      "epoch_phase_difference_days": 0.0,
+      "row_updated_at": "2024-02-14"
+    },
+    {
+      "source_id": "nasa_ps",
+      "record_id": "TOI-700 d",
+      "disposition": "CONFIRMED",
+      "period_days": 37.42396,
+      "epoch_bjd_tdb": 2458816.9952,
+      "period_difference_days": 0.0002762000000018361,
+      "epoch_phase_difference_days": 0.0024350001476705074,
+      "row_updated_at": "2023-01-18",
+      "time_system": "BJD-TDB",
+      "controversial_flag": 0
+    },
+    {
+      "source_id": "nasa_toi",
+      "record_id": "TOI-700.02",
+      "disposition": "CP",
+      "period_days": 37.4236838,
+      "epoch_bjd_tdb": 2458330.486155,
+      "period_difference_days": 0.0,
+      "epoch_phase_difference_days": 0.0,
+      "row_updated_at": "2024-02-15 10:08:02"
+    }
+  ],
+  "match_policy": {
+    "period_relative_tolerance": 0.001,
+    "period_absolute_tolerance_days": 0.001,
+    "epoch_absolute_tolerance_days": 0.05,
+    "epoch_duration_fraction": 0.5,
+    "maximum_epoch_tolerance_fraction_of_period": 0.05
+  },
+  "code_sha256": {
+    "scripts/vetting/registry.py": "0e0e1d7cce3da177c58919df95c5ea4c4330946f6d6a932e17d5d289f0e18fe2",
+    "scripts/vetting/sources.py": "44b6572cac0ba4389d64b57ec50e9de97c2d5df931955bb11b715266b6710be1",
+    "scripts/vetting/check_candidate.py": "d31ccf5d5a020d365c4216e61a90702301b7c672e34db6fe9c21399a64777fa9",
+    "tests/test_candidate_registry.py": "bb87542e8feefd6fefae3f4abd221ea15310effe6346aaaeebe56b3b45bb28fa"
+  },
+  "limitations": [
+    "This is a known-object control, not evidence of a new discovery.",
+    "Matching tolerances are triage heuristics rather than a statistical identity proof.",
+    "ExoFOP observation counts are target-level, not signal-level completeness measures.",
+    "Public catalogs cannot determine whether a private team is actively studying the target.",
+    "No authoritative research-completion percentage exists."
+  ]
+}

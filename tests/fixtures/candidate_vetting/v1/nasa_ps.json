@@ -1,0 +1,15 @@
+[
+  {
+    "pl_name": "TOI-700 d",
+    "hostname": "TOI-700",
+    "tic_id": "TIC 150428135",
+    "pl_orbper": 37.42396,
+    "pl_tranmid": 2458816.9952,
+    "pl_tsystemref": "BJD-TDB",
+    "pl_controv_flag": 0,
+    "disc_refname": "Gilbert et al. 2020",
+    "disc_pubdate": "2020-01",
+    "rowupdate": "2023-01-18",
+    "releasedate": "2023-01-18"
+  }
+]

@@ -650,3 +650,41 @@ Rebuild the export without training or inference into a new directory:
 ```
 
 This is the boundary of the completed labelled-benchmark work. Both test sets were previously consulted, only seed 42 was run for the shared comparison, and the 133 Kepler exclusions changed the source cohorts. Any future search for genuinely new candidates should use a separately versioned, unlabelled dataset and locked selection/vetting protocol rather than adding more decisions to these benchmark results.
+
+### Phase 2: check a signal against current public catalogs
+
+The candidate registry checker is deliberately separate from model training. Given a TIC, period, BJD-TDB epoch, and optional duration, it checks the signal-level ephemeris rather than treating every signal on the same star as the same object. It queries:
+
+- the current [ExoFOP TOI](https://exofop.ipac.caltech.edu/tess/json/tois.csv) and [Community Candidate](https://exofop.ipac.caltech.edu/tess/json/ctois.csv) catalogs;
+- the NASA Exoplanet Archive [`ps`](https://exoplanetarchive.ipac.caltech.edu/docs/TAP/usingTAP.html) confirmed-planet table for that TIC;
+- the NASA [`toi`](https://exoplanetarchive.ipac.caltech.edu/docs/API_TOI_columns.html) mirror as secondary evidence.
+
+ExoFOP bulk files are conditionally revalidated on every invocation and NASA is queried live. Each report records source URLs or queries, retrieval and catalog timestamps, raw-response SHA-256 hashes, matching tolerances, and direct or small-integer-period harmonic matches. Raw snapshots go under ignored `data/raw/vetting/registry/`; JSON and Markdown dossiers go under ignored `outputs/vetting/`.
+
+For a known example:
+
+```bash
+.venv/bin/python -m scripts.vetting.check_candidate \
+  --tic-id 150428135 \
+  --candidate-id TOI-700.02 \
+  --period-days 37.4236838 \
+  --epoch-bjd-tdb 2458330.486155 \
+  --duration-hours 3.365
+```
+
+The epoch flag is explicit to prevent mixing time systems. If an input table stores the usual TESS BTJD value instead, use `--epoch-btjd`; the CLI adds `2457000` before matching.
+
+Allowed outcomes distinguish NASA-confirmed and controversial planets, ExoFOP planet statuses, candidates, false positives, false alarms, period aliases, catalog conflicts, unmatched signals, and incomplete lookups. `UNMATCHED` means only that no compatible signal appeared in every required current snapshot; it never means “new planet.” A source outage or schema change fails closed as `INCOMPLETE_LOOKUP`.
+
+The dossier also shows public ExoFOP **target-level** imaging, spectroscopy, and time-series observation counts and publication references when available. These show deposited follow-up evidence, not signal-specific completeness or whether someone is privately studying the object now. There is no scientifically defined “research completion percentage,” so the checker reports a categorical stage and evidence instead of inventing one.
+
+The committed [TOI-700 d positive-control result](results/tess/candidate_vetting/README.md) records the successful live check and source hashes without treating a known object as a discovery.
+
+Run the deterministic offline tests, then optionally test the current external contracts:
+
+```bash
+.venv/bin/python -m unittest tests.test_candidate_registry -v
+RUN_LIVE_CATALOG_TESTS=1 \
+  .venv/bin/python -m unittest \
+  tests.test_candidate_registry.LiveCatalogContractTests -v
+```
