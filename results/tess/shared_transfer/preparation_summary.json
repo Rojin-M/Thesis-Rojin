@@ -1,0 +1,227 @@
+{
+  "status": {
+    "active_mission": "tess",
+    "completed_utc": "2026-09-14T00:49:23.805065+00:00",
+    "missions": {
+      "kepler": {
+        "rejection_reasons": {
+          "companion_missing_or_invalid_ephemeris": 1,
+          "insufficient_sampled_transit_events": 132
+        },
+        "retained_candidates": 5385,
+        "status": "complete"
+      },
+      "tess": {
+        "rejection_reasons": {},
+        "retained_candidates": 2208,
+        "status": "complete"
+      }
+    },
+    "prepare_workers": 8,
+    "stage": "full",
+    "started_utc": "2026-09-13T18:15:12.580138+00:00",
+    "status": "complete"
+  },
+  "verification": {
+    "missions": {
+      "kepler": {
+        "rejection_reasons": {
+          "companion_missing_or_invalid_ephemeris": 1,
+          "insufficient_sampled_transit_events": 132
+        },
+        "retained_candidates": 5385
+      },
+      "tess": {
+        "rejection_reasons": {},
+        "retained_candidates": 2208
+      }
+    },
+    "stage": "full",
+    "status": "verified",
+    "verified_utc": "2026-09-14T00:49:23.800247+00:00"
+  },
+  "missions": {
+    "kepler": {
+      "cached_stars": 8,
+      "candidate_status_counts": {
+        "accepted": 5385,
+        "rejected": 133
+      },
+      "completed_stars": 4929,
+      "completed_utc": "2026-09-13T22:39:16.683914+00:00",
+      "elapsed_minutes": 263.7573080667993,
+      "mission": "kepler",
+      "outputs": {
+        "dataset_kepler_shared_v1.npz": "693dd436e5b4190ee7ade55ad5ed40f4d1a9f4745cfe5d517f5a9313e950c321",
+        "kepler_train_normalization.npz": "6f4ac773f6f2dd6c2200e68b903acb0c7a3f585a593ac2d882c03af03c705dc1",
+        "manifest_kepler_shared_v1.csv": "02dbd73788444d4e80ec48df58cba5ef8d0e88319af1251cb5efeaa929681678",
+        "processing_audit.csv": "d3245b7fa639e44c72d168694c7724f24d17a3e72b4987e5a91b08e9e1d0cfe7",
+        "provenance.json": "926139107471b5426aa0454cb1205970014d7734e901a4c490971d6550b2d40e",
+        "selection.csv": "8564d042d346312da57fc5bc47b0b436bc1658cc0ce8503cd39c33e43f085bb4",
+        "splits_kepler_shared_v1_seed42.npz": "6039bbe929934fbcacf5acd9b22c650d96d5b8b3b8b7531168b01216bc677cd6"
+      },
+      "planned_stars": 4929,
+      "prepare_workers": 8,
+      "rejection_reasons": {
+        "companion_missing_or_invalid_ephemeris": 1,
+        "insufficient_sampled_transit_events": 132
+      },
+      "retained_candidates": 5385,
+      "selected_candidates": 5518,
+      "stage": "full",
+      "started_utc": "2026-09-13T18:15:12.653040+00:00",
+      "status": "complete",
+      "validation": {
+        "class_counts": {
+          "0": 3290,
+          "1": 2095
+        },
+        "n_candidates": 5385,
+        "n_groups": 4815,
+        "n_stars": 4815,
+        "shapes": {
+          "X": [
+            5385,
+            907
+          ],
+          "X_global": [
+            5385,
+            200,
+            3
+          ],
+          "X_local": [
+            5385,
+            100,
+            3
+          ],
+          "X_scalar": [
+            5385,
+            7
+          ],
+          "y": [
+            5385
+          ]
+        },
+        "splits": {
+          "test": {
+            "class_counts": {
+              "0": 515,
+              "1": 294
+            },
+            "n_candidates": 809,
+            "n_groups": 725,
+            "n_stars": 725
+          },
+          "train": {
+            "class_counts": {
+              "0": 2278,
+              "1": 1481
+            },
+            "n_candidates": 3759,
+            "n_groups": 3367,
+            "n_stars": 3367
+          },
+          "val": {
+            "class_counts": {
+              "0": 497,
+              "1": 320
+            },
+            "n_candidates": 817,
+            "n_groups": 723,
+            "n_stars": 723
+          }
+        },
+        "validated": true
+      }
+    },
+    "tess": {
+      "cached_stars": 8,
+      "candidate_status_counts": {
+        "accepted": 2208
+      },
+      "completed_stars": 2105,
+      "completed_utc": "2026-09-14T00:49:22.539781+00:00",
+      "elapsed_minutes": 129.97626339014775,
+      "mission": "tess",
+      "outputs": {
+        "dataset_tess_shared_v1.npz": "1f0a73da84e66da04703efd776c085bc7f18725dad9329eb06808dc049dfb5f1",
+        "kepler_train_normalization.npz": "6f4ac773f6f2dd6c2200e68b903acb0c7a3f585a593ac2d882c03af03c705dc1",
+        "manifest_tess_shared_v1.csv": "c144797b6aefa85cdc3bfe9b30ea8dd77b47c1fd832bc540ebfe72f85ad981bf",
+        "processing_audit.csv": "d1cd857221b396e6c79444fbf135f144ece22986c05a9a44f794668fcb0e37e4",
+        "provenance.json": "926139107471b5426aa0454cb1205970014d7734e901a4c490971d6550b2d40e",
+        "selection.csv": "38326bd0300bb76a7db30ea2c9958e3a99614afa240946be221e76087c6f78a6",
+        "splits_tess_shared_v1_seed42.npz": "875315696dd8cfa2c38c92bcb9dc0f2fe94195ed371a8c83933158e2608a60bb"
+      },
+      "planned_stars": 2105,
+      "prepare_workers": 8,
+      "rejection_reasons": {},
+      "retained_candidates": 2208,
+      "selected_candidates": 2208,
+      "stage": "full",
+      "started_utc": "2026-09-13T22:39:16.787548+00:00",
+      "status": "complete",
+      "validation": {
+        "class_counts": {
+          "0": 1017,
+          "1": 1191
+        },
+        "n_candidates": 2208,
+        "n_groups": 2102,
+        "n_stars": 2105,
+        "shapes": {
+          "X": [
+            2208,
+            907
+          ],
+          "X_global": [
+            2208,
+            200,
+            3
+          ],
+          "X_local": [
+            2208,
+            100,
+            3
+          ],
+          "X_scalar": [
+            2208,
+            7
+          ],
+          "y": [
+            2208
+          ]
+        },
+        "splits": {
+          "test": {
+            "class_counts": {
+              "0": 152,
+              "1": 183
+            },
+            "n_candidates": 335,
+            "n_groups": 316,
+            "n_stars": 316
+          },
+          "train": {
+            "class_counts": {
+              "0": 711,
+              "1": 837
+            },
+            "n_candidates": 1548,
+            "n_groups": 1470,
+            "n_stars": 1473
+          },
+          "val": {
+            "class_counts": {
+              "0": 154,
+              "1": 171
+            },
+            "n_candidates": 325,
+            "n_groups": 316,
+            "n_stars": 316
+          }
+        },
+        "validated": true
+      }
+    }
+  }
+}

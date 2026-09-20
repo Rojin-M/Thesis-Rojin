@@ -236,3 +236,87 @@ The TESS-trained model has higher AP by **5.74 percentage points** in this run. 
 The saved predictions reproduce all reported metrics, and all 14 recorded comparison artifacts passed checksum verification. The run's predictions, metrics, TESS-trained checkpoint, and completion record are under `outputs/tess_baseline/seed42/`. The protocol references the preserved Kepler checkpoint under `outputs/reproduce/cnn_baseline/`.
 
 The available TESS data is sufficient for this initial supervised and cross-mission baseline. This is one seed on a curated labelled TOI subset, with different mission preprocessing and training cohorts. The result does not isolate the effect of the mission alone or establish performance on all TESS detections. Repeated seeds and later transfer experiments remain separate research steps.
+
+Before the next experiment, we exported this completed comparison to [results/tess/cnn_baseline](results/tess/cnn_baseline/README.md). The export reconstructs metrics from saved predictions and includes confusion counts, preparation records, figures, protocols, and source hashes. The original checkpoints and predictions remain in local `outputs/`.
+
+## 13. Evaluate the existing Kepler transformer on TESS
+
+On **13 September 2026**, we applied the existing seed-42 Kepler transformer v0 to the same **335 TESS test candidates** used above. The source model was the Kepler-validation-selected input-normalization variant, which bypasses initial LayerNorm and has no auxiliary metadata branch. We retained its epoch-38 checkpoint, Kepler training normalization, and Kepler validation threshold of **0.725**. No model was trained or tuned on TESS for this step.
+
+Before TESS inference, the evaluator checked source artifacts against the completed Kepler study and replayed all **836 Kepler validation predictions** on GPU 1 in float32. The maximum probability difference from the saved predictions was **zero**. It then saved the evaluation protocol and applied the checkpoint to the fixed TESS test rows. Source and prepared-data hashes remained unchanged, and the saved TESS predictions reproduced the metrics.
+
+| Single-seed TESS test result | Accuracy | F1 | AP | ROC-AUC |
+| --- | ---: | ---: | ---: | ---: |
+| Frozen Kepler transformer v0 | 0.5761 | 0.4701 | 0.7146 | 0.7121 |
+| Frozen Kepler CNN v0 | 0.7254 | 0.7294 | 0.8021 | 0.7767 |
+| TESS-trained CNN v0 (reference) | 0.7672 | 0.8020 | 0.8595 | 0.8401 |
+
+The transformer recovered **63 of 183 positive labels**, with **22 false positives**, **120 false negatives**, and **130 true negatives**. The frozen CNN recovered 124 positives with 33 false positives. These counts use different Kepler-validation thresholds. The transformer's AP was also lower by **8.76 percentage points**, so its weaker ranking cannot be explained only by the classification threshold. The exact validation replay supports correct checkpoint loading and source normalization; it does not establish the cause of poor transfer.
+
+This is one seed on a previously consulted TESS benchmark. The architecture families have different training recipes, and mission preprocessing and cohorts differ. These results do not show that transformers generally transfer worse or predict how a combined CNN–transformer will perform. We preserved the source threshold and report the unsuccessful transfer result without retuning on TESS test labels.
+
+The [README](README.md#thesis-extension-test-the-kepler-transformer-on-tess) provides evaluation and verification commands. Local evidence is in `outputs/tess_transformer/seed42/`; [results/tess/transformer_transfer](results/tess/transformer_transfer/README.md) contains the verified public comparison, figures, and provenance. All **84 repository tests** passed, including new checks for source-only normalization, fixed prediction order, and detection of changed inputs. Both TESS exports passed their source/output hash checks; existing Kepler numerical tables and figures remained unchanged. The CNN–transformer hybrid, repeated-seed transfer study, self-supervised pretraining, and habitability screening remain future work.
+
+## 14. Audit input compatibility before adding model complexity
+
+On **13 September 2026**, we compared **3,853 Kepler training candidates** with **1,548 TESS training candidates**, overall and separately by label. Shapes, feature order, finite values, source normalization, and recomputed engineered features passed. Median global/local coverage was 100% in both cohorts. We did not change data, models, or thresholds.
+
+The strongest measured difference was the within-bin scatter channel: the global-view candidate-median scatter had KS distance **0.787 overall and 0.918 for planet labels**. The scaled local dip-strength median for planet-labelled examples was **0.625 in Kepler versus 1.323 in TESS**. Its ordering by class also reversed: Kepler negatives had larger median dip strength than positives, whereas TESS positives had larger median dip strength than negatives. BLS likelihood power showed a similar reversal. These are distributions of processed features, not physical transit depth or raw photometric noise; class/population differences and preprocessing remain confounded.
+
+The legacy Kepler preprocessing clips five-sigma deviations without protecting transits. The TESS path protects known transit windows, uses sector/gap-local detrending, and masks companions. On one common synthetic two-minute curve with a 10,000 ppm injected transit, the legacy function removed the dip while TESS retained approximately 9,997 ppm. To avoid treating this demonstration as evidence of widespread damage, we also checked 48 randomly sampled Kepler training candidates (24 per label). Six had some transit-window samples flagged by the legacy clipping rule; none had a majority flagged. That check does not establish a clipping-caused loss in model accuracy.
+
+The saved transformer's median probability for TESS positive labels was **0.178**, below its retained Kepler threshold of **0.725**; 120 of 183 positives were missed. Its lower AP also shows that changing the threshold alone would not remove the ranking gap. No new threshold or model was evaluated. The [audit report](results/tess/input_audit/README.md) contains tables, plots, synthetic and real-cache checks, and source hashes. The [README](README.md#thesis-extension-audit-kepler-and-tess-inputs) provides the command.
+
+The audit supports investigating preprocessing and feature shift before a hybrid model. Its recommended next experiment was a small comparison on training stars using transit-preserving preprocessing for both missions; that experiment starts below. Existing datasets and predictions remain the reference.
+
+## 15. Rebuild both missions with shared preprocessing
+
+On **13 September 2026**, we implemented `shared_v1` and completed a training-only pilot in `tmux`. The full rebuild then started in `shared-preparation`, after repository tests and pilot verification passed. It completed and verified on **14 September 2026**; progress and completion are recorded under `outputs/shared_preparation/shared_v1/`.
+
+The rebuild uses existing native Kepler long-cadence and TESS two-minute FITS files. Both readers apply quality filtering and align times to BJD TDB minus 2457000. The subsequent algorithm is shared: protect all catalog transit windows during a segment- and gap-local 1.5-day median detrend, mask companions before target folding, and calculate the same global/local views and seven features. BLS is computed once per star. The legacy names still apply: `bls_snr` is likelihood power and `feat_odd_even` compares alternating phase bins. Native cadences are retained, with cadence-aware sampling checks; this does not remove physical cadence, noise, or population differences.
+
+The starting cohorts contain **5,518 Kepler and 2,208 TESS candidates**. Retained rows preserve their v0 labels and split membership. The full Kepler dataset retained **5,385** candidates and excluded 132 for insufficient sampled transit events and one for missing companion ephemeris. All **2,208 TESS candidates** were retained. The pilot selected four training candidates per label in each mission, plus any siblings on the selected stars. It retained **12 of 12 Kepler candidates (six per label) and eight of eight TESS candidates (four per label)**, with no exclusions.
+
+We inspected plots comparing the old and rebuilt training views. Kepler transit dips remained visible, with changes to some baselines and scaled dip strengths. All global, local, and scalar arrays matched TESS v0 exactly on the eight TESS pilot candidates, as expected from reusing its transit-preserving algorithm. This check supports implementation consistency for that sample; it does not establish an accuracy improvement. No labels were changed or test examples inspected. The pilot verification and visual review are recorded in `outputs/shared_preparation/shared_v1/pilot_verification.json` and `pilot_review.json`.
+
+New per-star artifacts go into `data/interim/{kepler,tess}/shared_v1/`, including `bls/`, `folded/`, and `views/`. Full datasets go into `data/processed/{kepler,tess}/shared_v1/`. Existing raw data, prepared versions, checkpoints, and reported results remain preserved. For subsequent source-to-target experiments, both missions use normalization fitted on the rebuilt Kepler training rows. Old checkpoints are not retrained or evaluated in this step.
+
+We used four workers for the pilot and eight for the full preparation, with one numerical-library thread per worker. Per-star caching avoids repeating completed BLS searches on restart. All **94 repository tests passed**, including ten new checks for transit preservation at both cadences, time/quality interpretation, gaps, companion masking, sampling requirements, training-only pilot selection, original split membership, cache integrity, and legacy preview loading. Our queued wrapper required these tests to pass before the full command. The preparation command verifies dataset geometry, feature order, hashes, parent mappings, split separation, and source-training normalization before marking completion. The [README](README.md#thesis-extension-shared-kepler-and-tess-preprocessing) provides reproducible commands.
+
+This is a controlled preprocessing experiment. The first CNN modelling comparison follows below. Old-versus-new comparisons use common retained test candidates where possible. Both benchmark test sets have already been consulted, so future scores retain that qualification.
+
+## 16. Train a Kepler CNN on shared inputs and test TESS transfer
+
+On **15 September 2026**, we trained the seed-42 v0 CNN recipe on the rebuilt Kepler inputs in `tmux`, selecting epoch 44 by Kepler validation AP and a **0.785** classification threshold by Kepler validation F1. The run used 3,759 training, 817 validation, and 809 test candidates. Source-only normalization matched the saved `shared_v1` statistics. Before TESS inference, the evaluator replayed all 817 shared-v1 and 836 v0 Kepler validation predictions with **zero maximum probability difference** and checked the frozen artifacts and fixed TESS test membership.
+
+| Kepler-trained CNN on the same 335 TESS test candidates | Accuracy | F1 | AP | ROC-AUC |
+| --- | ---: | ---: | ---: | ---: |
+| Frozen v0 on shared_v1 TESS inputs | 0.7254 | 0.7294 | 0.8021 | 0.7767 |
+| Frozen shared_v1 on shared_v1 TESS inputs | 0.7194 | 0.7099 | 0.7991 | 0.7828 |
+
+The shared model recovered **115 of 183** positive TESS labels, with 26 false positives, 68 false negatives, and 126 true negatives. V0 recovered 124 positives, with 33 false positives, 59 false negatives, and 119 true negatives. The shared model's TESS AP was **0.0030 lower** and its F1 was **0.0195 lower**, while ROC-AUC was 0.0061 higher. This is no clear TESS transfer gain; threshold-based differences describe separate Kepler-validation operating points. The earlier TESS-trained CNN v0 remains a 0.8595-AP reference and was not retrained here.
+
+On the **809 Kepler test candidates retained in both versions**, the shared model had AP **0.9422** versus **0.9239** for v0 and ROC-AUC **0.9674** versus **0.9606**. Its F1 was **0.8658** versus **0.8781**. The Kepler ranking gain therefore did not carry over to TESS. TESS retained the same split and labels; the rebuilt TESS views differ from v0 in four global-bin values on one candidate, and the v0 model's scores on the rebuilt test inputs match its earlier scores exactly.
+
+The source training and validation cohorts differ because 133 Kepler candidates failed the new sampling checks, so the model comparison cannot identify preprocessing as the sole cause. This is one seed on previously consulted Kepler and TESS tests, with no seed uncertainty or independent cohort. [README](README.md#thesis-extension-first-cnn-result-on-shared-inputs) gives rerun and verification commands. Local checkpoints, predictions, and checksummed protocols are under `outputs/shared_cnn/`.
+
+## 17. Train the selected transformer on shared inputs
+
+On **15 September 2026**, we trained the seed-42 validation-selected `bypass_input_norm` transformer recipe in float32 on rebuilt Kepler data in `tmux`. The run selected epoch **53** by Kepler validation AP and threshold **0.745** by Kepler validation F1. It used 3,759 training and 817 validation candidates, reserving test inference until after selection. Its architecture and hyperparameters match the v0 reference; the source preparation and cohort changed. The evaluator replayed **all 817 shared-v1 and 836 v0 Kepler validation predictions exactly**, verified Kepler-training normalization and frozen artifacts, and applied both checkpoints to common test identities.
+
+| Frozen Kepler transformer | Kepler AP, common 809 | TESS Accuracy | TESS F1 | TESS AP | TESS ROC-AUC |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| v0 | 0.8911 | 0.5761 | 0.4701 | 0.7146 | 0.7121 |
+| shared_v1 | 0.9068 | 0.6776 | 0.6842 | 0.7395 | 0.7432 |
+
+Both TESS rows use the same **335 shared-v1 test inputs** and each source's unchanged Kepler training moments. The shared model recovered **117 of 183** positive labels, compared with 63 for v0, while false positives rose from 22 to 42. Its TESS AP increased by **0.0249** and ROC-AUC by **0.0311**; its F1 increased by **0.2141** at separate Kepler-validation thresholds. The AP gain shows some ranking improvement beyond a threshold shift, but its TESS AP of **0.7395** remains below the shared CNN's **0.7991**. On the common Kepler test set, transformer AP increased from **0.8911** to **0.9068** and F1 from **0.8411** to **0.8488**.
+
+The 133 Kepler exclusions change source training and validation membership as well as preprocessing. This single-seed comparison on previously consulted Kepler and TESS benchmarks cannot assign the gain solely to preprocessing or establish seed uncertainty. CNN and transformer training recipes differ, so their cross-family gap is descriptive. The [README](README.md#thesis-extension-transformer-result-on-shared-inputs) has rerun and verification commands; `outputs/shared_transformer/tess_transfer/` holds checksummed protocols, predictions, and both matched comparisons. A hybrid model and repeated-seed transfer study remain future work.
+
+## 18. Freeze Phase 1 before prospective discovery work
+
+On **20 September 2026**, we closed the labelled-benchmark phase by verifying the full `shared_v1` preparation and reconstructing every saved CNN and transformer comparison metric from per-candidate predictions. The public milestone at [results/tess/shared_transfer](results/tess/shared_transfer/README.md) contains the common 809-candidate Kepler table, the common 335-candidate TESS table, figures, preparation summaries, protocols, and portable source hashes. No model was retrained for this export.
+
+The audit found that the CNN evaluator source file had changed after its original TESS result recorded its code hash. Its saved inputs, result artifacts, and reconstructed metrics still passed. To restore an exact current-code chain, we repeated inference with the frozen checkpoints in `outputs/shared_cnn/tess_transfer_phase1/`. The comparison and both per-candidate prediction CSVs are byte-identical to the original; the old and new evaluator hashes and matching artifact hashes are preserved in `results/tess/shared_transfer/cnn_reevaluation.json`. The transformer protocol already matched its current code and passed directly.
+
+This milestone does **not** claim a new architecture or a new planet discovery. It freezes what the existing labelled evidence supports: shared preprocessing improved the transformer in this single seed, did not improve CNN TESS AP, and did not remove the transfer gap. Both test sets were previously consulted, the source cohorts changed, and there is no seed uncertainty estimate. Future prospective screening should therefore start in a separate versioned area with unlabelled observations, locked thresholds, candidate identity checks, and human-vetting records rather than modifying this benchmark lineage.

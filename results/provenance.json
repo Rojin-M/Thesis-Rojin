@@ -329,7 +329,7 @@
     "scripts/analysis/export_results.py": "a065f8e79cd096fac61ddb616bbba3635126b2aef8ca8e0f1f2fa124684d9385"
   },
   "published_files_sha256": {
-    "README.md": "4cf492480c7f6c4bfab4b77d109110feaa5985711773d83fa1885a4a1caac161",
+    "README.md": "759c0c437de74cb651159bf8db3d1cbd86e53ab2b9d2e55882dcad915864ccd4",
     "blend/README.md": "2c803f34828198b6ed4ea3b8ed26f493bdce3411b34581cf80273f9d9db64669",
     "blend/comparison.csv": "b82b1cf5914bdb921a865b33025b54c23a7f4e27af976b5a143004358dd89061",
     "blend/figures/metrics.pdf": "a77136def150b0b7e1afbbd71b44b74a0d64a958e4490249b6c67934f5369a75",
@@ -385,5 +385,16 @@
   "documentation_update": {
     "scope": "Markdown regenerated from saved metrics; published numerical tables and figures retained byte-for-byte.",
     "previous_exporter_sha256": "603e50b981d84e40f8184cc0552de963290de77fb992e4da208d298cdc0883fe"
+  },
+  "thesis_index_update": {
+    "date": "2026-09-13",
+    "scope": "Results index now links separate TESS exports. Existing Kepler numerical tables and figures are unchanged.",
+    "previous_results_readme_sha256": "4cf492480c7f6c4bfab4b77d109110feaa5985711773d83fa1885a4a1caac161"
+  },
+  "shared_transfer_update": {
+    "date": "2026-09-20",
+    "scope": "Frozen shared_v1 preparation and single-seed CNN/transformer transfer evidence exported separately; existing Kepler results are unchanged.",
+    "path": "results/tess/shared_transfer/provenance.json",
+    "limitations": "Previously consulted labelled benchmarks, one seed, changed Kepler source cohorts, and descriptive cross-family comparison."
   }
 }

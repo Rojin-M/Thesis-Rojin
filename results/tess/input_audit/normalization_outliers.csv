@@ -1,0 +1,15 @@
+feature,mission,fraction_abs_source_z_gt3
+feat_depth,Kepler train,0.0
+feat_symmetry,Kepler train,0.009862444848170258
+feat_odd_even,Kepler train,0.013495977160654036
+bls_snr,Kepler train,0.009083830781209447
+bls_depth,Kepler train,0.0241370360757851
+bls_duration,Kepler train,0.0
+bls_period,Kepler train,0.0
+feat_depth,TESS train,0.0
+feat_symmetry,TESS train,0.009689922480620155
+feat_odd_even,TESS train,0.0006459948320413437
+bls_snr,TESS train,0.0006459948320413437
+bls_depth,TESS train,0.003875968992248062
+bls_duration,TESS train,0.0
+bls_period,TESS train,0.0

@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "metrics_reconstructed": true,
+  "test_candidates": 335,
+  "source_sha256": {
+    "data/processed/tess/v0/preparation_summary.json": "c09098735c107864c49e6b30fef6c94c90369336fcb881d304382b2926897d58",
+    "data/processed/tess/v0/provenance.json": "30727070c42fe0fac8409aad1a6d6b13d7014d5a965b14a27c7a69996c1c45c0",
+    "data/processed/tess/v0/dataset_tess_v0.npz": "eb15cf094aaf6213ed08bad948524ca7b0d3350473fbf66c1d6d3fdebe07b2e3",
+    "data/processed/tess/v0/manifest_tess_v0.csv": "04fbc1bb071b8eea9c65f639fd5a9f58dba008d8fee8858d4b431dc9063b1c24",
+    "data/processed/tess/v0/splits_tess_v0_seed42.npz": "875315696dd8cfa2c38c92bcb9dc0f2fe94195ed371a8c83933158e2608a60bb",
+    "outputs/tess_baseline/seed42/completion.json": "0cdcb2831fc2c6bd9c08c81b865ecc1c652e463facfbc7ca308e5f9dc0ca88a4",
+    "outputs/tess_baseline/seed42/protocol.json": "0c8f05163d5d8bee0cebe46c56a53e2b53f9b6b6f8b2dea433a29866646800d4",
+    "outputs/tess_baseline/seed42/comparison.csv": "153c4b24116e1126603d62dc8436f2a00584aabae164b469505421c6160c7af7",
+    "outputs/tess_baseline/seed42/kepler_frozen_metrics.json": "9c4ab541ab98a0c492b4575ca6b12384d75eaf9f35f68277bdb96362cd0ca824",
+    "outputs/tess_baseline/seed42/kepler_frozen_predictions.csv": "9d0dacbf2c3da28ca38dd115706edc25c3df0ed85fe362765c2f22c0f4b0adfe",
+    "outputs/tess_baseline/seed42/target/dataset_tess_v0_cnn_20260911_163615/best_model.pt": "5d5858c130d34fa0330beb3f3139d58cb6e075114ccceb556169c78bfb0ccf21",
+    "outputs/tess_baseline/seed42/target/dataset_tess_v0_cnn_20260911_163615/config.json": "6213f23277ff2f3b14b1301f5474b13f9e4c2d4fb45b0e8d93e2dd6373058d8e",
+    "outputs/tess_baseline/seed42/target/dataset_tess_v0_cnn_20260911_163615/history.csv": "b6c1f4f813fa8d8bf5b965bd56b89cb4320c2595fecfb07dcce0609ab7f311c4",
+    "outputs/tess_baseline/seed42/target/dataset_tess_v0_cnn_20260911_163615/model_config.json": "cb838f23b2b02cb4baa15008e1263bbbdf237584ca7907b8511559bacb3c64f7",
+    "outputs/tess_baseline/seed42/target/dataset_tess_v0_cnn_20260911_163615/summary.json": "d7025dd0dda446e6ee6ce1c5544b0e7cbf121e5a9b0eb3e559f3b0de47fefbbd",
+    "outputs/tess_baseline/seed42/target/dataset_tess_v0_cnn_20260911_163615/test_predictions.csv": "84e1053ccc16ea9289b9d159dc820c54d1fd16c7903c368199d78724ceb920ba",
+    "outputs/tess_baseline/seed42/target/dataset_tess_v0_cnn_20260911_163615/val_predictions.csv": "50620c45ecbff28bd45ee737abb8f759262fc59cc45b76e4b2952215be2639aa",
+    "outputs/tess_baseline/seed42/target_run.json": "f2286cd9927beab9663bbe9fde7d2f1de3779f5c35ad6cc97aa143a5ce60a6d8",
+    "outputs/tess_baseline/seed42/tess_trained_metrics.json": "143e2a76f2c98e182cec8fb4b50a1c57dc75c18ecaaec243d784c8a018eee09c",
+    "outputs/tess_baseline/seed42/tess_trained_predictions.csv": "84e1053ccc16ea9289b9d159dc820c54d1fd16c7903c368199d78724ceb920ba",
+    "outputs/tess_transformer/seed42/completion.json": "c875d4a4f2a53c9cc8dad6713c52b6e587aab90ed50baa759661371818f9e7cf",
+    "outputs/tess_transformer/seed42/protocol.json": "b47cd09bb2a49e342ca64cfa4da65c53556347cfbc5827d4a3a67ab465e7d9ce",
+    "outputs/tess_transformer/seed42/kepler_transformer_metrics.json": "ba397b6a6468e4e8eddc96e1b4e590e68260c84ce2749b925270815d2a633573",
+    "outputs/tess_transformer/seed42/kepler_transformer_predictions.csv": "529b20b4d3a762dc983c425df75e2a56e77fc45e005dc1fb54eadbd788310eba",
+    "scripts/analysis/export_tess_results.py": "7ba8218f0c684ac19af600de30242c4b766bb11b2d03bda986cc612b7a1d707b",
+    "scripts/analysis/export_results.py": "a065f8e79cd096fac61ddb616bbba3635126b2aef8ca8e0f1f2fa124684d9385",
+    "scripts/experiments/run_tess_baseline.py": "946af4c0dad6d744e72c19424cbe0bb6af55fc3ce2e25d7c9da4de61aa13338e"
+  },
+  "export_sha256": {
+    "README.md": "decf4331e22431476da4c5491faa3834ee28a39dee1c29f3eb6daaea8bdf4a78",
+    "comparison.csv": "c068565bf50947c8c97fc3b701c164e1f6aa9cfef1f7c3d04379beb6238dd35e",
+    "figures/metrics.pdf": "08199d3b1f2c07862b38b7258cc95d1547d2e66a38a24bb87a548a76ca1f86be",
+    "figures/metrics.png": "e49f1a5f9f18065e4be9042e3436ac539f6ad00d9d49c338d0a56022fb121063",
+    "preparation_summary.json": "51f7e8f526a763ae5a36986e159dc957de9749e2c0f880ce1704f5efd9883d9f",
+    "protocols.json": "36e5410b1d3571d5231294caed8ea5b0951339efeb93d94c055a00d89d3f913a"
+  }
+}

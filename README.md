@@ -4,7 +4,7 @@ A reproducible pipeline comparing tabular HistGradientBoosting, a multi-view CNN
 
 Read the [experimental storyline](STORYLINE.md) for the questions, findings, and limitations. The [published results](results/README.md) include the [complete model comparison](results/comparison/COMPARISON.md) from the latest completed reproduction. The workflow below generates your own runs and plots under `outputs/`.
 
-The TESS [acquisition](#thesis-extension-fetch-tess-light-curves), [preparation](#thesis-extension-prepare-tess-inputs), and [first CNN comparison](#thesis-extension-compare-cnns-on-tess) sections follow the Kepler practical workflow.
+The TESS [acquisition](#thesis-extension-fetch-tess-light-curves), [preparation](#thesis-extension-prepare-tess-inputs), [first CNN comparison](#thesis-extension-compare-cnns-on-tess), and [transformer transfer](#thesis-extension-test-the-kepler-transformer-on-tess) sections follow the Kepler practical workflow. Their verified exports are under [results/tess](results/tess/README.md).
 
 CNN v1 is the main practical model. Transformer v1 has a tiny mean test AP lead (0.960631 versus 0.960548), while CNN v1 has higher mean accuracy, F1, and ROC-AUC and fewer parameters. Both metadata extensions improved all four metrics in every matched seed on the fixed split.
 
@@ -490,3 +490,163 @@ Before training, the script records the dataset, splits, checkpoint hashes, and 
 Results are written to `comparison.csv`, per-model prediction and metric files, and `completion.json` in that comparison directory. Rerunning the same command verifies and reuses completed results. Changed settings or incomplete training require a new `--output_dir`; existing runs are preserved.
 
 This is an initial, single-seed comparison on a curated labelled TOI subset. It does not establish performance on all TESS detections. The differing mission preprocessing described above also affects interpretation. These CNN v0 results use fewer inputs than the practical CNN v1 results. The [storyline](STORYLINE.md#12-first-cnn-comparison-on-tess) records the first completed comparison and its limitations.
+
+Export the completed CNN comparison into a new or empty directory:
+
+```bash
+python scripts/analysis/export_tess_results.py \
+  --output_dir outputs/published_tess_cnn
+```
+
+The reference export is [results/tess/cnn_baseline](results/tess/cnn_baseline/README.md). It includes preparation counts, metrics, confusion counts, PNG/PDF figures, protocols, and source checksums. Predictions and checkpoints remain in local `outputs/`.
+
+## Thesis extension: test the Kepler transformer on TESS
+
+After the Kepler transformer study in stage 10 and full TESS preparation are complete, evaluate the existing seed-42 v0 checkpoint:
+
+```bash
+python scripts/experiments/evaluate_kepler_transformer_on_tess.py \
+  --base_dir "$PROJECT_ROOT" --device auto
+```
+
+The script reads the Kepler validation choice from `outputs/reproduce/transformer/selection.json`, then locates its seed-42 run. It verifies the original study's artifact hashes and replays Kepler validation predictions before evaluating the same fixed TESS test rows. The saved architecture, weights, Kepler training normalization, and Kepler validation threshold are retained. There is no training, TESS recalibration, or threshold search. The selected reference model bypasses initial input LayerNorm and has no v1 auxiliary branch.
+
+The protocol is saved before TESS inference in `outputs/tess_transformer/seed42/`. That directory receives predictions, metrics, completion, and verification records. The command requires a new output directory; inspect a completed evaluation without inference with:
+
+```bash
+python scripts/experiments/evaluate_kepler_transformer_on_tess.py \
+  --base_dir "$PROJECT_ROOT" --verify_only
+```
+
+Use `--output_dir` for a separate evaluation and `--device cpu` or an explicit CUDA device as needed. Export the completed transformer evaluation alongside the two CNN references:
+
+```bash
+python scripts/analysis/export_tess_results.py \
+  --transformer_dir outputs/tess_transformer/seed42 \
+  --output_dir outputs/published_tess_transfer
+```
+
+Export destinations must be new or empty. The exporter reconstructs metrics from saved predictions and checks identical test identities and artifact hashes; it performs no model inference. The reference [transfer results](results/tess/transformer_transfer/README.md) and [storyline](STORYLINE.md#13-evaluate-the-existing-kepler-transformer-on-tess) report the completed single-seed experiment. This is a reused TESS benchmark, and differing preprocessing and training recipes limit causal comparisons. It is an evaluation of the existing transformer; the combined CNN–transformer remains future work.
+
+## Thesis extension: audit Kepler and TESS inputs
+
+After the CNN comparison and frozen transformer evaluation, inspect preprocessing compatibility and feature distributions:
+
+```bash
+python scripts/analysis/audit_tess_inputs.py \
+  --base_dir "$PROJECT_ROOT" \
+  --output_dir outputs/tess_input_audit
+```
+
+The destination must be new or empty. The audit checks input geometry, feature order, engineered features, source normalization, training distributions by label, and saved prediction metrics. It demonstrates the two detrending functions on one synthetic transit and checks the legacy clipping rule on 24 randomly selected Kepler training candidates per label where raw caches are available. It writes tables, figures, and provenance without changing data or models, running inference, or tuning thresholds. Missing raw caches are recorded; the prepared-data comparisons remain available.
+
+The [reference audit](results/tess/input_audit/README.md) reports substantial distribution differences despite structural compatibility. Its measurements motivate a controlled preprocessing experiment; they do not establish the cause of the accuracy gap.
+
+### Thesis extension: shared Kepler and TESS preprocessing
+
+`shared_v1` rebuilds both missions from the downloaded native light-curve FITS files using the same transit-preserving algorithm. It applies quality filtering, quarter/sector- and gap-local 1.5-day detrending, protection of all catalog transit windows, companion masking, folding, and the existing 200-bin global / 100-bin local views with seven scalar features. The native Kepler long cadence and TESS two-minute cadence remain different; gap and coverage checks account for each cadence. This experiment does not resample the missions to a common cadence or guarantee better transfer.
+
+The starting cohorts are the existing Kepler and TESS v0 manifests. Retained candidates keep their original labels and train/validation/test membership; additional coverage or companion-ephemeris exclusions are recorded. The rebuilt TESS dataset stores normalization fitted only on the **rebuilt Kepler training rows**. Any frozen v0 source model instead retains its own v0 Kepler training normalization. Compare old and new preprocessing on common retained candidates to avoid confusing preprocessing changes with cohort changes.
+
+Run a small training-only pilot first, then the full rebuild. From the project root, after the environment and original datasets are available:
+
+```bash
+export OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1
+python scripts/data/prepare_shared_features.py \
+  --base_dir "$PROJECT_ROOT" --stage pilot --prepare_workers 1
+```
+
+The fixed pilot selects four training candidates per label per mission and includes their siblings on the same stars. Inspect `outputs/shared_preparation/shared_v1/pilot/{kepler,tess}/training_preview.png` and the processing audits. No test examples are used for this inspection. The pilot normalization is fitted on its Kepler training sample only and is replaced by full Kepler-training normalization in the full run.
+
+For a full run that survives SSH disconnection (using the project's `.venv`):
+
+```bash
+mkdir -p outputs/shared_preparation/shared_v1
+tmux new-session -d -s shared-preparation -c "$PROJECT_ROOT" \
+  'env OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 .venv/bin/python -u scripts/data/prepare_shared_features.py --stage full --prepare_workers 1 >> outputs/shared_preparation/shared_v1/full.log 2>&1'
+```
+
+The full command verifies the completed pilot before processing Kepler and then TESS. One worker is the reproducible sequential setting; our server uses **eight workers**, with one numerical-library thread per worker. Completed stars are cached so the same command can resume after interruption. Frozen input/code/environment signatures and output checksums prevent mixing different versions. Concurrent preparation jobs are blocked by a lock.
+
+| New local artifacts | Location |
+| --- | --- |
+| Per-star BLS, folded curves, views, and completion records | `data/interim/{kepler,tess}/shared_v1/{bls,folded,views,stars}/` |
+| Datasets, manifests, retained splits, normalization, and audits | `data/processed/{kepler,tess}/shared_v1/` |
+| Pilot, frozen protocol, logs, and overall progress | `outputs/shared_preparation/shared_v1/` |
+
+Raw files, v0/v1 datasets, and previous results are preserved. New data remain local and ignored by Git. No additional downloads or PDFs are needed.
+
+Check progress and verify completed outputs:
+
+```bash
+tmux attach -t shared-preparation
+# Detach without stopping: press Ctrl-b, release, then d.
+tail -f outputs/shared_preparation/shared_v1/full.log
+# After completion:
+python scripts/data/prepare_shared_features.py \
+  --base_dir "$PROJECT_ROOT" --stage full --verify_only
+```
+
+`full_status.json` records the overall state. While processing, each mission's `preparation_summary.json` records completed stars and accepted/rejected candidates. A successful run also writes `full_verification.json`; this is a data-preparation check, not a new model result. The reference full run completed on 14 September 2026 and passed verification: **5,385/5,518 Kepler candidates** (3,759 train, 817 validation, 809 test) and **2,208/2,208 TESS candidates** (1,548 train, 325 validation, 335 test) were retained. Kepler rejected 132 for insufficient sampled transit events and one for missing companion timing.
+
+### Thesis extension: first CNN result on shared inputs
+
+The seed-42 CNN uses the same architecture, hyperparameters, and Kepler-validation selection rule as the v0 baseline, with only its Kepler inputs changed to `shared_v1`. After training, the evaluator replays both source validation predictions, checks source-only normalization and artifact hashes, and applies both frozen CNNs to the identical `shared_v1` TESS test rows. It does not fit statistics or thresholds on TESS. The reference run used GPU 0 in `tmux` and saved its checkpoint and figures under `outputs/shared_cnn/kepler/`; transfer predictions, protocol, and verification are under `outputs/shared_cnn/tess_transfer/`.
+
+| Frozen Kepler CNN on 335 TESS test candidates | Accuracy | F1 | AP | ROC-AUC |
+| --- | ---: | ---: | ---: | ---: |
+| v0 | 0.7254 | 0.7294 | 0.8021 | 0.7767 |
+| shared_v1 | 0.7194 | 0.7099 | 0.7991 | 0.7828 |
+
+The shared CNN recovered 115 of 183 positive TESS labels, compared with 124 for v0; its Kepler-validation threshold was 0.785 versus 0.83 for v0. On the **809 Kepler test candidates retained in both versions**, shared_v1 AP was 0.9422 versus 0.9239 for v0, while F1 was 0.8658 versus 0.8781. These single-seed results do not show a TESS transfer improvement. The 133 Kepler exclusions also change source training and validation cohorts, so this comparison does not isolate preprocessing as the cause. Both test sets were previously consulted.
+
+To reproduce the CNN result into new directories, first verify the completed preparation, then train and evaluate:
+
+```bash
+.venv/bin/python scripts/data/prepare_shared_features.py --stage full --verify_only
+.venv/bin/python scripts/experiments/run_config.py --model cnn \
+  --config configs/cnn_shared_v1.json --output_dir outputs/shared_cnn/kepler_rerun --device auto
+.venv/bin/python scripts/experiments/evaluate_shared_cnn_transfer.py \
+  --shared_run_pointer outputs/shared_cnn/kepler_rerun/run.json \
+  --output_dir outputs/shared_cnn/tess_transfer_rerun --device auto
+```
+
+The original saved transfer can be checked without inference using `--verify_only` with its default output directory. During the Phase 1 audit, the evaluator file's hash no longer matched the hash recorded by that original protocol. We therefore repeated frozen-checkpoint inference into `outputs/shared_cnn/tess_transfer_phase1/`; its comparison and both prediction CSVs are byte-identical to the original, and its current code hash is recorded. Reruns need new directories because completed training and comparison artifacts are preserved.
+
+### Thesis extension: transformer result on shared inputs
+
+The seed-42 `shared_v1` transformer uses the same float32 training recipe and bypass-input-normalization architecture selected by Kepler validation in the v0 study. Training skips test inference; the evaluator replays both source validation sets, then evaluates the frozen v0 and shared-v1 checkpoints on the same **809 retained Kepler test candidates** and **335 TESS test candidates**. Each model keeps its own Kepler-training normalization and Kepler-validation threshold. No TESS labels or statistics are used for fitting or selection.
+
+| Frozen Kepler model on shared_v1 TESS test inputs | Accuracy | F1 | AP | ROC-AUC |
+| --- | ---: | ---: | ---: | ---: |
+| Transformer v0 | 0.5761 | 0.4701 | 0.7146 | 0.7121 |
+| Transformer shared_v1 | 0.6776 | 0.6842 | 0.7395 | 0.7432 |
+| CNN shared_v1 (reference) | 0.7194 | 0.7099 | 0.7991 | 0.7828 |
+
+The shared transformer recovered **117/183** positive TESS labels versus **63/183** for v0, with 42 versus 22 false positives. Its TESS AP improved by 0.0249, which reflects better ranking independently of the Kepler-selected thresholds (0.745 versus 0.725). On common Kepler test candidates, AP was **0.9068** versus **0.8911** for v0. The shared transformer remains below the shared CNN on TESS AP, and the architecture families use different training recipes. This is one seed on previously consulted benchmarks; 133 Kepler exclusions also changed the source training and validation cohorts, so the comparison does not isolate preprocessing as the cause.
+
+The reference training completed in `tmux` on GPU 1 under `outputs/shared_transformer/kepler/`. Matched Kepler and TESS predictions, comparison tables, artifact hashes, and exact validation replays are under `outputs/shared_transformer/tess_transfer/`. To reproduce into new directories on this server:
+
+```bash
+.venv/bin/python scripts/experiments/run_config.py --model transformer \
+  --config configs/transformer_shared_v1.json \
+  --output_dir outputs/shared_transformer/kepler_rerun --device cuda:1
+.venv/bin/python scripts/experiments/evaluate_shared_transformer_transfer.py \
+  --shared_run_pointer outputs/shared_transformer/kepler_rerun/run.json \
+  --output_dir outputs/shared_transformer/tess_transfer_rerun --device cuda:1
+```
+
+Verify the original saved result without inference using `.venv/bin/python scripts/experiments/evaluate_shared_transformer_transfer.py --verify_only`.
+
+### Phase 1: freeze the shared benchmark milestone
+
+On 20 September 2026, the full `shared_v1` preparation, CNN transfer, and transformer transfer passed artifact, input, and metric reconstruction checks. The compact public export is in [`results/tess/shared_transfer/`](results/tess/shared_transfer/README.md). It contains the two common-candidate tables, figures, preparation summaries, protocols, source hashes, and the CNN reevaluation audit; checkpoints and per-candidate predictions remain in ignored local `outputs/`.
+
+Rebuild the export without training or inference into a new directory:
+
+```bash
+.venv/bin/python scripts/analysis/export_shared_transfer_results.py \
+  --output_dir outputs/published_shared_transfer
+```
+
+This is the boundary of the completed labelled-benchmark work. Both test sets were previously consulted, only seed 42 was run for the shared comparison, and the 133 Kepler exclusions changed the source cohorts. Any future search for genuinely new candidates should use a separately versioned, unlabelled dataset and locked selection/vetting protocol rather than adding more decisions to these benchmark results.

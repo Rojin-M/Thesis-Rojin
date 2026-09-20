@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "scope": "Training-only distribution audit plus descriptive reuse of saved test predictions",
+  "schema_and_order_match": true,
+  "engineered_features_recomputed": true,
+  "source_normalization_verified": {
+    "matches_kepler_training_rows": true,
+    "source_training_rows": 3853
+  },
+  "kepler_train_candidates": 3853,
+  "tess_train_candidates": 1548,
+  "kepler_train_positive_fraction": 0.3906047235920062,
+  "tess_train_positive_fraction": 0.5406976744186046,
+  "raw_clipping_sample": {
+    "selection": "24 random training candidates per class, seed 42",
+    "available": 48,
+    "with_any_flagged_transit_samples": 6,
+    "with_majority_transit_samples_flagged": 0,
+    "limitation": "Legacy clipping rule on existing raw caches; not a measured effect on model accuracy"
+  },
+  "synthetic_demo": {
+    "seed": 42,
+    "cadence_seconds": 120,
+    "days": 7,
+    "period_days": 2,
+    "duration_hours": 3,
+    "injected_depth_ppm": 10000,
+    "noise_sigma_ppm": 100,
+    "limitation": "One artificial curve, not a measurement of damage in the real Kepler dataset"
+  },
+  "no_training_or_threshold_search": true
+}

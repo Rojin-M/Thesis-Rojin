@@ -1,0 +1,7 @@
+model,class,n,threshold,predicted_positive,median_probability
+frozen Kepler CNN v0 on TESS,0,152,0.83,33,0.039264251
+frozen Kepler CNN v0 on TESS,1,183,0.83,124,0.9465143
+TESS-trained CNN v0,0,152,0.16499999999999998,53,0.093128407
+TESS-trained CNN v0,1,183,0.16499999999999998,158,0.831595
+frozen Kepler transformer v0 on TESS,0,152,0.725,22,0.0226347805
+frozen Kepler transformer v0 on TESS,1,183,0.725,63,0.17839244

@@ -16,6 +16,7 @@ from scripts.paths import configuration_paths
 
 MODELS = {
     "cnn": ("training.cnn.train_kepler_cnn", "TrainConfig", "train_model"),
+    "transformer": ("training.transformer.train_kepler_transformer", "TrainConfig", "train_model"),
     "tabular": ("training.tabular.train_hgb", "TrainConfig", "train_model"),
     "blend": ("training.stacking.stack_cnn_hgb", "StackConfig", "run_stack"),
 }
@@ -36,7 +37,7 @@ def main():
     config = configuration_paths(json.loads(args.config.read_text()))
     directory = args.output_dir.resolve()
     config["output_root"] = str(directory)
-    if args.model == "cnn":
+    if args.model in ("cnn", "transformer"):
         config["device"] = args.device
     if args.model == "blend":
         if not args.cnn_record or not args.hgb_record:
