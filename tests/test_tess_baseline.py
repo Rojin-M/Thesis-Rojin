@@ -153,6 +153,17 @@ class TessBaselineProtocolTests(unittest.TestCase):
         for key in self.arrays:
             np.testing.assert_array_equal(self.arrays[key], original[key])
 
+    def test_legacy_tracking_fields_are_ignored_but_unknown_fields_fail(self):
+        values = asdict(self.source_cfg) | {
+            "wandb_mode": "disabled",
+            "wandb_project": "legacy",
+            "wandb_entity": "",
+            "wandb_group": "",
+        }
+        self.assertEqual(baseline.trainer.train_config_from_dict(values), self.source_cfg)
+        with self.assertRaisesRegex(TypeError, "unexpected_field"):
+            baseline.trainer.train_config_from_dict(values | {"unexpected_field": 1})
+
     def test_frozen_evaluation_uses_only_test_rows_and_unchanged_kepler_threshold(self):
         model = Mock()
         model.to.return_value = model

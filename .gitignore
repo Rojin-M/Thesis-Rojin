@@ -9,6 +9,7 @@ outputs/
 
 # Python
 __pycache__/
+.pytest_cache/
 *.pyc
 
 # Environments
@@ -24,6 +25,8 @@ __pycache__/
 # Keep committed processed dataset artifacts
 !data/processed/**/*.npz
 !data/processed/**/*.csv
+data/processed/**/prepare.lock
+data/processed/**/prepare.log
 
 # Rebuilt cross-mission data stay local; commands and audit records describe them.
 data/processed/kepler/shared_v1/

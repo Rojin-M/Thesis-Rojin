@@ -79,8 +79,7 @@ def raw_clipping_sample(base, manifest, indices, hashes):
 
 def audit(base, output):
     base, output = base.resolve(), output.resolve()
-    for protected in (base / "data", base / "outputs/reproduce", base / "outputs/tess_baseline",
-                      base / "outputs/tess_transformer"):
+    for protected in (base / "data", base / "outputs/reproduce", base / "outputs/tess_baseline"):
         if output == protected or protected in output.parents or output in protected.parents:
             raise ValueError("Audit output must be separate from data and model runs")
     if output.exists() and any(output.iterdir()):
@@ -145,7 +144,7 @@ def audit(base, output):
                              for mission, data in zip(("Kepler train", "TESS train"), normalized)
                              for j, name in enumerate(scalar_names)])
     prediction_rows = []
-    for directory in (base / "outputs/tess_baseline/seed42", base / "outputs/tess_transformer/seed42"):
+    for directory in (base / "outputs/tess_baseline/seed42",):
         completion = json.loads((directory / "completion.json").read_text())
         _verify_files(directory, completion["artifacts"])
         for path in [directory / "completion.json"] + [directory / n for n in completion["artifacts"]]:
@@ -206,8 +205,7 @@ def audit(base, output):
     axes[0].legend(fontsize=8)
     fig.suptitle("Training distributions by mission and label (no model fitting)")
     fig.tight_layout()
-    for suffix in ("png", "pdf"):
-        fig.savefig(output / f"distributions.{suffix}", dpi=180)
+    fig.savefig(output / "distributions.png", dpi=180)
     plt.close(fig)
     fig, ax = plt.subplots(figsize=(8, 3.5))
     for (time, flux), name in zip(zip(curves[::2], curves[1::2]), ("Input", "Legacy Kepler function", "TESS function")):
@@ -215,8 +213,7 @@ def audit(base, output):
         ax.plot(time[keep], flux[keep], label=name, alpha=.8)
     ax.set(xlabel="Time (days)", ylabel="Relative flux", title="Same synthetic transit, two preprocessing functions")
     ax.legend(); fig.tight_layout()
-    for suffix in ("png", "pdf"):
-        fig.savefig(output / f"clipping_demonstration.{suffix}", dpi=180)
+    fig.savefig(output / "clipping_demonstration.png", dpi=180)
     plt.close(fig)
     for name, digest in hashes.items():
         if _sha(Path(name)) != digest:

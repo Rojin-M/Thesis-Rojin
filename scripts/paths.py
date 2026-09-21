@@ -19,8 +19,7 @@ def processed_path(value):
 def configuration_paths(config):
     """Resolve portable input/output paths relative to this repository, not the shell cwd."""
     result = dict(config)
-    for key in ("base_dir", "dataset_path", "splits_path", "manifest_path", "output_root",
-                "cnn_run_dir", "hgb_run_dir"):
+    for key in ("base_dir", "dataset_path", "splits_path", "manifest_path", "output_root"):
         if result.get(key):
             path = Path(result[key]).expanduser()
             result[key] = str(processed_path(path if path.is_absolute() else ROOT / path).resolve())

@@ -10,10 +10,9 @@ import random
 import re
 import time
 import sys
-from contextlib import contextmanager
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, fields
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
@@ -31,7 +30,7 @@ try:
 except ImportError as exc:
     raise ImportError(
         "PyTorch is required for training. Activate the project's virtual environment "
-        "and run `python setup/setup_torch_cuda.py` if torch is not installed there yet."
+        "and install the dependencies from requirements.txt if torch is missing."
     ) from exc
 
 
@@ -63,43 +62,18 @@ class TrainConfig:
     view_noise_std: float = 0.0
     scalar_noise_std: float = 0.0
     flat_dropout_prob: float = 0.0
-    wandb_mode: str = "disabled"
-    wandb_project: str = "kepler-practical"
-    wandb_entity: str = ""
-    wandb_group: str = ""
     use_aux_branch: bool = False
     aux_dropout: float = 0.10
 
 
-@contextmanager
-def tracking_run(cfg: TrainConfig, run_dir: Path) -> Iterator[Any]:
-    """Keep tracking optional and close the W&B run on success or failure."""
-    if cfg.wandb_mode == "disabled":
-        yield None
-        return
-
-    try:
-        import wandb
-    except ImportError as exc:
-        raise ImportError(
-            "W&B tracking was requested. Install its optional dependency with "
-            "`python -m pip install -r requirements-wandb.txt`, or use --wandb_mode disabled."
-        ) from exc
-
-    with wandb.init(
-        project=cfg.wandb_project,
-        entity=cfg.wandb_entity or None,
-        group=cfg.wandb_group or None,
-        name=run_dir.name,
-        config=asdict(cfg),
-        dir=str(run_dir),
-        mode=cfg.wandb_mode,
-        save_code=False,
-    ) as run:
-        run.define_metric("epoch")
-        for name in ("train/*", "val/*", "learning_rate"):
-            run.define_metric(name, step_metric="epoch")
-        yield run
+def train_config_from_dict(values: dict[str, Any]) -> TrainConfig:
+    """Load current fields while tolerating removed tracking-only metadata."""
+    allowed = {field.name for field in fields(TrainConfig)}
+    removed_tracking = {"wandb_mode", "wandb_project", "wandb_entity", "wandb_group"}
+    unknown = set(values) - allowed - removed_tracking
+    if unknown:
+        raise TypeError(f"Unknown training configuration fields: {sorted(unknown)}")
+    return TrainConfig(**{key: value for key, value in values.items() if key in allowed})
 
 
 def set_seed(seed: int) -> None:
@@ -628,7 +602,7 @@ def load_auxiliary_inputs(
     if missing:
         raise ValueError(
             f"--aux_branch requires a prepared auxiliary dataset; missing {sorted(missing)}. "
-            "Build it with scripts/kepler_prepare_aux_v1.py."
+            "The active discovery pipeline does not publish an auxiliary dataset."
         )
     x_aux = dataset["X_aux"].astype(np.float32)
     names = dataset["aux_feature_names"].astype(str)
@@ -677,7 +651,6 @@ def load_training_data(cfg: TrainConfig) -> Tuple[Dict[str, np.ndarray], pd.Data
         train_idx = splits["train_idx"].astype(np.int64)
         val_idx = splits["val_idx"].astype(np.int64)
         test_idx = splits["test_idx"].astype(np.int64)
-        # The transformer also uses this loader with its own configuration type.
         auxiliary = load_auxiliary_inputs(dataset, manifest, train_idx, cfg) if getattr(cfg, "use_aux_branch", False) else {}
 
     x_global = normalize_view_channels(x_global[train_idx], x_global)
@@ -705,12 +678,10 @@ def train_model(cfg: TrainConfig) -> Path:
     run_dir = Path(cfg.output_root) / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
     write_json(run_dir / "config.json", asdict(cfg))
-    with tracking_run(cfg, run_dir) as tracker:
-        return _train_model(cfg, run_dir, tracker)
+    return _train_model(cfg, run_dir)
 
 
-def _train_model(cfg: TrainConfig, run_dir: Path, tracker: Any) -> Path:
-    # Seed after tracking initialization so enabling logging does not alter initialization.
+def _train_model(cfg: TrainConfig, run_dir: Path) -> Path:
     set_seed(cfg.seed)
     if hasattr(torch, "set_float32_matmul_precision"):
         torch.set_float32_matmul_precision("high")
@@ -749,17 +720,6 @@ def _train_model(cfg: TrainConfig, run_dir: Path, tracker: Any) -> Path:
     train_loader = make_dataloader(train_ds, cfg.batch_size, shuffle=True, num_workers=cfg.num_workers, device=device)
     val_loader = make_dataloader(val_ds, cfg.batch_size, shuffle=False, num_workers=cfg.num_workers, device=device)
     test_loader = make_dataloader(test_ds, cfg.batch_size, shuffle=False, num_workers=cfg.num_workers, device=device)
-
-    if tracker is not None:
-        tracker.config.update({
-            "resolved_device": str(device),
-            "train_size": len(train_ds),
-            "val_size": len(val_ds),
-            "test_size": len(test_ds),
-            "pr_auc_definition": "sklearn.metrics.average_precision_score",
-            "aux_feature_count": int(arrays["x_aux"].shape[1]) if cfg.use_aux_branch else 0,
-            "aux_feature_names": arrays["aux_feature_names"].tolist() if cfg.use_aux_branch else [],
-        })
 
     scalar_features = int(arrays["x_scalar"].shape[1])
     flat_features = int(arrays["x_flat"].shape[1])
@@ -840,11 +800,6 @@ def _train_model(cfg: TrainConfig, run_dir: Path, tracker: Any) -> Path:
             "val_threshold": val_tuned_threshold,
         }
         history.append(row)
-        if tracker is not None:
-            tracker.log({
-                key.replace("train_", "train/", 1).replace("val_", "val/", 1): value
-                for key, value in row.items()
-            }, step=epoch)
 
         improved = val_metrics["pr_auc"] > best_val_pr_auc
         if improved:
@@ -913,13 +868,6 @@ def _train_model(cfg: TrainConfig, run_dir: Path, tracker: Any) -> Path:
     write_json(run_dir / "summary.json", summary)
     write_json(run_dir / "config.json", asdict(cfg))
 
-    if tracker is not None:
-        final_metrics = {"best_epoch": best_epoch, "best_threshold": best_threshold}
-        for prefix, evaluation in (("final_train", train_eval), ("final_val", val_eval), ("test", test_eval)):
-            final_metrics.update({f"{prefix}/{key}": value for key, value in evaluation["metrics"].items()})
-        tracker.log(final_metrics, step=len(history) + 1)
-        tracker.summary.update(final_metrics)
-
     print("\nBest validation/test summary")
     print(json.dumps(summary, indent=2))
     return run_dir
@@ -953,11 +901,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--scalar_noise_std", type=float, default=0.0)
     parser.add_argument("--flat_dropout_prob", type=float, default=0.0)
     parser.add_argument("--compile", action="store_true", dest="compile_model")
-    parser.add_argument("--wandb_mode", choices=("disabled", "offline", "online"), default="disabled",
-                        help="Optional experiment tracking; offline stores W&B logs locally without login.")
-    parser.add_argument("--wandb_project", default="kepler-practical")
-    parser.add_argument("--wandb_entity", default="", help="Optional W&B username or team.")
-    parser.add_argument("--wandb_group", default="", help="Group related experiments, e.g. a fixed multi-seed configuration.")
     return parser.parse_args()
 
 
@@ -999,10 +942,6 @@ def build_config(args: argparse.Namespace) -> TrainConfig:
         view_noise_std=args.view_noise_std,
         scalar_noise_std=args.scalar_noise_std,
         flat_dropout_prob=args.flat_dropout_prob,
-        wandb_mode=args.wandb_mode,
-        wandb_project=args.wandb_project,
-        wandb_entity=args.wandb_entity,
-        wandb_group=args.wandb_group,
     )
 
 

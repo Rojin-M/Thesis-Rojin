@@ -16,9 +16,6 @@ from scripts.paths import configuration_paths
 
 MODELS = {
     "cnn": ("training.cnn.train_kepler_cnn", "TrainConfig", "train_model"),
-    "transformer": ("training.transformer.train_kepler_transformer", "TrainConfig", "train_model"),
-    "tabular": ("training.tabular.train_hgb", "TrainConfig", "train_model"),
-    "blend": ("training.stacking.stack_cnn_hgb", "StackConfig", "run_stack"),
 }
 
 
@@ -28,8 +25,6 @@ def main():
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--output_dir", type=Path, required=True)
     parser.add_argument("--device", default="auto")
-    parser.add_argument("--cnn_record", type=Path)
-    parser.add_argument("--hgb_record", type=Path)
     parser.add_argument("--dry_run", action="store_true")
     args = parser.parse_args()
     module_name, config_class, function = MODELS[args.model]
@@ -37,16 +32,7 @@ def main():
     config = configuration_paths(json.loads(args.config.read_text()))
     directory = args.output_dir.resolve()
     config["output_root"] = str(directory)
-    if args.model in ("cnn", "transformer"):
-        config["device"] = args.device
-    if args.model == "blend":
-        if not args.cnn_record or not args.hgb_record:
-            parser.error("Blending requires explicit --cnn_record and --hgb_record")
-        for key, record_path in (("cnn_run_dir", args.cnn_record), ("hgb_run_dir", args.hgb_record)):
-            record = json.loads(record_path.read_text())
-            if record["status"] != "complete":
-                raise ValueError(f"Incomplete input run: {record_path}")
-            config[key] = record["run_dir"]
+    config["device"] = args.device
     cfg = getattr(module, config_class)(**config)
     if args.dry_run:
         print(json.dumps(asdict(cfg), indent=2))

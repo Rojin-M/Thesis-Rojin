@@ -77,7 +77,7 @@ def _prepared(base: Path, mission: str, version: str) -> tuple[dict, dict, pd.Da
 
 def _checked_source(run: Path, paths: dict, arrays: dict, splits: dict,
                     stats: dict) -> tuple[dict, dict]:
-    cfg = baseline.trainer.TrainConfig(**json.loads((run / "config.json").read_text()))
+    cfg = baseline.trainer.train_config_from_dict(json.loads((run / "config.json").read_text()))
     if cfg.seed != 42 or cfg.use_wide_branch or cfg.use_aux_branch:
         raise ValueError("Comparison requires the seed-42 common-input CNN")
     for key in ("dataset", "splits", "manifest"):

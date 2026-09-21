@@ -23,13 +23,12 @@ def main():
         np.testing.assert_array_equal(np.sort(np.concatenate(indices)), np.arange(len(manifest)))
         stars = [set(manifest.iloc[idx].kepid) for idx in indices]
         assert all(not stars[i] & stars[j] for i in range(3) for j in range(i))
-    with np.load(next((data / "v0").glob("dataset_*.npz")), allow_pickle=True) as v0, np.load(next((data / "v1").glob("dataset_*.npz")), allow_pickle=True) as v1:
-        for key in v0.files:
-            if key != "preprocessing_version":
-                np.testing.assert_array_equal(v0[key], v1[key])
-        np.testing.assert_array_equal(v0["y"], manifest.y.to_numpy())
-        assert v1["X_aux"].shape == (len(manifest), 11) and np.isfinite(v1["X_aux"]).all()
-    print(f"Verified {len(checksums)} unchanged artifacts; {len(manifest)} candidates; split sizes {[len(i) for i in indices]}; disjoint star groups; identical v0/v1 base inputs.")
+    with np.load(next((data / "v0").glob("dataset_*.npz")), allow_pickle=True) as dataset:
+        np.testing.assert_array_equal(dataset["y"], manifest.y.to_numpy())
+        for key in ("X", "X_global", "X_local", "X_scalar"):
+            if not np.isfinite(dataset[key]).all():
+                raise ValueError(f"Processed artifact contains non-finite values: {key}")
+    print(f"Verified {len(checksums)} unchanged artifacts; {len(manifest)} candidates; split sizes {[len(i) for i in indices]}; disjoint star groups; finite model inputs.")
 
 
 if __name__ == "__main__":

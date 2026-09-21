@@ -52,10 +52,9 @@ def _source_path(inputs: dict[str, str], prefix: str) -> Path:
 
 def _check_model_interfaces(arrays: dict[str, np.ndarray], stats: dict[str, np.ndarray],
                             indices: np.ndarray, row_source: str) -> dict[str, Any]:
-    """Random initialization and forward calls only; no checkpoints or metrics."""
+    """Run a random CNN forward call only; no checkpoints or metrics."""
     import torch
     from training.cnn.train_kepler_cnn import ExoMinerStyleCNN
-    from training.transformer.train_kepler_transformer import ExoFormer
 
     normalized = apply_normalization({key: arrays[key][indices] for key in INPUT_KEYS}, stats)
     tensors = [torch.from_numpy(normalized[key]) for key in
@@ -68,16 +67,9 @@ def _check_model_interfaces(arrays: dict[str, np.ndarray], stats: dict[str, np.n
         torch.set_num_threads(min(2, previous_threads))
         with torch.random.fork_rng(devices=[]), torch.inference_mode():
             torch.manual_seed(42)
-            models = {
-                "ExoMinerStyleCNN": ExoMinerStyleCNN(
-                    scalar_features=7, flat_features=907, dropout=.20, scalar_dropout=.10,
-                    wide_dropout=.15, use_wide_branch=False, use_aux_branch=False),
-                "ExoFormer": ExoFormer(
-                    global_seq_len=200, local_seq_len=100, scalar_features=7,
-                    d_model=128, num_heads=8, global_depth=4, local_depth=3, mlp_ratio=4.,
-                    dropout=.15, attention_dropout=.10, token_dropout=.05, scalar_dropout=.10,
-                    use_input_norm=False, use_aux_branch=False),
-            }
+            models = {"ExoMinerStyleCNN": ExoMinerStyleCNN(
+                scalar_features=7, flat_features=907, dropout=.20, scalar_dropout=.10,
+                wide_dropout=.15, use_wide_branch=False, use_aux_branch=False)}
             for name, model in models.items():
                 model.eval()
                 output = model(*tensors)
@@ -85,7 +77,6 @@ def _check_model_interfaces(arrays: dict[str, np.ndarray], stats: dict[str, np.n
                 if tuple(output.shape) != (len(indices),) or not finite:
                     raise ValueError(f"{name} failed its finite-output/shape interface check")
                 report["models"][name] = {"output_shape": list(output.shape), "finite_output": finite}
-            report["models"]["ExoFormer"]["use_input_norm"] = False
     finally:
         torch.set_num_threads(previous_threads)
     return report
@@ -174,7 +165,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prepared_dir", type=Path, required=True)
     parser.add_argument("--check_models", action="store_true",
-                        help="Forward at most four training/pilot rows through random CNN/transformer models")
+                        help="Forward at most four training/pilot rows through a random CNN")
     parser.add_argument("--report_path", type=Path, help="Optional new JSON report; otherwise stdout only")
     args = parser.parse_args()
     report = check_prepared(args.prepared_dir, args.check_models)

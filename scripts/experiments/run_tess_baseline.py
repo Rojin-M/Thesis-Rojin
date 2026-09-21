@@ -104,7 +104,9 @@ def _training_record(run: Path, expected_cfg: trainer.TrainConfig,
     model_cfg = json.loads((run / "model_config.json").read_text())
     summary = json.loads((run / "summary.json").read_text())
     checkpoint = torch.load(run / "best_model.pt", map_location="cpu")
-    if cfg != asdict(expected_cfg) or checkpoint.get("config") != cfg:
+    saved_cfg = asdict(trainer.train_config_from_dict(cfg))
+    checkpoint_cfg = asdict(trainer.train_config_from_dict(checkpoint.get("config", {})))
+    if saved_cfg != asdict(expected_cfg) or checkpoint_cfg != saved_cfg:
         raise ValueError("Saved CNN configuration differs from the frozen protocol")
     if model_cfg != expected_model or checkpoint.get("model_config") != expected_model:
         raise ValueError("Saved CNN architecture differs from the common-input baseline")
@@ -254,7 +256,7 @@ def _run_locked(base: Path, prepared: Path, output: Path, source_run: Path, devi
     fitted = fit_normalization(arrays, splits["train_idx"])
     if set(fitted) != set(target_stats) or any(not np.array_equal(fitted[key], target_stats[key]) for key in fitted):
         raise ValueError("Saved TESS normalization differs from original trainer training-row statistics")
-    source_cfg = trainer.TrainConfig(**json.loads((source_run / "config.json").read_text()))
+    source_cfg = trainer.train_config_from_dict(json.loads((source_run / "config.json").read_text()))
     if source_cfg.seed != 42 or source_cfg.use_wide_branch or source_cfg.use_aux_branch:
         raise ValueError("Source must be the seed 42 CNN without wide or auxiliary branches")
     model_config = _model_config(source_cfg)
@@ -273,7 +275,7 @@ def _run_locked(base: Path, prepared: Path, output: Path, source_run: Path, devi
     cfg = replace(source_cfg, base_dir=str(base), dataset_path=str(prepared / "dataset_tess_v0.npz"),
                   splits_path=str(splits_path), manifest_path=str(manifest_path),
                   output_root=str(output / "target"), prepare_version=preparation["science"]["version"],
-                  device=device, wandb_mode="disabled")
+                  device=device)
     resolved_device = trainer.detect_device(device)
     execution = {"requested_device": device, "resolved_device": str(resolved_device),
                  "cuda_visible_devices": os.environ.get("CUDA_VISIBLE_DEVICES")}

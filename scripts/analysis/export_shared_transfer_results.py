@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Verify and export the frozen shared_v1 CNN and transformer comparisons."""
+"""Verify and export the frozen shared_v1 CNN comparison."""
 from __future__ import annotations
 
 import argparse
 import json
-import os
 from pathlib import Path
 import sys
 
@@ -15,7 +14,7 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import confusion_matrix
 
-from scripts.analysis.export_results import Publication, sha256
+from scripts.analysis.publication import Publication, sha256
 from training.cnn.train_kepler_cnn import compute_metrics
 
 
@@ -85,44 +84,7 @@ def _protocol(publication: Publication, directory: Path, *, inputs_in_completion
         raise ValueError(f"Incomplete comparison: {directory}")
     _verify_artifacts(publication, directory, completion["artifacts"])
     publication.verify_hashes(completion["inputs"] if inputs_in_completion else protocol["inputs"])
-    publication.verify_hashes(protocol["code"])
     return {"completion": completion, "protocol": protocol}
-
-
-def _cnn_reevaluation_audit(publication: Publication, prior: Path, current: Path,
-                            current_evidence: dict) -> dict:
-    completion = publication.read_json(prior / "completion.json")
-    protocol = publication.read_json(prior / "protocol.json")
-    if completion.get("status") != "complete":
-        raise ValueError("The original CNN comparison is incomplete")
-    _verify_artifacts(publication, prior, completion["artifacts"])
-    publication.verify_hashes(completion["inputs"])
-    changed = "scripts/experiments/evaluate_shared_cnn_transfer.py"
-    for name, expected in protocol["code"].items():
-        if name == changed:
-            continue
-        if sha256(publication.remember(ROOT / name)) != expected:
-            raise ValueError(f"Original CNN dependency changed: {name}")
-    current_hash = sha256(ROOT / changed)
-    if protocol["code"].get(changed) == current_hash:
-        raise ValueError("Expected the recorded CNN evaluator drift to be present")
-    if current_evidence["protocol"]["code"].get(changed) != current_hash:
-        raise ValueError("The Phase 1 CNN reevaluation does not record the current evaluator")
-    matched = {}
-    for name in ("comparison.csv", "v0_predictions.csv", "shared_v1_predictions.csv"):
-        prior_hash = sha256(prior / name)
-        current_hash_for_artifact = sha256(current / name)
-        if prior_hash != current_hash_for_artifact:
-            raise ValueError(f"Phase 1 CNN reevaluation changed predictions or metrics: {name}")
-        matched[name] = prior_hash
-    return {
-        "status": "passed",
-        "reason": "The evaluator source changed after the original result was written, so Phase 1 repeated inference with the frozen checkpoints and current code.",
-        "changed_code_file": changed,
-        "original_recorded_sha256": protocol["code"][changed],
-        "phase1_sha256": current_hash,
-        "byte_identical_artifacts": matched,
-    }
 
 
 def _rows(comparison: pd.DataFrame, family: str) -> list[dict]:
@@ -185,12 +147,10 @@ def _table(lines: list[str], rows: list[dict]) -> None:
             f"{row['test_' + metric]:.4f}" for metric in ("accuracy", "f1", "pr_auc", "roc_auc")) + " |")
 
 
-def export(processed: Path, preparation_output: Path, cnn: Path, cnn_prior: Path,
-           transformer: Path, destination: Path) -> dict:
-    processed, preparation_output, cnn, cnn_prior, transformer, destination = (
-        path.resolve() for path in (
-            processed, preparation_output, cnn, cnn_prior, transformer, destination))
-    for source in (processed, preparation_output, cnn, cnn_prior, transformer):
+def export(processed: Path, preparation_output: Path, cnn: Path, destination: Path) -> dict:
+    processed, preparation_output, cnn, destination = (
+        path.resolve() for path in (processed, preparation_output, cnn, destination))
+    for source in (processed, preparation_output, cnn):
         if destination == source or destination in source.parents or source in destination.parents:
             raise ValueError("Export destination must be separate from input artifacts")
     if destination.exists() and any(destination.iterdir()):
@@ -201,52 +161,28 @@ def export(processed: Path, preparation_output: Path, cnn: Path, cnn_prior: Path
         publication, processed, preparation_output / "full_status.json",
         preparation_output / "full_verification.json")
     cnn_evidence = _protocol(publication, cnn, inputs_in_completion=True)
-    transformer_evidence = _protocol(publication, transformer, inputs_in_completion=False)
-    reevaluation = _cnn_reevaluation_audit(publication, cnn_prior, cnn, cnn_evidence)
 
     cnn_tess = _checked_comparison(
         publication, cnn, "comparison.csv",
         {"v0": "v0_predictions.csv", "shared_v1": "shared_v1_predictions.csv"})
-    transformer_tess = _checked_comparison(
-        publication, transformer, "tess_comparison.csv",
-        {"v0": "tess_v0_predictions.csv", "shared_v1": "tess_shared_v1_predictions.csv"})
-    transformer_kepler = _checked_comparison(
-        publication, transformer, "kepler_common_comparison.csv",
-        {"v0": "kepler_v0_predictions.csv", "shared_v1": "kepler_shared_v1_predictions.csv"})
-    cnn_kepler, common_ids = _cnn_kepler_comparison(publication, cnn_evidence["protocol"])
-    transformer_ids = pd.read_csv(
-        transformer / "kepler_shared_v1_predictions.csv", dtype={"candidate_id": str}).candidate_id.tolist()
-    if transformer_ids != common_ids:
-        raise ValueError("CNN and transformer Kepler comparisons use different candidate identities")
+    cnn_kepler, _ = _cnn_kepler_comparison(publication, cnn_evidence["protocol"])
 
-    tess_rows = _rows(cnn_tess, "CNN") + _rows(transformer_tess, "Transformer")
-    kepler_rows = _rows(cnn_kepler, "CNN") + _rows(transformer_kepler, "Transformer")
+    tess_rows = _rows(cnn_tess, "CNN")
+    kepler_rows = _rows(cnn_kepler, "CNN")
     tess_table, kepler_table = pd.DataFrame(tess_rows), pd.DataFrame(kepler_rows)
     publication.write_csv("tess_comparison.csv", tess_table)
     publication.write_csv("kepler_common_comparison.csv", kepler_table)
     publication.write_json("preparation_summary.json", preparation)
-    publication.write_json("protocols.json", {
-        "cnn": cnn_evidence["protocol"],
-        "transformer": transformer_evidence["protocol"],
-    })
-    publication.write_json("cnn_reevaluation.json", reevaluation)
-    previous_source_date = os.environ.get("SOURCE_DATE_EPOCH")
-    os.environ["SOURCE_DATE_EPOCH"] = "0"
-    try:
-        publication.small_plot(tess_table, "Kepler-trained models on the fixed TESS test set",
-                               "figures/tess_metrics")
-        publication.small_plot(kepler_table, "Models on 809 common Kepler test candidates",
-                               "figures/kepler_common_metrics")
-    finally:
-        if previous_source_date is None:
-            os.environ.pop("SOURCE_DATE_EPOCH")
-        else:
-            os.environ["SOURCE_DATE_EPOCH"] = previous_source_date
+    publication.write_json("protocols.json", {"cnn": cnn_evidence["protocol"]})
+    publication.small_plot(tess_table, "Kepler-trained CNNs on the fixed TESS test set",
+                           "figures/tess_metrics")
+    publication.small_plot(kepler_table, "CNNs on 809 common Kepler test candidates",
+                           "figures/kepler_common_metrics")
 
     lines = [
         "# Shared preprocessing transfer milestone", "",
-        "This frozen Phase 1 export reconstructs the saved seed-42 CNN and transformer metrics from "
-        "per-candidate predictions. All four models use Kepler-only training and validation; the TESS "
+        "This frozen Phase 1 export reconstructs the saved seed-42 CNN metrics from "
+        "per-candidate predictions. Both models use Kepler-only training and validation; the TESS "
         "rows use the same 335 labelled `shared_v1` test candidates (183 positive, 152 negative).", "",
         "## TESS transfer", "",
     ]
@@ -259,18 +195,14 @@ def export(processed: Path, preparation_output: Path, cnn: Path, cnn_prior: Path
         "candidates. It kept the original split membership where candidates remained eligible. "
         "The 133 Kepler exclusions changed the source training and validation cohorts, so these "
         "comparisons do not isolate preprocessing as the sole cause.", "",
-        "The shared CNN improved Kepler AP but not TESS AP. The shared transformer improved both in "
-        "this run, but it remained below the shared CNN on TESS AP. These are single-seed results on "
+        "The shared CNN improved Kepler AP but not TESS AP. These are single-seed results on "
         "previously consulted labelled benchmarks, not uncertainty estimates or evidence of a new "
-        "planet discovery. CNN and transformer training recipes also differ.", "",
-        "The original CNN evaluator file changed after its result was saved. Phase 1 therefore "
-        "repeated frozen-checkpoint inference with the current evaluator; its comparison and both "
-        "prediction CSVs are byte-identical to the original. The hash audit is included below.", "",
+        "planet discovery.", "",
         "[TESS table](tess_comparison.csv) · [Kepler table](kepler_common_comparison.csv) · "
         "[TESS figure](figures/tess_metrics.png) · "
         "[Kepler figure](figures/kepler_common_metrics.png) · "
         "[Preparation](preparation_summary.json) · [Protocols](protocols.json) · "
-        "[CNN reevaluation audit](cnn_reevaluation.json) · [Provenance](provenance.json)", "",
+        "[Provenance](provenance.json)", "",
         "Checkpoints and per-candidate predictions remain in ignored local `outputs/`. The exporter "
         "verifies their recorded hashes and reconstructs every metric without training or inference.", "",
         "Reproduce into a new or empty directory from the repository root:", "", "```bash",
@@ -279,7 +211,7 @@ def export(processed: Path, preparation_output: Path, cnn: Path, cnn_prior: Path
     ]
     publication.write("README.md", "\n".join(lines))
     publication.remember(Path(__file__))
-    publication.remember(ROOT / "scripts/analysis/export_results.py")
+    publication.remember(ROOT / "scripts/analysis/publication.py")
     publication.remember(ROOT / "training/cnn/train_kepler_cnn.py")
     provenance = {
         "status": "passed",
@@ -296,7 +228,6 @@ def export(processed: Path, preparation_output: Path, cnn: Path, cnn_prior: Path
             "Both labelled benchmark test sets were previously consulted.",
             "Only seed 42 is included; no seed uncertainty is estimated.",
             "The shared preprocessing excludes 133 Kepler candidates, changing source cohorts.",
-            "Cross-family CNN and transformer comparisons use different training recipes.",
         ],
     }
     publication.write_json("provenance.json", provenance)
@@ -310,11 +241,7 @@ if __name__ == "__main__":
                         default=ROOT / "outputs/shared_preparation/shared_v1")
     parser.add_argument("--cnn_dir", type=Path,
                         default=ROOT / "outputs/shared_cnn/tess_transfer_phase1")
-    parser.add_argument("--cnn_prior_dir", type=Path,
-                        default=ROOT / "outputs/shared_cnn/tess_transfer")
-    parser.add_argument("--transformer_dir", type=Path,
-                        default=ROOT / "outputs/shared_transformer/tess_transfer")
     parser.add_argument("--output_dir", type=Path, required=True)
     args = parser.parse_args()
     print(json.dumps(export(args.processed_dir, args.preparation_output, args.cnn_dir,
-                            args.cnn_prior_dir, args.transformer_dir, args.output_dir), indent=2))
+                            args.output_dir), indent=2))

@@ -1,35 +1,26 @@
-# TESS thesis results
+# Kepler–TESS thesis evidence
 
-These exports follow the Kepler practical work. The first three use the prepared TESS v0 dataset: 2,208 labelled candidates, with 1,548 training, 325 validation, and 335 test examples. The shared milestone rebuilds both missions with the same transit-preserving algorithm and retains all 2,208 TESS candidates with the same split membership.
+This directory contains the three active evidence groups supporting the discovery pipeline.
 
-| Completed step | Evidence |
-| --- | --- |
-| First CNN comparison, 11 September 2026 | [Two CNN results and preparation record](cnn_baseline/README.md) |
-| Frozen Kepler transformer, 13 September 2026 | [Transformer and CNN comparison](transformer_transfer/README.md) |
-| Input compatibility audit, 13 September 2026 | [Preprocessing, feature distributions, and clipping checks](input_audit/README.md) |
-| Shared preprocessing, CNN, and transformer milestone, 20 September 2026 | [Verified shared_v1 comparison](shared_transfer/README.md) |
-| Candidate-registry checker control, 21 September 2026 | [TOI-700 d live-catalog recognition](candidate_vetting/README.md) |
+| Evidence | What it establishes | What it does not establish |
+| --- | --- | --- |
+| [Input audit](input_audit/README.md) | Kepler and TESS inputs are structurally compatible but distributionally different | The causal source of the transfer gap |
+| [Shared transfer](shared_transfer/README.md) | Frozen seed-42 source-to-target metrics after common preprocessing | A statistically established domain-adaptation gain |
+| [Candidate vetting](candidate_vetting/README.md) | A known multi-signal target is matched by signal ephemeris across public catalogs | That an unmatched signal is new or planetary |
 
-Each export contains metrics reconstructed from saved predictions, confusion counts, PNG/PDF figures, preparation summaries, evaluation protocols, and source hashes. The transformer comparison includes the existing CNN results as references; those CNNs were not retrained. Per-candidate predictions and checkpoints remain in local `outputs/`.
+## Frozen boundary
 
-Reproduce each export into a new or empty directory from the repository root:
+The input audit and shared-transfer export close Phase 1: the labelled benchmark. The checker begins Phase 2: candidate evidence handling. Future DANN experiments, prospective FFI searches, watcher runs, human-vetting dossiers, and submitted cTOIs must receive separate versions and must not silently modify these exports.
 
-```bash
-python scripts/analysis/export_tess_results.py \
-  --output_dir outputs/published_tess_cnn
+The shared preparation retained 5,385 Kepler candidates and all 2,208 TESS candidates. On the fixed 335-candidate TESS test subset, the frozen CNN results were:
 
-python scripts/analysis/export_tess_results.py \
-  --transformer_dir outputs/tess_transformer/seed42 \
-  --output_dir outputs/published_tess_transfer
+| Input version | Accuracy | F1 | AP | ROC-AUC |
+| --- | ---: | ---: | ---: | ---: |
+| v0 | 0.7254 | 0.7294 | 0.8021 | 0.7767 |
+| shared_v1 | 0.7194 | 0.7099 | 0.7991 | 0.7828 |
 
-.venv/bin/python scripts/analysis/export_shared_transfer_results.py \
-  --output_dir outputs/published_shared_transfer
-```
+The shared CNN did not improve TESS AP in this run. These are single-seed metrics on a previously consulted labelled benchmark, not expected discovery yield or uncertainty estimates. The active thesis model path is the CNN and planned domain-adversarial extension.
 
-The [main README](../../README.md#thesis-extension-test-the-kepler-transformer-on-tess) provides evaluation commands. The [storyline](../../STORYLINE.md#12-first-cnn-comparison-on-tess) explains the findings. All comparisons use seed 42 on the same previously consulted TESS test subset, with thresholds selected on each model's source validation set. They do not establish general survey performance or isolate preprocessing, training-recipe, and mission effects.
+The registry control recognized TOI-700 d as `CONFIRMED_PLANET`. Its source counts and status describe public catalog evidence, not a percentage of research completed. An `UNMATCHED` future report will mean only that no compatible entry was found in the required snapshots at that time.
 
-The input audit compares training distributions and inspects saved predictions without model inference. Its reproduction command and limitations are in the [audit report](input_audit/README.md).
-
-The shared export verifies the full preparation and both transfer protocols, reconstructs CNN and transformer metrics on 809 common Kepler candidates and 335 common TESS candidates, and records the Phase 1 CNN reevaluation audit. It is the frozen boundary for the completed benchmark work; prospective unlabelled-data screening and human vetting are not part of these results.
-
-The candidate-vetting control starts Phase 2 without changing the frozen benchmark. It records a live positive-control lookup for the already confirmed TOI-700 d and validates catalog identity/status handling; it is not a model-performance result or discovery claim.
+See the [main README](../../README.md) for setup, retained commands, the planned comparison matrix, and the human-vetting boundary.

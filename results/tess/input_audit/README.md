@@ -8,7 +8,7 @@ The audit compares **3,853 Kepler training candidates** with **1,548 TESS traini
 
 - Both missions use global `(200, 3)` and local `(100, 3)` views, the same seven scalar features, and the same channel-major flat ordering.
 - Labels match manifest rows; arrays are finite; the three engineered features recompute from the stored views.
-- Saved source normalization matches the original Kepler training rows. The preceding transformer evaluation replayed its Kepler validation predictions exactly.
+- Saved source normalization matches the original Kepler training rows.
 - Both training cohorts have median global/local bin coverage of 100%. Missing bins are not a widespread explanation for this transfer gap.
 
 ## Measured differences
@@ -37,19 +37,13 @@ On **one synthetic two-minute curve** containing a 10,000 ppm transit and 100 pp
 
 A separate check of existing raw caches sampled **24 Kepler training candidates per label**, using seed 42. All 48 caches were available. The legacy clipping rule flagged some in-transit samples for **6 candidates**, with **none exceeding 50% of in-transit samples**. This limited sample does not support attributing the entire transfer failure to clipping. It measures flags at catalog transit times, not changes in classification accuracy or the fraction of genuine transit signal lost.
 
-## Why the transformer accuracy is low
-
-The saved transformer predicts positive for only **63 of 183 TESS positive labels**, missing 120. Their median predicted probability is **0.178**, below its frozen Kepler-validation threshold of **0.725**. This is not solely a threshold issue: its AP is also lower than the frozen CNN's (0.7146 versus 0.8021).
-
-The measured distribution changes, differing preprocessing, and changed candidate populations are plausible contributors. The audit cannot separate their causal effects or explain why this particular transformer is more affected than this particular CNN. Different training recipes and one seed further limit interpretation.
-
 The recommended next experiment is a small, controlled preprocessing comparison using **training stars**, preserving transits in both missions. Inspect whether input distributions become more comparable before rebuilding any full dataset or training a hybrid. Existing datasets/results should remain the reference. No such preprocessing change has been made in this audit.
 
 ## Evidence and reproduction
 
-- [Feature distributions by class](feature_distributions.csv), [distribution figure](distributions.png), [PDF](distributions.pdf).
+- [Feature distributions by class](feature_distributions.csv) and [distribution figure](distributions.png).
 - [Source-normalized scalar outliers](normalization_outliers.csv) and [saved prediction summary](prediction_summary.csv).
-- [Synthetic clipping measurements](synthetic_clipping.csv), [figure](clipping_demonstration.png), [PDF](clipping_demonstration.pdf).
+- [Synthetic clipping measurements](synthetic_clipping.csv) and [figure](clipping_demonstration.png).
 - [Real-cache clipping sample](kepler_raw_clipping_sample.csv), [summary](summary.json), and [provenance](provenance.json).
 
 Run from the repository root, using a new or empty destination:
@@ -60,4 +54,4 @@ python scripts/analysis/audit_tess_inputs.py \
   --output_dir outputs/tess_input_audit
 ```
 
-The script reads the prepared datasets and completed CNN/transformer evaluations. It optionally reads available raw Kepler caches for the sample check and records missing caches. It performs no downloading, dataset rewriting, training, inference, or threshold search. Hashes record and verify the source artifacts; the report contains summaries rather than additional training inputs.
+The script reads the prepared datasets and completed CNN evaluation. It optionally reads available raw Kepler caches for the sample check and records missing caches. It performs no downloading, dataset rewriting, training, inference, or threshold search. Hashes record and verify the source artifacts; the report contains summaries rather than additional training inputs.

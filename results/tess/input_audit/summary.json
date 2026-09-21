@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "scope": "Training-only distribution audit plus descriptive reuse of saved test predictions",
+  "scope": "Training-only distribution audit plus descriptive reuse of saved CNN test predictions",
   "schema_and_order_match": true,
   "engineered_features_recomputed": true,
   "source_normalization_verified": {
