@@ -1,0 +1,273 @@
+{
+  "schema": "scoring-vetting-engineering-pilot-v1",
+  "generated_at": "2026-09-21T23:05:55.489120Z",
+  "jobs": 14,
+  "proposals": 38,
+  "scored_proposals": 38,
+  "cohorts": {
+    "known_object_control": 11,
+    "synthetic_fixture": 27
+  },
+  "model_sha256": "7890efd17fc072efb74465a9fbfa6fb8b0192388d91af520961349f0066ba703",
+  "normalizer_sha256": "6f4ac773f6f2dd6c2200e68b903acb0c7a3f585a593ac2d882c03af03c705dc1",
+  "model_and_normalizer_unchanged": true,
+  "all_14_source_files_unchanged": true,
+  "all_stage_attempts_one": true,
+  "new_science_products": 0,
+  "catalog_response_bytes": 5392591,
+  "catalog_byte_counts_complete": true,
+  "catalog_snapshots": [
+    {
+      "tic_id": "149603524",
+      "source_id": "exofop_toi",
+      "state": "NOT_MODIFIED",
+      "retrieved_at_utc": "2026-09-21T23:03:37.714098Z",
+      "payload_sha256": "c9d1b6efdf6050a266cd1ed2377e7159a8db0b2a49279efc804f51cd284c8948",
+      "endpoint": "https://exofop.ipac.caltech.edu/tess/json/tois.csv"
+    },
+    {
+      "tic_id": "149603524",
+      "source_id": "exofop_ctoi",
+      "state": "NOT_MODIFIED",
+      "retrieved_at_utc": "2026-09-21T23:03:38.554655Z",
+      "payload_sha256": "ce983bfab30ba77914e1dbf8f1c973f0b6d0d6d75efdfab579f1d00ff96a85a7",
+      "endpoint": "https://exofop.ipac.caltech.edu/tess/json/ctois.csv"
+    },
+    {
+      "tic_id": "149603524",
+      "source_id": "nasa_ps",
+      "state": "OK",
+      "retrieved_at_utc": "2026-09-21T23:03:38.807694Z",
+      "payload_sha256": "fa31f57582bafc846c5fea931ef0f74915a95c6bbb2e985f12e0d89c056b0234",
+      "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name%2Chostname%2Ctic_id%2Cpl_orbper%2Cpl_tranmid%2Cpl_tsystemref%2Cpl_controv_flag%2Cdisc_refname%2Cdisc_pubdate%2Crowupdate%2Creleasedate+from+ps+where+default_flag%3D1+and+tic_id%3D%27TIC+149603524%27&format=json"
+    },
+    {
+      "tic_id": "149603524",
+      "source_id": "nasa_toi",
+      "state": "OK",
+      "retrieved_at_utc": "2026-09-21T23:03:40.417125Z",
+      "payload_sha256": "3b0eb7fc2566582d60d2bae04e500d25d19a741dbc8a504922758db4ba86db4d",
+      "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+toi%2Ctid%2Cctoi_alias%2Ctfopwg_disp%2Cpl_orbper%2Cpl_tranmid%2Cpl_trandurh%2Crowupdate+from+toi+where+tid%3D149603524&format=json"
+    },
+    {
+      "tic_id": "231663901",
+      "source_id": "exofop_toi",
+      "state": "OK",
+      "retrieved_at_utc": "2026-09-21T23:03:27.113020Z",
+      "payload_sha256": "c9d1b6efdf6050a266cd1ed2377e7159a8db0b2a49279efc804f51cd284c8948",
+      "endpoint": "https://exofop.ipac.caltech.edu/tess/json/tois.csv"
+    },
+    {
+      "tic_id": "231663901",
+      "source_id": "exofop_ctoi",
+      "state": "OK",
+      "retrieved_at_utc": "2026-09-21T23:03:29.472312Z",
+      "payload_sha256": "ce983bfab30ba77914e1dbf8f1c973f0b6d0d6d75efdfab579f1d00ff96a85a7",
+      "endpoint": "https://exofop.ipac.caltech.edu/tess/json/ctois.csv"
+    },
+    {
+      "tic_id": "231663901",
+      "source_id": "nasa_ps",
+      "state": "OK",
+      "retrieved_at_utc": "2026-09-21T23:03:29.761913Z",
+      "payload_sha256": "4f6143f2f8ed58600fd6d5bff446a434540f52f443336f44ae9cedf03a22d67c",
+      "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+pl_name%2Chostname%2Ctic_id%2Cpl_orbper%2Cpl_tranmid%2Cpl_tsystemref%2Cpl_controv_flag%2Cdisc_refname%2Cdisc_pubdate%2Crowupdate%2Creleasedate+from+ps+where+default_flag%3D1+and+tic_id%3D%27TIC+231663901%27&format=json"
+    },
+    {
+      "tic_id": "231663901",
+      "source_id": "nasa_toi",
+      "state": "OK",
+      "retrieved_at_utc": "2026-09-21T23:03:31.402155Z",
+      "payload_sha256": "f390eb550c5d38a234c3f7a08a526fdc58ab7a16e832485041c938f7073dc764",
+      "endpoint": "https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=select+toi%2Ctid%2Cctoi_alias%2Ctfopwg_disp%2Cpl_orbper%2Cpl_tranmid%2Cpl_trandurh%2Crowupdate+from+toi+where+tid%3D231663901&format=json"
+    }
+  ],
+  "primary_known_controls": [
+    {
+      "candidate_id": "ad179520bad644d1b136da2b2defe9bf",
+      "target_id": "231663901",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "rank": 1,
+      "period_days": 1.4304438829592476,
+      "duration_hours": 1.2750000000000001,
+      "epoch_bjd_tdb": 2458326.008159661,
+      "score": 0.0700068399310112,
+      "registry_status": "CONFIRMED_PLANET",
+      "registry_state": "complete",
+      "registry_as_of": "2026-09-21T23:03:32.692312Z",
+      "catalog_matches": [
+        {
+          "source": "exofop_toi",
+          "record": "TOI-101.01",
+          "relationship": "DIRECT",
+          "current": true
+        },
+        {
+          "source": "nasa_ps",
+          "record": "WASP-46 b",
+          "relationship": "DIRECT",
+          "current": true
+        },
+        {
+          "source": "nasa_toi",
+          "record": "TOI-101.01",
+          "relationship": "DIRECT",
+          "current": true
+        }
+      ],
+      "n_covered_events": 17,
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "catalog_and_model_disagreement",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "odd_even_depth_difference"
+      ],
+      "primary_known_control": true,
+      "input_sha256": "88acb312e8d099b3a537cb79d20fd8218230a8141f984db7cc351145eb5edfee",
+      "score_evidence_id": "eb9d6e90c6d448209b21cf9bcedc0717"
+    },
+    {
+      "candidate_id": "4900bdb3b18b475ebdb1d7238c137bc9",
+      "target_id": "149603524",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "rank": 1,
+      "period_days": 4.411463872679565,
+      "duration_hours": 3.0,
+      "epoch_bjd_tdb": 2458326.0799530554,
+      "score": 0.9507298469543457,
+      "registry_status": "KNOWN_PLANET",
+      "registry_state": "complete",
+      "registry_as_of": "2026-09-21T23:03:41.655195Z",
+      "catalog_matches": [
+        {
+          "source": "exofop_toi",
+          "record": "TOI-102.01",
+          "relationship": "DIRECT",
+          "current": true
+        },
+        {
+          "source": "nasa_ps",
+          "record": "WASP-62 b",
+          "relationship": "INCOMPLETE",
+          "current": true
+        },
+        {
+          "source": "nasa_toi",
+          "record": "TOI-102.01",
+          "relationship": "DIRECT",
+          "current": true
+        }
+      ],
+      "n_covered_events": 5,
+      "incomplete_evidence": [
+        "transit_diagnostics",
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "review_flags": [
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_transit_diagnostics",
+        "odd_even_depth_difference"
+      ],
+      "primary_known_control": true,
+      "input_sha256": "68bf268a48af85746058240d66307fc3b9a9d6fd8cb5cc5d8e87c2e467a76b9c",
+      "score_evidence_id": "67d76c3a062b4c33802823221b68da4a"
+    },
+    {
+      "candidate_id": "7ea986744a634a12867459eee4d232c7",
+      "target_id": "10666592",
+      "mission": "Kepler",
+      "cohort": "known_object_control",
+      "rank": 1,
+      "period_days": 2.206838185408237,
+      "duration_hours": 3.0,
+      "epoch_bjd_tdb": 2454965.3697657348,
+      "score": 0.006856536027044058,
+      "registry_status": "INCOMPLETE_LOOKUP",
+      "registry_state": "incomplete",
+      "registry_as_of": "2026-09-21T22:58:26.140108Z",
+      "catalog_matches": [],
+      "n_covered_events": 14,
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "registry",
+        "controls"
+      ],
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_registry",
+        "odd_even_depth_difference",
+        "secondary_eclipse_or_correlated_variability"
+      ],
+      "primary_known_control": true,
+      "input_sha256": "07e6710cc09f4b2891ea78df701a4dac045ea550a870658fb16da9430a4c6586",
+      "score_evidence_id": "7c7e1f311c0c4d819b0916b2e5479bab"
+    },
+    {
+      "candidate_id": "afc12ed86fe54ffe84ea4571ed6b2e9d",
+      "target_id": "10748390",
+      "mission": "Kepler",
+      "cohort": "known_object_control",
+      "rank": 1,
+      "period_days": 4.887215734537076,
+      "duration_hours": 2.0250000000000004,
+      "epoch_bjd_tdb": 2454967.591422005,
+      "score": 0.008384416811168194,
+      "registry_status": "INCOMPLETE_LOOKUP",
+      "registry_state": "incomplete",
+      "registry_as_of": "2026-09-21T22:58:46.464291Z",
+      "catalog_matches": [],
+      "n_covered_events": 6,
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "registry",
+        "controls"
+      ],
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_registry",
+        "odd_even_depth_difference"
+      ],
+      "primary_known_control": true,
+      "input_sha256": "036c9aeb7e725f0431240ff85a6f740af8c2b141885b81a91f90d6f6eca00c84",
+      "score_evidence_id": "b03c295671754620b4e21fdd90ea2b60"
+    }
+  ],
+  "registry_status_counts": {
+    "CONFIRMED_PLANET": 1,
+    "UNMATCHED": 2,
+    "KNOWN_PLANET": 1,
+    "AMBIGUOUS_MATCH": 2,
+    "INCOMPLETE_LOOKUP": 32
+  },
+  "search_readiness": false,
+  "limitations": [
+    "Selected TRAIN-group controls and synthetic transformations are not generalization or calibrated false-alarm evidence.",
+    "Source validation threshold was not changed or applied as a rejection gate.",
+    "Kepler TIC mapping, difference images, nearby sources, aperture dependence, TCE/EB/coordinate/literature checks remain incomplete.",
+    "UNMATCHED is not proof of novelty; source matches are identity evidence, not new planet confirmation.",
+    "An append-only metadata correction changed the legacy BLS duration label to hours; numerical arrays and scores were unchanged."
+  ],
+  "processing_code_sha256": "376dfbc3db17af78c8e287d3b05c522187793f5090acfd92fb14783c4b17f403",
+  "final_code_sha256": "815f8861817d1260fd246008f67cc426f9bfdcdbe8d83e1d75863ffb39a4bed4"
+}

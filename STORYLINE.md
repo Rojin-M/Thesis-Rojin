@@ -188,3 +188,120 @@ A cTOI or TOI is a candidate status, not confirmation. Planet validation or conf
 | Prospective run | Pre-registered queue on previously uninspected search data |
 
 The thesis remains successful if DANN does not beat simpler baselines, provided the comparison is controlled and the failure is analyzed. A credible new candidate would be an excellent additional outcome, not a condition for a valid thesis.
+
+## 10. Research application foundation
+
+The first implementation increment adds a local SQLite-backed job and candidate
+store, restartable stages with bounded retries, source/code/model provenance
+records, evidence dossiers, plots, report export and audited human review. The
+research website is separate from the learning Academy. Its default database is
+empty; explicitly synthetic fixtures are used only to exercise the interface and
+failure handling. A completed execution is not a successful detection or a
+scientifically validated signal.
+
+The versioned `research_protocol_v1.json` encodes a bounded initial pilot and
+preserves explicit time systems, feature contracts, validation-only model
+selection and required evidence gaps. It remains scientifically provisional:
+public metadata discovery, blind detection, injection/recovery, negative
+controls, model comparisons and a detailed primary-source literature review
+still need implementation or evaluation. This increment establishes engineering
+infrastructure and makes no new claim about detection performance, DANN benefit,
+novelty or planet confirmation.
+
+## 11. Blind light-curve engineering pilot
+
+The next increment implements a separate bounded BLS search on local native
+TESS/Kepler photometry. Period and epoch are inferred without catalog ephemerides;
+the detector records its own detrending, quality/time conventions, grid bounds,
+aliases, iterative masks, event coverage, odd/even event depths and secondary
+tests. The known-ephemeris feature preparation and frozen benchmark are unchanged.
+Real proposals, plots, full arrays and provenance are now available in the local
+research application. This does not yet implement extraction from pixels,
+TLS, CNN scoring of proposals, live releases or prospective discovery.
+
+The fixed small engineering experiment recovered all four selected TRAIN-star
+controls and four of six box injections into real TESS photometry. Both 500-ppm
+injections were missed. Two of four transformed/noise negative controls produced
+sampling-supported proposals above a predeclared descriptive white-noise S/N of
+7.1. These results were retained without threshold tuning or proposal rejection.
+They demonstrate operational signal finding and expose limits; they do not
+estimate unbiased completeness, establish a controlled false-alarm rate, or
+support a mission-adaptation improvement claim. See the [pilot evidence](results/detection_pilot/README.md).
+
+At the end of the detection increment, all 14 jobs were queued for downstream feature/scoring work after
+successful detection, and the 38 proposals are explicitly separated into known
+object controls and synthetic/transformed experiments. The protocol remains
+provisional with prospective readiness false. Search-quality evaluation, model
+comparisons, calibration, full diagnostics and an audited release watcher remain
+required before any prospective claim.
+
+## 12. Connecting blind proposals to trained scoring and recorded vetting
+
+The proposal worker now constructs the frozen shared feature contract from
+independently inferred ephemerides and runs the retained Kepler CNN. It protects
+inferred windows during shared detrending, retains the legacy scalar meanings,
+applies the exact saved Kepler TRAIN normalization and records checkpoint, code,
+source and input-array receipts. This is a new inference domain: inferred masks,
+spurious companions and single-product coverage can differ from labelled
+benchmark inputs. Scores remain uncalibrated ranking evidence. The saved source
+validation threshold is contextual; it cannot remove proposals from review.
+
+Readable dossiers connect these scores to event coverage, genuine odd/even event
+depths, a bounded secondary-event phase scan, fixed-epoch harmonic comparisons,
+native centroid measurements and pipeline crowding estimates. Error models and
+missing image/source-localization checks are explicit. The catalog checker now
+has a bounded batch/cache integration with recorded retrieval dates and raw
+bytes, stale/unavailable states and append-only refresh reports. Its supported
+catalog coverage still excludes coordinate, TCE, EB and comprehensive literature
+searches. A known registry match is identity evidence, not automated validation
+of a detected proposal; `UNMATCHED` remains insufficient for novelty.
+
+The engineering contribution is the auditable detection-to-evidence path and a
+review route for incomplete inputs, low scores and unusual signals. It is not yet
+evidence for mission-adaptation benefit, calibrated uncertainty, a controlled
+survey false-alarm rate or a novel planet. The pending comparator/DANN study and
+larger, representative controls must test those research hypotheses separately.
+
+The actual increment scored all 38 existing proposals across 14 completed jobs.
+Bounded live queries on the two TESS control stars recovered compatible public
+planet records; the lower-scoring one remains visible as a catalog/model
+disagreement. Three of the four primary known controls were below the retained
+source-validation threshold. No threshold was tuned and none of these signals
+was removed. These observations caution against treating labelled-benchmark
+scores as a ready blind-search classifier. The [scoring/vetting evidence](results/scoring_vetting_pilot/README.md)
+records these limits, the unchanged model/input hashes and an audited metadata-only
+correction of the legacy BLS duration unit label.
+
+
+## 13. Public metadata and a finite, auditable work stream
+
+The release watcher now queries the official MAST observation/product API for an
+explicit TIC watchlist and records first observed public availability, immutable
+product/version identities and hashed response snapshots. Polling does not
+expand into a sector download. A separately frozen pilot enforces cumulative
+byte, target, product, runtime and retry limits, then connects verified photometry
+to the existing blind detector, trained model and human evidence dossiers.
+This is scoped selected-product availability; it does not assert completeness
+of an entire sector or archive. Kepler remains archival.
+
+The real control pilot revalidated TIC 231663901's sector-105 ordinary SPOC light
+curve, reused its previously cached bytes after checksum/receipt validation, and
+completed all eight processing stages. It retained three proposals, including a
+primary independently inferred period of 1.430428 days and an existing compatible
+planet record in the supported cached catalogs. Its CNN ranking score was
+0.953799. The original sector-1 control score remains 0.070007; neither result
+was used to tune the threshold or model. Different product coverage and inferred
+inputs can change scores substantially, and these selected known controls do not
+measure generalization or establish a calibrated search.
+
+A repeated live metadata poll added no release/product identities, and dispatch
+replay added no candidates, stage attempts or downloads. No new science products
+were downloaded: the real pilot reused the exact original sector-105 artifact.
+The download transport itself was tested through a local HTTP archive fixture,
+including the real downstream model and website. See the [watcher evidence](results/release_watcher_pilot/README.md).
+
+These are engineering results. Prospective readiness remains false. Broad FFI/
+pixel coverage, representative injection/negative calibration, model uncertainty,
+the comparator/DANN study and a precise literature-grounded contribution remain
+required research work. Low scores, catalog nonmatches and incomplete diagnostics
+continue to have explicit review paths; none is an automated novelty decision.

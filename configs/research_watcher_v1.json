@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "targets": ["231663901"],
+  "max_products_per_poll": 1,
+  "poll_seconds": 21600,
+  "poll_max_seconds": 120,
+  "metadata_only": true
+}

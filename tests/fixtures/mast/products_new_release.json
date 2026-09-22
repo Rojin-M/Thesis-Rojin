@@ -1,0 +1,23 @@
+{
+  "fixture_only": true,
+  "status": "COMPLETE",
+  "data": [
+    {
+      "obs_collection": "TESS",
+      "dataRights": "PUBLIC",
+      "productType": "SCIENCE",
+      "productSubGroupDescription": "LC",
+      "parent_obsid": 202,
+      "prvversion": "fixture-v2",
+      "productFilename": "tess2018206045859-s0002-0000000000000123-0121-s_lc.fits",
+      "dataURI": "mast:TESS/product/tess2018206045859-s0002-0000000000000123-0121-s_lc.fits",
+      "size": 48960
+    }
+  ],
+  "paging": {
+    "page": 1,
+    "pageSize": 100,
+    "pagesFiltered": 1,
+    "rowsFiltered": 1
+  }
+}

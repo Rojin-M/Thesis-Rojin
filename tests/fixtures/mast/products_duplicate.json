@@ -1,0 +1,34 @@
+{
+  "fixture_only": true,
+  "status": "COMPLETE",
+  "data": [
+    {
+      "obs_collection": "TESS",
+      "dataRights": "PUBLIC",
+      "productType": "SCIENCE",
+      "productSubGroupDescription": "LC",
+      "parent_obsid": 101,
+      "prvversion": "fixture-v1",
+      "productFilename": "tess2018206045859-s0001-0000000000000123-0120-s_lc.fits",
+      "dataURI": "mast:TESS/product/tess2018206045859-s0001-0000000000000123-0120-s_lc.fits",
+      "size": 48960
+    },
+    {
+      "obs_collection": "TESS",
+      "dataRights": "PUBLIC",
+      "productType": "SCIENCE",
+      "productSubGroupDescription": "LC",
+      "parent_obsid": 101,
+      "prvversion": "fixture-v1",
+      "productFilename": "tess2018206045859-s0001-0000000000000123-0120-s_lc.fits",
+      "dataURI": "mast:TESS/product/tess2018206045859-s0001-0000000000000123-0120-s_lc.fits",
+      "size": 48960
+    }
+  ],
+  "paging": {
+    "page": 1,
+    "pageSize": 100,
+    "pagesFiltered": 1,
+    "rowsFiltered": 2
+  }
+}

@@ -1,0 +1,13 @@
+[Unit]
+Description=Bounded TESS metadata poll (no science downloads)
+
+[Service]
+Type=oneshot
+WorkingDirectory=/restricteddata/t_comp/moradian/Thesis-Rojin
+ExecStart=/restricteddata/t_comp/moradian/Thesis-Rojin/.venv/bin/python -m scripts.research watch-poll --config /restricteddata/t_comp/moradian/Thesis-Rojin/configs/research_watcher_v1.json
+Environment=OMP_NUM_THREADS=1
+Environment=MKL_NUM_THREADS=1
+Environment=OPENBLAS_NUM_THREADS=1
+TimeoutStartSec=180
+Restart=no
+Nice=10

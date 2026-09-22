@@ -1,0 +1,152 @@
+{
+  "generated_at_utc": "2026-09-21T23:31:42.829485Z",
+  "pilot_id": "control-release-v1",
+  "cohort": "known_object_control",
+  "job_id": "6b5efca910df4ccc84e845a78a56f8ea",
+  "product_id": "55b3ef8610a249f4ab80a57ccf558597",
+  "scope": "One latest-returned public ordinary SPOC light curve for one existing control TIC; no prospective claim",
+  "proposals": [
+    {
+      "id": "256a70dfa57a4044ae1f2ec08cd98d96",
+      "rank": 1,
+      "ephemeris": {
+        "duration_hours": 1.2750000000000001,
+        "epoch_bjd_tdb": 2461206.7797165015,
+        "epoch_original": 4206.779716501275,
+        "epoch_system": "BTJD",
+        "period_days": 1.4304284534884741
+      },
+      "assessment": {
+        "score": 0.9537985920906067,
+        "score_state": "complete",
+        "registry_status": "CONFIRMED_PLANET",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "id": "ccc25fde4304498dbdb1370a120dbc2c",
+      "rank": 2,
+      "ephemeris": {
+        "duration_hours": 0.75,
+        "epoch_bjd_tdb": 2461208.2906540013,
+        "epoch_original": 4208.2906540012755,
+        "epoch_system": "BTJD",
+        "period_days": 4.928749327827289
+      },
+      "assessment": {
+        "score": 0.006358693819493055,
+        "score_state": "complete",
+        "registry_status": "UNMATCHED",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "id": "406476d0648b4430ba6431374d5d0e3c",
+      "rank": 3,
+      "ephemeris": {
+        "duration_hours": 1.2750000000000001,
+        "epoch_bjd_tdb": 2461207.1172165014,
+        "epoch_original": 4207.117216501275,
+        "epoch_system": "BTJD",
+        "period_days": 0.8427501844033413
+      },
+      "assessment": {
+        "score": 0.00437346613034606,
+        "score_state": "complete",
+        "registry_status": "UNMATCHED",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "review_status": "unreviewed"
+    }
+  ],
+  "counts": {
+    "jobs": 15,
+    "candidates": 41,
+    "stages": 120,
+    "attempts": 120,
+    "evidence": 571,
+    "artifacts": 857,
+    "releases": 1,
+    "products": 1,
+    "watch_seen": 2,
+    "watch_snapshots": 4
+  },
+  "budget": {
+    "cap_bytes": 2147483648,
+    "charged_bytes": 5460403,
+    "remaining_bytes": 2142023245,
+    "unsettled_reservations": 0,
+    "by_kind": {
+      "metadata": 45208,
+      "prior_usage": 5415195
+    }
+  },
+  "runtime_seconds": 43.804239735007286,
+  "preservation": {
+    "original_jobs_candidates_stages_attempts_evidence_artifacts_unchanged": true,
+    "original_source_files_unchanged": 14,
+    "original_artifacts_hash_verified": 794,
+    "checkpoint_sha256": "7890efd17fc072efb74465a9fbfa6fb8b0192388d91af520961349f0066ba703",
+    "normalizer_sha256": "6f4ac773f6f2dd6c2200e68b903acb0c7a3f585a593ac2d882c03af03c705dc1"
+  },
+  "replay": {
+    "pilot_id": "control-release-v1",
+    "status": "complete",
+    "already_complete": true
+  },
+  "processing_code_manifest_sha256": "8fb091579a006e6f444fcfb91566d8b2fc24a4682ee89471724c683285bdcbce",
+  "readiness": false,
+  "new_science_download_bytes": 0,
+  "stage04_metadata_response_bytes": 67812,
+  "source": {
+    "source_uri": "mast:TESS/product/tess2026164183000-s0105-0000000231663901-0307-s_lc.fits",
+    "sha256": "8206ed888059c415b3e0545288d2ceb8d69030ec2599a8279f84cd4a1799a8ae",
+    "bytes": 2021760,
+    "retrieved_at": "2026-09-09T20:17:41.135830+00:00",
+    "mode": "reused_local_product",
+    "new_download_bytes": 0
+  },
+  "current_code_manifest_sha256": "ed632dc33bab59f793206f0fb424f2a65c84682d3cad799b03e8ee2ce1abb6a0",
+  "validation": {
+    "offline_baseline": "177 tests, OK, 1 opt-in live test skipped",
+    "browser": {
+      "status": "passed",
+      "checks": [
+        "real public poll, scope, service health, finite queue, immutable pilot, byte/runtime charge and links render",
+        "live pilot links to all eight successful stages and persisted provenance",
+        "real independently detected public-control dossier, trained score, evidence, missing diagnostics and plots render",
+        "watcher fits mobile viewport",
+        "overview exposes actual watcher health and route"
+      ],
+      "exceptions": [],
+      "job_id": "6b5efca910df4ccc84e845a78a56f8ea",
+      "candidate_id": "256a70dfa57a4044ae1f2ec08cd98d96"
+    },
+    "final_offline_regression": {
+      "tests": 204,
+      "seconds": 277.357,
+      "skipped": 1,
+      "status": "OK"
+    }
+  }
+}

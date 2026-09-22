@@ -1,0 +1,34 @@
+{
+  "fixture_only": true,
+  "status": "COMPLETE",
+  "data": [
+    {
+      "obs_collection": "TESS",
+      "provenance_name": "SPOC",
+      "dataproduct_type": "timeseries",
+      "target_name": "123",
+      "dataRights": "PUBLIC",
+      "obsid": 101,
+      "sequence_number": 1,
+      "t_obs_release": 58458.5833333,
+      "dataURL": "mast:TESS/product/tess2018206045859-s0001-0000000000000123-0120-s_lc.fits"
+    },
+    {
+      "obs_collection": "TESS",
+      "provenance_name": "SPOC",
+      "dataproduct_type": "timeseries",
+      "target_name": "123",
+      "dataRights": "PUBLIC",
+      "obsid": 202,
+      "sequence_number": 2,
+      "t_obs_release": 58486,
+      "dataURL": "mast:TESS/product/tess2018206045859-s0002-0000000000000123-0121-s_lc.fits"
+    }
+  ],
+  "paging": {
+    "page": 1,
+    "pageSize": 100,
+    "pagesFiltered": 1,
+    "rowsFiltered": 2
+  }
+}

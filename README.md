@@ -2,7 +2,7 @@
 
 This thesis project studies whether knowledge learned from labelled Kepler transit signals can improve the prioritization of TESS signals. The active direction is a mission-invariant CNN trained with domain-adversarial learning, followed by a prospective search, automated checks, and documented human vetting.
 
-The repository currently contains a frozen shared-preprocessing benchmark and a live public-catalog checker. The domain-adversarial model, blind `discovery_v1` search, and release watcher are the next phases; they are not presented as completed work.
+The repository currently contains a frozen shared-preprocessing benchmark, a public-catalog checker, and a local research application with persisted jobs, bounded blind BLS, trained CNN scoring, diagnostic evidence and human review dossiers. A bounded MAST metadata watcher and explicit finite dispatcher connect public products to these workers. A separate five-arm experiment interface now implements supervised DANN, comparators and validation-only calibration; full scientific validation, pixel photometry and prospective `discovery_v1` search remain outstanding.
 
 Read the [research storyline](STORYLINE.md) for the decision history and the [active evidence index](results/README.md) for compact, committed results.
 
@@ -10,7 +10,7 @@ Read the [research storyline](STORYLINE.md) for the decision history and the [ac
 
 > Can a CNN learn transit features that remain useful across Kepler and TESS, then help surface credible signals in under-searched TESS data without hiding unusual candidates?
 
-The planned architecture keeps the existing global/local light-curve encoder and adds two heads:
+The implemented research architecture keeps the existing global/local light-curve encoder and adds two heads:
 
 ```text
 global view + local view + scalar features
@@ -31,12 +31,15 @@ The planet head learns the scientific task. Gradient reversal makes the encoder 
 | Shared Kepler/TESS preprocessing | Complete | Build comparable 200-bin global, 100-bin local, and seven-feature inputs |
 | Frozen Kepler-to-TESS CNN benchmark | Complete | Establish the transfer baseline and its limitations |
 | Public candidate-registry checker | Complete, limited | Identify compatible records in current ExoFOP and NASA catalogs |
-| TESS-only, fine-tuned, pooled, and DANN baselines | Planned | Measure whether mission-invariant learning adds value |
+| Local research application foundation | Operational, offline integration tested | Persist jobs, failures, candidate evidence, plots, provenance and review history |
+| Blind light-curve BLS pilot | Operational, bounded engineering controls | Estimate period/epoch from cached native photometry; retain plots, aliases and event diagnostics |
+| Proposal scoring and vetting | Operational, bounded CPU worker | Shared features, frozen trained CNN, catalog snapshots, diagnostic evidence and human dossiers |
+| TESS-only, Kepler-only, fine-tuned, pooled, and DANN experiments | Operational finite CPU interface; bounded pilot | Compare matched update budgets without changing the frozen candidate scorer |
 | `discovery_v1` pixel-to-candidate search | Planned | Search new or under-covered TESS targets rather than only re-rank known TCEs |
-| Automated release watcher and vetting queue | Planned | Process only newly available data and produce review dossiers |
+| Public metadata watcher and finite dispatcher | Operational, scoped pilot | Observe explicit TIC products; enforce cumulative budgets and resume immutable selections |
 | Human review and cTOI submission | Prospective | Escalate only signals that survive the locked protocol |
 
-The current model consumes a candidate with a known period and epoch. It does **not** yet discover periodic events directly from pixels. That requires the planned photometry and BLS/TLS detection stage.
+The current model consumes a candidate with a supplied period and epoch. A separate blind BLS worker estimates these from existing TESS/Kepler light curves without catalog ephemerides; the vetting worker constructs shared inputs and applies the retained checkpoint. Pixel extraction and optional TLS remain separate milestones. The pilot does **not** perform pixel-based or prospective discovery.
 
 ## Discovery workflow
 
@@ -60,7 +63,7 @@ cTOI submission and possible follow-up
 
 `discovery_v1` will be versioned separately from the labelled benchmark. Candidate selection thresholds and rejection rules must be frozen before prospective inspection. Injection-recovery tests will measure completeness; inverted or scrambled controls will measure false alarms.
 
-The model comparison will use the same eligible targets, preprocessing, encoder capacity, splits, and reporting rules:
+The model comparison uses common eligible groups, preprocessing, planet-encoder capacity, splits, and reporting rules:
 
 1. TESS-only CNN.
 2. Kepler-only CNN evaluated on TESS.
@@ -68,21 +71,27 @@ The model comparison will use the same eligible targets, preprocessing, encoder 
 4. Pooled Kepler and TESS training without domain adaptation.
 5. Domain-adversarial training with a gradient-reversal mission head.
 
-Runs will use multiple fixed seeds and star-grouped splits. Model selection stays on validation data. The prospective review queue remains separate from the previously consulted labelled TESS test set.
+Runs use fixed seeds and star-grouped splits. Model selection stays on validation data. The prospective review queue remains separate from the previously consulted labelled TESS test set. The finite [experiment interface](docs/mission_adaptation_experiments.md) separates checkpoint selection, calibration and descriptive validation audits, saves resumable checkpoints and exposes verified reports on `/#experiments`. See the [primary-source research note and full-validation matrix](docs/mission_adaptation_research.md); adaptation benefit and novelty remain provisional.
 
 ## Automated watcher
 
-The watcher should poll release metadata on a schedule, not keep a GPU busy continuously. For each unseen release it will:
+The watcher polls official MAST metadata for explicit TICs and records public
+SPOC light-curve identities, source responses, retrieval dates and checksums.
+Metadata polling never selects an entire sector or starts science downloads.
+An explicit finite pilot freezes product IDs, cohort, byte/runtime budgets and
+code, then resumes acquisition, blind BLS, trained scoring and review dossiers.
 
-- record source versions and checksums;
-- resume downloads and preprocessing safely;
-- run CPU-heavy extraction and transit searches once;
-- batch GPU inference only when new inputs exist;
-- refresh public-catalog matches;
-- append idempotent review records without duplicating candidates; and
-- retain failures for retry and audit.
+```bash
+.venv/bin/python -m scripts.research watch-poll
+.venv/bin/python -m scripts.research watch-status
+```
 
-`tmux` is suitable for development runs that must survive an SSH disconnect. A system scheduler is the safer long-term deployment because `tmux` does not survive reboot and does not provide job retry semantics by itself.
+The [watcher documentation](docs/release_watcher.md) describes the public API,
+selection/retry/lock semantics, cumulative 2 GiB and 20-product caps, bounded
+pilot commands, metadata-only service and optional user-scheduler templates.
+Its website view at `/#watcher` shows poll health, errors, progress and budget.
+The default watchlist contains an existing known-object control. This is scoped
+product availability, not an archive-wide census or prospective search.
 
 ## Human-vetting boundary
 
@@ -104,6 +113,9 @@ configs/cnn_shared_v1.json       Frozen shared-input CNN baseline
 scripts/data/                    Shared preprocessing and data utilities
 scripts/experiments/             Baseline training and transfer evaluation
 scripts/vetting/                 Live public-catalog candidate checker
+scripts/research/                Local research store, CLI, HTTP API and review UI
+configs/research_protocol_v1.json Bounded, provisional research protocol
+docs/research_application.md     Architecture and pipeline integration contract
 training/cnn/                    Global/local/scalar CNN implementation
 results/tess/input_audit/        Evidence motivating cross-mission adaptation
 results/tess/shared_transfer/    Frozen Phase-1 benchmark
@@ -135,6 +147,103 @@ Run the offline suite before changing the pipeline:
 ```bash
 .venv/bin/python -m unittest discover -s tests -v
 ```
+
+The research HTTP tests open ephemeral loopback sockets; they require permission
+to bind locally. They use temporary synthetic stores and make no science-data
+downloads.
+
+## Local research website
+
+Run the separate research application on loopback port 8766:
+
+```bash
+.venv/bin/python -m scripts.research init
+.venv/bin/python -m scripts.research serve --host 127.0.0.1 --port 8766
+```
+
+The default store starts empty under `outputs/research/`. The UI reads real
+persisted records, shows failed and incomplete stages, displays recorded plots,
+and exports JSON/Markdown dossiers. Review updates retain history and detect
+conflicting browser edits. Known-object controls, synthetic fixtures, archival
+pilots and prospective work have explicit separate labels.
+
+The server is independent of the CLI watcher and processing workers. Its validated
+[protocol](configs/research_protocol_v1.json) limits an initial pilot to 20
+targets/products and 2 GiB cumulative new downloads; the watcher dispatcher
+enforces durable reservations and receipts across restarts. Scientific approval and prospective readiness are
+explicitly unset. See the [application architecture and integration API](docs/research_application.md)
+for stage leases, provenance, evidence contracts, fixtures, exports and remaining
+work. The existing learning Academy can continue independently on port 8765.
+
+## Blind detection on local light curves
+
+The CLI selects bounded local files, verifies source bytes and native time
+headers, applies quality-zero filtering and blind gap-local detrending, runs
+BLS, then persists proposals, event diagnostics and downloadable plots/arrays.
+The following is a **known-object control**, using the earliest cached TESS
+product for TIC 231663901. Its catalog ephemeris is not fed to the search:
+
+```bash
+OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
+  .venv/bin/python -m scripts.research detect --cached-tess --max-products 1 \
+  --mission TESS --target-id 231663901 --cohort known_object_control
+```
+
+Use repeated `--path` arguments for explicit native FITS, CSV or NPZ inputs.
+CSV/NPZ require `time`, `flux`, `flux_err`, `quality` and an explicit
+`--time-system BJD_TDB`, `BTJD` or `BKJD`. Search defaults are 0.5–30 days,
+at most 20,000 trial periods per masking round, three rounds and a hard
+300-second CPU-worker deadline. Source hashes, code/configuration identities,
+stage leases and deterministic output keys make identical jobs restartable.
+
+Run the small fixed engineering experiment (four TRAIN-star controls, six
+injections into real photometry, four negatives) in a new versioned directory:
+
+```bash
+OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
+  .venv/bin/python -m scripts.research detection-controls \
+  --output outputs/research/experiments/detection-controls-v1
+```
+
+Synthetic and transformed controls are explicitly labelled. All retained peaks,
+including noise, are review proposals; BLS white-noise S/N is not a calibrated
+false-alarm or planet probability. The experiment does not establish survey
+completeness or search readiness. No new scientific downloads are required.
+See [detection details and stage integration](docs/blind_detection.md).
+
+## Score and vet persisted blind proposals
+
+Advance an existing detection job through shared features, frozen trained CNN
+inference, diagnostics and human dossiers. This explicit control job was created
+by the local detection experiment; fresh installations must use their own job ID:
+
+```bash
+OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 \
+  .venv/bin/python -m scripts.research vet \
+  --job-id be6c782ecb084da4b16e7cda4cebbd41 --catalog-mode offline
+```
+
+Repeat `--job-id` for at most 20 jobs. The CPU worker reuses exact Kepler training
+normalization and checkpoint hashes, preserves inferred period/day, epoch/BJD TDB
+and duration/hour units, and keeps insufficiently sampled proposals reviewable.
+The legacy scalar definitions are unchanged. Sigmoid scores are **uncalibrated
+ranking evidence**, not confirmation probabilities; no model threshold rejects
+a proposal. Source-training controls do not measure model generalization.
+
+The UI and reports show event odd/even depths, a bounded secondary phase scan,
+sampling/aliases, and native centroid/crowding measurements where present.
+Difference images, nearby-source and aperture evidence remain incomplete.
+Current catalog snapshots can be appended separately, with bounded cached queries:
+
+```bash
+.venv/bin/python -m scripts.research refresh-registry \
+  --candidate-id ad179520bad644d1b136da2b2defe9bf --catalog-mode live
+```
+
+This command targets one real TESS control. Synthetic experiments skip public
+lookup; Kepler signals require a verified TIC mapping before using this checker.
+Missing/stale catalogs stay incomplete. See [contracts, cache/retry behavior,
+diagnostic limitations and tests](docs/scoring_vetting.md).
 
 ## Shared data baseline
 
@@ -189,10 +298,13 @@ The checker refreshes or revalidates its supported public catalogs and writes ti
 
 ## Evidence and limitations
 
-Only three evidence groups are active:
+Six evidence groups are active:
 
 - [Input audit](results/tess/input_audit/README.md): measured preprocessing and distribution shift.
 - [Shared transfer](results/tess/shared_transfer/README.md): frozen labelled Phase-1 comparison.
 - [Candidate vetting](results/tess/candidate_vetting/README.md): live-catalog positive control.
+- [Blind detection pilot](results/detection_pilot/README.md): small training-star, injection and negative controls on local light curves; not survey validation.
+- [Scoring and vetting pilot](results/scoring_vetting_pilot/README.md): 38 actual trained-model scores, two-TIC live catalog checks and preserved review paths; not search calibration or planet validation.
+- [Release watcher pilot](results/release_watcher_pilot/README.md): real MAST metadata, one cached public control product, three new review proposals and verified deduplication; not prospective discovery.
 
-The Phase-1 model results use one seed and previously consulted test sets. The shared preprocessing changed the eligible Kepler cohort, so it does not isolate preprocessing as the cause of score changes. The planned DANN study has no result yet. No prospective `discovery_v1` candidate has been produced, submitted, validated, or confirmed by this repository.
+The Phase-1 model results use one seed and previously consulted test sets. The shared preprocessing changed the eligible Kepler cohort, so it does not isolate preprocessing as the cause of score changes. The separate DANN pilot uses short matched budgets and validation-derived audits, not an independent discovery test. No prospective `discovery_v1` candidate has been produced, submitted, validated, or confirmed by this repository.

@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "protocol_id": "discovery_v1_bounded_pilot",
+  "scientific_status": "provisional",
+  "review": {
+    "engineering": "bounded foundation; covered by offline persistence and HTTP tests",
+    "scientific_approval": null,
+    "prospective_search_ready": false,
+    "reason": "Target selection, blind detection, injection/recovery, negative controls and literature review remain to be evaluated."
+  },
+  "hypothesis": "Mission adaptation and calibrated uncertainty may improve weak-signal recovery at a controlled false-alarm rate without hiding unusual candidates. This is provisional.",
+  "cohorts": ["synthetic_fixture", "known_object_control", "archival_pilot", "prospective_search"],
+  "limits": {
+    "cpu_workers": 4,
+    "gpu_devices": 1,
+    "download_workers": 2,
+    "download_bytes_total": 2147483648,
+    "initial_products": 20,
+    "initial_targets": 20,
+    "request_timeout_seconds": 60,
+    "request_retries": 2,
+    "stage_max_attempts": 3,
+    "stage_lease_seconds": 900,
+    "metadata_pages_per_poll": 3,
+    "metadata_rows_per_page": 100,
+    "metadata_poll_seconds": 21600
+  },
+  "watcher": {
+    "default_mode": "metadata_only",
+    "automatic_downloads": false,
+    "public_availability_required": true,
+    "scheduled_sector_is_release_evidence": false,
+    "budget_scope": "cumulative_across_restarts_not_per_poll"
+  },
+  "selection": {
+    "status": "provisional",
+    "mission_stream": "TESS",
+    "kepler_role": "archival_training_and_search",
+    "selection_manifest_required": true,
+    "exclude_previously_consulted_test_groups_from_prospective": true,
+    "pilot_download_requires_explicit_bounded_selection": true
+  },
+  "stages": ["metadata", "selection", "acquisition", "detection", "features", "scoring", "diagnostics", "dossier"],
+  "search": {
+    "status": "provisional_not_validated",
+    "methods": ["BLS", "TLS"],
+    "known_ephemerides_in_blind_search": false,
+    "period_min_days": 0.5,
+    "period_max_days": 30.0,
+    "max_period_grid": 20000,
+    "max_duration_grid": 12,
+    "max_signals_per_target": 3,
+    "max_seconds_per_target": 300,
+    "minimum_sampled_events": 2,
+    "tls_optional_until_installed_and_benchmarked": true
+  },
+  "inputs": {
+    "contract": "shared_v1",
+    "global_shape": [200, 3],
+    "local_shape": [100, 3],
+    "scalar_names": ["depth", "symmetry", "odd_even", "bls_snr", "bls_depth", "bls_duration", "bls_period"],
+    "canonical_epoch": "BJD_TDB",
+    "offset_days": {"BJD_TDB": 0, "BTJD": 2457000, "BKJD": 2454833},
+    "period_unit": "day",
+    "duration_unit": "hour",
+    "normalization": "retain_frozen_training_only_moments_and_hash"
+  },
+  "research": {
+    "arms": ["TESS_only", "Kepler_only", "fine_tuned", "pooled", "DANN"],
+    "seeds": [42, 123, 456],
+    "splits": "star_grouped_and_leakage_checked",
+    "selection_data": "validation_only",
+    "consulted_test_set": "frozen_benchmark_never_threshold_or_model_selection",
+    "required_search_controls": ["injection_recovery", "negative_controls"],
+    "score_semantics": "ranking_evidence_not_planet_confirmation_probability",
+    "ml_hard_veto": false
+  },
+  "required_evidence": ["lightcurve", "detection", "shared_inputs", "model_score", "transit_diagnostics", "centroid", "contamination", "registry", "controls"],
+  "interpretation": {
+    "unmatched": "No compatible record in the available required snapshots; never proof of novelty.",
+    "missing_evidence": "incomplete_never_automatic_pass_or_rejection",
+    "human_review_required": true,
+    "automatic_confirmation": false,
+    "paid_api_required": false
+  }
+}

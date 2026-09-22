@@ -1,0 +1,12 @@
+[Unit]
+Description=Poll selected public TESS metadata every six hours
+
+[Timer]
+OnBootSec=10min
+OnUnitActiveSec=6h
+RandomizedDelaySec=5min
+Persistent=false
+Unit=exoplanet-metadata.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,892 @@
+{
+  "experiment": "detection-engineering-controls-v1",
+  "experiment_config_sha256": "4f19bf1d674edd6c968edcdffd8c829338a82a87f40ac0baed6921a2e5e00496",
+  "report_sha256": "cbebb23747bfc686e1e093186f67fcb6015894584ea23b8dff8c4321e9e87d60",
+  "code_manifest_sha256": "7a6e6fbfe900cb53a377579d3853bc8aaf6d1de02b3f64831669c7ee2a7c5b78",
+  "config": {
+    "period_min_days": 0.5,
+    "period_max_days": 30.0,
+    "durations_hours": [
+      0.75,
+      1.25,
+      2.0,
+      3.0,
+      4.5,
+      6.0
+    ],
+    "max_period_grid": 20000,
+    "max_signals": 3,
+    "max_seconds": 300,
+    "minimum_sampled_events": 2,
+    "minimum_event_points": 3,
+    "minimum_event_fraction": 0.5,
+    "detrend_window_days": 1.5,
+    "oversample": 10,
+    "mask_duration_factor": 1.5
+  },
+  "summary": {
+    "known_direct_recovery": 4,
+    "known_controls": 4,
+    "injected_direct_recovery": 4,
+    "injection_controls": 6,
+    "negative_controls": 4,
+    "negative_controls_above_descriptive_reference": 2
+  },
+  "limitations": [
+    "Small selected TRAIN-star engineering experiment, not an unbiased survey benchmark",
+    "White-noise S/N is uncalibrated under correlated variability; no false-alarm control established",
+    "Injections are boxes added before detrending to real PDCSAP flux; native pipeline losses are unmeasured",
+    "Inverted real photometry is not guaranteed planet-free; permutation destroys temporal correlations",
+    "Known signals remain present in injection curves; recovery is assessed among at most three blind proposals",
+    "No test-set model selection, no CNN score, no pixel-based discovery, no prospective search"
+  ],
+  "selection_rule": "first_two_distinct_train_positive_stars_sorted_by_candidate_id_per_mission; catalog P=.5\u201310 days, duration<6 hours for engineering controls only",
+  "known_controls": [
+    {
+      "label": "TESS-TOI-101.01",
+      "job_id": "be6c782ecb084da4b16e7cda4cebbd41",
+      "candidate_ids": [
+        "ad179520bad644d1b136da2b2defe9bf",
+        "fac8584835894fb48e8430d204ca3588",
+        "5d7d42ece8704cd58c533374737b349c"
+      ],
+      "target_id": "231663901",
+      "mission": "TESS",
+      "source_sha256": [
+        "9c59e545b60333877c5528012726adecbabf95e3e3aba1bfce91f297eabc5060"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 98.6900529807932,
+      "proposals_above_descriptive_reference_with_coverage": 1,
+      "evaluation": {
+        "truth": {
+          "period_days": 1.4303699,
+          "epoch_bjd_tdb": 2458326.009117,
+          "duration_hours": 1.6165994
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": true,
+        "recovered_with_sampling_gate": true,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 1.4304438829592476,
+            "relative_period_error": 5.172295589241826e-05,
+            "epoch_phase_error_days": 0.000957338434545818,
+            "accumulated_drift_days": 0.001442037109191779,
+            "direct_ephemeris_recovery": true,
+            "harmonic_relation": {
+              "period_ratio": 1.0,
+              "accumulated_drift_days": 0.0014419625266276156,
+              "epoch_separation_days": 0.000957338434545818
+            },
+            "sampling_gate_passed": true,
+            "depth_snr_white": 98.6900529807932,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 1.7917834756180728,
+            "relative_period_error": 0.25267140731783627,
+            "epoch_phase_error_days": 0.5525198384345912,
+            "accumulated_drift_days": 7.044484204303578,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 5.918919569319581,
+            "above_descriptive_snr_reference": false
+          },
+          {
+            "rank": 3,
+            "period_days": 0.5949290121702896,
+            "relative_period_error": 0.5840733140635234,
+            "epoch_phase_error_days": 0.20495203909604248,
+            "accumulated_drift_days": 16.2839764053718,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 3.8967072575280284,
+            "above_descriptive_snr_reference": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "TESS-TOI-102.01",
+      "job_id": "a11310040c574706b85c5084568ea65f",
+      "candidate_ids": [
+        "4900bdb3b18b475ebdb1d7238c137bc9",
+        "2642d648413342fe9681fb08845ff3de",
+        "15ab979966074cd791ae5299cb77bfb0"
+      ],
+      "target_id": "149603524",
+      "mission": "TESS",
+      "source_sha256": [
+        "e28e4e84b0fa99bfb68bf1fcef32b5e3b8265c7c206b335600f5da0e14fdc766"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 300.92419656753657,
+      "proposals_above_descriptive_reference_with_coverage": 3,
+      "evaluation": {
+        "truth": {
+          "period_days": 4.4119372,
+          "epoch_bjd_tdb": 2460982.065462,
+          "duration_hours": 3.6321285
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": true,
+        "recovered_with_sampling_gate": true,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 4.411463872679565,
+            "relative_period_error": 0.00010728333132988795,
+            "epoch_phase_error_days": 0.0006854551775177242,
+            "accumulated_drift_days": 0.0029911316019388687,
+            "direct_ephemeris_recovery": true,
+            "harmonic_relation": {
+              "period_ratio": 1.0,
+              "accumulated_drift_days": 0.002991452534932332,
+              "epoch_separation_days": 0.0006854551775177242
+            },
+            "sampling_gate_passed": true,
+            "depth_snr_white": 300.92419656753657,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 1.1354226484548364,
+            "relative_period_error": 0.7426475951527967,
+            "epoch_phase_error_days": 0.5211895448223914,
+            "accumulated_drift_days": 20.70551560460901,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 8.683255090970512,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 3,
+            "period_days": 4.415997858893648,
+            "relative_period_error": 0.0009203800302615458,
+            "epoch_phase_error_days": 1.7288104551776087,
+            "accumulated_drift_days": 0.02566081571277432,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 8.82972267170156,
+            "above_descriptive_snr_reference": true
+          }
+        ]
+      }
+    },
+    {
+      "label": "Kepler-K00002.01",
+      "job_id": "925a708f65a6467c8b38e7c3b39493af",
+      "candidate_ids": [
+        "7ea986744a634a12867459eee4d232c7",
+        "daf215bc36714cea955f4938fcdb5a0f"
+      ],
+      "target_id": "10666592",
+      "mission": "Kepler",
+      "source_sha256": [
+        "37faa7dc82fa5d9ec6d794369d93def0d78a49c91e61cf19bb4cafe571bb8f6c"
+      ],
+      "proposal_count": 2,
+      "strongest_depth_snr_white": 856.2613508763557,
+      "proposals_above_descriptive_reference_with_coverage": 1,
+      "evaluation": {
+        "truth": {
+          "period_days": 2.204735417,
+          "epoch_bjd_tdb": 2454954.3585417,
+          "duration_hours": 3.88864
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": true,
+        "recovered_with_sampling_gate": true,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 2.206838185408237,
+            "relative_period_error": 0.0009537509090764816,
+            "epoch_phase_error_days": 0.012453050520434772,
+            "accumulated_drift_days": 0.03192330700865624,
+            "direct_ephemeris_recovery": true,
+            "harmonic_relation": {
+              "period_ratio": 1.0,
+              "accumulated_drift_days": 0.03189288913664909,
+              "epoch_separation_days": 0.012453050520434772
+            },
+            "sampling_gate_passed": true,
+            "depth_snr_white": 856.2613508763557,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 0.8679172176707916,
+            "relative_period_error": 0.6063395131322502,
+            "epoch_phase_error_days": 0.15004694947970165,
+            "accumulated_drift_days": 20.294987134473896,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 6.778222911230309,
+            "above_descriptive_snr_reference": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "Kepler-K00003.01",
+      "job_id": "a4d041eb3e974ca38ee80edee4b044fc",
+      "candidate_ids": [
+        "afc12ed86fe54ffe84ea4571ed6b2e9d",
+        "4ac70fda07c04b4a8639075f711bdd88",
+        "98abf7b9dff54b819da21610ff81c89f"
+      ],
+      "target_id": "10748390",
+      "mission": "Kepler",
+      "source_sha256": [
+        "94c141534da0ba2a926f75355551e44ede0eb5279326f4029b801cb0b4c52da1"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 422.4375105272838,
+      "proposals_above_descriptive_reference_with_coverage": 2,
+      "evaluation": {
+        "truth": {
+          "period_days": 4.887803076,
+          "epoch_bjd_tdb": 2454957.8130808,
+          "duration_hours": 2.36255
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": true,
+        "recovered_with_sampling_gate": true,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 4.887215734537076,
+            "relative_period_error": 0.00012016471486095759,
+            "epoch_phase_error_days": 0.0033223945028204582,
+            "accumulated_drift_days": 0.004022087648686125,
+            "direct_ephemeris_recovery": true,
+            "harmonic_relation": {
+              "period_ratio": 1.0,
+              "accumulated_drift_days": 0.004022571019785726,
+              "epoch_separation_days": 0.0033223945028204582
+            },
+            "sampling_gate_passed": true,
+            "depth_snr_white": 422.4375105272838,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 17.5125742395077,
+            "relative_period_error": 2.5829132162663457,
+            "epoch_phase_error_days": 0.35797361046789433,
+            "accumulated_drift_days": 86.45385924473568,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": false,
+            "depth_snr_white": 22.194670265139145,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 3,
+            "period_days": 3.004132068655832,
+            "relative_period_error": 0.38538193500334217,
+            "epoch_phase_error_days": 0.6245314396161177,
+            "accumulated_drift_days": 12.899293462288416,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 18.173579099571786,
+            "above_descriptive_snr_reference": true
+          }
+        ]
+      }
+    }
+  ],
+  "injections": [
+    {
+      "label": "box-p2.731-d0.0005",
+      "job_id": "e8888f1da4594508a1a0177cb0b07f09",
+      "candidate_ids": [
+        "b95c5ee252194470be95bf08fb1b0c6b",
+        "9fad927b635642bbb09048d3548cf5e3",
+        "7ed6e6c2f2ec49e994bfa899e22bb58b"
+      ],
+      "target_id": "SYNTHETIC-box-p2.731-d0.0005",
+      "mission": "TESS",
+      "source_sha256": [
+        "291a43f293f7552f4b703cc758e840eda356448a04db64b1ce1b2483e720d9a6"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 98.68890662371287,
+      "proposals_above_descriptive_reference_with_coverage": 1,
+      "evaluation": {
+        "truth": {
+          "period_days": 2.731,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "duration_hours": 2.4,
+          "injected_depth": 0.0005
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": false,
+        "recovered_with_sampling_gate": false,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 1.430448917043389,
+            "relative_period_error": 0.47621789928839653,
+            "epoch_phase_error_days": 0.30265750020453197,
+            "accumulated_drift_days": 13.2769651499342,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 98.68890662371287,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 1.7927760853042016,
+            "relative_period_error": 0.3435459226275351,
+            "epoch_phase_error_days": 0.8479700002046685,
+            "accumulated_drift_days": 9.578067621867135,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 6.050256458262194,
+            "above_descriptive_snr_reference": false
+          },
+          {
+            "rank": 3,
+            "period_days": 0.5952750865003316,
+            "relative_period_error": 0.7820303601243752,
+            "epoch_phase_error_days": 0.07681729562725992,
+            "accumulated_drift_days": 21.803023055363795,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 3.931318269929776,
+            "above_descriptive_snr_reference": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "box-p2.731-d0.002",
+      "job_id": "ae4d0ec441f04e318dc5b7092dcbe4de",
+      "candidate_ids": [
+        "63d22cc50276497a83bfee2727ddd5bf",
+        "1a2a49de2fd846f59a5abda85cbc8759",
+        "79ba7a08129249f3bfba988346b9f979"
+      ],
+      "target_id": "SYNTHETIC-box-p2.731-d0.002",
+      "mission": "TESS",
+      "source_sha256": [
+        "605cdf374614edbc9f95b9babb7282f2a0c630690654b59dc37c751f74d7dfd4"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 98.71600520817707,
+      "proposals_above_descriptive_reference_with_coverage": 2,
+      "evaluation": {
+        "truth": {
+          "period_days": 2.731,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "duration_hours": 2.4,
+          "injected_depth": 0.002
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": true,
+        "recovered_with_sampling_gate": true,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 1.4304469034054808,
+            "relative_period_error": 0.47621863661461705,
+            "epoch_phase_error_days": 0.3026575002045321,
+            "accumulated_drift_days": 13.276985706604894,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 98.71600520817707,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 2.728795169828084,
+            "relative_period_error": 0.0008073343727264638,
+            "epoch_phase_error_days": 0.006717499795513504,
+            "accumulated_drift_days": 0.022508499464321638,
+            "direct_ephemeris_recovery": true,
+            "harmonic_relation": {
+              "period_ratio": 1.0,
+              "accumulated_drift_days": 0.022526686032259095,
+              "epoch_separation_days": 0.006717499795513504
+            },
+            "sampling_gate_passed": true,
+            "depth_snr_white": 12.767984205440717,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 3,
+            "period_days": 1.7933709131685298,
+            "relative_period_error": 0.34332811674532043,
+            "epoch_phase_error_days": 0.8667200002046228,
+            "accumulated_drift_days": 9.571995189243465,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 6.127089010821094,
+            "above_descriptive_snr_reference": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "box-p2.731-d0.008",
+      "job_id": "4616d3b3a5af45d1abd2f9df9480758e",
+      "candidate_ids": [
+        "87ba3f34df5a4824b1c21b7928b24c26",
+        "c26ba3a69541490b8601c5501c7340ac",
+        "4499f96a4a064e53af314a804fc4c096"
+      ],
+      "target_id": "SYNTHETIC-box-p2.731-d0.008",
+      "mission": "TESS",
+      "source_sha256": [
+        "29c602e3401ad89e90906f4cf46640ffbb41f9caf064d671905e18037e2f5ffe"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 98.74064688961876,
+      "proposals_above_descriptive_reference_with_coverage": 2,
+      "evaluation": {
+        "truth": {
+          "period_days": 2.731,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "duration_hours": 2.4,
+          "injected_depth": 0.008
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": true,
+        "recovered_with_sampling_gate": true,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 1.4304479102237262,
+            "relative_period_error": 0.4762182679517663,
+            "epoch_phase_error_days": 0.30265750020453197,
+            "accumulated_drift_days": 13.276975428276783,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 98.74064688961876,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 2.7298672953422853,
+            "relative_period_error": 0.0004147582049485661,
+            "epoch_phase_error_days": 0.003592499795331605,
+            "accumulated_drift_days": 0.01156346756596084,
+            "direct_ephemeris_recovery": true,
+            "harmonic_relation": {
+              "period_ratio": 1.0,
+              "accumulated_drift_days": 0.011568265599035064,
+              "epoch_separation_days": 0.003592499795331605
+            },
+            "sampling_gate_passed": true,
+            "depth_snr_white": 42.59223415186742,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 3,
+            "period_days": 1.7933709131685298,
+            "relative_period_error": 0.34332811674532043,
+            "epoch_phase_error_days": 0.8667200002046228,
+            "accumulated_drift_days": 9.571995189243465,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 6.375189411068444,
+            "above_descriptive_snr_reference": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "box-p5.173-d0.0005",
+      "job_id": "e928d6a2b2f246d9ba008bc7ad17e759",
+      "candidate_ids": [
+        "34d9ecdf50ff448889254214ffc53851",
+        "ab899d6fe4d04c4bb4ed28264e690722",
+        "4890acefca874dafa06d19b0776adeae"
+      ],
+      "target_id": "SYNTHETIC-box-p5.173-d0.0005",
+      "mission": "TESS",
+      "source_sha256": [
+        "c43f62141608446a0eae5f569a384625f64133909ba1bb52c6b097ccbbc4a9f8"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 98.6119439544417,
+      "proposals_above_descriptive_reference_with_coverage": 1,
+      "evaluation": {
+        "truth": {
+          "period_days": 5.173,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "duration_hours": 2.4,
+          "injected_depth": 0.0005
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": false,
+        "recovered_with_sampling_gate": false,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 1.4304448897732416,
+            "relative_period_error": 0.7234786603956618,
+            "epoch_phase_error_days": 0.2242473897148901,
+            "accumulated_drift_days": 20.170600422931923,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 98.6119439544417,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 1.7917834756180728,
+            "relative_period_error": 0.6536277835650353,
+            "epoch_phase_error_days": 0.034023475559675886,
+            "accumulated_drift_days": 18.22315649283525,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 5.923862325694043,
+            "above_descriptive_snr_reference": false
+          },
+          {
+            "rank": 3,
+            "period_days": 1.0877018828530114,
+            "relative_period_error": 0.7897347993711558,
+            "epoch_phase_error_days": 0.24905281786688216,
+            "accumulated_drift_days": 22.017822985253332,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 5.552800827479084,
+            "above_descriptive_snr_reference": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "box-p5.173-d0.002",
+      "job_id": "f85ac9c444a64d3e91a05865e42ee3c9",
+      "candidate_ids": [
+        "3a7763be33914fccacd67a9dfbcae9c3",
+        "72cfe8f09e9d4d579e57861f47ff51ce",
+        "ed04cbdbaabd4318886947c740942f27"
+      ],
+      "target_id": "SYNTHETIC-box-p5.173-d0.002",
+      "mission": "TESS",
+      "source_sha256": [
+        "82725fc85568b0ed349a9e19ecb1a4259493008670f2a28dc404b88875e34770"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 98.42234745179479,
+      "proposals_above_descriptive_reference_with_coverage": 2,
+      "evaluation": {
+        "truth": {
+          "period_days": 5.173,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "duration_hours": 2.4,
+          "injected_depth": 0.002
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": true,
+        "recovered_with_sampling_gate": true,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 1.430448917043389,
+            "relative_period_error": 0.723477881878332,
+            "epoch_phase_error_days": 0.22425141698503737,
+            "accumulated_drift_days": 20.170578717852226,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 98.42234745179479,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 5.172103767473602,
+            "relative_period_error": 0.00017325198654516606,
+            "epoch_phase_error_days": 0.0063024999415119964,
+            "accumulated_drift_days": 0.0048302690658084775,
+            "direct_ephemeris_recovery": true,
+            "harmonic_relation": {
+              "period_ratio": 1.0,
+              "accumulated_drift_days": 0.004831106064531369,
+              "epoch_separation_days": 0.0063024999415119964
+            },
+            "sampling_gate_passed": true,
+            "depth_snr_white": 9.89250363283277,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 3,
+            "period_days": 1.7917834756180728,
+            "relative_period_error": 0.6536277835650353,
+            "epoch_phase_error_days": 0.034023475559675886,
+            "accumulated_drift_days": 18.22315649283525,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 5.87659601175067,
+            "above_descriptive_snr_reference": false
+          }
+        ]
+      }
+    },
+    {
+      "label": "box-p5.173-d0.008",
+      "job_id": "fb65f5e42c3e46ce96b227b184862da3",
+      "candidate_ids": [
+        "638c715b9fc1435bad33d4df1876f246",
+        "8a24c8b094534adba01b4c3c24a69c8a",
+        "c92806b35b22470282324499cb592791"
+      ],
+      "target_id": "SYNTHETIC-box-p5.173-d0.008",
+      "mission": "TESS",
+      "source_sha256": [
+        "6edda23e1ab76dba9e9d46f0dcbff4014f334ca316dd683daff36ae47d193d04"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 97.68992505533751,
+      "proposals_above_descriptive_reference_with_coverage": 2,
+      "evaluation": {
+        "truth": {
+          "period_days": 5.173,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "duration_hours": 2.4,
+          "injected_depth": 0.008
+        },
+        "evaluation_rules": {
+          "relative_period_tolerance": 0.005,
+          "accumulated_drift_limit": "one_truth_duration",
+          "epoch_tolerance": "half_the_larger_duration",
+          "descriptive_snr_reference": 7.1,
+          "truth_used_in_search": false
+        },
+        "direct_recovery": true,
+        "recovered_with_sampling_gate": true,
+        "proposals": [
+          {
+            "rank": 1,
+            "period_days": 1.4304438829592476,
+            "relative_period_error": 0.7234788550243094,
+            "epoch_phase_error_days": 0.22424638290089616,
+            "accumulated_drift_days": 20.170605849182753,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 97.68992505533751,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 2,
+            "period_days": 5.172847561430328,
+            "relative_period_error": 2.9468117083329648e-05,
+            "epoch_phase_error_days": 0.003177499941557471,
+            "accumulated_drift_days": 0.0008215717303658298,
+            "direct_ephemeris_recovery": true,
+            "harmonic_relation": {
+              "period_ratio": 1.0,
+              "accumulated_drift_days": 0.0008215959412512218,
+              "epoch_separation_days": 0.003177499941557471
+            },
+            "sampling_gate_passed": true,
+            "depth_snr_white": 32.76793887772054,
+            "above_descriptive_snr_reference": true
+          },
+          {
+            "rank": 3,
+            "period_days": 1.7917834756180728,
+            "relative_period_error": 0.6536277835650353,
+            "epoch_phase_error_days": 0.034023475559675886,
+            "accumulated_drift_days": 18.22315649283525,
+            "direct_ephemeris_recovery": false,
+            "harmonic_relation": null,
+            "sampling_gate_passed": true,
+            "depth_snr_white": 6.0829771815590785,
+            "above_descriptive_snr_reference": false
+          }
+        ]
+      }
+    }
+  ],
+  "negatives": [
+    {
+      "label": "flux_permutation_seed_2401",
+      "job_id": "287458d6fd934c05917ffceb02b56ac6",
+      "candidate_ids": [
+        "09cadd833f004a2cb1d493e3bf54be43",
+        "e5510959662f40e5ac67d16f16d92ccf",
+        "baebe4cf99994216b6b777437c13180a"
+      ],
+      "target_id": "SYNTHETIC-flux_permutation_seed_2401",
+      "mission": "TESS",
+      "source_sha256": [
+        "a4b35b9e963e967744e9938de9552264b77e4f2c4e639e5bea81fa916085e201"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 7.729777817527688,
+      "proposals_above_descriptive_reference_with_coverage": 1
+    },
+    {
+      "label": "flux_inversion",
+      "job_id": "b26425f5594c42b9bb22e98e86f8fa13",
+      "candidate_ids": [
+        "3d66691ea37442798f4439bfcaef611e",
+        "e3883134efc541788fc69ac1d6026306"
+      ],
+      "target_id": "SYNTHETIC-flux_inversion",
+      "mission": "TESS",
+      "source_sha256": [
+        "967f6f205c3a8c974a9dbeb7665bea2ae78b102226bb868826ae3782be6eb7f7"
+      ],
+      "proposal_count": 2,
+      "strongest_depth_snr_white": 17.455606416496572,
+      "proposals_above_descriptive_reference_with_coverage": 1
+    },
+    {
+      "label": "white_noise_seed_2402",
+      "job_id": "85887b808d92427eb8bebe98fad1b48a",
+      "candidate_ids": [
+        "c74897f1e052486e96d076155b217574"
+      ],
+      "target_id": "SYNTHETIC-white_noise_seed_2402",
+      "mission": "TESS",
+      "source_sha256": [
+        "bd12a09321988faf3431359e11554e39d35426fe66fa77cfe03b63b5f7b4c907"
+      ],
+      "proposal_count": 1,
+      "strongest_depth_snr_white": 4.161379735552841,
+      "proposals_above_descriptive_reference_with_coverage": 0
+    },
+    {
+      "label": "white_noise_seed_2403",
+      "job_id": "8966edc8bf4646b6b00f2eb0b7b892e9",
+      "candidate_ids": [
+        "789053464f60432395d4ceff88f911c8",
+        "c9e49a1a966f4ed69dda90ad44249cde",
+        "93615b3d2d174d39bb711e573a53f2b3"
+      ],
+      "target_id": "SYNTHETIC-white_noise_seed_2403",
+      "mission": "TESS",
+      "source_sha256": [
+        "cada92f281b1a2d76eea8653db868230cdca4559b16370bac78299487abc879b"
+      ],
+      "proposal_count": 3,
+      "strongest_depth_snr_white": 5.894506861762619,
+      "proposals_above_descriptive_reference_with_coverage": 0
+    }
+  ],
+  "selected_sources": [
+    {
+      "mission": "TESS",
+      "target_id": "231663901",
+      "candidate_id": "TOI-101.01",
+      "split": "train",
+      "manifest_sha256": "c144797b6aefa85cdc3bfe9b30ea8dd77b47c1fd832bc540ebfe72f85ad981bf",
+      "products": {
+        "tess2018206045859-s0001-0000000231663901-0120-s_lc.fits": "9c59e545b60333877c5528012726adecbabf95e3e3aba1bfce91f297eabc5060"
+      }
+    },
+    {
+      "mission": "TESS",
+      "target_id": "149603524",
+      "candidate_id": "TOI-102.01",
+      "split": "train",
+      "manifest_sha256": "c144797b6aefa85cdc3bfe9b30ea8dd77b47c1fd832bc540ebfe72f85ad981bf",
+      "products": {
+        "tess2018206045859-s0001-0000000149603524-0120-s_lc.fits": "e28e4e84b0fa99bfb68bf1fcef32b5e3b8265c7c206b335600f5da0e14fdc766"
+      }
+    },
+    {
+      "mission": "Kepler",
+      "target_id": "10666592",
+      "candidate_id": "K00002.01",
+      "split": "train",
+      "manifest_sha256": "02dbd73788444d4e80ec48df58cba5ef8d0e88319af1251cb5efeaa929681678",
+      "products": {
+        "kplr010666592-2009166043257_llc.fits": "37faa7dc82fa5d9ec6d794369d93def0d78a49c91e61cf19bb4cafe571bb8f6c"
+      }
+    },
+    {
+      "mission": "Kepler",
+      "target_id": "10748390",
+      "candidate_id": "K00003.01",
+      "split": "train",
+      "manifest_sha256": "02dbd73788444d4e80ec48df58cba5ef8d0e88319af1251cb5efeaa929681678",
+      "products": {
+        "kplr010748390-2009166043257_llc.fits": "94c141534da0ba2a926f75355551e44ede0eb5279326f4029b801cb0b4c52da1"
+      }
+    }
+  ]
+}
