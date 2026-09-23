@@ -1,6 +1,6 @@
 # Active thesis evidence
 
-This directory indexes the compact evidence retained for the Kepler-to-TESS domain-adaptation and discovery thesis. Detailed checkpoints, predictions, caches, and live reports remain in ignored local `outputs/` and `data/` directories.
+This directory indexes the evidence retained for the Kepler-to-TESS domain-adaptation and discovery thesis. Live checkpoints, predictions, caches, and reports remain in ignored local `outputs/` and `data/` directories. A [frozen vetting dataset](vetting_snapshot_20260923/README.md) additionally preserves the complete research database, referenced artifacts, selected input light curves and retained inference model for restoration from a clone.
 
 | Evidence | Role | Main limitation |
 | --- | --- | --- |

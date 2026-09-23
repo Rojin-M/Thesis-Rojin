@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "verified_at_utc": "2026-09-23T13:57:25.574790Z",
+  "snapshot_archive_sha256": "e40ef437fa1ef05bc2d2a67eafd02536affe72479cdfb3906f297cc0fd2f6246",
+  "restore": {
+    "status": "passed",
+    "files_verified": 825,
+    "sqlite_integrity": "ok",
+    "foreign_key_violations": 0,
+    "original_database_bytes_preserved": true
+  },
+  "restored_website": {
+    "status": "passed",
+    "transport": "Actual loopback HTTP on a temporary server; GET requests only",
+    "candidate_dossiers_http_200": 44,
+    "plot_svgs_http_200": 432,
+    "overview_watcher_jobs_static_assets": "HTTP 200",
+    "markdown_dossier_export": "HTTP 200",
+    "live_website_or_watcher_modified": false
+  },
+  "snapshot_tests": {
+    "command": ".venv/bin/python -m unittest tests.test_vetting_snapshot -v",
+    "tests": 6,
+    "failures": 0,
+    "errors": 0,
+    "coverage": [
+      "Database/review/artifact/input round trip",
+      "Changed input rejection",
+      "Corrupt archive rejection",
+      "Existing destination protection",
+      "Archive path traversal rejection",
+      "SQLite handles close before NFS cleanup"
+    ]
+  }
+}

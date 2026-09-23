@@ -173,6 +173,17 @@ reviewed snapshots suitable for committing; it is not updated automatically by
 the worker. Earlier result folders remain historical snapshots with their
 original counts. The separate Academy's local log is `forme/academy_web/server.log`.
 
+The [frozen vetting dataset](../results/vetting_snapshot_20260923/README.md)
+preserves a full database snapshot and its referenced files in Git. It includes
+plot data, evidence history, catalog snapshots, processing records, input light
+curves and the retained CNN/normalizer. Future watcher results and review notes
+need a new snapshot; pushing only source code does not back them up.
+The main README contains the complete
+[backup, restore-check, commit and push commands](../README.md#back-up-and-push-new-vetting-data).
+New watcher downloads are saved under `outputs/research/watcher/products/`,
+not automatically added to tracked processed datasets in `data/`. The watcher
+does not create new `results/` snapshots or push to GitHub.
+
 A log entry with `status: "not_due"` means the worker is waiting for the next
 scheduled archive poll. An automatic cycle marked `succeeded` can contain only
 that idle tick. Check the poll result or Watcher's last successful poll time to

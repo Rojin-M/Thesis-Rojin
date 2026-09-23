@@ -89,6 +89,9 @@ with no recorded JavaScript exceptions; their summaries are in `validation.json`
 The database, raw logs, browser profiles, downloaded photometry and model files
 remain ignored local runtime artifacts. The files in this result group are a
 dated, reviewable snapshot for Git; they do not update when the watcher runs.
+The separate [frozen vetting dataset](../vetting_snapshot_20260923/README.md)
+now also preserves the database, all referenced evidence files, selected input
+photometry and retained model in a checksummed archive with restore instructions.
 See the [website log guide](../../docs/website_guide.md#where-logs-and-results-live)
 for live monitoring and the [vetting guide](../../docs/website_guide.md#use-the-vetting-helper)
 for the next review steps.

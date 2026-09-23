@@ -1,4 +1,4 @@
- # Kepler-to-TESS exoplanet discovery pipeline
+# Kepler-to-TESS exoplanet discovery pipeline
 
 This thesis project studies whether knowledge learned from labelled Kepler transit signals can improve the prioritization of TESS signals. The active direction is a mission-invariant CNN trained with domain-adversarial learning, followed by a prospective search, automated checks, and documented human vetting.
 
@@ -7,11 +7,15 @@ The repository currently contains a frozen shared-preprocessing benchmark, a pub
 Read the [research storyline](STORYLINE.md) for the decision history and the [active evidence index](results/README.md) for compact, committed results.
 
 **Using the website:** start with the [website and watcher guide](docs/website_guide.md).
+For new results, follow [Back up and push new vetting data](#back-up-and-push-new-vetting-data).
 The guide also explains the [existing vetting helper and what to do after `UNMATCHED`](docs/website_guide.md#use-the-vetting-helper).
 For activity, see [live logs and monitoring](docs/website_guide.md#where-logs-and-results-live)
 and the [23 September automatic-watcher results](results/automatic_watcher_run/README.md).
-It covers startup, VS Code port forwarding, **Check for new data**, viewing
-candidates, useful commands, and recovering a stuck loading screen.
+The [frozen vetting dataset](results/vetting_snapshot_20260923/README.md) also
+preserves the full research database, referenced evidence files, input light
+curves and retained model, with checksums and tested restore instructions.
+The website guide covers startup, VS Code port forwarding, **Check for new data**,
+viewing candidates, useful commands, and recovering a stuck loading screen.
 
 ## Research question
 
@@ -141,7 +145,10 @@ data/                            Local raw, interim, and processed artifacts
 outputs/                         Local runs, checkpoints, predictions, and logs
 ```
 
-Large data and run artifacts remain local. Committed `results/` contain compact evidence and provenance, not checkpoints or a live candidate database.
+Live data and run artifacts remain under ignored `data/` and `outputs/` paths.
+Committed `results/` contain reports and a dated vetting snapshot that includes
+the database, referenced artifacts and retained inference model. The committed
+snapshot does not change when the running website receives new data.
 
 ## Environment
 
@@ -219,6 +226,71 @@ enforces durable reservations and receipts across restarts. Scientific approval 
 explicitly unset. See the [application architecture and integration API](docs/research_application.md)
 for stage leases, provenance, evidence contracts, fixtures, exports and remaining
 work. The existing learning Academy can continue independently on port 8765.
+
+## Back up and push new vetting data
+
+**Downloads and processing are automatic while the watcher is running.
+Backup creation, commits and pushes are manual.** A normal `git push` does not
+include new files under ignored `outputs/` or update the previous snapshot.
+
+| Step | Where it is saved | Automatic? |
+| --- | --- | --- |
+| New public light curve for a watched TIC | `outputs/research/watcher/products/<product-id>/` | Yes, within watcher limits |
+| Candidates, diagnostics, catalog evidence and reviews | `outputs/research/research.sqlite3` and `outputs/research/artifacts/` | Processing results are saved automatically; reviews are saved when you click **Save review** |
+| Frozen backup for Git | A new dated folder under `results/` | No: run the commands below |
+| Off-server copy on GitHub | `origin/main` | No: commit and push |
+
+Run these commands from the repository root in the **same Bash terminal**.
+Capture after new results or saved review changes; a poll that finds nothing new
+does not itself require another snapshot. The capture uses a consistent database
+backup and does not stop the watcher or rerun the scientific pipeline.
+
+1. Create a uniquely named snapshot, verify it, and test restoring it to a new
+   local folder. `&&` stops the sequence if a check fails:
+
+```bash
+vetting_stamp="$(date -u +%Y%m%dT%H%M%SZ)"
+vetting_snapshot="results/vetting_snapshot_$vetting_stamp"
+python3 scripts/analysis/vetting_snapshot.py create --output "$vetting_snapshot" &&
+python3 scripts/analysis/vetting_snapshot.py verify --snapshot "$vetting_snapshot" &&
+python3 scripts/analysis/vetting_snapshot.py restore \
+  --snapshot "$vetting_snapshot" \
+  --destination "outputs/research/restore-check-$vetting_stamp"
+```
+
+2. After all checks succeed, inspect the new folder's `vetting.json` and
+   `manifest.json`, including any human review notes. Stage the snapshot and
+   check the staged file list; it should contain only changes you intend to publish:
+
+```bash
+git add -- "$vetting_snapshot"
+git diff --cached --stat
+git diff --cached --name-only
+```
+
+3. Commit and push to the thesis repository:
+
+```bash
+git commit -m "Preserve vetting snapshot $vetting_stamp" &&
+git push origin main
+git status --short --branch
+```
+
+Use a normal push for new snapshots; no history rewrite is needed. If the push
+fails, the snapshot and local commit remain available, but the new backup is not
+yet on GitHub. If you reopen your terminal between steps, set `vetting_snapshot`
+to the exact folder you created and `vetting_stamp` to its timestamp before
+continuing. Keep old dated snapshots intact. Check the snapshot size before
+pushing; the [existing snapshot guide](results/vetting_snapshot_20260923/README.md#preserve-later-work)
+links the hosting limits and explains restoration boundaries.
+
+To **inspect published results**, follow the
+[verify and restore commands](results/vetting_snapshot_20260923/README.md#verify-after-cloning)
+and start the restored website with the documented project environment. This
+does not require another archive download, detection run or model training.
+Recomputing detections/scores or retraining models is separate work: use the
+pipeline commands below, with new versioned jobs and restored input paths.
+There is not yet a single command that reproduces the entire training study.
 
 ## Blind detection on local light curves
 
