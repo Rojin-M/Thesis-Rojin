@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "source_at_verification": {
+    "git_commit": "f9d35b6c6cdeb08a7ee86f2dcd7806378d6610b9",
+    "working_tree_dirty": true,
+    "manifest_sha256": "ffe03c28d522db7dc37c8b241e6414016744fc9aca513bbb03c3fe4ea018bf68",
+    "python": "3.9.25"
+  },
+  "browser_checks": [
+    {
+      "scope": "automatic_refresh_and_review_forms",
+      "source_local": "outputs/research/automation-browser/result.json",
+      "source_sha256": "7a290a50ac70eca3b951a12960db75b01497fbec38ae24411082f91a23c8caf3",
+      "timing": "Previously recorded browser checks from 23 September; not rerun during this export",
+      "checks": [
+        "Registered 30-second timer refreshes saved watcher records",
+        "Check button sends protected request and shows durable queued state",
+        "Focused and unsaved filter forms pause automatic refresh",
+        "Review draft survives timer with the dossier excluded from automatic refresh",
+        "Hidden-tab guard pauses refresh and visible idle view resumes",
+        "An edit during an in-flight refresh is preserved",
+        "Stopped worker disables checks with explanation; watcher fits mobile viewport"
+      ],
+      "javascript_exceptions": 0,
+      "recorded_status": "passed",
+      "fixture_scope": "Temporary synthetic browser fixture; no live requests or candidates"
+    },
+    {
+      "scope": "loading_and_connection_recovery",
+      "source_local": "outputs/research/loading-browser/result.json",
+      "source_sha256": "ca5651affe1575a985360a7dc73f223766e348769d93fd8ac9785c482abadcdc",
+      "timing": "Previously recorded browser checks from 23 September; not rerun during this export",
+      "checks": [
+        "Stalled API becomes visible timeout with retry",
+        "Retry recovers after stalled connection clears",
+        "Disconnected API shows actionable connection guidance",
+        "Blocked JavaScript retains static reload and port-forwarding guidance"
+      ],
+      "javascript_exceptions": 0
+    }
+  ],
+  "live_read_only_check": {
+    "observed_heartbeat_at_utc": "2026-09-23T13:39:14.620517Z",
+    "endpoints_http_200": [
+      "/api/health",
+      "/api/overview",
+      "/api/watcher"
+    ],
+    "watcher_state": "running",
+    "watcher_phase": "waiting",
+    "note": "Heartbeat observed at this time; no archive check requested"
+  },
+  "export_checks": [
+    "17 real control proposals, 3 added in this run, synthetic fixtures excluded",
+    "25 chronologically ordered events, 8 completed new-job stages, 3 proposal creations",
+    "Candidate registry counts agree with summary; byte budget totals balance",
+    "Downloaded FITS file size and SHA-256 agree with saved receipt",
+    "Export contains no local absolute machine paths"
+  ],
+  "javascript_syntax": "node --check scripts/research/static/app.js passed using installed VS Code Node runtime",
+  "offline_regression": {
+    "verified_at_utc": "2026-09-23T13:40:53.800354Z",
+    "command": "env -u RUN_LIVE_CATALOG_TESTS OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 .venv/bin/python -m unittest discover -s tests -v",
+    "tests_run": 276,
+    "skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "seconds": 289.367,
+    "status": "passed",
+    "skipped_reason": "Opt-in live official-catalog contract test disabled",
+    "transcript_local": "outputs/research/logs/20260923-push-readiness.log",
+    "transcript_sha256": "ce67e3f8b8c5d67655a47742d92c127f584699190dc680be63edbd35c2489eeb"
+  },
+  "documentation_checks": {
+    "git_diff_check": "passed",
+    "local_markdown_links": "passed",
+    "result_json_and_event_consistency": "passed",
+    "public_change_list_excludes_runtime_and_private_artifacts": true
+  }
+}

@@ -1,10 +1,17 @@
-# Kepler-to-TESS exoplanet discovery pipeline
+ # Kepler-to-TESS exoplanet discovery pipeline
 
 This thesis project studies whether knowledge learned from labelled Kepler transit signals can improve the prioritization of TESS signals. The active direction is a mission-invariant CNN trained with domain-adversarial learning, followed by a prospective search, automated checks, and documented human vetting.
 
-The repository currently contains a frozen shared-preprocessing benchmark, a public-catalog checker, and a local research application with persisted jobs, bounded blind BLS, trained CNN scoring, diagnostic evidence and human review dossiers. A bounded MAST metadata watcher and explicit finite dispatcher connect public products to these workers. A separate five-arm experiment interface now implements supervised DANN, comparators and validation-only calibration; full scientific validation, pixel photometry and prospective `discovery_v1` search remain outstanding.
+The repository currently contains a frozen shared-preprocessing benchmark, a public-catalog checker, and a local research application with persisted jobs, bounded blind BLS, trained CNN scoring, diagnostic evidence and human review dossiers. An automatic TESS watchlist service connects bounded MAST polling to acquisition, detection and vetting; the metadata-only and explicit finite-pilot interfaces remain available. A separate five-arm experiment interface now implements supervised DANN, comparators and validation-only calibration; full scientific validation, pixel photometry and prospective `discovery_v1` search remain outstanding.
 
 Read the [research storyline](STORYLINE.md) for the decision history and the [active evidence index](results/README.md) for compact, committed results.
+
+**Using the website:** start with the [website and watcher guide](docs/website_guide.md).
+The guide also explains the [existing vetting helper and what to do after `UNMATCHED`](docs/website_guide.md#use-the-vetting-helper).
+For activity, see [live logs and monitoring](docs/website_guide.md#where-logs-and-results-live)
+and the [23 September automatic-watcher results](results/automatic_watcher_run/README.md).
+It covers startup, VS Code port forwarding, **Check for new data**, viewing
+candidates, useful commands, and recovering a stuck loading screen.
 
 ## Research question
 
@@ -36,7 +43,7 @@ The planet head learns the scientific task. Gradient reversal makes the encoder 
 | Proposal scoring and vetting | Operational, bounded CPU worker | Shared features, frozen trained CNN, catalog snapshots, diagnostic evidence and human dossiers |
 | TESS-only, Kepler-only, fine-tuned, pooled, and DANN experiments | Operational finite CPU interface; bounded pilot | Compare matched update budgets without changing the frozen candidate scorer |
 | `discovery_v1` pixel-to-candidate search | Planned | Search new or under-covered TESS targets rather than only re-rank known TCEs |
-| Public metadata watcher and finite dispatcher | Operational, scoped pilot | Observe explicit TIC products; enforce cumulative budgets and resume immutable selections |
+| Automatic TESS watchlist and finite dispatcher | Operational, scoped pilot | Check configured TICs, process new products, retain evidence and enforce cumulative budgets |
 | Human review and cTOI submission | Prospective | Escalate only signals that survive the locked protocol |
 
 The current model consumes a candidate with a supplied period and epoch. A separate blind BLS worker estimates these from existing TESS/Kepler light curves without catalog ephemerides; the vetting worker constructs shared inputs and applies the retained checkpoint. Pixel extraction and optional TLS remain separate milestones. The pilot does **not** perform pixel-based or prospective discovery.
@@ -75,6 +82,15 @@ Runs use fixed seeds and star-grouped splits. Model selection stays on validatio
 
 ## Automated watcher
 
+The website now supports automatic processing of new products for a configured
+TIC watchlist. Start `python -m scripts.research watch-auto-serve` with the project
+interpreter, then use **Check for new data** at `http://127.0.0.1:8766/#watcher`.
+List pages refresh every 30 seconds while idle. The worker uses
+`configs/research_automation_v1.json`, retains cumulative resource limits, and
+processes new products through detection, the frozen CNN and recorded vetting.
+The default two targets are known-object controls, not a novel-discovery feed.
+See [automatic operation](docs/release_watcher.md#automatic-website-watcher).
+
 The watcher polls official MAST metadata for explicit TICs and records public
 SPOC light-curve identities, source responses, retrieval dates and checksums.
 Metadata polling never selects an entire sector or starts science downloads.
@@ -90,7 +106,7 @@ The [watcher documentation](docs/release_watcher.md) describes the public API,
 selection/retry/lock semantics, cumulative 2 GiB and 20-product caps, bounded
 pilot commands, metadata-only service and optional user-scheduler templates.
 Its website view at `/#watcher` shows poll health, errors, progress and budget.
-The default watchlist contains an existing known-object control. This is scoped
+The default automatic watchlist contains two existing known-object controls. This is scoped
 product availability, not an archive-wide census or prospective search.
 
 ## Human-vetting boundary
@@ -154,12 +170,41 @@ downloads.
 
 ## Local research website
 
-Run the separate research application on loopback port 8766:
+Use the [step-by-step website guide](docs/website_guide.md) for persistent startup,
+page navigation, troubleshooting and stop commands. The following quick start
+assumes the project environment and retained model files are already available.
+
+From the repository root, run the website in one terminal:
 
 ```bash
 .venv/bin/python -m scripts.research init
 .venv/bin/python -m scripts.research serve --host 127.0.0.1 --port 8766
 ```
+
+Run the automatic watcher in a second terminal:
+
+```bash
+OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 \
+  .venv/bin/python -m scripts.research watch-auto-serve
+```
+
+For remote development, forward **remote port 8766 to local port 8766** in
+VS Code's **Ports** panel, then choose **Open in Browser**. Open
+[the Watcher page](http://127.0.0.1:8766/#watcher) and click **Check for new data**.
+The request moves through queued, running and succeeded/failed states. The
+equivalent command is:
+
+```bash
+.venv/bin/python -m scripts.research watch-auto-check
+```
+
+The worker checks the configured stars every **six hours**. **Refresh results**
+reloads saved records; visible, idle list pages do this every **30 seconds**.
+A successful archive check can produce zero new candidates when no new product
+is available. The initial two stars are known-object controls.
+
+Foreground commands occupy their terminals; use the guide's **tmux** commands
+to keep the website and watcher running after disconnecting.
 
 The default store starts empty under `outputs/research/`. The UI reads real
 persisted records, shows failed and incomplete stages, displays recorded plots,
@@ -298,7 +343,7 @@ The checker refreshes or revalidates its supported public catalogs and writes ti
 
 ## Evidence and limitations
 
-Six evidence groups are active:
+Seven evidence groups are active:
 
 - [Input audit](results/tess/input_audit/README.md): measured preprocessing and distribution shift.
 - [Shared transfer](results/tess/shared_transfer/README.md): frozen labelled Phase-1 comparison.
@@ -306,5 +351,6 @@ Six evidence groups are active:
 - [Blind detection pilot](results/detection_pilot/README.md): small training-star, injection and negative controls on local light curves; not survey validation.
 - [Scoring and vetting pilot](results/scoring_vetting_pilot/README.md): 38 actual trained-model scores, two-TIC live catalog checks and preserved review paths; not search calibration or planet validation.
 - [Release watcher pilot](results/release_watcher_pilot/README.md): real MAST metadata, one cached public control product, three new review proposals and verified deduplication; not prospective discovery.
+- [Automatic watcher run](results/automatic_watcher_run/README.md): a subsequent public science download, three additional control proposals, timestamped activity/failure records and a snapshot of all 17 real-data proposals.
 
 The Phase-1 model results use one seed and previously consulted test sets. The shared preprocessing changed the eligible Kepler cohort, so it does not isolate preprocessing as the cause of score changes. The separate DANN pilot uses short matched budgets and validation-derived audits, not an independent discovery test. No prospective `discovery_v1` candidate has been produced, submitted, validated, or confirmed by this repository.

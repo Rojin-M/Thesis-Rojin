@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "targets": ["231663901", "150428135"],
+  "poll_seconds": 21600,
+  "poll_max_seconds": 120,
+  "cohort": "known_object_control",
+  "product_max_bytes": 67108864,
+  "product_max_seconds": 900,
+  "max_products_per_cycle": 2,
+  "cycle_max_seconds": 1500,
+  "catalog_mode": "live"
+}

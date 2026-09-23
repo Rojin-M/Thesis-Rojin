@@ -5,6 +5,7 @@ once, and all future dispatches reuse that selection and its cumulative budgets.
 """
 import json
 import logging
+import math
 import os
 from pathlib import Path
 import signal
@@ -12,7 +13,7 @@ import threading
 import time
 
 from . import mast
-from .protocol import ROOT, ConflictError, ValidationError, canonical_json, digest, identifier, utc_now
+from .protocol import ROOT, ConflictError, ValidationError, canonical_json, digest, identifier, nonempty, utc_now
 from .provenance import code_snapshot, file_sha256
 from .store import _one, _rows
 from .watcher_store import WatchStore, exclusive_lock, later, status
@@ -149,6 +150,76 @@ def create_pilot(store, protocol_id, *, pilot_id, product_ids, cohort, max_bytes
         return ledger.pilot(pilot_id,spec)
 
 
+def repin_failed_pilot(store, *, pilot_id, replacement_id, reason):
+    identifier(pilot_id, 'pilot_id')
+    identifier(replacement_id, 'replacement_id')
+    reason = nonempty(reason, 'reason', 2000)
+    if pilot_id == replacement_id:
+        raise ValidationError('Replacement needs a new pilot identity')
+    ledger = WatchStore(store)
+    with exclusive_lock(store.path.with_suffix('.watch-service.lock')):
+        with exclusive_lock(ledger.lock_path):
+            replacement_code = code_snapshot()
+            with store.connection(True) as db:
+                previous = _one(db, 'SELECT * FROM watch_pilots WHERE id=?', (pilot_id,))
+                if db.execute('SELECT 1 FROM watch_pilots WHERE id=?', (replacement_id,)).fetchone():
+                    raise ConflictError('Replacement pilot identity already exists')
+                queue = _rows(db, 'SELECT * FROM watch_queue WHERE pilot_id=?', (pilot_id,))
+                if previous['status'] != 'failed' or len(queue) != 1:
+                    raise ConflictError('Repinning requires a failed pilot with exactly one queue item')
+                queued = queue[0]
+                product_id = queued['product_id']
+                if previous['spec']['product_ids'] != [product_id]:
+                    raise ConflictError('Repinning requires an original single-product selection')
+                if (queued['state'] != 'failed' or queued['job_id'] is not None or queued['receipt'] is not None
+                        or not 1 <= queued['attempts'] < 3):
+                    raise ConflictError('Repinning requires an unacquired failed product with retry attempts remaining')
+                if not queued['error'] or queued['error'].get('retryable') is not True:
+                    raise ConflictError('Repinning requires a retryable acquisition failure; terminal errors remain blocked')
+                if db.execute('SELECT 1 FROM jobs WHERE product_id=? OR job_key=?',
+                              (product_id, 'watch-bls-v1:' + product_id)).fetchone():
+                    raise ConflictError('An existing processing job prevents source repinning')
+                if (db.execute("SELECT 1 FROM watch_dispatches WHERE status='running'").fetchone()
+                        or db.execute("SELECT 1 FROM stages WHERE status='running' AND lease_until>?", (utc_now(),)).fetchone()):
+                    raise ConflictError('Active dispatches or stage leases prevent source repinning')
+                product = _one(db, 'SELECT * FROM products WHERE id=?', (product_id,))
+                acquisition_root = store.path.parent / 'watcher' / 'products' / product_id
+                if ((acquisition_root / 'receipt.json').exists()
+                        or (acquisition_root / product['metadata']['filename']).exists()):
+                    raise ConflictError('A published acquisition or receipt prevents source repinning')
+                if replacement_code['manifest_sha256'] == previous['spec']['code']['manifest_sha256']:
+                    raise ConflictError('Current source matches the frozen pilot; repinning is unnecessary')
+                charged_bytes = db.execute('SELECT COALESCE(SUM(COALESCE(used,cap)),0) FROM watch_spending WHERE pilot_id=?',
+                                           (pilot_id,)).fetchone()[0]
+                remaining_bytes = previous['spec']['max_bytes'] - charged_bytes
+                remaining_seconds = math.floor(previous['spec']['max_seconds'] - previous['runtime_charged'])
+                if remaining_bytes < product['metadata']['size_bytes'] or remaining_seconds < 1:
+                    raise ValidationError('Remaining original byte/runtime allowance cannot fund this product')
+                replacement_spec = {**previous['spec'], 'code': replacement_code,
+                                    'max_bytes': remaining_bytes, 'max_seconds': remaining_seconds}
+                now = utc_now()
+                audit = {'reason': reason, 'old_pilot_id': pilot_id, 'new_pilot_id': replacement_id,
+                         'product_id': product_id, 'old_code': previous['spec']['code'], 'new_code': replacement_code,
+                         'prior_charged_bytes': charged_bytes, 'prior_runtime_charged': previous['runtime_charged'],
+                         'remaining_max_bytes': remaining_bytes, 'remaining_max_seconds': remaining_seconds,
+                         'attempts': queued['attempts'], 'next_attempt_at': queued['next_attempt_at'],
+                         'previous_error': queued['error']}
+                document = {'kind': 'pilot_repin', 'identity': pilot_id + ':' + replacement_id,
+                            'sha256': digest(audit), 'retrieved_at': now, 'details': audit}
+                provenance = store._immutable(db, 'provenance', ('id',), {'id': digest(document),
+                    'document_json': canonical_json(document), 'created_at': now})
+                db.execute("INSERT INTO watch_pilots(id,spec_json,created_at,status) VALUES(?,?,?,'failed')",
+                           (replacement_id, canonical_json(replacement_spec), now))
+                db.execute("UPDATE watch_pilots SET status='superseded' WHERE id=?", (pilot_id,))
+                db.execute('UPDATE watch_queue SET pilot_id=?,updated_at=? WHERE product_id=?',
+                           (replacement_id, now, product_id))
+                store._event(db, 'watch_pilot_repinned', {**audit, 'provenance_id': provenance['id']})
+                return {'status': 'repinned', 'old_pilot_id': pilot_id, 'replacement_id': replacement_id,
+                        'product_id': product_id, 'provenance_id': provenance['id'],
+                        'remaining_max_bytes': remaining_bytes, 'remaining_max_seconds': remaining_seconds,
+                        'attempts': queued['attempts'], 'next_attempt_at': queued['next_attempt_at']}
+
+
 def _atomic_json(path, value):
     temp = path.with_suffix('.tmp')
     with temp.open('w') as handle:
@@ -250,6 +321,8 @@ def dispatch(store, artifacts, pilot_id, *, client=None, processor=process_produ
         with store.connection() as db:
             pilot = _one(db,'SELECT * FROM watch_pilots WHERE id=?',(pilot_id,))
             queue = _rows(db,'SELECT * FROM watch_queue WHERE pilot_id=? ORDER BY product_id',(pilot_id,))
+        if pilot['status'] == 'superseded':
+            raise ConflictError('Pilot was superseded by an explicitly audited source repin; dispatch its replacement')
         if all(q['state']=='complete' for q in queue):
             return {'pilot_id':pilot_id,'status':'complete','already_complete':True}
         key, remaining = ledger.dispatch_start(pilot_id)

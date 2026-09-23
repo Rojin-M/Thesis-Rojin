@@ -4,6 +4,7 @@ data/*
 !data/processed/**
 
 # Logs / outputs
+# Keep live logs, databases and caches local; publish compact evidence in results/.
 logs/
 outputs/
 

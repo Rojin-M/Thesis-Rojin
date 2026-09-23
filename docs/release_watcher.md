@@ -1,6 +1,58 @@
 # Bounded public-release watcher
 
-The implemented watcher queries the official MAST CAOM API for an explicit TIC
+## Automatic website watcher
+
+An opt-in automatic service now connects metadata polling to selection,
+acquisition, detection, CNN scoring, diagnostics and saved dossiers. It uses
+`configs/research_automation_v1.json`; the default list contains two known control
+stars and retains that cohort label. The older metadata-only interface below
+remains unchanged.
+
+```bash
+OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 \
+  .venv/bin/python -m scripts.research watch-auto-serve
+.venv/bin/python -m scripts.research watch-auto-check
+```
+
+The first command is a foreground worker, normally launched in tmux. It runs
+until stopped; `--max-hours` optionally limits its lifetime. The second queues a
+durable check for the active worker, equivalent to **Check for new data** in the
+website. `watch-auto-once --force` runs a single automatic cycle when the service
+is stopped. The service lock prevents overlapping metadata/automatic schedulers.
+
+The browser reloads list/dashboard results every 30 seconds while visible and
+idle. Focused/edited forms pause updates; candidate review pages never refresh
+automatically. A protected POST `/api/watcher/check` accepts only `{}` and requires
+the existing same-origin and CSRF checks. It records a request without launching
+work in an HTTP handler. Pending requests coalesce and survive worker restarts.
+
+The watchlist is polled in stable batches of two targets so lists larger than two
+do not starve. Only complete successful snapshots can feed automatic selection.
+Each unqueued product gets one immutable pilot; subsequent releases get different
+identities. Repeated polls, requests and restarts reuse completed results.
+Dispatch respects existing stage leases, retry deadlines, attempt limits and
+cumulative byte/product/runtime budgets. An independent heartbeat stays current
+during processing. Terminal failures remain visible instead of appearing idle.
+
+Automatic products use the retained offline-first scoring/diagnostic path, then
+refresh supported registry evidence when `catalog_mode` is `live`. Each registry
+refresh reserves up to 64 MiB in the existing global ledger before network work;
+unknown interrupted usage stays conservatively charged. Assessments and failed
+refresh attempts are retained for 24 hours to avoid repeated network work;
+cached errors remain visible. Unavailable catalogs produce incomplete evidence.
+
+The service does not expand its own target list. It watches the latest public
+standard SPOC light curve per explicitly configured TIC, with the existing
+20-product/target and 2 GiB cumulative limits. These limits persist across
+restarts. `archival_pilot` is supported for an exploratory list; this engineering
+feature does not establish prospective search readiness or planet confirmation.
+
+On this installation, the private `forme/WEBSITE.md` guide and `forme/website.sh`
+helper provide exact start, open, refresh, status and stop commands.
+
+## Original metadata-only interface
+
+The metadata-only watcher queries the official MAST CAOM API for an explicit TIC
 watchlist, records observed public SPOC light-curve products, and exposes health,
 errors, provenance and a finite processing queue at `/#watcher` and
 `/api/watcher`. Metadata polling **never creates a download pilot**. A separate
@@ -56,7 +108,18 @@ the three-consecutive-failure circuit breaker. `watch-reset` resets that circuit
 after inspection; errors and old attempts remain in the audit history. Poll
 failures back off exponentially, capped at 24 hours. Requests have 5-second
 connect / 10-second read timeouts and a hard 60-second wall deadline. Each
-metadata response is at most 1 MiB; automatic HTTP retries and redirects are off.
+metadata response is at most 1 MiB; automatic HTTP retries and metadata redirects
+are off.
+
+Public product downloads may follow one empty-body redirect from the official
+MAST download endpoint to the exact selected object in STScI's public TESS cloud
+bucket. The sector, TIC directory and filename must match; other hosts, query
+strings, product substitutions and further redirects are rejected. Both requests
+share the original deadline and byte reservation, and the receipt preserves the
+redirect chain. The [MAST product directory definitions](https://archive.stsci.edu/missions-and-data/tess/data-products)
+and [TESS public cloud registry](https://registry.opendata.aws/mast-tess/) document
+this layout and bucket. This redirect was verified with live metadata and download
+headers on 23 September 2026.
 
 Inspect the returned `product_ids` before selecting an explicit finite pilot:
 
@@ -74,6 +137,17 @@ survey readiness. A pilot's membership, code identity, protocol, cohort, bytes
 and runtime are frozen. Later metadata polls cannot add products. Dispatch is
 single-worker, runs once, and stops; repeat it explicitly to resume within caps.
 Completed dispatches make no network requests or additional candidates.
+
+After an inspected downloader fix, `watch-repin --pilot-id OLD --replacement-id
+NEW --reason 'Explanation of the source correction'` can replace the source pin
+of a single failed, unacquired product while the scheduler is stopped. The
+failure must remain retryable with attempts and resources available. It rejects
+published receipts, existing processing jobs and active leases. The original
+specification and accounting remain intact; the replacement carries the remaining
+byte/runtime allowance, previous attempt count and retry deadline. An immutable
+provenance record and event record the change. For automatic pilots, retain the
+`auto-v1:` prefix in the replacement ID. This recovery is never automatic and
+cannot reset resource limits or rewrite already processed results.
 
 The path is public metadata → selected product → verified native FITS → blind
 BLS → exact shared inputs → retained trained CNN → diagnostics and cached/offline
@@ -128,9 +202,10 @@ with their previous reservation still charged; HTTP Range resume is not claimed.
 
 ## Service operation
 
-The website is still independent and loopback-only on 8766. It exposes no worker
-launch or watcher mutation endpoints. Existing same-origin/CSRF protections for
-review and retry operations remain in force. Watcher health distinguishes running,
+The website is independent and loopback-only on 8766. Its protected check endpoint
+queues requests for an already running automatic worker; it cannot launch one.
+Existing same-origin/CSRF protections for review and retry operations remain in
+force. Watcher health distinguishes running,
 stopped, stale heartbeat and circuit-open states, with last success, next poll,
 errors, product acquisition progress, stage links and cumulative budgets.
 

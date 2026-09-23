@@ -1,0 +1,636 @@
+{
+  "schema_version": 1,
+  "observed_at_utc": "2026-09-23T13:35:58.077869Z",
+  "scope": "All 17 real-data known_object_control proposals; 27 synthetic fixtures excluded",
+  "score_semantics": "Uncalibrated ranking, not planet probability",
+  "registry_semantics": "Supported snapshot matches only; UNMATCHED does not establish novelty",
+  "candidates": [
+    {
+      "id": "ad179520bad644d1b136da2b2defe9bf",
+      "job_id": "be6c782ecb084da4b16e7cda4cebbd41",
+      "target_id": "231663901",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:17.316293Z",
+      "ephemeris": {
+        "duration_hours": 1.2750000000000001,
+        "epoch_bjd_tdb": 2458326.008159661,
+        "epoch_original": 1326.0081596613704,
+        "epoch_system": "BTJD",
+        "period_days": 1.4304438829592476
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.0700068399310112,
+        "score_state": "complete",
+        "registry_status": "CONFIRMED_PLANET",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "catalog_and_model_disagreement",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "odd_even_depth_difference"
+      ]
+    },
+    {
+      "id": "fac8584835894fb48e8430d204ca3588",
+      "job_id": "be6c782ecb084da4b16e7cda4cebbd41",
+      "target_id": "231663901",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:18.043396Z",
+      "ephemeris": {
+        "duration_hours": 6.0,
+        "epoch_bjd_tdb": 2458325.4565971615,
+        "epoch_original": 1325.4565971613704,
+        "epoch_system": "BTJD",
+        "period_days": 1.7917834756180728
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.004299461375921965,
+        "score_state": "complete",
+        "registry_status": "UNMATCHED",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls"
+      ]
+    },
+    {
+      "id": "5d7d42ece8704cd58c533374737b349c",
+      "job_id": "be6c782ecb084da4b16e7cda4cebbd41",
+      "target_id": "231663901",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:18.764089Z",
+      "ephemeris": {
+        "duration_hours": 6.0,
+        "epoch_bjd_tdb": 2458325.8041649605,
+        "epoch_original": 1325.804164960709,
+        "epoch_system": "BTJD",
+        "period_days": 0.5949290121702896
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.0043691121973097324,
+        "score_state": "complete",
+        "registry_status": "UNMATCHED",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "transit_diagnostics",
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_transit_diagnostics"
+      ]
+    },
+    {
+      "id": "4900bdb3b18b475ebdb1d7238c137bc9",
+      "job_id": "a11310040c574706b85c5084568ea65f",
+      "target_id": "149603524",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:31.440343Z",
+      "ephemeris": {
+        "duration_hours": 3.0,
+        "epoch_bjd_tdb": 2458326.0799530554,
+        "epoch_original": 1326.07995305538,
+        "epoch_system": "BTJD",
+        "period_days": 4.411463872679565
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.9507298469543457,
+        "score_state": "complete",
+        "registry_status": "KNOWN_PLANET",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "transit_diagnostics",
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_transit_diagnostics",
+        "odd_even_depth_difference"
+      ]
+    },
+    {
+      "id": "2642d648413342fe9681fb08845ff3de",
+      "job_id": "a11310040c574706b85c5084568ea65f",
+      "target_id": "149603524",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:32.154617Z",
+      "ephemeris": {
+        "duration_hours": 6.0,
+        "epoch_bjd_tdb": 2458325.5580780553,
+        "epoch_original": 1325.55807805538,
+        "epoch_system": "BTJD",
+        "period_days": 1.1354226484548364
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.005810101516544819,
+        "score_state": "complete",
+        "registry_status": "AMBIGUOUS_MATCH",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls"
+      ]
+    },
+    {
+      "id": "15ab979966074cd791ae5299cb77bfb0",
+      "job_id": "a11310040c574706b85c5084568ea65f",
+      "target_id": "149603524",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:32.902299Z",
+      "ephemeris": {
+        "duration_hours": 6.0,
+        "epoch_bjd_tdb": 2458327.8080780553,
+        "epoch_original": 1327.80807805538,
+        "epoch_system": "BTJD",
+        "period_days": 4.415997858893648
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.00437202351167798,
+        "score_state": "complete",
+        "registry_status": "AMBIGUOUS_MATCH",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls"
+      ]
+    },
+    {
+      "id": "7ea986744a634a12867459eee4d232c7",
+      "job_id": "925a708f65a6467c8b38e7c3b39493af",
+      "target_id": "10666592",
+      "mission": "Kepler",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:38.732596Z",
+      "ephemeris": {
+        "duration_hours": 3.0,
+        "epoch_bjd_tdb": 2454965.3697657348,
+        "epoch_original": -2034.6302342654628,
+        "epoch_system": "BTJD",
+        "period_days": 2.206838185408237
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.006856536027044058,
+        "score_state": "complete",
+        "registry_status": "INCOMPLETE_LOOKUP",
+        "registry_state": "incomplete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "registry",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_registry",
+        "odd_even_depth_difference",
+        "secondary_eclipse_or_correlated_variability"
+      ]
+    },
+    {
+      "id": "daf215bc36714cea955f4938fcdb5a0f",
+      "job_id": "925a708f65a6467c8b38e7c3b39493af",
+      "target_id": "10666592",
+      "mission": "Kepler",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:39.201351Z",
+      "ephemeris": {
+        "duration_hours": 6.0,
+        "epoch_bjd_tdb": 2454965.5322657344,
+        "epoch_original": -2034.4677342654627,
+        "epoch_system": "BTJD",
+        "period_days": 0.8679172176707916
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.00999584048986435,
+        "score_state": "complete",
+        "registry_status": "INCOMPLETE_LOOKUP",
+        "registry_state": "incomplete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "transit_diagnostics",
+        "centroid",
+        "contamination",
+        "registry",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_registry",
+        "missing_transit_diagnostics"
+      ]
+    },
+    {
+      "id": "afc12ed86fe54ffe84ea4571ed6b2e9d",
+      "job_id": "a4d041eb3e974ca38ee80edee4b044fc",
+      "target_id": "10748390",
+      "mission": "Kepler",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:45.889509Z",
+      "ephemeris": {
+        "duration_hours": 2.0250000000000004,
+        "epoch_bjd_tdb": 2454967.591422005,
+        "epoch_original": -2032.4085779947286,
+        "epoch_system": "BTJD",
+        "period_days": 4.887215734537076
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.008384416811168194,
+        "score_state": "complete",
+        "registry_status": "INCOMPLETE_LOOKUP",
+        "registry_state": "incomplete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "registry",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_registry",
+        "odd_even_depth_difference"
+      ]
+    },
+    {
+      "id": "4ac70fda07c04b4a8639075f711bdd88",
+      "job_id": "a4d041eb3e974ca38ee80edee4b044fc",
+      "target_id": "10748390",
+      "mission": "Kepler",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:46.358639Z",
+      "ephemeris": {
+        "duration_hours": 6.0,
+        "epoch_bjd_tdb": 2454979.855484505,
+        "epoch_original": -2020.1445154947287,
+        "epoch_system": "BTJD",
+        "period_days": 17.5125742395077
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.0062144240364432335,
+        "score_state": "complete",
+        "registry_status": "INCOMPLETE_LOOKUP",
+        "registry_state": "incomplete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "transit_diagnostics",
+        "centroid",
+        "contamination",
+        "registry",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "insufficient_covered_events",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_registry",
+        "missing_transit_diagnostics",
+        "odd_even_depth_difference",
+        "one_event_dominates_white_noise_snr"
+      ]
+    },
+    {
+      "id": "98abf7b9dff54b819da21610ff81c89f",
+      "job_id": "a4d041eb3e974ca38ee80edee4b044fc",
+      "target_id": "10748390",
+      "mission": "Kepler",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T22:29:46.815292Z",
+      "ephemeris": {
+        "duration_hours": 6.0,
+        "epoch_bjd_tdb": 2454965.0804845053,
+        "epoch_original": -2034.9195154947288,
+        "epoch_system": "BTJD",
+        "period_days": 3.004132068655832
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.042820677161216736,
+        "score_state": "complete",
+        "registry_status": "INCOMPLETE_LOOKUP",
+        "registry_state": "incomplete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "registry",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_registry",
+        "odd_even_depth_difference"
+      ]
+    },
+    {
+      "id": "256a70dfa57a4044ae1f2ec08cd98d96",
+      "job_id": "6b5efca910df4ccc84e845a78a56f8ea",
+      "target_id": "231663901",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T23:23:07.701032Z",
+      "ephemeris": {
+        "duration_hours": 1.2750000000000001,
+        "epoch_bjd_tdb": 2461206.7797165015,
+        "epoch_original": 4206.779716501275,
+        "epoch_system": "BTJD",
+        "period_days": 1.4304284534884741
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.9537985920906067,
+        "score_state": "complete",
+        "registry_status": "CONFIRMED_PLANET",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls"
+      ]
+    },
+    {
+      "id": "ccc25fde4304498dbdb1370a120dbc2c",
+      "job_id": "6b5efca910df4ccc84e845a78a56f8ea",
+      "target_id": "231663901",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T23:23:08.600745Z",
+      "ephemeris": {
+        "duration_hours": 0.75,
+        "epoch_bjd_tdb": 2461208.2906540013,
+        "epoch_original": 4208.2906540012755,
+        "epoch_system": "BTJD",
+        "period_days": 4.928749327827289
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.006358693819493055,
+        "score_state": "complete",
+        "registry_status": "UNMATCHED",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls"
+      ]
+    },
+    {
+      "id": "406476d0648b4430ba6431374d5d0e3c",
+      "job_id": "6b5efca910df4ccc84e845a78a56f8ea",
+      "target_id": "231663901",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-21T23:23:09.443527Z",
+      "ephemeris": {
+        "duration_hours": 1.2750000000000001,
+        "epoch_bjd_tdb": 2461207.1172165014,
+        "epoch_original": 4207.117216501275,
+        "epoch_system": "BTJD",
+        "period_days": 0.8427501844033413
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.00437346613034606,
+        "score_state": "complete",
+        "registry_status": "UNMATCHED",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": false,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls"
+      ]
+    },
+    {
+      "id": "966fa860109b4427b72565747796ed77",
+      "job_id": "b3875c292a4746ec9c83f5385df6603e",
+      "target_id": "150428135",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-23T13:04:09.623742Z",
+      "ephemeris": {
+        "duration_hours": 0.75,
+        "epoch_bjd_tdb": 2460940.369841767,
+        "epoch_original": 3940.369841767112,
+        "epoch_system": "BTJD",
+        "period_days": 16.051395959583175
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.9849535226821899,
+        "score_state": "complete",
+        "registry_status": "CONFIRMED_PLANET",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "transit_diagnostics",
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": true,
+      "review_flags": [
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_transit_diagnostics"
+      ]
+    },
+    {
+      "id": "53a84bf4a2574b6482d4483e5edb7bc3",
+      "job_id": "b3875c292a4746ec9c83f5385df6603e",
+      "target_id": "150428135",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-23T13:04:10.421870Z",
+      "ephemeris": {
+        "duration_hours": 4.5,
+        "epoch_bjd_tdb": 2460936.266716767,
+        "epoch_original": 3936.266716767112,
+        "epoch_system": "BTJD",
+        "period_days": 13.839301635545723
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.0042565325275063515,
+        "score_state": "complete",
+        "registry_status": "UNMATCHED",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "transit_diagnostics",
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": true,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "insufficient_covered_events",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_transit_diagnostics"
+      ]
+    },
+    {
+      "id": "e3fc176f07ce4b7a91651ccf7d07bb30",
+      "job_id": "b3875c292a4746ec9c83f5385df6603e",
+      "target_id": "150428135",
+      "mission": "TESS",
+      "cohort": "known_object_control",
+      "created_at": "2026-09-23T13:04:11.199280Z",
+      "ephemeris": {
+        "duration_hours": 1.2750000000000001,
+        "epoch_bjd_tdb": 2460936.937377243,
+        "epoch_original": 3936.937377242629,
+        "epoch_system": "BTJD",
+        "period_days": 25.324354284822398
+      },
+      "review_status": "unreviewed",
+      "assessment": {
+        "score": 0.014581723138689995,
+        "score_state": "complete",
+        "registry_status": "UNMATCHED",
+        "registry_state": "complete",
+        "confirmation_probability": false
+      },
+      "incomplete_evidence": [
+        "transit_diagnostics",
+        "centroid",
+        "contamination",
+        "controls"
+      ],
+      "added_in_this_run": true,
+      "review_flags": [
+        "below_source_validation_threshold_review_retained",
+        "missing_centroid",
+        "missing_contamination",
+        "missing_controls",
+        "missing_transit_diagnostics"
+      ]
+    }
+  ]
+}

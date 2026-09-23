@@ -10,6 +10,7 @@ This directory indexes the compact evidence retained for the Kepler-to-TESS doma
 | [Blind detection engineering pilot](detection_pilot/README.md) | Searches local light curves and evaluates known TRAIN stars, injections and negatives | Small selected sample; white-noise scores and recovery do not establish survey readiness |
 | [Proposal scoring and vetting pilot](scoring_vetting_pilot/README.md) | Connects 38 existing blind proposals to the actual trained CNN, diagnostics and catalog evidence | Uncalibrated scores; selected controls; incomplete image/contamination and broader registry coverage |
 | [Public release watcher pilot](release_watcher_pilot/README.md) | Verifies official metadata, bounded acquisition/dispatch, budgets and restart deduplication | One cached known control; scoped availability; no new science download or prospective result |
+| [Automatic watcher run](automatic_watcher_run/README.md) | Records the subsequent public download, three added proposals, activity/failure history and 44-proposal snapshot | Two watched known controls; 17 real-data and 27 synthetic proposals; no new-planet claim |
 
 These are the only active result groups. Earlier practical-work model sweeps are not part of the thesis evidence index.
 

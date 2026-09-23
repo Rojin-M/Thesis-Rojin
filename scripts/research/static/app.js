@@ -12,6 +12,43 @@ const cohorts = ["synthetic_fixture", "known_object_control", "archival_pilot", 
 const statuses = ["unreviewed", "in_review", "on_hold", "follow_up", "rejected"];
 let csrf = null;
 let navigation = 0;
+let activeRenders = 0;
+let checkInFlight = false;
+const autoRefreshRoutes = new Set(["overview", "jobs", "candidates", "watcher"]);
+
+function currentRoute() {
+  return (location.hash.slice(1) || "overview").split(/[/?]/, 1)[0];
+}
+
+function safeToRefreshAutomatically() {
+  return autoRefreshRoutes.has(currentRoute()) && !document.hidden && !checkInFlight &&
+    !document.activeElement?.closest("form") && !app.querySelector('form[data-dirty="true"]');
+}
+
+function refreshControls(watcher) {
+  const automation = watcher?.automation;
+  const request = automation?.check_request;
+  const pending = request && ["queued", "running"].includes(request.status);
+  const available = automation?.enabled && automation.service_state === "running" && automation.phase !== "paused";
+  const reason = !automation?.enabled ? "Start the automatic watcher to check for new data." :
+    automation.service_state !== "running" ? "The automatic watcher is stopped or its heartbeat is stale." :
+    automation.phase === "paused" ? "The automatic watcher is paused; inspect its status below." :
+    pending ? "A check is already queued or running." : "Checks the watched targets and processes newly available products within the saved limits.";
+  return '<button id="refresh" class="secondary" title="Reload saved results without starting a search">Refresh results</button>' +
+    (watcher ? `<button id="check-new-data" ${!available || pending ? "disabled" : ""} aria-describedby="check-help" title="${esc(reason)}">Check for new data</button><span id="check-help" class="small muted action-help">${esc(reason)}</span><span id="check-message" class="small action-help" role="status"></span>` : "");
+}
+
+function automationPanel(watcher) {
+  const automation = watcher.automation;
+  if (!automation?.enabled) return '<section class="card"><h2>Automatic processing</h2><p>Automatic processing is not running. Saved candidates remain available below.</p><p class="tagline">Refresh results reloads the saved records. Metadata-only polling observes availability without creating candidates.</p></section>';
+  const phases = {waiting:"Waiting for the next scheduled check", polling:"Checking public data availability", processing:"Detecting signals and assembling review evidence", paused:"Processing paused", error:"The latest cycle reported an error"};
+  const phaseLabel = automation.service_state === 'stopped' ? 'Automatic worker is stopped' :
+    automation.service_state === 'stale' ? 'Worker heartbeat is stale; processing state is unverified' :
+    phases[automation.phase] || words(automation.phase);
+  const request = automation.check_request;
+  const requestText = {queued:"Check queued. The worker will pick it up shortly.", running:"Requested check is running.", succeeded:"Requested check finished. The saved results are shown below.", failed:"Requested check failed. Inspect the recorded error."};
+  return `<section class="card"><h2>Automatic processing ${badge(automation.service_state)}</h2><p><strong>${esc(phaseLabel)}</strong><br><span class="small muted">Recorded phase: ${esc(words(automation.phase))}</span></p><dl class="facts"><div><dt>Watched TICs</dt><dd>${esc((automation.targets || []).join(', ') || 'None')}</dd></div><div><dt>Candidate cohort</dt><dd>${badge(automation.cohort || 'archival_pilot')}</dd></div><div><dt>Worker heartbeat</dt><dd>${date(automation.heartbeat_at)}</dd></div><div><dt>Check request</dt><dd>${request ? badge(request.status) : 'None pending'}</dd></div></dl><p class="tagline">New public light curves for these targets are checked for transit signals, scored by the retained CNN, checked against available catalog evidence, and saved for review within the configured limits. Known controls and archival proposals retain their cohort labels; an unmatched signal does not establish a discovery.</p>${request ? `<p class="notice ${request.status === 'failed' ? 'error' : ''}" role="status">${esc(requestText[request.status] || words(request.status))}<br><span class="small">Request ${short(request.id)} · ${date(request.created_at)}</span></p>${request.error ? details('Check error', request.error) : ''}` : ''}${automation.last_error ? `<p class="notice error">${esc(automation.last_error.message || JSON.stringify(automation.last_error))}</p>` : ''}${automation.last_cycle ? `<p class="small">Latest cycle: ${badge(automation.last_cycle.status)} · ${Number(automation.last_cycle.new_candidates || 0)} new proposals saved · ${(automation.last_cycle.selected_product_ids || []).length} products selected for processing.</p>${details('Latest automatic cycle and processing result', automation.last_cycle)}` : ''}<p class="tagline">This view refreshes every 30 seconds while visible and idle. Editing a form pauses updates.</p></section>`;
+}
 
 async function api(path, data) {
   const options = {headers: {"Accept": "application/json"}, cache: "no-store"};
@@ -22,10 +59,28 @@ async function api(path, data) {
     options.headers["X-CSRF-Token"] = csrf;
     options.body = JSON.stringify(data);
   }
-  const response = await fetch(path, options);
-  const body = await response.json();
-  if (!response.ok) throw new Error(body.error || `Request failed (${response.status})`);
-  return body;
+  const controller = new AbortController();
+  options.signal = controller.signal;
+  const timeout = window.setTimeout(() => controller.abort(), 15000);
+  try {
+    const response = await fetch(path, options);
+    if (!response.headers.get("Content-Type")?.includes("application/json")) {
+      throw new Error(`The website returned an unexpected response (HTTP ${response.status}). Reconnect port 8766 in VS Code's Ports panel, then retry loading.`);
+    }
+    const body = await response.json();
+    if (!response.ok) throw new Error(body.error || `Request failed (${response.status})`);
+    return body;
+  } catch (error) {
+    if (controller.signal.aborted) {
+      throw new Error("The website did not respond within 15 seconds. Reconnect port 8766 in VS Code's Ports panel, then retry loading." +
+        (data !== undefined ? " Check the saved status before submitting this action again." : ""));
+    }
+    if (error instanceof TypeError) throw new Error("Connection to the website was interrupted. Reconnect port 8766 in VS Code's Ports panel, then retry loading.");
+    if (error instanceof SyntaxError) throw new Error("The website response was incomplete. Retry loading; if it persists, reconnect port 8766 in VS Code's Ports panel.");
+    throw error;
+  } finally {
+    window.clearTimeout(timeout);
+  }
 }
 
 function details(title, value) { return `<details><summary>${esc(title)}</summary><pre>${pretty(value)}</pre></details>`; }
@@ -65,9 +120,10 @@ function jobRows(items) {
 async function overview() {
   const [o, jobs, candidates, watcher] = await Promise.all([api("/api/overview"), api("/api/jobs?limit=5"), api("/api/candidates?limit=5"), api("/api/watcher")]);
   const count = cohort => o.candidates_by_cohort[cohort] || 0;
-  return heading("Kepler → TESS", "Research workspace", "Blind transit proposals, trained CNN ranking, recorded catalog checks, and human evidence review. Processing runs through the bounded research CLI.", '<button id="refresh">Refresh</button>') +
+  return heading("Kepler → TESS", "Research workspace", "Blind transit proposals, trained CNN ranking, recorded catalog checks, and human evidence review. Follow the watcher below for automatic processing and saved results.", refreshControls(watcher)) +
     `<div class="notice"><strong>Local detection pilot · provisional research protocol.</strong> Synthetic experiments, known-object controls, archival work, and prospective search have separate cohort labels. Search readiness has not been established. A BLS proposal may be noise.</div>` +
     `<div class="grid">${cohorts.map(c => `<div class="card metric"><span>${esc(words(c))}</span><strong>${count(c)}</strong><small>${c === "synthetic_fixture" ? "Synthetic tests / transformed controls" : c === "prospective_search" ? "Blocked by the current protocol" : "Persisted proposals"}</small></div>`).join("")}</div>` +
+    automationPanel(watcher) +
     `<div class="columns"><section class="card"><h2>Recent processing jobs</h2>${jobs.items.length ? jobRows(jobs.items) : empty("No jobs recorded", "The next pipeline stage will create audited jobs from a bounded selection manifest.")}<p class="tagline"><a href="#jobs">Inspect all jobs and failures →</a></p></section>` +
     `<section class="card"><h2>Public availability & resource bounds</h2><dl class="facts"><div><dt>Observed releases</dt><dd>${o.release_count}</dd></div><div><dt>Recorded products</dt><dd>${o.product_count}</dd></div><div><dt>Download budget</dt><dd>2 GiB cumulative</dd></div><div><dt>Initial selection cap</dt><dd>20 targets / products</dd></div></dl><p class="tagline">Watcher: ${watcher.configs.length ? watcher.configs.map(c => esc(words(c.health))).join(", ") : "not configured"}. Last successful poll: ${date(watcher.configs[0]?.last_success_at)}.<br><a href="#watcher">Poll health, failures, acquisition budget and progress →</a></p>${o.expired_running_stages ? `<p class="notice">${o.expired_running_stages} expired worker leases await recovery.</p>` : ""}</section></div>` +
     `<section class="card"><h2>Recent candidate dossiers</h2>${candidates.items.length ? candidateRows(candidates.items) : empty("No signals to review", "No fabricated candidate feed is shown. Real results will appear here when pipeline workers persist their evidence.")}</section>`;
@@ -81,7 +137,7 @@ async function listPage(kind, params) {
   const isCandidates = kind === "candidates";
   const title = isCandidates ? "Candidate review queue" : "Processing jobs";
   const lead = isCandidates ? "Cohort and review state are independent of model score. Open a dossier to see missing evidence and provenance." : "Stages retain attempts, source identities, errors, and worker leases. Retrying never rewrites a completed stage.";
-  return heading("Persisted records", title, lead, '<button id="refresh">Refresh</button>') +
+  return heading("Persisted records", title, lead, refreshControls()) +
     `<form id="filters" class="filters"><label>Cohort<select name="cohort">${options(cohorts, query.get("cohort"), "All cohorts")}</select></label>${isCandidates ? `<label>Review status<select name="review_status">${options(statuses, query.get("review_status"), "All review states")}</select></label>` : ""}<label><button type="submit">Apply filters</button></label></form>` +
     `<section class="card">${result.items.length ? (isCandidates ? candidateRows(result.items) : jobRows(result.items)) : empty("No matching records", "This view reads the actual database. No example records are inserted automatically.")}</section>` +
     `<div class="pagination">${offset > 0 ? '<button id="previous" class="secondary">← Previous</button>' : ""}<span>Showing ${offset + (result.items.length ? 1 : 0)}–${offset + result.items.length}</span>${result.items.length === 50 ? '<button id="next" class="secondary">Next →</button>' : ""}</div>`;
@@ -129,6 +185,31 @@ async function protocolPage() {
 function bindPage(route, params) {
   document.getElementById("jump-review")?.addEventListener("click", event => { event.preventDefault(); document.getElementById("review-form")?.scrollIntoView({behavior:"smooth"}); });
   document.getElementById("refresh")?.addEventListener("click", render);
+  document.querySelectorAll("#app form").forEach(form => {
+    const initial = JSON.stringify([...new FormData(form)]);
+    const trackChanges = () => { form.dataset.dirty = String(JSON.stringify([...new FormData(form)]) !== initial); };
+    form.addEventListener("input", trackChanges);
+    form.addEventListener("change", trackChanges);
+  });
+  document.getElementById("check-new-data")?.addEventListener("click", async event => {
+    const button = event.currentTarget;
+    const message = document.getElementById("check-message");
+    const originalHash = location.hash;
+    button.disabled = true;
+    checkInFlight = true;
+    message.textContent = "Queuing a data check…";
+    try {
+      const request = await api("/api/watcher/check", {});
+      message.textContent = `Check ${words(request.status)}. The worker will update the saved results.`;
+      if (location.hash === originalHash) await render();
+    } catch (error) {
+      message.textContent = error.message;
+      message.className = "small action-help error";
+      button.disabled = false;
+    } finally {
+      checkInFlight = false;
+    }
+  });
   document.getElementById("filters")?.addEventListener("submit", event => {
     event.preventDefault();
     const values = new URLSearchParams(new FormData(event.target));
@@ -166,13 +247,16 @@ function bindPage(route, params) {
   }));
 }
 
-async function render() {
+async function render(settings = {}) {
+  const background = settings.background === true;
+  if (background && (activeRenders || !safeToRefreshAutomatically())) return;
+  activeRenders += 1;
   const version = ++navigation;
   const [path, query = ""] = (location.hash.slice(1) || "overview").split("?", 2);
   const [route, id] = path.split("/");
   const params = new URLSearchParams(query);
   document.querySelectorAll("nav a").forEach(a => a.classList.toggle("active", a.hash === "#" + (route === "candidate" ? "candidates" : route === "job" ? "jobs" : route)));
-  app.classList.add("busy");
+  if (!background) app.classList.add("busy");
   try {
     let html;
     if (route === "watcher") html = await watcherPage();
@@ -182,14 +266,21 @@ async function render() {
     else if ((route === "candidate" || route === "job") && /^[a-f0-9]{32}$/.test(id || "")) html = await (route === "candidate" ? candidatePage(id) : jobPage(id));
     else if (route === "protocol") html = await protocolPage();
     else throw new Error("Unknown page. Use the navigation links to return to the workspace.");
-    if (version !== navigation) return;
+    if (version !== navigation || (background && !safeToRefreshAutomatically())) return;
+    const scrollPosition = window.scrollY;
     app.innerHTML = html;
     bindPage(route, params);
-    document.getElementById("updated").textContent = "View fetched " + new Date().toLocaleString();
+    if (background) window.scrollTo(0, scrollPosition);
+    document.getElementById("updated").textContent = "View fetched " + new Date().toLocaleString() + (autoRefreshRoutes.has(route) ? " · Updates every 30 seconds while visible and idle" : " · Automatic refresh paused on this page");
   } catch (error) {
+    if (background) {
+      if (version === navigation) document.getElementById("updated").textContent = "Automatic refresh failed: " + error.message + ". Saved view retained; retrying in 30 seconds.";
+      return;
+    }
     if (version === navigation) app.innerHTML = `<div class="notice error"><strong>Could not load persisted records.</strong><p>${esc(error.message)}</p><button id="refresh">Retry loading</button></div>`;
     document.getElementById("refresh")?.addEventListener("click", render);
   } finally {
+    activeRenders -= 1;
     if (version === navigation) app.classList.remove("busy");
   }
 }
@@ -204,15 +295,18 @@ async function experimentsPage() {
     (value.truncated ? '<p class="notice">The bounded experiment listing is truncated.</p>' : '');
 }
 window.addEventListener("hashchange", render);
+window.setInterval(() => render({background:true}), 30000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) render({background:true}); });
 render();
 
 async function watcherPage() {
   const w = await api('/api/watcher');
   const bytes = n => `${number(n / 1048576, 2)} MiB`;
-  return heading('Public archive stream', 'Release watcher', 'Polls observe public metadata for explicit TICs. Only a separately frozen, bounded pilot can download and process light curves.', '<button id="refresh">Refresh</button>') +
-    `<div class="notice"><strong>Scoped availability, not an archive census.</strong> ${esc(w.scope)}. Scheduled sectors are not public-release evidence. Polling cannot expand a pilot selection.</div>` +
+  return heading('Public archive stream', 'Release watcher', 'Check watched targets, follow automatic processing, and review saved signal evidence.', refreshControls(w)) +
+    `<div class="notice"><strong>Explicit watched targets.</strong> ${esc(w.scope)}. New available products can enter bounded automatic processing for the configured targets. Existing pilot selections stay fixed.</div>` +
+    automationPanel(w) +
     `<div class="grid"><div class="card metric"><span>Cumulative network charge</span><strong>${bytes(w.budget.charged_bytes)}</strong><small>Includes metadata, imported prior usage, retries and conservative crash reservations</small></div><div class="card metric"><span>Remaining global budget</span><strong>${bytes(w.budget.remaining_bytes)}</strong><small>${w.budget.unsettled_reservations} unsettled reservations remain fully charged</small></div></div>` +
-    `<section class="card"><h2>Service health and poll schedule</h2>${w.configs.length ? w.configs.map(c => `<div class="evidence-row"><h3>${badge(c.health)} · TIC ${esc(c.config.targets.join(', '))}</h3><p>Last poll: ${date(c.last_poll_at)}<br>Last success: ${date(c.last_success_at)}<br>Next due: ${date(c.next_poll_at)}<br>Heartbeat: ${date(c.heartbeat_at)} · ${c.failures}/3 consecutive failures</p>${c.last_error ? `<p class="notice error">${esc(c.last_error.message)}</p>` : ''}${details('Frozen metadata configuration', c.config)}</div>`).join('') : empty('No watcher configured', 'No live or fixture data is inserted automatically.')}</section>` +
+    `<section class="card"><h2>Service health and poll schedule</h2>${w.configs.length ? w.configs.map(c => `<div class="evidence-row"><h3>${badge(c.health)} · TIC ${esc(c.config.targets.join(', '))}</h3><p>${c.scheduler?.kind === 'automatic' ? 'Automatic worker' : 'Original metadata-only scheduler'}</p><p>Last poll: ${date(c.last_poll_at)}<br>Last success: ${date(c.last_success_at)}<br>Next due: ${date(c.next_poll_at)}<br>Worker heartbeat: ${date(c.scheduler?.heartbeat_at || c.heartbeat_at)} · ${c.failures}/3 consecutive failures</p>${c.last_error ? `<p class="notice error">${esc(c.last_error.message)}</p>` : ''}${details('Frozen metadata configuration', c.config)}</div>`).join('') : empty('No watcher configured', 'No live or fixture data is inserted automatically.')}</section>` +
     `<section class="card"><h2>Finite acquisition and processing queue</h2>${w.queue.length ? `<div class="table-wrap"><table><thead><tr><th>Target / sector</th><th>State</th><th>Attempts</th><th>Receipt / failure</th><th>Processing</th></tr></thead><tbody>${w.queue.map(q => `<tr><td>${esc(q.target_id)} / ${esc(q.metadata.sector)}</td><td>${badge(q.state)}</td><td>${q.attempts}/3</td><td>${q.receipt ? `${esc(words(q.receipt.mode))}<br>${bytes(q.receipt.bytes)} verified · ${bytes(q.receipt.new_download_bytes || 0)} newly downloaded<br>SHA256 ${short(q.receipt.sha256)}` : 'No verified acquisition'}${q.error ? `<p class="notice error">${esc(q.error.message)}</p>` : ''}${q.next_attempt_at && q.state === 'failed' ? `<br>Retry after ${date(q.next_attempt_at)}` : ''}</td><td>${q.job_id ? `<a href="#job/${q.job_id}">Job and stage evidence →</a>` : 'Awaiting verified source'}</td></tr>`).join('')}</tbody></table></div>` : empty('No science products selected', 'Metadata-only polling never queues an entire sector.')}${w.pilots.map(p => details(`Pilot ${p.id} · ${p.status} · ${number(p.runtime_charged, 1)} / ${p.spec.max_seconds} seconds charged`, p)).join('')}</section>` +
     `<section class="card"><h2>Recent polls and observed changes</h2>${w.polls.map(p => `<div class="evidence-row"><h3>${badge(p.status)} · ${date(p.started_at)}</h3><p>${p.result?.product_ids?.length ?? 0} selected products observed; ${p.result?.new_product_ids?.length ?? 0} new immutable identities. ${p.result?.metadata_pages_complete === false ? 'Metadata truncated: scope is incomplete.' : ''}</p>${p.error ? `<p class="notice error">${esc(p.error.message)}</p>` : ''}${details('Poll receipt and provenance links', p)}</div>`).join('') || '<p>No polls recorded.</p>'}${details('Network accounting by operation', w.budget)}</section>`;
 }

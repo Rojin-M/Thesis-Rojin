@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "title": "Automatic TESS watchlist engineering run, 23 September 2026",
+  "observed_at_utc": "2026-09-23T13:35:58.077869Z",
+  "exported_at_utc": "2026-09-23T13:37:22.947944Z",
+  "scope": "Two explicit known-object control TICs; not a prospective survey or planet discovery",
+  "source": {
+    "database": "outputs/research/research.sqlite3",
+    "method": "SQLite backup, then read-only export of selected fields",
+    "snapshot_sha256": "49815160ac0e8b23c80b26ce0783d00f6046f3bb23ca3eba3aba0be7d2c89df9",
+    "processing_code_provenance_id": "d3eb033ac5494652464b58583862697280b2cf37140ac9f1b4a3129d6666717b",
+    "processing_source": {
+      "git_commit": "f9d35b6c6cdeb08a7ee86f2dcd7806378d6610b9",
+      "working_tree_dirty": true,
+      "manifest_sha256": "0a38c97a419a5a5d655e0e349500284a9d749092a9740db135ac421df2fc07c0",
+      "python": "3.9.25"
+    }
+  },
+  "baseline": {
+    "report": "../release_watcher_pilot/summary.json",
+    "jobs": 15,
+    "candidates": 41
+  },
+  "saved_counts": {
+    "schema_version": 1,
+    "jobs_by_status": {
+      "succeeded": 16
+    },
+    "candidates_by_cohort": {
+      "known_object_control": 17,
+      "synthetic_fixture": 27
+    },
+    "release_count": 2,
+    "product_count": 2,
+    "expired_running_stages": 0,
+    "watcher": "bounded_MAST_metadata_and_explicit_pilot",
+    "detection": "bounded_local_blind_bls_v1",
+    "pixel_photometry": "not_implemented",
+    "tls": "not_implemented",
+    "scoring": "frozen_shared_v1_CNN_cpu",
+    "vetting": "bounded_diagnostics_and_catalog_cache",
+    "search_readiness": false,
+    "observed_at": "2026-09-23T13:35:58.077869Z"
+  },
+  "added": {
+    "jobs": 1,
+    "known_object_control_proposals": 3,
+    "synthetic_proposals": 0
+  },
+  "real_data_registry_counts": {
+    "AMBIGUOUS_MATCH": 2,
+    "CONFIRMED_PLANET": 3,
+    "INCOMPLETE_LOOKUP": 5,
+    "KNOWN_PLANET": 1,
+    "UNMATCHED": 6
+  },
+  "watchlist_config": {
+    "catalog_mode": "live",
+    "cohort": "known_object_control",
+    "cycle_max_seconds": 1500,
+    "max_products_per_cycle": 2,
+    "poll_max_seconds": 120,
+    "poll_seconds": 21600,
+    "product_max_bytes": 67108864,
+    "product_max_seconds": 900,
+    "schema_version": 1,
+    "targets": [
+      "231663901",
+      "150428135"
+    ]
+  },
+  "service_at_snapshot": {
+    "service_state": "running",
+    "phase": "waiting",
+    "heartbeat_at": "2026-09-23T13:35:44.367334Z",
+    "last_error": null
+  },
+  "latest_manual_check": {
+    "id": "dbf9a330cae540a78f416772a86f9423",
+    "status": "succeeded",
+    "created_at": "2026-09-23T13:33:03.155374Z",
+    "started_at": "2026-09-23T13:33:04.036634Z",
+    "finished_at": "2026-09-23T13:33:20.661538Z"
+  },
+  "metadata_schedules": [
+    {
+      "id": "f10573ee3f7c04f2b35108b1e73afe2b9dc64b9dde24e989e1811e940bc328c9",
+      "last_poll_at": "2026-09-23T13:33:04.088805Z",
+      "last_success_at": "2026-09-23T13:33:20.558340Z",
+      "next_poll_at": "2026-09-23T19:33:20.558326Z",
+      "failures": 0
+    },
+    {
+      "id": "f298ada25e721123a20c10b0f86a93ecb1167ae97a99815266ff1bcac36e8777",
+      "last_poll_at": "2026-09-23T12:33:27.681905Z",
+      "last_success_at": "2026-09-23T12:33:30.616828Z",
+      "next_poll_at": "2026-09-23T18:33:30.616810Z",
+      "failures": 0
+    }
+  ],
+  "all_recorded_poll_counts": {
+    "failed": 1,
+    "succeeded": 8
+  },
+  "all_recorded_manual_check_counts": {
+    "failed": 1,
+    "succeeded": 3
+  },
+  "budget": {
+    "cap_bytes": 2147483648,
+    "charged_bytes": 20343801,
+    "remaining_bytes": 2127139847,
+    "unsettled_reservations": 0,
+    "by_kind": {
+      "catalog_refresh": 5394632,
+      "metadata": 1608214,
+      "prior_usage": 5415195,
+      "science_product": 7925760
+    }
+  },
+  "budget_note": "Conservative charges include failed attempts; charged bytes are not identical to successfully downloaded bytes.",
+  "new_product": {
+    "product_id": "284663bde30e4e9b8b04c6f6dc1408c6",
+    "pilot_id": "auto-v1:284663bde30e4e9b8b04c6f6dc1408c6:repin1",
+    "job_id": "b3875c292a4746ec9c83f5385df6603e",
+    "target_id": "150428135",
+    "state": "complete",
+    "attempts": 2,
+    "metadata": {
+      "archive_release_mjd": 61017,
+      "archive_release_utc": "2025-12-08T00:00:00.000000Z",
+      "availability_scope": "selected_product_only",
+      "checksum_note": "MAST product row supplies no cryptographic checksum; capture SHA256 and validate native FITS checksums on acquisition",
+      "data_rights": "PUBLIC",
+      "filename": "tess2025258001959-s0097-0000000150428135-0294-s_lc.fits",
+      "filename_processing_version": "0294",
+      "obsid": "365500656",
+      "pipeline_version": "2c68fb7aff",
+      "product_subgroup": "LC",
+      "sector": 97,
+      "size_bytes": 3962880,
+      "upstream_checksum": null
+    },
+    "receipt": {
+      "bytes": 3962880,
+      "new_download_bytes": 3962880,
+      "sha256": "5c930903ca3ffca90d721d0035762398c3895f78d7d96441185bc5fd4a4f16a4",
+      "retrieved_at": "2026-09-23T13:03:46.991923Z",
+      "source_uri": "mast:TESS/product/tess2025258001959-s0097-0000000150428135-0294-s_lc.fits",
+      "url": "https://stpubdata.s3.us-east-1.amazonaws.com/tess/public/tid/s0097/0000/0001/5042/8135/tess2025258001959-s0097-0000000150428135-0294-s_lc.fits",
+      "requested_url": "https://mast.stsci.edu/api/v0.1/Download/file",
+      "redirects": [
+        {
+          "location": "https://stpubdata.s3.us-east-1.amazonaws.com/tess/public/tid/s0097/0000/0001/5042/8135/tess2025258001959-s0097-0000000150428135-0294-s_lc.fits",
+          "status": 302,
+          "url": "https://mast.stsci.edu/api/v0.1/Download/file"
+        }
+      ]
+    },
+    "local_file_hash_verified": true
+  },
+  "new_job_stages": [
+    {
+      "name": "metadata",
+      "status": "succeeded",
+      "attempts": 1,
+      "updated_at": "2026-09-23T13:03:51.608716Z"
+    },
+    {
+      "name": "selection",
+      "status": "succeeded",
+      "attempts": 1,
+      "updated_at": "2026-09-23T13:03:51.660144Z"
+    },
+    {
+      "name": "acquisition",
+      "status": "succeeded",
+      "attempts": 1,
+      "updated_at": "2026-09-23T13:03:51.768038Z"
+    },
+    {
+      "name": "detection",
+      "status": "succeeded",
+      "attempts": 1,
+      "updated_at": "2026-09-23T13:04:11.962203Z"
+    },
+    {
+      "name": "features",
+      "status": "succeeded",
+      "attempts": 1,
+      "updated_at": "2026-09-23T13:04:31.399271Z"
+    },
+    {
+      "name": "scoring",
+      "status": "succeeded",
+      "attempts": 1,
+      "updated_at": "2026-09-23T13:04:34.564821Z"
+    },
+    {
+      "name": "diagnostics",
+      "status": "succeeded",
+      "attempts": 1,
+      "updated_at": "2026-09-23T13:04:36.830356Z"
+    },
+    {
+      "name": "dossier",
+      "status": "succeeded",
+      "attempts": 1,
+      "updated_at": "2026-09-23T13:04:37.417547Z"
+    }
+  ],
+  "successful_dispatch": {
+    "id": "300872bc193b47ad8ced94f8d4e3c9a6",
+    "pilot_id": "auto-v1:284663bde30e4e9b8b04c6f6dc1408c6:repin1",
+    "started_at": "2026-09-23T13:03:44.626675Z",
+    "finished_at": "2026-09-23T13:04:37.464017Z",
+    "reserved_seconds": 600.0,
+    "used_seconds": 52.821999829262495,
+    "status": "complete"
+  },
+  "models": [
+    {
+      "model_name": "frozen_Kepler_shared_v1_CNN_seed42",
+      "model_sha256": "7890efd17fc072efb74465a9fbfa6fb8b0192388d91af520961349f0066ba703",
+      "normalization_sha256": "6f4ac773f6f2dd6c2200e68b903acb0c7a3f585a593ac2d882c03af03c705dc1",
+      "normalization_scope": "frozen_Kepler_TRAIN_moments_no_target_fitting",
+      "calibration": "not_calibrated_for_blind_search",
+      "threshold_use": "recorded_source_validation_F1_only_not_a_search_gate",
+      "device": "cpu"
+    }
+  ],
+  "recovery": "First acquisition rejected HTTP 302. Explicit repin after inspected transport correction preserved the failed attempt and consumed budget; second attempt succeeded.",
+  "local_logs": {
+    "website": "outputs/research/server.log",
+    "watcher": "outputs/research/automatic-watcher.log"
+  },
+  "published_activity": {
+    "file": "activity.jsonl",
+    "events": 25,
+    "scope": "Recorded 23 September polls, requests, dispatches, repin, new-product download, eight job stages and three proposal creations; not a raw-log replacement"
+  },
+  "limitations": [
+    "Known-object controls only; no confirmed new planet",
+    "UNMATCHED covers supported TIC-based snapshots only",
+    "CNN scores uncalibrated for blind search",
+    "Difference images, neighboring-source and aperture checks incomplete",
+    "Full search controls and prospective validation outstanding",
+    "Snapshot is historical; live state can change"
+  ]
+}

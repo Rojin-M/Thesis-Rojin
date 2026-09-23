@@ -14,6 +14,7 @@ import tempfile
 import time
 
 import requests
+from urllib3.exceptions import HTTPError as Urllib3HTTPError
 
 from scripts.vetting.registry import CatalogRecord, CatalogSnapshot, SourceState, normalize_tic_id
 from scripts.vetting.sources import (CatalogClient, EXOFOP_TOI_URL, EXOFOP_CTOI_URL,
@@ -44,33 +45,80 @@ def _age(timestamp):
 class BoundedCatalogClient(CatalogClient):
     def __init__(self, cache_dir):
         super().__init__(cache_dir, timeout_seconds=10, attempts=2)
+        self.session.headers.update({"Accept-Encoding": "identity"})
         self.downloaded_bytes = 0
+        self.known_read_bytes = 0
+        self.byte_counts_incomplete = False
+        self.transfer_receipts = []
 
     def _request(self, url, **kwargs):
         last = None
+        headers = dict(kwargs.pop("headers", {}))
+        headers["Accept-Encoding"] = "identity"
         for attempt in range(self.attempts):
+            remaining = MAX_REFRESH_BYTES - self.downloaded_bytes
+            if remaining <= 0:
+                raise requests.RequestException("Catalog cumulative 64 MiB byte budget exhausted")
+            attempt_cap = min(MAX_RESPONSE, remaining)
+            size, complete = 0, False
             try:
-                # Redirects are followed by requests only to the official service's
-                # response; the caller cannot supply arbitrary URLs through HTTP.
-                with self.session.get(url, timeout=(5, 10), stream=True, **kwargs) as response:
-                    response.raise_for_status()
+                with self.session.get(url, timeout=(5, 10), stream=True, allow_redirects=False,
+                                      headers=headers, **kwargs) as response:
+                    if getattr(response, "status_code", 200) == 304:
+                        response._content = b""
+                        response._content_consumed = True
+                        complete = True
+                        return response
                     length = response.headers.get("Content-Length")
-                    if length is not None and int(length) > MAX_RESPONSE:
-                        raise requests.RequestException("Catalog Content-Length exceeds 16 MiB")
-                    parts, size = [], 0
+                    if length is not None:
+                        if not length.isascii() or not length.isdigit():
+                            raise requests.RequestException("Invalid catalog Content-Length")
+                        if int(length) > MAX_RESPONSE:
+                            raise requests.RequestException("Catalog Content-Length exceeds 16 MiB")
+                        if int(length) > attempt_cap:
+                            raise requests.RequestException("Catalog Content-Length exceeds remaining cumulative byte budget")
+                    if response.headers.get("Content-Encoding", "identity").lower() not in ("identity", ""):
+                        raise requests.RequestException("Compressed catalog responses are unsupported for exact byte accounting")
+                    response.raise_for_status()
+                    if response.status_code != 200:
+                        raise requests.RequestException("Catalog redirects and non-200 responses are unsupported")
+                    if length is not None and response.headers.get("Transfer-Encoding"):
+                        raise requests.RequestException("Ambiguous catalog response framing")
+                    parts = []
                     began = time.monotonic()
-                    for chunk in response.iter_content(65536):
-                        size += len(chunk); self.downloaded_bytes += len(chunk)
-                        if size > MAX_RESPONSE or self.downloaded_bytes > MAX_REFRESH_BYTES or time.monotonic() - began > 30:
-                            raise requests.RequestException("Catalog byte/time budget exceeded")
+                    read_limit = int(length) if length is not None else attempt_cap
+                    while size < read_limit:
+                        if time.monotonic() - began > 30:
+                            raise requests.RequestException("Catalog response time budget exceeded")
+                        chunk = response.raw.read(min(65536, read_limit - size, attempt_cap - size), decode_content=False)
+                        if not chunk:
+                            break
+                        size += len(chunk)
                         parts.append(chunk)
+                    if length is not None and size != int(length):
+                        raise requests.RequestException("Truncated catalog response")
+                    if length is None and size == attempt_cap:
+                        raise requests.RequestException("Unframed catalog response filled its byte cap; completeness unverified")
+                    if time.monotonic() - began > 30:
+                        raise requests.RequestException("Catalog response time budget exceeded")
                     response._content = b"".join(parts)
                     response._content_consumed = True
+                    complete = True
                     return response
-            except (requests.RequestException, ValueError) as exc:
+            except TimeoutError:
+                raise
+            except (requests.RequestException, Urllib3HTTPError, OSError, ValueError) as exc:
                 last = exc
-                if attempt + 1 < self.attempts and self.downloaded_bytes < MAX_REFRESH_BYTES:
-                    time.sleep(1)
+            finally:
+                charged = size if complete else attempt_cap
+                self.downloaded_bytes += charged
+                self.known_read_bytes += size
+                self.byte_counts_incomplete |= not complete
+                self.transfer_receipts.append({"url": url, "attempt_cap_bytes": attempt_cap,
+                    "known_read_bytes": size, "charged_bytes": charged,
+                    "status": "complete" if complete else "failed_conservative"})
+            if attempt + 1 < self.attempts and self.downloaded_bytes < MAX_REFRESH_BYTES:
+                time.sleep(1)
         raise requests.RequestException(str(last))
 
 
@@ -173,9 +221,12 @@ def fetch_bundle(cache_root, tic_id, mode="offline", force=False):
                     _atomic(raw, snapshot.raw_payload)
         bundle = {"schema": 1, "tic_id": tic, "checked_at": utc_now(), "snapshots": [_encode(s) for s in snapshots],
                   "mode": mode, "ttl_seconds": TTL_SECONDS, "downloaded_bytes": client.downloaded_bytes,
+                  "known_read_bytes": client.known_read_bytes, "byte_counts_incomplete": client.byte_counts_incomplete,
+                  "download_receipts": client.transfer_receipts,
                   "cache_error": corruption, "limits": {"targets_per_call": 1, "attempts_per_source": 2,
                   "max_response_bytes": MAX_RESPONSE, "max_refresh_bytes": MAX_REFRESH_BYTES, "hard_deadline_seconds": 180}}
         envelope = canonical_json({"bundle": bundle, "sha256": digest(bundle)}).encode()
         _atomic(root / "bundles" / (digest(bundle) + ".json"), envelope)
         _atomic(pointer, envelope)
-        return {**bundle, "snapshots": snapshots, "cache_use": "refreshed", "downloaded_bytes_this_call": client.downloaded_bytes}
+        return {**bundle, "snapshots": snapshots, "cache_use": "refreshed",
+                "downloaded_bytes_this_call": None if client.byte_counts_incomplete else client.downloaded_bytes}

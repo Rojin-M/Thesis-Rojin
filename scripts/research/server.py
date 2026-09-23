@@ -263,6 +263,11 @@ class ResearchHandler(BaseHTTPRequestHandler):
         raise NotFoundError("Endpoint not found")
 
     def _post(self, path):
+        if path == "/api/watcher/check":
+            from .watcher_store import WatchStore
+            self._body(())
+            self._json(202, WatchStore(self.server.store).request_check())
+            return
         match = re.fullmatch(r"/api/candidates/([a-f0-9]{32})/review", path)
         if match:
             data = self._body(("status", "reviewer", "note", "expected_revision"))

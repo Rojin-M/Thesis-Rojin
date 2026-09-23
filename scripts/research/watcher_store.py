@@ -45,7 +45,35 @@ CREATE TABLE IF NOT EXISTS watch_queue (
 CREATE TABLE IF NOT EXISTS watch_dispatches (
  id TEXT PRIMARY KEY, pilot_id TEXT NOT NULL REFERENCES watch_pilots(id),
  started_at TEXT NOT NULL, finished_at TEXT, reserved_seconds REAL NOT NULL, used_seconds REAL, status TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS watch_automation (
+ id INTEGER PRIMARY KEY CHECK(id=1), config_id TEXT NOT NULL, config_json TEXT NOT NULL,
+ service_state TEXT NOT NULL, phase TEXT NOT NULL, heartbeat_at TEXT NOT NULL,
+ last_cycle_json TEXT, last_error_json TEXT);
+CREATE TABLE IF NOT EXISTS watch_check_requests (
+ id TEXT PRIMARY KEY, config_id TEXT NOT NULL, status TEXT NOT NULL,
+ created_at TEXT NOT NULL, started_at TEXT, finished_at TEXT, result_json TEXT, error_json TEXT);
+CREATE TABLE IF NOT EXISTS watch_catalog_checks (
+ job_id TEXT PRIMARY KEY REFERENCES jobs(id), checked_at TEXT NOT NULL, result_json TEXT NOT NULL);
 """
+UNSET = object()
+
+
+def _automation_status(db):
+    row = db.execute('SELECT * FROM watch_automation WHERE id=1').fetchone()
+    if row is None:
+        return {'enabled': False, 'service_state': 'stopped', 'phase': 'waiting',
+                'heartbeat_at': None, 'config_id': None, 'targets': [], 'cohort': None,
+                'check_request': None, 'last_cycle': None, 'last_error': None}
+    record = _one(db, 'SELECT * FROM watch_automation WHERE id=1', ())
+    age = (datetime.now(timezone.utc) - datetime.fromisoformat(record['heartbeat_at'].replace('Z', '+00:00'))).total_seconds()
+    health = 'stale' if record['service_state'] == 'running' and age > 120 else record['service_state']
+    requests = _rows(db, 'SELECT * FROM watch_check_requests WHERE config_id=? ORDER BY created_at DESC LIMIT 1',
+                     (record['config_id'],))
+    return {'enabled': True, 'service_state': health, 'phase': record['phase'],
+            'heartbeat_at': record['heartbeat_at'], 'config_id': record['config_id'],
+            'targets': record['config']['targets'], 'cohort': record['config']['cohort'],
+            'config': record['config'], 'check_request': requests[0] if requests else None,
+            'last_cycle': record['last_cycle'], 'last_error': record['last_error']}
 
 
 def later(seconds):
@@ -127,6 +155,74 @@ class WatchStore:
     def service(self, config_id, state):
         with self.store.connection(True) as db:
             db.execute('UPDATE watch_configs SET service_state=?,heartbeat_at=? WHERE id=?', (state, utc_now(), config_id))
+
+    def start_automation(self, config):
+        config_id = digest(config)
+        with self.store.connection(True) as db:
+            now = utc_now()
+            changed = canonical_json({'code': 'ConfigurationChanged', 'message': 'Watchlist changed before request execution'})
+            db.execute("UPDATE watch_check_requests SET status='failed',finished_at=?,error_json=? "
+                       "WHERE config_id<>? AND status IN ('queued','running')", (now, changed, config_id))
+            db.execute("UPDATE watch_check_requests SET status='queued',started_at=NULL "
+                       "WHERE config_id=? AND status='running'", (config_id,))
+            db.execute("INSERT INTO watch_automation(id,config_id,config_json,service_state,phase,heartbeat_at) "
+                       "VALUES(1,?,?,'running','waiting',?) ON CONFLICT(id) DO UPDATE SET "
+                       "last_cycle_json=CASE WHEN watch_automation.config_id=excluded.config_id THEN watch_automation.last_cycle_json ELSE NULL END,"
+                       "config_id=excluded.config_id,config_json=excluded.config_json,service_state='running',"
+                       "phase='waiting',heartbeat_at=excluded.heartbeat_at,last_error_json=NULL",
+                       (config_id, canonical_json(config), now))
+            return _automation_status(db)
+
+    def automation_update(self, *, phase=None, state=None, result=None, error=UNSET):
+        if phase is not None and phase not in ('waiting', 'polling', 'processing', 'paused', 'error'):
+            raise ValidationError('Invalid automatic watcher phase')
+        if state is not None and state not in ('running', 'stopped'):
+            raise ValidationError('Invalid automatic watcher service state')
+        values = {'heartbeat_at': utc_now()}
+        if phase is not None:
+            values['phase'] = phase
+        if state is not None:
+            values['service_state'] = state
+        if result is not None:
+            values['last_cycle_json'] = canonical_json(result)
+        if error is not UNSET:
+            values['last_error_json'] = canonical_json(error)
+        with self.store.connection(True) as db:
+            db.execute('UPDATE watch_automation SET ' + ','.join(name + '=?' for name in values) + ' WHERE id=1',
+                       tuple(values.values()))
+
+    def request_check(self):
+        with self.store.connection(True) as db:
+            runtime = _automation_status(db)
+            if runtime['service_state'] != 'running':
+                raise ConflictError('Automatic watcher is not running; start the watch-auto-serve service first')
+            pending = _rows(db, "SELECT * FROM watch_check_requests WHERE config_id=? AND status IN ('queued','running') "
+                               'ORDER BY created_at LIMIT 1', (runtime['config_id'],))
+            if pending:
+                return pending[0]
+            previous = runtime['check_request']
+            if previous and previous['created_at'] > later(-30):
+                raise ConflictError('A check was just requested; wait 30 seconds before requesting another')
+            request_id = uuid.uuid4().hex
+            db.execute("INSERT INTO watch_check_requests(id,config_id,status,created_at) VALUES(?,?,'queued',?)",
+                       (request_id, runtime['config_id'], utc_now()))
+            return _one(db, 'SELECT * FROM watch_check_requests WHERE id=?', (request_id,))
+
+    def claim_check(self):
+        with self.store.connection(True) as db:
+            runtime = _automation_status(db)
+            requests = _rows(db, "SELECT * FROM watch_check_requests WHERE config_id=? AND status='queued' "
+                                'ORDER BY created_at LIMIT 1', (runtime['config_id'],))
+            if not requests:
+                return None
+            request_id = requests[0]['id']
+            db.execute("UPDATE watch_check_requests SET status='running',started_at=? WHERE id=?", (utc_now(), request_id))
+            return _one(db, 'SELECT * FROM watch_check_requests WHERE id=?', (request_id,))
+
+    def finish_check(self, request_id, result=None, error=None):
+        with self.store.connection(True) as db:
+            db.execute('UPDATE watch_check_requests SET status=?,finished_at=?,result_json=?,error_json=? WHERE id=?',
+                       ('failed' if error else 'succeeded', utc_now(), canonical_json(result), canonical_json(error), request_id))
 
     def reset(self, config_id):
         with self.store.connection(True) as db:
@@ -252,9 +348,19 @@ def status(store):
     with store.connection() as db:
         configs = _rows(db, 'SELECT * FROM watch_configs ORDER BY created_at DESC LIMIT 20')
         now = utc_now()
+        automation = _automation_status(db)
+        automatic_ids = set()
+        if automation['enabled']:
+            from .automation import metadata_configs
+            automatic_ids = {digest(config) for config in metadata_configs(automation['config'])}
         for c in configs:
             age = (datetime.now(timezone.utc) - datetime.fromisoformat(c['heartbeat_at'].replace('Z','+00:00'))).total_seconds() if c['heartbeat_at'] else None
             c['health'] = 'circuit_open' if c['failures'] >= 3 else ('stale' if c['service_state'] == 'running' and (age is None or age > 120) else c['service_state'])
+            c['scheduler'] = {'kind': 'metadata_only', 'heartbeat_at': c['heartbeat_at']}
+            if c['id'] in automatic_ids and not (c['health'] == 'running' and automation['service_state'] != 'running'):
+                c['scheduler'] = {'kind': 'automatic', 'heartbeat_at': automation['heartbeat_at']}
+                if c['failures'] < 3:
+                    c['health'] = automation['service_state']
         charged = db.execute('SELECT COALESCE(SUM(COALESCE(used,cap)),0) FROM watch_spending').fetchone()[0]
         cap = db.execute('SELECT cap FROM watch_budget WHERE id=1').fetchone()[0]
         return {'configs': configs, 'polls': _rows(db, 'SELECT * FROM watch_polls ORDER BY started_at DESC LIMIT 20'),
@@ -263,5 +369,6 @@ def status(store):
             'budget': {'cap_bytes': cap, 'charged_bytes': charged, 'remaining_bytes': cap-charged,
                 'unsettled_reservations': db.execute("SELECT count(*) FROM watch_spending WHERE used IS NULL").fetchone()[0],
                 'by_kind': {r[0]:r[1] for r in db.execute('SELECT kind,SUM(COALESCE(used,cap)) FROM watch_spending GROUP BY kind')}},
-            'mode': 'metadata_only_unless_explicit_frozen_pilot', 'observed_at': now,
+            'automation': automation,
+            'mode': 'automatic_watchlist' if automation['enabled'] else 'metadata_only_unless_explicit_frozen_pilot', 'observed_at': now,
             'scope': 'Selected TICs and bounded latest SPOC light-curve observations; not archive-wide completeness'}

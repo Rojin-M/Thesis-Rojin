@@ -1,5 +1,5 @@
 """Small MAST CAOM API client; fixed HTTPS endpoints and bounded public LC scope."""
-from contextlib import contextmanager
+from contextlib import ExitStack, contextmanager
 from datetime import datetime, timedelta, timezone
 import hashlib
 import json
@@ -10,6 +10,7 @@ import signal
 import time
 
 import requests
+from urllib3.exceptions import HTTPError as TransportError
 
 from .protocol import ValidationError, canonical_json, utc_now
 
@@ -68,6 +69,14 @@ def filename(uri):
     if not LC_NAME.fullmatch(name):
         raise ValidationError('Pilot supports only standard SPOC light-curve filenames')
     return name
+
+
+def public_product_url(uri):
+    """Exact public STScI cloud object for a validated standard SPOC light curve."""
+    name = filename(uri)
+    match = LC_NAME.fullmatch(name)
+    groups = '/'.join(match[2][offset:offset + 4] for offset in range(0, 16, 4))
+    return 'https://stpubdata.s3.us-east-1.amazonaws.com/tess/public/tid/s' + match[1] + '/' + groups + '/' + name
 
 
 def observation_request(targets):
@@ -156,7 +165,7 @@ class MastClient:
         self.session = session or requests.Session()
         self.session.headers.update({'User-Agent':'Thesis-Rojin-bounded-research/1', 'Accept-Encoding':'identity'})
 
-    def _transfer(self, method, url, cap, *, pilot_id=None, path=None, **kwargs):
+    def _transfer(self, method, url, cap, *, pilot_id=None, path=None, redirect_url=None, **kwargs):
         key = self.ledger.reserve(cap, 'science_product' if path else 'metadata', pilot_id)
         used, chunks, complete = 0, [], False
         handle = None
@@ -164,7 +173,23 @@ class MastClient:
             if path:
                 handle = Path(path).open('xb')
             with wall_deadline(60):
-                with self.session.request(method, url, timeout=(5,10), allow_redirects=False, stream=True, **kwargs) as response:
+                with ExitStack() as responses:
+                    response = responses.enter_context(self.session.request(
+                        method, url, timeout=(5,10), allow_redirects=False, stream=True, **kwargs))
+                    final_url, redirects = url, []
+                    if redirect_url is not None and response.status_code in (301, 302, 303, 307, 308):
+                        if (method != 'GET' or url != DOWNLOAD or path is None
+                                or redirect_url != public_product_url(kwargs.get('params', {}).get('uri'))
+                                or response.headers.get('Location') != redirect_url):
+                            raise ValidationError('MAST redirect does not match the selected public cloud product')
+                        if (response.headers.get('Content-Length') != '0'
+                                or response.headers.get('Content-Encoding', 'identity').lower() not in ('identity', '')
+                                or response.headers.get('Transfer-Encoding')):
+                            raise ValidationError('MAST download redirect must have an explicitly empty body')
+                        redirects.append({'url': url, 'status': response.status_code, 'location': redirect_url})
+                        final_url = redirect_url
+                        response = responses.enter_context(self.session.request(
+                            'GET', final_url, timeout=(5,10), allow_redirects=False, stream=True))
                     if response.status_code != 200:
                         raise OSError('MAST HTTP ' + str(response.status_code))
                     if response.headers.get('Content-Encoding','identity').lower() not in ('identity',''):
@@ -188,11 +213,16 @@ class MastClient:
                         raise OSError('Truncated MAST response')
                     if used == cap and length is None:
                         raise ValidationError('Unframed response filled entire cap; completeness unverified')
-                    receipt = {'url':url,'retrieved_at':utc_now(),'bytes':used,'sha256':sha.hexdigest(),
+                    if path and used != cap:
+                        raise ValidationError('Product bytes differ from immutable MAST size')
+                    receipt = {'url':final_url,'requested_url':url,'redirects':redirects,
+                        'retrieved_at':utc_now(),'bytes':used,'sha256':sha.hexdigest(),
                         'etag':response.headers.get('ETag'), 'last_modified':response.headers.get('Last-Modified'),
                         'content_length':int(length) if length else None,'spending_id':key}
                     complete = True
             return (receipt if path else (b''.join(chunks),receipt))
+        except TransportError as exc:
+            raise OSError('MAST transport failed: ' + str(exc)) from exc
         finally:
             if handle:
                 handle.flush()
@@ -212,7 +242,8 @@ class MastClient:
     def download(self, product, path, pilot_id):
         filename(product['source_uri'])
         size = product['metadata']['size_bytes']
-        receipt = self._transfer('GET', DOWNLOAD, size, pilot_id=pilot_id, path=path, params={'uri':product['source_uri']})
+        receipt = self._transfer('GET', DOWNLOAD, size, pilot_id=pilot_id, path=path,
+                                 params={'uri':product['source_uri']}, redirect_url=public_product_url(product['source_uri']))
         if receipt['bytes'] != size:
             raise ValidationError('Product bytes differ from immutable MAST size')
         receipt['source_uri'] = product['source_uri']

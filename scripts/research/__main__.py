@@ -26,6 +26,14 @@ def parser():
     sub.add_parser("init", help="Initialize schema and register the immutable bounded protocol; no data or jobs")
     sub.add_parser("status", help="Print persisted counts and the current protocol hash")
     sub.add_parser("recover", help="Requeue expired worker leases within their attempt budgets")
+    sub.add_parser("watch-auto-check", help="Ask the running automatic watcher to check for new data now")
+    for command in ("watch-auto-once", "watch-auto-serve"):
+        automatic = sub.add_parser(command, help="Poll the configured watchlist and automatically detect/vet unseen products within cumulative bounds")
+        automatic.add_argument("--config", type=Path, default=ROOT / "configs/research_automation_v1.json")
+        if command == "watch-auto-once":
+            automatic.add_argument("--force", action="store_true", help="Recheck public metadata now while retaining circuit and resource limits")
+        else:
+            automatic.add_argument("--max-hours", type=float, help="Optional finite lifetime, up to 168 hours; otherwise run until stopped")
     for command in ("watch-poll", "watch-serve", "watch-reset"):
         watcher = sub.add_parser(command, help="Bounded public MAST metadata only; never auto-select science downloads")
         watcher.add_argument("--config", type=Path, default=ROOT / "configs/research_watcher_v1.json")
@@ -46,6 +54,10 @@ def parser():
     pilot.add_argument("--max-seconds", type=int, required=True)
     dispatcher = sub.add_parser("watch-dispatch", help="Resume only one frozen pilot, with cumulative byte/time/retry caps")
     dispatcher.add_argument("--pilot-id", required=True)
+    repin = sub.add_parser("watch-repin", help="Explicitly replace a failed unacquired pilot source pin without resetting attempts or budgets")
+    repin.add_argument("--pilot-id", required=True)
+    repin.add_argument("--replacement-id", required=True)
+    repin.add_argument("--reason", required=True)
     sub.add_parser("seed-fixture", help="Explicitly add a SYNTHETIC demonstration; prefer a separate database")
     controls = sub.add_parser("detection-controls", help="Four TRAIN-star controls, six injections and four negatives; no downloads")
     controls.add_argument("--output", type=Path, required=True, help="New versioned local experiment directory")
@@ -88,8 +100,26 @@ def main(argv=None):
     store = Store(args.db).initialize()
     protocol = store.register_protocol(load_protocol(args.protocol))
     artifacts = ArtifactStore(args.artifacts, store)
-    if args.command.startswith("watch-"):
-        from .watcher import load_config, poll_once, create_pilot, dispatch, serve_metadata
+    if args.command == "watch-auto-check":
+        from .watcher_store import WatchStore
+        print(json.dumps(WatchStore(store).request_check(), indent=2))
+    elif args.command.startswith("watch-auto-"):
+        from .automation import load_config, run_cycle, serve_automatic
+        from .watcher_store import WatchStore, exclusive_lock
+        config = load_config(args.config)
+        if args.command == "watch-auto-once":
+            with exclusive_lock(store.path.with_suffix('.watch-service.lock')):
+                ledger = WatchStore(store)
+                ledger.automation_update(state='stopped')
+                try:
+                    result = run_cycle(store, artifacts, protocol["id"], config, force=args.force)
+                finally:
+                    ledger.automation_update(state='stopped')
+            print(json.dumps(result, indent=2))
+            return int(bool(result["errors"]))
+        serve_automatic(store, artifacts, protocol["id"], config, max_hours=args.max_hours)
+    elif args.command.startswith("watch-"):
+        from .watcher import load_config, poll_once, create_pilot, dispatch, serve_metadata, repin_failed_pilot
         from .watcher_store import WatchStore, status, exclusive_lock
         ledger = WatchStore(store)
         if args.command == "watch-status":
@@ -101,6 +131,8 @@ def main(argv=None):
                 cohort=args.cohort, max_bytes=args.max_bytes, max_seconds=args.max_seconds)
         elif args.command == "watch-dispatch":
             result = dispatch(store, artifacts, args.pilot_id)
+        elif args.command == "watch-repin":
+            result = repin_failed_pilot(store, pilot_id=args.pilot_id, replacement_id=args.replacement_id, reason=args.reason)
         else:
             config = load_config(args.config)
             if args.command == "watch-poll":

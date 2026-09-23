@@ -119,3 +119,95 @@ class WatcherHTTPTests(unittest.TestCase):
         self.assertIn('simulated MAST outage',failed['last_error']['message'])
         _,health=self.request('/api/health')
         self.assertTrue(any(c['health']=='circuit_open' for c in health['watcher']))
+
+
+class WatcherCheckHTTPTests(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.root = Path(self.temporary.name)
+        self.store = Store(self.root / 'research.sqlite3').initialize()
+        self.protocol = self.store.register_protocol(load_protocol())
+        self.artifacts = ArtifactStore(self.root / 'artifacts', self.store)
+        self.ledger = WatchStore(self.store)
+        self.server = ResearchServer(('127.0.0.1', 0), self.store, self.artifacts, self.protocol['id'])
+        self.thread = threading.Thread(target=self.server.serve_forever, kwargs={'poll_interval': .02}, daemon=True)
+        self.thread.start()
+        self.origin = 'http://127.0.0.1:' + str(self.server.server_port)
+
+    def tearDown(self):
+        self.server.shutdown()
+        self.server.server_close()
+        self.thread.join(5)
+        self.temporary.cleanup()
+
+    def request(self, path='/api/watcher/check', method='POST', body='{}', headers=None):
+        connection = http.client.HTTPConnection('127.0.0.1', self.server.server_port, timeout=5)
+        self.addCleanup(connection.close)
+        connection.request(method, path, body if method == 'POST' else None, headers or {})
+        response = connection.getresponse()
+        return response.status, json.loads(response.read())
+
+    def mutation_headers(self):
+        code, session = self.request('/api/session', method='GET')
+        self.assertEqual(code, 200)
+        return {'Origin': self.origin, 'X-CSRF-Token': session['csrf_token'], 'Content-Type': 'application/json'}
+
+    def start_worker(self):
+        from scripts.research.automation import load_config as load_automatic_config
+        self.ledger.start_automation({**load_automatic_config(), 'targets': ['123'], 'cohort': 'archival_pilot'})
+
+    def test_check_requires_same_origin_and_csrf(self):
+        self.start_worker()
+        valid = self.mutation_headers()
+        for headers in ({}, {**valid, 'Origin': 'https://attacker.invalid'},
+                        {**valid, 'X-CSRF-Token': 'incorrect'}, {**valid, 'Sec-Fetch-Site': 'cross-site'},
+                        {key: value for key, value in valid.items() if key != 'Origin'}):
+            with self.subTest(headers=headers):
+                self.assertEqual(self.request(headers=headers)[0], 403)
+        self.assertIsNone(self.request('/api/watcher', method='GET')[1]['automation']['check_request'])
+
+    def test_check_requires_exact_empty_json_object(self):
+        self.start_worker()
+        headers = self.mutation_headers()
+        for body in ('[]', 'null', '{"targets":["999"]}', '{"shell":"anything"}', '{broken', '{} {}'):
+            with self.subTest(body=body):
+                self.assertEqual(self.request(body=body, headers=headers)[0], 400)
+        self.assertEqual(self.request(headers={**headers, 'Content-Type': 'text/plain'})[0], 400)
+        self.assertEqual(self.request('/api/watcher/check?force=true', headers=headers)[0], 400)
+        self.assertIsNone(self.request('/api/watcher', method='GET')[1]['automation']['check_request'])
+
+    def test_check_queues_durably_and_coalesces_duplicate_clicks(self):
+        self.start_worker()
+        headers = self.mutation_headers()
+        code, first = self.request(headers=headers)
+        self.assertEqual(code, 202)
+        self.assertEqual(first['status'], 'queued')
+        self.assertTrue(first['id'])
+        self.assertTrue(first['created_at'])
+        code, repeated = self.request(headers=headers)
+        self.assertEqual(code, 202)
+        self.assertEqual(repeated['id'], first['id'])
+        self.ledger.claim_check()
+        code, running = self.request(headers=headers)
+        self.assertEqual(code, 202)
+        self.assertEqual(running['id'], first['id'])
+        self.assertEqual(running['status'], 'running')
+        _, watcher = self.request('/api/watcher', method='GET')
+        self.assertEqual(watcher['automation']['check_request']['id'], first['id'])
+        self.assertEqual(watcher['automation']['targets'], ['123'])
+        self.assertEqual(self.store.list_records('jobs'), [])
+        self.assertEqual(self.store.list_records('candidates'), [])
+
+    def test_check_refuses_absent_stopped_and_stale_workers(self):
+        headers = self.mutation_headers()
+        self.assertEqual(self.request(headers=headers)[0], 409)
+        self.start_worker()
+        self.ledger.automation_update(state='stopped')
+        self.assertEqual(self.request(headers=headers)[0], 409)
+        self.start_worker()
+        with self.store.connection(True) as connection:
+            connection.execute("UPDATE watch_automation SET heartbeat_at='2000-01-01T00:00:00.000000Z'")
+        self.assertEqual(self.request(headers=headers)[0], 409)
+        _, watcher = self.request('/api/watcher', method='GET')
+        self.assertEqual(watcher['automation']['service_state'], 'stale')
+        self.assertIsNone(watcher['automation']['check_request'])

@@ -305,3 +305,24 @@ pixel coverage, representative injection/negative calibration, model uncertainty
 the comparator/DANN study and a precise literature-grounded contribution remain
 required research work. Low scores, catalog nonmatches and incomplete diagnostics
 continue to have explicit review paths; none is an automated novelty decision.
+
+## 14. Automatic watchlist operation and visible evidence
+
+The next engineering increment connects scheduled public metadata checks to
+bounded product acquisition, blind detection, local CNN inference, diagnostics
+and saved dossiers. The website can queue an immediate check and displays its
+persisted outcome. Browser refresh reads saved results; it does not run a search.
+
+On 23 September 2026 the automatic service had processed a previously unprocessed
+public sector-97 product for TIC 150428135, alongside the earlier TIC 231663901
+control. Three additional proposals brought the store to 44: 17 known-object
+control proposals and 27 synthetic fixtures. This exercises an actual public
+science download and the processing chain; it does not constitute a prospective
+discovery result or complete the domain-adaptation study.
+
+The [automatic-watcher record](results/automatic_watcher_run/README.md) retains
+the candidate assessments, original processing identities, download failure and
+audited recovery, later metadata timeout and successful recheck. Full runtime
+logs stay local; the compact dated result export makes this operational evidence
+reviewable in Git. The two-target watchlist and outstanding scientific vetting
+limits remain explicit.
