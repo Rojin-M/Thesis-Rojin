@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An interactive course in exoplanet detection, machine learning and research practice, with locally graded assessments.">
+  <meta name="color-scheme" content="dark light">
+  <title>Exoplanet Research Academy</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="#dashboard"><span class="brand-mark" aria-hidden="true">◌</span><span>EXOPLANET<small>Research Academy</small></span></a>
+    <div class="top-actions"><span id="save-status" role="status">Progress stays in this browser</span><button id="theme-toggle" class="icon-button" aria-label="Switch color theme">◐</button><button id="menu-toggle" class="icon-button menu-toggle" aria-label="Open course navigation" aria-expanded="false" aria-controls="sidebar">☰</button></div>
+  </header>
+  <aside id="sidebar" class="sidebar" aria-label="Course navigation"><div id="course-progress"></div><nav id="primary-nav"></nav><p class="sidebar-note">Learn the mechanism.<br>Test the evidence.<br>Keep the uncertainty.</p></aside>
+  <main id="main-content" tabindex="-1"><div id="content"><h1>Opening your course…</h1><p>If this remains visible, refresh the page and check that JavaScript is enabled.</p></div></main>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <noscript>This course needs JavaScript for local grading. Enable it and refresh; no API account is required.</noscript>
+  <script src="curriculum.js"></script>
+  <script src="grading.js"></script>
+  <script src="labs.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

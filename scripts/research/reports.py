@@ -39,6 +39,16 @@ def markdown_report(document):
     else:
         lines.append("- CNN score unavailable. The proposal remains in the human review queue.")
     rp = registry.get("payload", {})
+    comparison = latest.get("model_comparison", {})
+    if comparison.get("state") == "complete":
+        p = comparison["payload"]
+        lines.extend(["", "### Experimental model comparison", "",
+                      "Same saved blind-search input; reference score retained. These are uncalibrated ranking values, not planet probabilities.", "",
+                      "| Training arm | Mean score | Seed range |", "| --- | ---: | ---: |"])
+        for arm, row in p["by_arm"].items():
+            lines.append(f"| {literal(arm)} | {row['mean_score']:.6f} | {row['min_score']:.6f}–{row['max_score']:.6f} |")
+        lines.extend(["", f"Experiment: {literal(p['run_id'])}; specification `{p['spec_sha256']}`.",
+                      "Seed ranges are not probability confidence intervals.", ""])
     lines.extend([f"- Registry snapshot: **{literal(rp.get('status', 'NOT_RUN'))}**; evidence {registry.get('state', 'not_run')}; as of {literal(rp.get('generated_at_utc', 'not recorded'))}.",
                   f"- Registry interpretation: {literal(rp.get('summary', 'No catalog assessment recorded.'))}",
                   f"- Covered events: {coverage.get('n_covered_events', 'not measured')} / {coverage.get('n_expected_events', 'not measured')} expected; odd/even white-noise difference {coverage.get('odd_even_difference_sigma', 'not measured')} sigma."])

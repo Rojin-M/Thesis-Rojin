@@ -2,8 +2,9 @@
 
 The five-arm interface trains real models on the existing prepared shared_v1
 arrays. It writes new, isolated runs under `outputs/research/model_experiments/`.
-It neither updates the frozen benchmark nor replaces the CNN used by candidate
-dossiers. The [research note and remaining matrix](mission_adaptation_research.md)
+It neither updates the frozen benchmark nor replaces the reference CNN used by candidate
+dossiers. A separate comparison service now applies completed models to saved blind
+features and displays their scores alongside the reference. The [research note and remaining matrix](mission_adaptation_research.md)
 define the provisional scientific claim and its limits.
 
 ## Arms and matched budgets
@@ -152,3 +153,58 @@ Tests exercise actual retained-module forwards and gradients, group isolation,
 balanced batch cycles, calibration failures, matched-budget training across all
 five arms, deliberate interruption/resume, byte-preserving completed replay,
 zero-domain-weight equivalence, corruption, and actual HTTP report/PNG behavior.
+
+## Completed pilot and automatic candidate comparisons
+
+The [23 September pilot](../results/mission_adaptation_pilot/README.md) completed
+all five arms and three seeds. DANN's mean TESS audit AP was 0.6934; pooled was
+0.7067 and fine-tuned was 0.7644. This short experiment does not support replacing
+the reference CNN with DANN. Both training results and the negative conclusion
+are retained.
+
+The new comparison service loads all 15 validation-selected checkpoints from a
+completed run, verifies their hashes and explicit specification pin, and uses
+the frozen shared_v1 normalizer. It scores saved blind-search inputs and appends
+`model_comparison` evidence. It never rewrites `model_score`, catalog matches,
+review notes, feature arrays or completed processing stages. Means and ranges
+across seeds are descriptive rankings, not probabilities or confidence intervals.
+The training calibration temperatures are not applied to blind proposals.
+
+Run one bounded pass over at most 60 pending completed candidates:
+
+```bash
+OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 \
+  .venv/bin/python -m scripts.research compare-models \
+  --run-id pilot-v1 \
+  --spec-sha256 0c655a8199a12d0a495cd8200d30cabcb88ef8f1534591d6289471ac3443999e
+```
+
+Add `--watch` to poll newly completed jobs every 60 seconds until stopped. The
+service uses two CPU threads, makes no downloads, performs no training, and
+stops after three consecutive failed batches. A database lock prevents duplicate
+services; a batch lock also protects manual passes. Existing comparison evidence
+is reused on restart. Explicit `--candidate-id` values select a finite pass;
+they cannot be combined with `--watch`.
+
+For persistent operation from the repository root:
+
+```bash
+tmux new-session -d -s exoplanet-model-comparisons -c "$PWD" \
+  'exec env OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 .venv/bin/python -u -m scripts.research compare-models --run-id pilot-v1 --spec-sha256 0c655a8199a12d0a495cd8200d30cabcb88ef8f1534591d6289471ac3443999e --watch >> outputs/research/logs/model-comparison.log 2>&1'
+```
+
+Use this once; an existing session means the service is already started. It
+survives an SSH disconnect, not a machine reboot. Stop with
+`tmux kill-session -t exoplanet-model-comparisons`.
+
+The **Models** page shows the service heartbeat and marks old heartbeats stale.
+Open a candidate's **Experimental model comparison** table for the five scores
+and seed ranges. Refresh an already-open dossier to see a newly appended result.
+Markdown and JSON exports include the comparison. Operator files are
+`outputs/research/model-comparison-service.json` and
+`outputs/research/logs/model-comparison.log`.
+
+The existing vetting snapshot command now preserves referenced comparison
+weights as well. A new snapshot and push are still manual; the earlier frozen
+snapshot does not acquire new model scores automatically. Full retraining still
+requires the prepared shared_v1 datasets described above.

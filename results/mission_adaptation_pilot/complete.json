@@ -1,0 +1,10 @@
+{
+  "completed_at": "2026-09-23T16:02:45.184356Z",
+  "files": {
+    "comparison.png": "ea4f15e6c3da8fd135e1e21837a45c5b22c136311b85302051bd37e0e2b55ded",
+    "report.md": "94c88bfad0cc372481d7fbff714f2a186097e2a4a06bf50e4f1a6ca3aff7e2e3",
+    "spec.json": "3b00ef70970e8f3c927b799292d26cbd082af621020506348cf6acd78c58993b",
+    "summary.json": "49e946c83352ac7932bb31ed04315e47d3b864c8853a9d498da8afb92553c83b"
+  },
+  "spec_sha256": "0c655a8199a12d0a495cd8200d30cabcb88ef8f1534591d6289471ac3443999e"
+}

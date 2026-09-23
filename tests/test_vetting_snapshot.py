@@ -75,6 +75,26 @@ class VettingSnapshotTests(unittest.TestCase):
             create(self.root, self.snapshot)
         self.assertFalse(self.snapshot.exists())
 
+    def test_comparison_checkpoints_and_normalizer_are_preserved(self):
+        model = self.root / 'outputs/models/dann.pt'
+        model.parent.mkdir(parents=True)
+        model.write_bytes(b'fixture-checkpoint-bytes')
+        norm = self.root / 'data/processed/normalizer.npz'
+        norm.parent.mkdir(parents=True)
+        norm.write_bytes(b'fixture-normalizer-bytes')
+        p = self.store.register_provenance(kind='fixture', identity='comparison',
+            sha256_digest='c' * 64, retrieved_at='2026-09-23T00:00:00Z')
+        self.store.put_evidence(candidate_id=self.cid, evidence_key='comparison', kind='model_comparison',
+            state='complete', summary='Synthetic checkpoint preservation fixture', provenance_id=p['id'],
+            payload={'models': [{'checkpoint_path': str(model), 'model_sha256': checksum(model)}],
+                     'normalization_path': str(norm), 'normalization_sha256': checksum(norm)})
+        manifest = create(self.root, self.snapshot)
+        self.assertEqual(manifest['file_counts_by_kind']['model'], 1)
+        restored = self.base / 'comparison-restored'
+        restore(self.snapshot, restored)
+        self.assertEqual((restored / model.relative_to(self.root)).read_bytes(), model.read_bytes())
+        self.assertEqual((restored / norm.relative_to(self.root)).read_bytes(), norm.read_bytes())
+
     def test_database_handles_close_before_temporary_directory_cleanup(self):
         connections = []
         original = vetting_snapshot.read_database

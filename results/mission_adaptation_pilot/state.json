@@ -1,0 +1,29 @@
+{
+  "arm": "dann",
+  "attempts": 2,
+  "error": null,
+  "events": [
+    {
+      "at": "2026-09-21T23:45:10.512603Z",
+      "reserved_seconds": 1800,
+      "status": "started"
+    },
+    {
+      "at": "2026-09-23T15:59:38.758663Z",
+      "reserved_seconds": 1800.0,
+      "status": "started"
+    },
+    {
+      "at": "2026-09-23T16:02:45.201107Z",
+      "error": null,
+      "status": "complete"
+    }
+  ],
+  "heartbeat_at": "2026-09-23T16:02:42.774469Z",
+  "runtime_charged": 1986.4372878051363,
+  "seed": 44,
+  "spec_sha256": "0c655a8199a12d0a495cd8200d30cabcb88ef8f1534591d6289471ac3443999e",
+  "started_at": "2026-09-23T15:59:38.758646Z",
+  "status": "complete",
+  "step": 120
+}

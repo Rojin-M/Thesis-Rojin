@@ -8,6 +8,9 @@ data/*
 logs/
 outputs/
 
+# Personal workspace; the shareable course lives in academy/.
+/forme/
+
 # Python
 __pycache__/
 .pytest_cache/

@@ -1,0 +1,79 @@
+{
+  "academy_before_redesign": {
+    "status": "passed",
+    "tests": 23
+  },
+  "browser": {
+    "candidate_id": "e3fc176f07ce4b7a91651ccf7d07bb30",
+    "checks": [
+      "completed three-seed pilot and automatic comparison heartbeat render",
+      "reference score, five experimental arms, seed ranges and review form coexist",
+      "candidate comparison fits mobile viewport"
+    ],
+    "exceptions": [],
+    "status": "passed"
+  },
+  "completed_run_replay": {
+    "already_complete": true,
+    "training_repeated": false
+  },
+  "focused_comparison_and_http_suite": {
+    "status": "passed",
+    "tests": 30
+  },
+  "live_http": {
+    "comparison_candidate_count": 44,
+    "comparison_service": "waiting",
+    "comparisons_per_candidate": 5,
+    "experiment": "complete",
+    "ports": [
+      8766,
+      8767
+    ],
+    "reference_score_preserved": true
+  },
+  "preservation_against_previous_snapshot": {
+    "candidate_rows_identical": 44,
+    "reference_model_score_rows_identical": 44,
+    "review_rows_identical": true
+  },
+  "push_readiness": {
+    "checkpoint_checksums_verified": 15,
+    "course_assessment_compatibility": {
+      "revision_unchanged": true,
+      "unchanged_questions_and_keys": 252
+    },
+    "published_academy_and_site_helper": {
+      "javascript_grader_subtests": 15,
+      "seconds": 13.396,
+      "skipped": 0,
+      "status": "passed",
+      "tests": 22
+    },
+    "published_academy_browser": {
+      "checks": 15,
+      "failed_requests": 0,
+      "final_exam_questions": 27,
+      "isolated_profile": true,
+      "javascript_exceptions": 0,
+      "lessons_rendered": 36,
+      "status": "passed",
+      "unit_exams_graded": 9
+    },
+    "repository_suite": {
+      "scope": "offline suite including model comparison and snapshot changes; opt-in live catalog test disabled",
+      "seconds": 294.962,
+      "skipped": 1,
+      "status": "passed",
+      "tests": 292
+    },
+    "validated_at_utc": "2026-09-23T17:10:25.061015+00:00"
+  },
+  "reference_suite": {
+    "scope": "existing repository suite begun before comparison changes",
+    "skipped": 1,
+    "status": "passed",
+    "tests": 282
+  },
+  "validated_at_utc": "2026-09-23T16:11:29.197153+00:00"
+}

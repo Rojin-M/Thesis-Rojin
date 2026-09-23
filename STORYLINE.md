@@ -1,5 +1,15 @@
 # Thesis storyline: mission-invariant learning for TESS discovery
 
+**23 September 2026 update:** the original five-arm, three-seed pilot is now
+complete. DANN did not demonstrate an advantage: mean TESS audit AP was 0.6934,
+versus 0.7067 pooled and 0.7644 fine-tuned. These are short-budget results on
+validation-derived groups, not the untouched prospective study. All 15 selected
+models were also applied to 44 saved blind proposals as additional evidence.
+The website shows their comparisons and a separate persistent worker adds them
+to newly completed watcher jobs. The reference scorer remains primary. See the
+[completed results and decision](results/mission_adaptation_pilot/README.md).
+Historical descriptions below retain the sequence of work and earlier boundaries.
+
 ## 1. The project pivot
 
 The project began as a broad Kepler classification practical: tabular models, CNN variants, metadata branches, blending, and transformers. That work established useful engineering skills, but it did not form one clear scientific contribution. The thesis now asks a narrower question:

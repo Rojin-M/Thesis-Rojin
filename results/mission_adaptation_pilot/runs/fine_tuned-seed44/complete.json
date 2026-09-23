@@ -1,0 +1,8 @@
+{
+  "files": {
+    "best_model.pt": "35d68ee8445d40fd902cf7b144117c5eb4fcb4d648302531bf5d98910a0f65f4",
+    "predictions.json": "a8b486dba47489e673f6f3b180208dbd77e04a837c7bcd6d1328d2ee55d24df0",
+    "result.json": "ec4fd4827d47c48a3330ecd60c5ca4eae0142447240f7d246713471dbee4889b"
+  },
+  "spec_sha256": "0c655a8199a12d0a495cd8200d30cabcb88ef8f1534591d6289471ac3443999e"
+}

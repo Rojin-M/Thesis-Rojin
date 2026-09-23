@@ -16,6 +16,22 @@ EXPORTS = {"report.json": ("summary.json", "application/json"),
            "comparison.png": ("comparison.png", "image/png")}
 
 
+def comparison_service_status(root):
+    from datetime import datetime, timezone
+    path = Path(root).parent / "model-comparison-service.json"
+    if not path.exists():
+        return None
+    try:
+        state = _json(path)
+        heartbeat = datetime.fromisoformat(state["heartbeat_at"].replace("Z", "+00:00"))
+        age = (datetime.now(timezone.utc) - heartbeat).total_seconds()
+        if state["state"] in ("running", "waiting", "retry_wait") and age > max(180, 3 * state["interval_seconds"]):
+            state["state"] = "stale"
+        return state
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return {"state": "unavailable", "error": {"type": type(exc).__name__, "message": "Comparison service status cannot be read"}}
+
+
 def _bytes(path, cap=MAX_JSON):
     if path.is_symlink() or not path.is_file() or path.stat().st_size > cap:
         raise ValidationError("Experiment file missing, unsafe or too large")
@@ -63,7 +79,7 @@ def verified_summary(folder):
 def list_experiments(root):
     root = Path(root)
     if not root.exists():
-        return {"items": [], "truncated": False}
+        return {"items": [], "truncated": False, "comparison_service": comparison_service_status(root)}
     if root.is_symlink():
         raise ValidationError("Experiment root must not be a symlink")
     names = []
@@ -95,7 +111,8 @@ def list_experiments(root):
             row.update(status="verification_failed", verified=False, results=None,
                        error={"type": type(exc).__name__, "message": str(exc)[:500]})
         items.append(row)
-    return {"items": items, "truncated": len(entries) > 100 or len(names) > 50}
+    return {"items": items, "truncated": len(entries) > 100 or len(names) > 50,
+            "comparison_service": comparison_service_status(root)}
 
 
 def read_export(root, identifier, name):

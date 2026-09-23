@@ -7,8 +7,16 @@ The repository currently contains a frozen shared-preprocessing benchmark, a pub
 Read the [research storyline](STORYLINE.md) for the decision history and the [active evidence index](results/README.md) for compact, committed results.
 
 **Using the website:** start with the [website and watcher guide](docs/website_guide.md).
+The [Exoplanet Research Academy](academy/README.md) is included: 36 lessons,
+252 graded questions and nine interactive demos covering astronomy, ML,
+vetting and this project's results. Run `python3 academy/serve.py` and open
+`http://127.0.0.1:8765/`. Learning and grading use no paid APIs.
+For both sites, see [start, restart, stop and logs](docs/website_guide.md#everyday-commands-for-both-websites).
 For new results, follow [Back up and push new vetting data](#back-up-and-push-new-vetting-data).
 The guide also explains the [existing vetting helper and what to do after `UNMATCHED`](docs/website_guide.md#use-the-vetting-helper).
+The [completed five-model comparison](results/mission_adaptation_pilot/README.md)
+reports all 15 fits and their application to 44 saved proposals. DANN is available
+alongside the reference CNN; the pilot did not support promoting it to primary scorer.
 For activity, see [live logs and monitoring](docs/website_guide.md#where-logs-and-results-live)
 and the [23 September automatic-watcher results](results/automatic_watcher_run/README.md).
 The [frozen vetting dataset](results/vetting_snapshot_20260923/README.md) also
@@ -45,7 +53,7 @@ The planet head learns the scientific task. Gradient reversal makes the encoder 
 | Local research application foundation | Operational, offline integration tested | Persist jobs, failures, candidate evidence, plots, provenance and review history |
 | Blind light-curve BLS pilot | Operational, bounded engineering controls | Estimate period/epoch from cached native photometry; retain plots, aliases and event diagnostics |
 | Proposal scoring and vetting | Operational, bounded CPU worker | Shared features, frozen trained CNN, catalog snapshots, diagnostic evidence and human dossiers |
-| TESS-only, Kepler-only, fine-tuned, pooled, and DANN experiments | Operational finite CPU interface; bounded pilot | Compare matched update budgets without changing the frozen candidate scorer |
+| TESS-only, Kepler-only, fine-tuned, pooled, and DANN experiments | Three-seed pilot complete; automatic comparison scoring available | DANN benefit not demonstrated; experimental scores appear beside the frozen candidate scorer |
 | `discovery_v1` pixel-to-candidate search | Planned | Search new or under-covered TESS targets rather than only re-rank known TCEs |
 | Automatic TESS watchlist and finite dispatcher | Operational, scoped pilot | Check configured TICs, process new products, retain evidence and enforce cumulative budgets |
 | Human review and cTOI submission | Prospective | Escalate only signals that survive the locked protocol |

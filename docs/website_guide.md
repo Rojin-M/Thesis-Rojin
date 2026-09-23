@@ -8,6 +8,40 @@ Run the commands below from the repository root, `Thesis-Rojin`, in your remote
 terminal. They assume the `.venv` environment from the [README](../README.md#environment)
 is installed. A fresh database starts empty; existing records are retained.
 
+## Everyday commands for both websites
+
+The shareable [Academy course](../academy/README.md) uses port **8765**;
+Research uses **8766**. With the project's `.venv`, `tmux` and `curl` installed,
+run this helper from the repository root:
+
+| Operation | Command |
+| --- | --- |
+| Start both, reusing healthy sessions | `bash scripts/websites.sh start` |
+| Restart both and release their previous listeners | `bash scripts/websites.sh restart` |
+| Restart Academy only | `bash scripts/websites.sh restart academy` |
+| Restart Research only | `bash scripts/websites.sh restart research` |
+| Check both HTTP services | `bash scripts/websites.sh status` |
+| Start/open browser tabs, or print the addresses | `bash scripts/websites.sh open` |
+| Read recent logs | `bash scripts/websites.sh logs` |
+| Stop both website servers | `bash scripts/websites.sh stop` |
+| Stop an old recovery listener on 8767 | `bash scripts/websites.sh stop recovery` |
+
+Logs go to `outputs/academy/server.log` and `outputs/research/server.log`.
+Sessions are named `exoplanet-academy` and `exoplanet-research`. They survive
+terminal disconnection while the host remains running; they do not restart
+automatically after reboot. If a port belongs to an unmanaged process, the
+helper reports it for inspection; stop it in its original terminal with Ctrl+C.
+
+The helper manages HTTP servers only. Start the automatic watcher using the
+next section and the optional [comparison worker](mission_adaptation_experiments.md#completed-pilot-and-automatic-candidate-comparisons)
+separately. Website restarts preserve saved research data and browser grades.
+
+To clear stale VS Code forwards, stop forwarding the old **8765**, **8766** and
+**8767** rows in the **Ports** panel, then forward **8765 → local 8765** and
+**8766 → local 8766**. Research requires the same local port; use **Change Local
+Port** if necessary. Removing a forward and stopping a server are separate
+operations. Do not use `tmux kill-server`, which would also stop the workers.
+
 ## Start the website and watcher
 
 Choose one start method. Do not start another copy if the services are already
@@ -99,6 +133,15 @@ Use **Review attention** to find flags, **Light curves & diagnostic plots** to
 inspect the signal, and **Evidence checklist** to see completed and missing
 checks. The CNN score is a ranking score, not a calibrated planet probability.
 Missing evidence remains visible even when processing has succeeded.
+
+The **Experimental model comparison** card now shows TESS-only, Kepler-only,
+fine-tuned, pooled and DANN scores from the completed three-seed pilot. They are
+additional rankings on the same saved input. The original reference CNN remains
+the main score: DANN did not demonstrate an improvement in this pilot. Neither
+score means planet probability. The **Models** page shows the completed study
+and the automatic comparison service's heartbeat. While that service is running,
+newly completed watcher jobs receive these comparisons automatically. See the
+[comparison commands](mission_adaptation_experiments.md#completed-pilot-and-automatic-candidate-comparisons).
 
 ### What to do after UNMATCHED
 

@@ -133,6 +133,11 @@ def create(root, output):
                 model = json.loads(row[0])
                 add(model['checkpoint_path'], 'model', model['model_sha256'])
                 add(model['normalization_path'], 'normalizer', model['normalization_sha256'])
+            for row in db.execute("SELECT payload_json FROM evidence WHERE kind='model_comparison' AND state='complete'"):
+                comparison = json.loads(row[0])
+                add(comparison['normalization_path'], 'normalizer', comparison['normalization_sha256'])
+                for model in comparison['models']:
+                    add(model['checkpoint_path'], 'model', model['model_sha256'])
             candidates = []
             for row in db.execute('SELECT c.*,j.cohort FROM candidates c JOIN jobs j ON j.id=c.job_id ORDER BY c.created_at,c.id'):
                 candidate = decode(row)

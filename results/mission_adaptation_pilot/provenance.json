@@ -1,0 +1,137 @@
+{
+  "checkpoint_receipts": [
+    {
+      "arm": "dann-seed42",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/dann-seed42/best_model.pt",
+      "sha256": "db2cc6f11577c5bfde2a04ee5781fd6bf840115306d91a700475a91378a0bd3d"
+    },
+    {
+      "arm": "dann-seed43",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/dann-seed43/best_model.pt",
+      "sha256": "28e996d6afc65c46fc76edaee195e303b11e61cb3961e1d7f2d571f5a665b0c5"
+    },
+    {
+      "arm": "dann-seed44",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/dann-seed44/best_model.pt",
+      "sha256": "20215cd3839053d1a8fda49b00028fce8ec21a2ad9653c01a9471f6a834c7412"
+    },
+    {
+      "arm": "fine_tuned-seed42",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/fine_tuned-seed42/best_model.pt",
+      "sha256": "cb1840fc8fbd258b5c26326b0211560e48ee699f8f05072a7b9d07e3ef468469"
+    },
+    {
+      "arm": "fine_tuned-seed43",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/fine_tuned-seed43/best_model.pt",
+      "sha256": "e5d7454cdbe2bb597782a02ae41e80d609211959927c2b7cc743ef44886249b9"
+    },
+    {
+      "arm": "fine_tuned-seed44",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/fine_tuned-seed44/best_model.pt",
+      "sha256": "35d68ee8445d40fd902cf7b144117c5eb4fcb4d648302531bf5d98910a0f65f4"
+    },
+    {
+      "arm": "kepler_only-seed42",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/kepler_only-seed42/best_model.pt",
+      "sha256": "005aab268f2e60d4275ce883c7da8cc79bc000adcf6c5a4c2d9fd46d1e2b7c14"
+    },
+    {
+      "arm": "kepler_only-seed43",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/kepler_only-seed43/best_model.pt",
+      "sha256": "602e2c1f1aea15dbadcd183ea87c5088da3047aa1fa12d6c713e0e3e29c67311"
+    },
+    {
+      "arm": "kepler_only-seed44",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/kepler_only-seed44/best_model.pt",
+      "sha256": "5f15ff0e76220f0d664b908d9ead6bd0cb18e48ac2ae54abeaddb9279a33950b"
+    },
+    {
+      "arm": "pooled-seed42",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/pooled-seed42/best_model.pt",
+      "sha256": "664b7c408ac3da9c1b6927c417d8127e27c7ad036add5e17874fe64fd2f474e5"
+    },
+    {
+      "arm": "pooled-seed43",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/pooled-seed43/best_model.pt",
+      "sha256": "9fa2fa6c43afc088d8225546df2028333344fc9b47bb10db56c35a88f37085a5"
+    },
+    {
+      "arm": "pooled-seed44",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/pooled-seed44/best_model.pt",
+      "sha256": "8ed33795d970fb428f21b81fdd62518c9abe5631c57b69e9573d5fc1e78bbc91"
+    },
+    {
+      "arm": "tess_only-seed42",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/tess_only-seed42/best_model.pt",
+      "sha256": "123e3ca4d0b985d4fd313c378109c6c3fbe1d0e7840c2434fed796f9e7ced1a2"
+    },
+    {
+      "arm": "tess_only-seed43",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/tess_only-seed43/best_model.pt",
+      "sha256": "6b97a97e3d1caa708f8e459a3b68d7d0f848ae13042b486125c9f72e78b016c1"
+    },
+    {
+      "arm": "tess_only-seed44",
+      "checkpoint_path": "outputs/research/model_experiments/pilot-v1/tess_only-seed44/best_model.pt",
+      "sha256": "3ddf5c86ba31206f550ec07eb2f286ee98450a39aed602db78a19b8938b0b925"
+    }
+  ],
+  "files": {
+    "blind_comparison.json": "9b6dfcda52bd3d63b92a4d218f4a26d0166ecd6b9db2bfd3130be632970b4744",
+    "comparison.png": "ea4f15e6c3da8fd135e1e21837a45c5b22c136311b85302051bd37e0e2b55ded",
+    "complete.json": "3b44d004464e37f854d3ac9dcad8ee5e632fb2b9302d8d443876c23c9611562f",
+    "report.md": "94c88bfad0cc372481d7fbff714f2a186097e2a4a06bf50e4f1a6ca3aff7e2e3",
+    "runs/dann-seed42/complete.json": "4fce5aa2ed384ffaaaeaa3da1ab009a1d37cdb499f7c981d1de97c04b89ad9a9",
+    "runs/dann-seed42/predictions.json": "b1a8e893706ca0b1c5d74575bdaf07d7c814d0ccce51ced9a9f956242bc77461",
+    "runs/dann-seed42/result.json": "62b17493cac68cba5dcfb2237515b8ce306aedb1ef5d48e50d8e211926091688",
+    "runs/dann-seed43/complete.json": "552826dbafe116a7d59fc62b6c7f0e8a3c17b61f4716f411cfe54be91ea5c799",
+    "runs/dann-seed43/predictions.json": "fbe61246f8aa9a9a6fbeb78b6045e6e875fc9fb9d772db94ee7a8a882f5b877c",
+    "runs/dann-seed43/result.json": "48db3c60b7cfb80bab392842f46083a459e77d05bdc51d6cbd3c7530502821fa",
+    "runs/dann-seed44/complete.json": "719de6e8b63a8d0003d4dc032f889aacf8db33b7a916584a42b97b1a55b4c612",
+    "runs/dann-seed44/predictions.json": "84bb6fb475745d58531739a675458d62fca1ae569049277e25f6f8fa16ee34b0",
+    "runs/dann-seed44/result.json": "a9c10a987d1f798ff18809ee70181c9766e5bb4c32faf15f3b61460712a8edcc",
+    "runs/fine_tuned-seed42/complete.json": "4724ce93fc14b56b2ad11ac5b96e3b5e5f761e7b6b37c48cee29849f7bef092c",
+    "runs/fine_tuned-seed42/predictions.json": "3c8b40a66c9417cf616d0a54ddd966813f81d5e9fb8b09007456ff8bc1ac6c7e",
+    "runs/fine_tuned-seed42/result.json": "eeb2e135e7d158908be13bfbf7d11300b7177da1882969df73c06bc07c3a17e1",
+    "runs/fine_tuned-seed43/complete.json": "960d31808e19e0463c8826af83e023e3fa2f90ffdddad9f33cf7985046934e09",
+    "runs/fine_tuned-seed43/predictions.json": "62c4a64b6a417ca80b3c39a6db9425a25b9d37101b2f7205dd87bac87b68bbf3",
+    "runs/fine_tuned-seed43/result.json": "ce16e30596862cdd2fb5d21a4d32fdd5f04586a03751876fd73ac9e96c920dd7",
+    "runs/fine_tuned-seed44/complete.json": "69f40207646a4d7ae63f714de940aebf588029b42c73d6c19186ee75b9a5f6db",
+    "runs/fine_tuned-seed44/predictions.json": "a8b486dba47489e673f6f3b180208dbd77e04a837c7bcd6d1328d2ee55d24df0",
+    "runs/fine_tuned-seed44/result.json": "ec4fd4827d47c48a3330ecd60c5ca4eae0142447240f7d246713471dbee4889b",
+    "runs/kepler_only-seed42/complete.json": "9de8351838dd2d68c26b6bb49dcaeaeda840d95214a5142a854bed82c8e0dbac",
+    "runs/kepler_only-seed42/predictions.json": "08cdab46828d2d190593643ad70c8b6bc5fecf684b682518887c8f9fc5cd63bc",
+    "runs/kepler_only-seed42/result.json": "e0b135177137ad9dd3e309a4a6a59624e0115e39dfeb4007a6e45fee4ec70be9",
+    "runs/kepler_only-seed43/complete.json": "d5245f591e71cce7df8dd2da52a70930291b7172abda2bc728890500376aed7f",
+    "runs/kepler_only-seed43/predictions.json": "92dab4d6a112ae8e70f20a2fb3760aec88c1db559faad67f37b56883c46c5fa5",
+    "runs/kepler_only-seed43/result.json": "e8286aa62fdfad17680aaf9dabd6dd97c190a20f2912e4f99d237a5fc8845a0b",
+    "runs/kepler_only-seed44/complete.json": "c617d3e885ea0a252ca574679747ba6189f4aba0a1dc77f5709c457fe27a14a2",
+    "runs/kepler_only-seed44/predictions.json": "ee0007124e45e998d105d2bcec9727e405c2fd166bafb78fa2d250ad43b4e86a",
+    "runs/kepler_only-seed44/result.json": "c8dd39f243a339017f28021046b5a9adc2f9b23d6c7dc050fe9a0277ca9c60a7",
+    "runs/pooled-seed42/complete.json": "9912eab0f14e44208bcbff1298c8fe28cd57511b744d0434a862529c7a9e3748",
+    "runs/pooled-seed42/predictions.json": "7b2977ade99c1efcd459b038b386fdfeed8cfa9afd5872f65f931479bc7e535c",
+    "runs/pooled-seed42/result.json": "d3fffd433e9734ca551011c73f5464063e59ed3d7240154af94cd3e9945ebf2d",
+    "runs/pooled-seed43/complete.json": "5baf6dffc0882f2f0876a9c762516c12c893d070484f1a46fb317edcd987a6c9",
+    "runs/pooled-seed43/predictions.json": "aeedae648a879bf86d43ceb833a3565424530cee2a34b364c97352db7f7c699c",
+    "runs/pooled-seed43/result.json": "cae61a811a849430e1dbd7d31b2019ff84038d2b3b6fc23b3100ae2fde81440d",
+    "runs/pooled-seed44/complete.json": "861ae690514686a2e51202a482600809f330eb3af29fa305b84932fc3166ba1a",
+    "runs/pooled-seed44/predictions.json": "3e4f8a3dbe2f3843bd02cd01eb0f62400a34d3936e52632455ea3315d80c4f01",
+    "runs/pooled-seed44/result.json": "4c005548caa7a1e2a068be13dc66e986a3117ffa31d6a368426229d436f47647",
+    "runs/tess_only-seed42/complete.json": "fb9cfcd8003c18c098a510352660bcc1cab9339b3cfdba609e110b1088f7576b",
+    "runs/tess_only-seed42/predictions.json": "f3e2f59b8fcd4abaefff2b1b77087fccac2963a7d2df5391454dd37e328b1e1e",
+    "runs/tess_only-seed42/result.json": "9e79e0cba92f4ce5acb9383e1fdd822b6e37d4eab11547a3ca8ca70c31009144",
+    "runs/tess_only-seed43/complete.json": "47d83d81c432198a0d86d2284144bd0450db61b7411768fe21e3f7ff020e13b4",
+    "runs/tess_only-seed43/predictions.json": "7707d6971c4e32d56e606dbb5c7a05e9061b54bd1560f6c65da835c6c93754a9",
+    "runs/tess_only-seed43/result.json": "ec5521e775117e315fe89e4bc5235636809748aca6826dc3c2754ff1bfc42f32",
+    "runs/tess_only-seed44/complete.json": "6701a8414e3dd2b34f7813d79a2a058e5b14e7163cc0cf738b6b6e02f6b605f3",
+    "runs/tess_only-seed44/predictions.json": "4fde00be3ab1583714b0640903e2089a84eb65127e488a999ce15e18117d3827",
+    "runs/tess_only-seed44/result.json": "2fa825d208e0230916ebf96740c8780b9fed6b9b9ebb5774d3a0e5618f1eb5ff",
+    "spec.json": "3b00ef70970e8f3c927b799292d26cbd082af621020506348cf6acd78c58993b",
+    "state.json": "3c041ddc746be275996c1210c2a4f9e4ccb83ba321dc1eda348566722b040c75",
+    "summary.json": "49e946c83352ac7932bb31ed04315e47d3b864c8853a9d498da8afb92553c83b",
+    "validation.json": "925758e2ab3f8491ff39218811a427dc4d0f30bb7ae7f7443f0fcd3fe8e9d8fc"
+  },
+  "models_stored_locally": true,
+  "paired_bootstrap_note": "The seed field in paired_dann_pooled is the bootstrap RNG seed (2718); array order corresponds to model seeds [42,43,44].",
+  "promotion_decision": "comparison_only; DANN did not demonstrate improvement over pooled or fine-tuned alternatives in the fixed pilot"
+}

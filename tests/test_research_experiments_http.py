@@ -56,6 +56,15 @@ class ExperimentHTTPTests(unittest.TestCase):
         self.assertEqual(len(self.store.list_records("candidates")),0)
         self.assertIn(b"#experiments",self.request("/")[1])
 
+    def test_comparison_service_status_does_not_report_stale_worker_as_running(self):
+        state = self.root / "model-comparison-service.json"
+        state.write_text(json.dumps({"state": "waiting", "run_id": "synthetic-check", "interval_seconds": 60,
+                                     "heartbeat_at": "2000-01-01T00:00:00Z"}))
+        self.addCleanup(state.unlink)
+        code, value = self.request("/api/experiments")
+        self.assertEqual(code, 200)
+        self.assertEqual(value["comparison_service"]["state"], "stale")
+
     def test_failure_and_unverified_exports_stay_visible(self):
         pending = self.root / "model_experiments" / "failed-check"
         pending.mkdir(exist_ok=True)

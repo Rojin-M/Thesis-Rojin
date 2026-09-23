@@ -1,0 +1,2926 @@
+{
+  "kepler": [
+    {
+      "candidate_id": "K00809.01",
+      "duration_hours": 1.9604,
+      "epoch_bjd": 2455003.6483505,
+      "label": 1,
+      "logit": 2.0258610248565674,
+      "period": 1.594745374,
+      "split_group": "KIC-3935914",
+      "star_id": 3935914
+    },
+    {
+      "candidate_id": "K02389.01",
+      "duration_hours": 8.2,
+      "epoch_bjd": 2454966.66805,
+      "label": 1,
+      "logit": 1.229944109916687,
+      "period": 22.9221181,
+      "split_group": "KIC-8494617",
+      "star_id": 8494617
+    },
+    {
+      "candidate_id": "K00552.01",
+      "duration_hours": 1.6798,
+      "epoch_bjd": 2455004.099046,
+      "label": 0,
+      "logit": 1.6771422624588013,
+      "period": 3.055171082,
+      "split_group": "KIC-5122112",
+      "star_id": 5122112
+    },
+    {
+      "candidate_id": "K01109.01",
+      "duration_hours": 7.46,
+      "epoch_bjd": 2454967.7775984,
+      "label": 0,
+      "logit": -0.3089107573032379,
+      "period": 6.7210783,
+      "split_group": "KIC-3235672",
+      "star_id": 3235672
+    },
+    {
+      "candidate_id": "K01536.01",
+      "duration_hours": 2.9191,
+      "epoch_bjd": 2454966.55997,
+      "label": 1,
+      "logit": -1.2307827472686768,
+      "period": 3.74443645,
+      "split_group": "KIC-12159249",
+      "star_id": 12159249
+    },
+    {
+      "candidate_id": "K00235.01",
+      "duration_hours": 2.1448,
+      "epoch_bjd": 2454966.81818,
+      "label": 1,
+      "logit": 1.4911402463912964,
+      "period": 5.63252508,
+      "split_group": "KIC-8107225",
+      "star_id": 8107225
+    },
+    {
+      "candidate_id": "K07130.01",
+      "duration_hours": 5.721,
+      "epoch_bjd": 2454965.3272,
+      "label": 0,
+      "logit": -0.9421248435974121,
+      "period": 0.94356284,
+      "split_group": "KIC-9093566",
+      "star_id": 9093566
+    },
+    {
+      "candidate_id": "K01741.01",
+      "duration_hours": 4.9041,
+      "epoch_bjd": 2454969.101253,
+      "label": 0,
+      "logit": 1.6945027112960815,
+      "period": 5.803127153,
+      "split_group": "KIC-8180020",
+      "star_id": 8180020
+    },
+    {
+      "candidate_id": "K01306.04",
+      "duration_hours": 4.014,
+      "epoch_bjd": 2454972.32807,
+      "label": 1,
+      "logit": 0.37578535079956055,
+      "period": 29.2214959,
+      "split_group": "KIC-10858691",
+      "star_id": 10858691
+    },
+    {
+      "candidate_id": "K01297.01",
+      "duration_hours": 2.781,
+      "epoch_bjd": 2454966.93938,
+      "label": 0,
+      "logit": -0.926893949508667,
+      "period": 1.031096352,
+      "split_group": "KIC-10676923",
+      "star_id": 10676923
+    },
+    {
+      "candidate_id": "K01078.03",
+      "duration_hours": 2.6657,
+      "epoch_bjd": 2454991.03986,
+      "label": 1,
+      "logit": 1.429487705230713,
+      "period": 28.46464804,
+      "split_group": "KIC-10166274",
+      "star_id": 10166274
+    },
+    {
+      "candidate_id": "K00926.01",
+      "duration_hours": 3.3129,
+      "epoch_bjd": 2455003.966145,
+      "label": 1,
+      "logit": 1.9725209474563599,
+      "period": 3.166353562,
+      "split_group": "KIC-9077124",
+      "star_id": 9077124
+    },
+    {
+      "candidate_id": "K06309.01",
+      "duration_hours": 2.097,
+      "epoch_bjd": 2454965.21412,
+      "label": 0,
+      "logit": 0.5221142768859863,
+      "period": 0.730956716,
+      "split_group": "KIC-3228740",
+      "star_id": 3228740
+    },
+    {
+      "candidate_id": "K01625.01",
+      "duration_hours": 1.8511,
+      "epoch_bjd": 2454966.61014,
+      "label": 0,
+      "logit": 1.0496172904968262,
+      "period": 1.221204888,
+      "split_group": "KIC-6312314",
+      "star_id": 6312314
+    },
+    {
+      "candidate_id": "K04828.01",
+      "duration_hours": 6.39,
+      "epoch_bjd": 2454964.5654,
+      "label": 0,
+      "logit": -1.2780015468597412,
+      "period": 1.02104719,
+      "split_group": "KIC-10556180",
+      "star_id": 10556180
+    },
+    {
+      "candidate_id": "K07504.01",
+      "duration_hours": 2.706,
+      "epoch_bjd": 2454965.8596,
+      "label": 0,
+      "logit": 0.9869456887245178,
+      "period": 2.5212708,
+      "split_group": "KIC-12004689",
+      "star_id": 12004689
+    },
+    {
+      "candidate_id": "K02045.01",
+      "duration_hours": 2.5482,
+      "epoch_bjd": 2454968.70431,
+      "label": 1,
+      "logit": 1.2174988985061646,
+      "period": 5.47665801,
+      "split_group": "KIC-6026438",
+      "star_id": 6026438
+    },
+    {
+      "candidate_id": "K06456.01",
+      "duration_hours": 5.84235,
+      "epoch_bjd": 2454967.231165,
+      "label": 0,
+      "logit": 1.0678108930587769,
+      "period": 4.426344495,
+      "split_group": "KIC-4839180",
+      "star_id": 4839180
+    },
+    {
+      "candidate_id": "K01526.01",
+      "duration_hours": 3.686,
+      "epoch_bjd": 2454966.46308,
+      "label": 1,
+      "logit": 1.047033429145813,
+      "period": 4.4444826,
+      "split_group": "KIC-9824805",
+      "star_id": 9824805
+    },
+    {
+      "candidate_id": "K07507.01",
+      "duration_hours": 3.36034,
+      "epoch_bjd": 2454965.3912568,
+      "label": 0,
+      "logit": 1.823685646057129,
+      "period": 3.442714533,
+      "split_group": "KIC-12022517",
+      "star_id": 12022517
+    },
+    {
+      "candidate_id": "K01097.01",
+      "duration_hours": 7.033,
+      "epoch_bjd": 2454975.52714,
+      "label": 0,
+      "logit": 1.1470824480056763,
+      "period": 10.9110487,
+      "split_group": "KIC-3340070",
+      "star_id": 3340070
+    },
+    {
+      "candidate_id": "K07036.01",
+      "duration_hours": 3.639,
+      "epoch_bjd": 2454975.82366,
+      "label": 0,
+      "logit": 1.7933062314987183,
+      "period": 11.93137992,
+      "split_group": "KIC-8414216",
+      "star_id": 8414216
+    },
+    {
+      "candidate_id": "K04673.01",
+      "duration_hours": 2.1401,
+      "epoch_bjd": 2454965.79165,
+      "label": 0,
+      "logit": -0.4763903021812439,
+      "period": 1.428596987,
+      "split_group": "KIC-10794509",
+      "star_id": 10794509
+    },
+    {
+      "candidate_id": "K00747.01",
+      "duration_hours": 1.5821,
+      "epoch_bjd": 2455004.602959,
+      "label": 1,
+      "logit": 1.7363859415054321,
+      "period": 6.02930329,
+      "split_group": "KIC-10583066",
+      "star_id": 10583066
+    },
+    {
+      "candidate_id": "K01905.01",
+      "duration_hours": 2.4168,
+      "epoch_bjd": 2454969.01585,
+      "label": 1,
+      "logit": 1.9465628862380981,
+      "period": 7.62635494,
+      "split_group": "KIC-10328393",
+      "star_id": 10328393
+    },
+    {
+      "candidate_id": "K08087.01",
+      "duration_hours": 10.716,
+      "epoch_bjd": 2454965.006611,
+      "label": 0,
+      "logit": 0.514805257320404,
+      "period": 1.085965104,
+      "split_group": "KIC-3443582",
+      "star_id": 3443582
+    },
+    {
+      "candidate_id": "K00528.01",
+      "duration_hours": 3.3603,
+      "epoch_bjd": 2455009.683759,
+      "label": 1,
+      "logit": 1.7767802476882935,
+      "period": 9.57665962,
+      "split_group": "KIC-9941859",
+      "star_id": 9941859
+    },
+    {
+      "candidate_id": "K00102.02",
+      "duration_hours": 2.8349,
+      "epoch_bjd": 2454965.27614,
+      "label": 1,
+      "logit": 0.4749382734298706,
+      "period": 4.06844957,
+      "split_group": "KIC-8456679",
+      "star_id": 8456679
+    },
+    {
+      "candidate_id": "K07280.01",
+      "duration_hours": 4.37759,
+      "epoch_bjd": 2454964.5869372,
+      "label": 0,
+      "logit": 1.671561360359192,
+      "period": 1.009671584,
+      "split_group": "KIC-10063044",
+      "star_id": 10063044
+    },
+    {
+      "candidate_id": "K01015.02",
+      "duration_hours": 3.585,
+      "epoch_bjd": 2454968.76402,
+      "label": 1,
+      "logit": -0.560295581817627,
+      "period": 4.08897299,
+      "split_group": "KIC-8158127",
+      "star_id": 8158127
+    },
+    {
+      "candidate_id": "K04562.02",
+      "duration_hours": 1.772,
+      "epoch_bjd": 2454964.97214,
+      "label": 0,
+      "logit": 0.6460541486740112,
+      "period": 0.968065631,
+      "split_group": "KIC-8652360",
+      "star_id": 8652360
+    },
+    {
+      "candidate_id": "K03077.01",
+      "duration_hours": 1.704,
+      "epoch_bjd": 2454964.61992,
+      "label": 1,
+      "logit": 0.9341942071914673,
+      "period": 4.09578199,
+      "split_group": "KIC-2715695",
+      "star_id": 2715695
+    },
+    {
+      "candidate_id": "K08061.01",
+      "duration_hours": 2.628,
+      "epoch_bjd": 2454964.898,
+      "label": 0,
+      "logit": 0.10236856341362,
+      "period": 0.719741,
+      "split_group": "KIC-11709006",
+      "star_id": 11709006
+    },
+    {
+      "candidate_id": "K00997.01",
+      "duration_hours": 17.573,
+      "epoch_bjd": 2454968.89269,
+      "label": 0,
+      "logit": 1.0572270154953003,
+      "period": 5.68628739,
+      "split_group": "KIC-2157247",
+      "star_id": 2157247
+    },
+    {
+      "candidate_id": "K04133.01",
+      "duration_hours": 1.0628,
+      "epoch_bjd": 2454964.67283,
+      "label": 0,
+      "logit": 1.0464720726013184,
+      "period": 0.621361411,
+      "split_group": "KIC-7601918",
+      "star_id": 7601918
+    },
+    {
+      "candidate_id": "K01069.01",
+      "duration_hours": 2.9385,
+      "epoch_bjd": 2455190.55941,
+      "label": 1,
+      "logit": 1.73952054977417,
+      "period": 8.70420525,
+      "split_group": "KIC-8222813",
+      "star_id": 8222813
+    },
+    {
+      "candidate_id": "K00251.02",
+      "duration_hours": 1.768,
+      "epoch_bjd": 2454965.96695,
+      "label": 1,
+      "logit": 0.7061882019042969,
+      "period": 5.77440326,
+      "split_group": "KIC-10489206",
+      "star_id": 10489206
+    },
+    {
+      "candidate_id": "K06400.01",
+      "duration_hours": 3.72007,
+      "epoch_bjd": 2454970.7738831,
+      "label": 0,
+      "logit": 1.1371757984161377,
+      "period": 9.543584955,
+      "split_group": "KIC-4281895",
+      "star_id": 4281895
+    },
+    {
+      "candidate_id": "K02202.01",
+      "duration_hours": 1.4122,
+      "epoch_bjd": 2454964.82536,
+      "label": 1,
+      "logit": 1.3279494047164917,
+      "period": 0.813166357,
+      "split_group": "KIC-4144576",
+      "star_id": 4144576
+    },
+    {
+      "candidate_id": "K01567.03",
+      "duration_hours": 4.269,
+      "epoch_bjd": 2455193.5083,
+      "label": 1,
+      "logit": 1.7043778896331787,
+      "period": 17.32670445,
+      "split_group": "KIC-5438099",
+      "star_id": 5438099
+    },
+    {
+      "candidate_id": "K06493.01",
+      "duration_hours": 3.0999,
+      "epoch_bjd": 2454964.73687,
+      "label": 0,
+      "logit": -1.0781666040420532,
+      "period": 0.787122102,
+      "split_group": "KIC-5024126",
+      "star_id": 5024126
+    },
+    {
+      "candidate_id": "K02105.01",
+      "duration_hours": 2.6192,
+      "epoch_bjd": 2454967.58037,
+      "label": 1,
+      "logit": 0.3974437415599823,
+      "period": 6.42199919,
+      "split_group": "KIC-8165946",
+      "star_id": 8165946
+    },
+    {
+      "candidate_id": "K00094.04",
+      "duration_hours": 3.6888,
+      "epoch_bjd": 2454964.61967,
+      "label": 1,
+      "logit": 0.6426273584365845,
+      "period": 3.743166733,
+      "split_group": "KIC-6462863",
+      "star_id": 6462863
+    },
+    {
+      "candidate_id": "K03429.03",
+      "duration_hours": 4.969,
+      "epoch_bjd": 2454990.7573,
+      "label": 0,
+      "logit": 0.4646788537502289,
+      "period": 26.936878,
+      "split_group": "KIC-9230021",
+      "star_id": 9230021
+    },
+    {
+      "candidate_id": "K03792.01",
+      "duration_hours": 1.4313,
+      "epoch_bjd": 2454966.57632,
+      "label": 0,
+      "logit": 1.867905855178833,
+      "period": 2.723858181,
+      "split_group": "KIC-12009347",
+      "star_id": 12009347
+    },
+    {
+      "candidate_id": "K04784.01",
+      "duration_hours": 1.184,
+      "epoch_bjd": 2454965.01147,
+      "label": 0,
+      "logit": -0.2651492655277252,
+      "period": 1.405887031,
+      "split_group": "KIC-8940918",
+      "star_id": 8940918
+    },
+    {
+      "candidate_id": "K07149.01",
+      "duration_hours": 4.80903,
+      "epoch_bjd": 2454967.005172,
+      "label": 0,
+      "logit": 1.540457844734192,
+      "period": 2.537081943,
+      "split_group": "KIC-9236858",
+      "star_id": 9236858
+    },
+    {
+      "candidate_id": "K06297.01",
+      "duration_hours": 6.606,
+      "epoch_bjd": 2454965.067717,
+      "label": 0,
+      "logit": 1.7120423316955566,
+      "period": 2.629870555,
+      "split_group": "KIC-2860788",
+      "star_id": 2860788
+    },
+    {
+      "candidate_id": "K00776.01",
+      "duration_hours": 2.683,
+      "epoch_bjd": 2455004.793255,
+      "label": 1,
+      "logit": 1.8132033348083496,
+      "period": 3.728732147,
+      "split_group": "KIC-11812062",
+      "star_id": 11812062
+    },
+    {
+      "candidate_id": "K01069.02",
+      "duration_hours": 1.6345,
+      "epoch_bjd": 2455187.93093,
+      "label": 1,
+      "logit": -0.12209981679916382,
+      "period": 2.46697039,
+      "split_group": "KIC-8222813",
+      "star_id": 8222813
+    },
+    {
+      "candidate_id": "K06645.01",
+      "duration_hours": 2.218,
+      "epoch_bjd": 2454966.88924,
+      "label": 0,
+      "logit": 1.1199613809585571,
+      "period": 7.21636091,
+      "split_group": "KIC-5990753",
+      "star_id": 5990753
+    },
+    {
+      "candidate_id": "K02789.01",
+      "duration_hours": 1.9617,
+      "epoch_bjd": 2454965.06195,
+      "label": 1,
+      "logit": -0.15926796197891235,
+      "period": 3.40165617,
+      "split_group": "KIC-8885643",
+      "star_id": 8885643
+    },
+    {
+      "candidate_id": "K07289.01",
+      "duration_hours": 3.87956,
+      "epoch_bjd": 2454964.770748,
+      "label": 0,
+      "logit": 1.8830299377441406,
+      "period": 1.930451347,
+      "split_group": "KIC-10155080",
+      "star_id": 10155080
+    },
+    {
+      "candidate_id": "K06874.01",
+      "duration_hours": 3.52,
+      "epoch_bjd": 2454966.13661,
+      "label": 0,
+      "logit": 0.35581761598587036,
+      "period": 1.65546056,
+      "split_group": "KIC-7385387",
+      "star_id": 7385387
+    },
+    {
+      "candidate_id": "K06265.01",
+      "duration_hours": 11.4277,
+      "epoch_bjd": 2454976.7331641,
+      "label": 0,
+      "logit": 1.2297528982162476,
+      "period": 10.306982793,
+      "split_group": "KIC-2306740",
+      "star_id": 2306740
+    },
+    {
+      "candidate_id": "K01018.01",
+      "duration_hours": 2.76,
+      "epoch_bjd": 2454970.08254,
+      "label": 0,
+      "logit": 0.1468348652124405,
+      "period": 8.30697421,
+      "split_group": "KIC-8183911",
+      "star_id": 8183911
+    },
+    {
+      "candidate_id": "K01160.01",
+      "duration_hours": 3.5641,
+      "epoch_bjd": 2454973.58492,
+      "label": 1,
+      "logit": 1.7531007528305054,
+      "period": 13.21409607,
+      "split_group": "KIC-10330115",
+      "star_id": 10330115
+    },
+    {
+      "candidate_id": "K01336.04",
+      "duration_hours": 2.867,
+      "epoch_bjd": 2454967.39743,
+      "label": 1,
+      "logit": 0.7514991760253906,
+      "period": 4.45814897,
+      "split_group": "KIC-4077526",
+      "star_id": 4077526
+    },
+    {
+      "candidate_id": "K06452.01",
+      "duration_hours": 10.05,
+      "epoch_bjd": 2454968.5453,
+      "label": 0,
+      "logit": 0.1777627170085907,
+      "period": 21.926779,
+      "split_group": "KIC-4769824",
+      "star_id": 4769824
+    },
+    {
+      "candidate_id": "K07989.01",
+      "duration_hours": 3.078,
+      "epoch_bjd": 2454968.9933,
+      "label": 0,
+      "logit": 0.7937063574790955,
+      "period": 4.85603482,
+      "split_group": "KIC-10156110",
+      "star_id": 10156110
+    },
+    {
+      "candidate_id": "K06474.01",
+      "duration_hours": 6.7828,
+      "epoch_bjd": 2454967.713916,
+      "label": 0,
+      "logit": 1.4072123765945435,
+      "period": 18.11208877,
+      "split_group": "KIC-4932691",
+      "star_id": 4932691
+    },
+    {
+      "candidate_id": "K06220.01",
+      "duration_hours": 4.438,
+      "epoch_bjd": 2454964.50945,
+      "label": 0,
+      "logit": -0.34994685649871826,
+      "period": 0.933753371,
+      "split_group": "KIC-10341878",
+      "star_id": 10341878
+    },
+    {
+      "candidate_id": "K02863.01",
+      "duration_hours": 1.914,
+      "epoch_bjd": 2454965.46185,
+      "label": 0,
+      "logit": -0.9201943874359131,
+      "period": 1.703359172,
+      "split_group": "KIC-3241557",
+      "star_id": 3241557
+    },
+    {
+      "candidate_id": "K00094.02",
+      "duration_hours": 5.2257,
+      "epoch_bjd": 2454971.009041,
+      "label": 1,
+      "logit": 0.8327565789222717,
+      "period": 10.423677439,
+      "split_group": "KIC-6462863",
+      "star_id": 6462863
+    },
+    {
+      "candidate_id": "K03902.01",
+      "duration_hours": 3.785,
+      "epoch_bjd": 2454965.9969,
+      "label": 0,
+      "logit": 0.5708721876144409,
+      "period": 2.69634575,
+      "split_group": "KIC-10583225",
+      "star_id": 10583225
+    },
+    {
+      "candidate_id": "K02045.03",
+      "duration_hours": 3.408,
+      "epoch_bjd": 2454970.2502,
+      "label": 1,
+      "logit": 0.6983276605606079,
+      "period": 16.9348104,
+      "split_group": "KIC-6026438",
+      "star_id": 6026438
+    },
+    {
+      "candidate_id": "K06607.01",
+      "duration_hours": 2.134,
+      "epoch_bjd": 2454964.83424,
+      "label": 0,
+      "logit": 0.08163377642631531,
+      "period": 0.93891532,
+      "split_group": "KIC-5621299",
+      "star_id": 5621299
+    },
+    {
+      "candidate_id": "K04044.01",
+      "duration_hours": 3.361,
+      "epoch_bjd": 2454964.81736,
+      "label": 0,
+      "logit": 0.9159587025642395,
+      "period": 1.728521892,
+      "split_group": "KIC-5201115",
+      "star_id": 5201115
+    },
+    {
+      "candidate_id": "K03627.02",
+      "duration_hours": 3.9954,
+      "epoch_bjd": 2454970.654769,
+      "label": 0,
+      "logit": 1.581513524055481,
+      "period": 8.529991199,
+      "split_group": "KIC-10091110",
+      "star_id": 10091110
+    },
+    {
+      "candidate_id": "K06500.01",
+      "duration_hours": 12.62,
+      "epoch_bjd": 2454965.22105,
+      "label": 0,
+      "logit": -0.7597810626029968,
+      "period": 1.37347867,
+      "split_group": "KIC-5031804",
+      "star_id": 5031804
+    },
+    {
+      "candidate_id": "K00392.02",
+      "duration_hours": 6.372,
+      "epoch_bjd": 2454971.1189,
+      "label": 1,
+      "logit": -0.7496306896209717,
+      "period": 12.6119685,
+      "split_group": "KIC-3942670",
+      "star_id": 3942670
+    },
+    {
+      "candidate_id": "K01336.01",
+      "duration_hours": 3.802,
+      "epoch_bjd": 2454969.8622,
+      "label": 1,
+      "logit": 1.3646379709243774,
+      "period": 10.21864532,
+      "split_group": "KIC-4077526",
+      "star_id": 4077526
+    },
+    {
+      "candidate_id": "K00762.01",
+      "duration_hours": 3.7362,
+      "epoch_bjd": 2455004.34905,
+      "label": 1,
+      "logit": -0.7813584208488464,
+      "period": 4.49876511,
+      "split_group": "KIC-11153539",
+      "star_id": 11153539
+    },
+    {
+      "candidate_id": "K00250.03",
+      "duration_hours": 1.8717,
+      "epoch_bjd": 2454969.26075,
+      "label": 1,
+      "logit": 0.4542143940925598,
+      "period": 3.543919702,
+      "split_group": "KIC-9757613",
+      "star_id": 9757613
+    },
+    {
+      "candidate_id": "K01464.01",
+      "duration_hours": 3.5234,
+      "epoch_bjd": 2455189.32832,
+      "label": 0,
+      "logit": 2.022235631942749,
+      "period": 2.113202658,
+      "split_group": "KIC-7838655",
+      "star_id": 7838655
+    },
+    {
+      "candidate_id": "K01567.02",
+      "duration_hours": 2.5137,
+      "epoch_bjd": 2455187.58863,
+      "label": 1,
+      "logit": 1.206054925918579,
+      "period": 4.64622383,
+      "split_group": "KIC-5438099",
+      "star_id": 5438099
+    },
+    {
+      "candidate_id": "K00042.01",
+      "duration_hours": 4.5112,
+      "epoch_bjd": 2455014.233943,
+      "label": 1,
+      "logit": 1.32194983959198,
+      "period": 17.83367834,
+      "split_group": "KIC-8866102",
+      "star_id": 8866102
+    },
+    {
+      "candidate_id": "K06760.01",
+      "duration_hours": 4.73495,
+      "epoch_bjd": 2454972.7935811,
+      "label": 0,
+      "logit": 1.2596629858016968,
+      "period": 10.81589054,
+      "split_group": "KIC-6698670",
+      "star_id": 6698670
+    },
+    {
+      "candidate_id": "K01015.01",
+      "duration_hours": 4.4481,
+      "epoch_bjd": 2454973.1046,
+      "label": 1,
+      "logit": 1.0263805389404297,
+      "period": 9.42889884,
+      "split_group": "KIC-8158127",
+      "star_id": 8158127
+    },
+    {
+      "candidate_id": "K03976.01",
+      "duration_hours": 5.1498,
+      "epoch_bjd": 2454965.080937,
+      "label": 0,
+      "logit": 0.3255074620246887,
+      "period": 2.189098506,
+      "split_group": "KIC-4544571",
+      "star_id": 4544571
+    },
+    {
+      "candidate_id": "K04191.01",
+      "duration_hours": 2.555,
+      "epoch_bjd": 2454969.9596,
+      "label": 0,
+      "logit": -0.22407999634742737,
+      "period": 13.8452726,
+      "split_group": "KIC-3548639",
+      "star_id": 3548639
+    },
+    {
+      "candidate_id": "K06212.01",
+      "duration_hours": 18.2848,
+      "epoch_bjd": 2454970.17026,
+      "label": 0,
+      "logit": 1.5205854177474976,
+      "period": 10.818248422,
+      "split_group": "KIC-9774400",
+      "star_id": 9774400
+    },
+    {
+      "candidate_id": "K05983.01",
+      "duration_hours": 5.41096,
+      "epoch_bjd": 2454972.6485198,
+      "label": 0,
+      "logit": 1.2279013395309448,
+      "period": 8.412008943,
+      "split_group": "KIC-2445134",
+      "star_id": 2445134
+    },
+    {
+      "candidate_id": "K02060.01",
+      "duration_hours": 1.0237,
+      "epoch_bjd": 2454965.04865,
+      "label": 1,
+      "logit": 1.1244964599609375,
+      "period": 2.800111267,
+      "split_group": "KIC-9279354",
+      "star_id": 9279354
+    },
+    {
+      "candidate_id": "K01141.01",
+      "duration_hours": 2.0295,
+      "epoch_bjd": 2454968.18066,
+      "label": 1,
+      "logit": 0.6885837316513062,
+      "period": 5.72812616,
+      "split_group": "KIC-8346392",
+      "star_id": 8346392
+    },
+    {
+      "candidate_id": "K01567.01",
+      "duration_hours": 2.9153,
+      "epoch_bjd": 2455188.01243,
+      "label": 1,
+      "logit": 1.8640295267105103,
+      "period": 7.24022418,
+      "split_group": "KIC-5438099",
+      "star_id": 5438099
+    },
+    {
+      "candidate_id": "K04437.01",
+      "duration_hours": 3.245,
+      "epoch_bjd": 2454966.1883,
+      "label": 0,
+      "logit": -0.20681583881378174,
+      "period": 4.05943749,
+      "split_group": "KIC-8492101",
+      "star_id": 8492101
+    },
+    {
+      "candidate_id": "K00309.01",
+      "duration_hours": 1.491,
+      "epoch_bjd": 2455003.19649,
+      "label": 0,
+      "logit": -1.0411016941070557,
+      "period": 1.633107509,
+      "split_group": "KIC-7024222",
+      "star_id": 7024222
+    },
+    {
+      "candidate_id": "K00888.01",
+      "duration_hours": 0.9967,
+      "epoch_bjd": 2455002.974229,
+      "label": 0,
+      "logit": 1.8365684747695923,
+      "period": 1.000747038,
+      "split_group": "KIC-7552344",
+      "star_id": 7552344
+    },
+    {
+      "candidate_id": "K01905.02",
+      "duration_hours": 3.471,
+      "epoch_bjd": 2454977.2399,
+      "label": 1,
+      "logit": 1.3065717220306396,
+      "period": 15.99560373,
+      "split_group": "KIC-10328393",
+      "star_id": 10328393
+    },
+    {
+      "candidate_id": "K03458.01",
+      "duration_hours": 6.684,
+      "epoch_bjd": 2454971.0603,
+      "label": 1,
+      "logit": -0.6330055594444275,
+      "period": 14.0328775,
+      "split_group": "KIC-6118370",
+      "star_id": 6118370
+    },
+    {
+      "candidate_id": "K00471.01",
+      "duration_hours": 4.184,
+      "epoch_bjd": 2455004.73531,
+      "label": 1,
+      "logit": 0.8490792512893677,
+      "period": 21.34736612,
+      "split_group": "KIC-10019643",
+      "star_id": 10019643
+    },
+    {
+      "candidate_id": "K00492.01",
+      "duration_hours": 6.6436,
+      "epoch_bjd": 2455027.71129,
+      "label": 1,
+      "logit": 0.7567310333251953,
+      "period": 29.9111886,
+      "split_group": "KIC-3559935",
+      "star_id": 3559935
+    },
+    {
+      "candidate_id": "K03496.01",
+      "duration_hours": 8.432,
+      "epoch_bjd": 2454976.5274,
+      "label": 1,
+      "logit": 0.035811152309179306,
+      "period": 23.2385587,
+      "split_group": "KIC-7517261",
+      "star_id": 7517261
+    },
+    {
+      "candidate_id": "K02609.01",
+      "duration_hours": 1.659,
+      "epoch_bjd": 2454964.86798,
+      "label": 0,
+      "logit": 1.146329641342163,
+      "period": 5.59727625,
+      "split_group": "KIC-6705137",
+      "star_id": 6705137
+    },
+    {
+      "candidate_id": "K00981.01",
+      "duration_hours": 3.686,
+      "epoch_bjd": 2455094.7243,
+      "label": 0,
+      "logit": 0.9093499779701233,
+      "period": 3.99751422,
+      "split_group": "KIC-8607720",
+      "star_id": 8607720
+    },
+    {
+      "candidate_id": "K01487.01",
+      "duration_hours": 6.794,
+      "epoch_bjd": 2454966.72275,
+      "label": 0,
+      "logit": 1.333889126777649,
+      "period": 2.92928244,
+      "split_group": "KIC-12062667",
+      "star_id": 12062667
+    },
+    {
+      "candidate_id": "K06640.01",
+      "duration_hours": 3.85009,
+      "epoch_bjd": 2454965.3963298,
+      "label": 0,
+      "logit": 1.659034013748169,
+      "period": 1.804591904,
+      "split_group": "KIC-5962716",
+      "star_id": 5962716
+    },
+    {
+      "candidate_id": "K06647.01",
+      "duration_hours": 5.53385,
+      "epoch_bjd": 2454967.7421233,
+      "label": 0,
+      "logit": 1.2658008337020874,
+      "period": 12.591656377,
+      "split_group": "KIC-6029130",
+      "star_id": 6029130
+    },
+    {
+      "candidate_id": "K05172.01",
+      "duration_hours": 18.56,
+      "epoch_bjd": 2454974.3698,
+      "label": 0,
+      "logit": 0.3018776774406433,
+      "period": 12.4276185,
+      "split_group": "KIC-5470851",
+      "star_id": 5470851
+    },
+    {
+      "candidate_id": "K00094.01",
+      "duration_hours": 6.66405,
+      "epoch_bjd": 2454965.741641,
+      "label": 1,
+      "logit": 1.2026420831680298,
+      "period": 22.342964828,
+      "split_group": "KIC-6462863",
+      "star_id": 6462863
+    },
+    {
+      "candidate_id": "K00250.02",
+      "duration_hours": 2.0371,
+      "epoch_bjd": 2454982.886479,
+      "label": 1,
+      "logit": 0.9370598793029785,
+      "period": 17.25121397,
+      "split_group": "KIC-9757613",
+      "star_id": 9757613
+    },
+    {
+      "candidate_id": "K02761.01",
+      "duration_hours": 1.6605,
+      "epoch_bjd": 2454964.90493,
+      "label": 0,
+      "logit": 1.3993163108825684,
+      "period": 1.846861455,
+      "split_group": "KIC-7903086",
+      "star_id": 7903086
+    },
+    {
+      "candidate_id": "K01135.01",
+      "duration_hours": 3.9722,
+      "epoch_bjd": 2455281.5959,
+      "label": 0,
+      "logit": 0.7058039903640747,
+      "period": 0.986620248,
+      "split_group": "KIC-8397446",
+      "star_id": 8397446
+    },
+    {
+      "candidate_id": "K07480.01",
+      "duration_hours": 3.465,
+      "epoch_bjd": 2454976.6091,
+      "label": 0,
+      "logit": -0.9606066942214966,
+      "period": 12.8177012,
+      "split_group": "KIC-11775530",
+      "star_id": 11775530
+    },
+    {
+      "candidate_id": "K01512.01",
+      "duration_hours": 2.789,
+      "epoch_bjd": 2454970.86611,
+      "label": 0,
+      "logit": 1.0166208744049072,
+      "period": 9.04189129,
+      "split_group": "KIC-11955499",
+      "star_id": 11955499
+    },
+    {
+      "candidate_id": "K07081.01",
+      "duration_hours": 6.83787,
+      "epoch_bjd": 2454964.692741,
+      "label": 0,
+      "logit": 1.7002497911453247,
+      "period": 1.575710265,
+      "split_group": "KIC-8719897",
+      "star_id": 8719897
+    },
+    {
+      "candidate_id": "K03405.01",
+      "duration_hours": 3.762,
+      "epoch_bjd": 2454980.72605,
+      "label": 0,
+      "logit": 1.4862911701202393,
+      "period": 20.9794338,
+      "split_group": "KIC-8211605",
+      "star_id": 8211605
+    },
+    {
+      "candidate_id": "K05614.01",
+      "duration_hours": 8.42343,
+      "epoch_bjd": 2454965.9324534,
+      "label": 0,
+      "logit": 1.0922149419784546,
+      "period": 1.811461128,
+      "split_group": "KIC-9101279",
+      "star_id": 9101279
+    },
+    {
+      "candidate_id": "K06856.01",
+      "duration_hours": 4.71,
+      "epoch_bjd": 2454964.83464,
+      "label": 0,
+      "logit": -1.306836724281311,
+      "period": 0.566799927,
+      "split_group": "KIC-7281616",
+      "star_id": 7281616
+    },
+    {
+      "candidate_id": "K07513.01",
+      "duration_hours": 4.954,
+      "epoch_bjd": 2454968.957,
+      "label": 0,
+      "logit": 0.98309725522995,
+      "period": 5.9371708,
+      "split_group": "KIC-12106875",
+      "star_id": 12106875
+    },
+    {
+      "candidate_id": "K00069.01",
+      "duration_hours": 2.9267,
+      "epoch_bjd": 2454967.926396,
+      "label": 1,
+      "logit": 1.973362684249878,
+      "period": 4.72674037,
+      "split_group": "KIC-3544595",
+      "star_id": 3544595
+    },
+    {
+      "candidate_id": "K04000.01",
+      "duration_hours": 4.411,
+      "epoch_bjd": 2454965.20697,
+      "label": 0,
+      "logit": -0.23629695177078247,
+      "period": 0.962828092,
+      "split_group": "KIC-5471675",
+      "star_id": 5471675
+    },
+    {
+      "candidate_id": "K02719.01",
+      "duration_hours": 1.4858,
+      "epoch_bjd": 2454967.11726,
+      "label": 1,
+      "logit": -0.5001380443572998,
+      "period": 4.11585514,
+      "split_group": "KIC-5184911",
+      "star_id": 5184911
+    },
+    {
+      "candidate_id": "K00647.01",
+      "duration_hours": 4.5122,
+      "epoch_bjd": 2455003.31339,
+      "label": 1,
+      "logit": 1.4754096269607544,
+      "period": 5.16949729,
+      "split_group": "KIC-5531694",
+      "star_id": 5531694
+    },
+    {
+      "candidate_id": "K00102.01",
+      "duration_hours": 2.2741,
+      "epoch_bjd": 2454968.060047,
+      "label": 1,
+      "logit": 2.1741814613342285,
+      "period": 1.73513619,
+      "split_group": "KIC-8456679",
+      "star_id": 8456679
+    },
+    {
+      "candidate_id": "K01843.01",
+      "duration_hours": 1.7807,
+      "epoch_bjd": 2454967.13511,
+      "label": 1,
+      "logit": 1.9437789916992188,
+      "period": 4.194496867,
+      "split_group": "KIC-5080636",
+      "star_id": 5080636
+    },
+    {
+      "candidate_id": "K00706.01",
+      "duration_hours": 6.0624,
+      "epoch_bjd": 2455015.608668,
+      "label": 0,
+      "logit": 1.1659561395645142,
+      "period": 28.714216138,
+      "split_group": "KIC-9426071",
+      "star_id": 9426071
+    },
+    {
+      "candidate_id": "K05814.01",
+      "duration_hours": 4.76313,
+      "epoch_bjd": 2454968.9662009,
+      "label": 0,
+      "logit": 0.6505579352378845,
+      "period": 25.285232337,
+      "split_group": "KIC-10616656",
+      "star_id": 10616656
+    },
+    {
+      "candidate_id": "K00450.01",
+      "duration_hours": 2.666,
+      "epoch_bjd": 2455004.95525,
+      "label": 0,
+      "logit": 1.559747576713562,
+      "period": 27.04627886,
+      "split_group": "KIC-6042214",
+      "star_id": 6042214
+    },
+    {
+      "candidate_id": "K05962.01",
+      "duration_hours": 6.45,
+      "epoch_bjd": 2454965.415,
+      "label": 0,
+      "logit": -0.9677551984786987,
+      "period": 2.61594288,
+      "split_group": "KIC-12257851",
+      "star_id": 12257851
+    },
+    {
+      "candidate_id": "K01306.03",
+      "duration_hours": 2.661,
+      "epoch_bjd": 2454966.49193,
+      "label": 1,
+      "logit": 0.33730974793434143,
+      "period": 5.9142668,
+      "split_group": "KIC-10858691",
+      "star_id": 10858691
+    },
+    {
+      "candidate_id": "K07343.01",
+      "duration_hours": 2.0171,
+      "epoch_bjd": 2454964.899296,
+      "label": 0,
+      "logit": -0.6457719802856445,
+      "period": 0.626431697,
+      "split_group": "KIC-10556578",
+      "star_id": 10556578
+    },
+    {
+      "candidate_id": "K05427.01",
+      "duration_hours": 1.54684,
+      "epoch_bjd": 2454964.735703,
+      "label": 0,
+      "logit": 2.083306074142456,
+      "period": 0.533000886,
+      "split_group": "KIC-7800285",
+      "star_id": 7800285
+    },
+    {
+      "candidate_id": "K01078.01",
+      "duration_hours": 1.4598,
+      "epoch_bjd": 2454967.869597,
+      "label": 1,
+      "logit": 1.384899616241455,
+      "period": 3.353732008,
+      "split_group": "KIC-10166274",
+      "star_id": 10166274
+    },
+    {
+      "candidate_id": "K01573.01",
+      "duration_hours": 3.2245,
+      "epoch_bjd": 2454989.506971,
+      "label": 1,
+      "logit": 0.879618763923645,
+      "period": 24.81097206,
+      "split_group": "KIC-5031857",
+      "star_id": 5031857
+    },
+    {
+      "candidate_id": "K03804.01",
+      "duration_hours": 2.1551,
+      "epoch_bjd": 2454965.8937,
+      "label": 0,
+      "logit": 0.6874759197235107,
+      "period": 2.81753381,
+      "split_group": "KIC-7831363",
+      "star_id": 7831363
+    },
+    {
+      "candidate_id": "K06658.01",
+      "duration_hours": 2.42645,
+      "epoch_bjd": 2454966.1999763,
+      "label": 0,
+      "logit": 2.127394914627075,
+      "period": 2.313367981,
+      "split_group": "KIC-6060580",
+      "star_id": 6060580
+    },
+    {
+      "candidate_id": "K06419.01",
+      "duration_hours": 2.532,
+      "epoch_bjd": 2454966.47862,
+      "label": 0,
+      "logit": 0.8060485124588013,
+      "period": 2.24294107,
+      "split_group": "KIC-4484312",
+      "star_id": 4484312
+    },
+    {
+      "candidate_id": "K02277.01",
+      "duration_hours": 6.213,
+      "epoch_bjd": 2454965.08013,
+      "label": 0,
+      "logit": -0.7310701608657837,
+      "period": 2.62982665,
+      "split_group": "KIC-2860793",
+      "star_id": 2860793
+    },
+    {
+      "candidate_id": "K07491.01",
+      "duration_hours": 3.444,
+      "epoch_bjd": 2454967.17465,
+      "label": 0,
+      "logit": -0.2686513066291809,
+      "period": 3.74785307,
+      "split_group": "KIC-11913052",
+      "star_id": 11913052
+    },
+    {
+      "candidate_id": "K01270.02",
+      "duration_hours": 2.2603,
+      "epoch_bjd": 2454966.99324,
+      "label": 1,
+      "logit": 1.5565234422683716,
+      "period": 11.60908533,
+      "split_group": "KIC-8564587",
+      "star_id": 8564587
+    },
+    {
+      "candidate_id": "K07357.01",
+      "duration_hours": 3.338,
+      "epoch_bjd": 2454964.7715,
+      "label": 0,
+      "logit": -1.054426670074463,
+      "period": 1.23140522,
+      "split_group": "KIC-10662021",
+      "star_id": 10662021
+    },
+    {
+      "candidate_id": "K02952.01",
+      "duration_hours": 2.381,
+      "epoch_bjd": 2454965.07552,
+      "label": 0,
+      "logit": -0.012243945151567459,
+      "period": 1.7592691,
+      "split_group": "KIC-8243283",
+      "star_id": 8243283
+    },
+    {
+      "candidate_id": "K06058.01",
+      "duration_hours": 5.21924,
+      "epoch_bjd": 2454968.4687416,
+      "label": 0,
+      "logit": 1.3195828199386597,
+      "period": 6.496031958,
+      "split_group": "KIC-8580438",
+      "star_id": 8580438
+    },
+    {
+      "candidate_id": "K01336.02",
+      "duration_hours": 5.326,
+      "epoch_bjd": 2454965.44282,
+      "label": 1,
+      "logit": 0.6175297498703003,
+      "period": 15.573637,
+      "split_group": "KIC-4077526",
+      "star_id": 4077526
+    },
+    {
+      "candidate_id": "K01270.01",
+      "duration_hours": 1.1816,
+      "epoch_bjd": 2454971.559971,
+      "label": 1,
+      "logit": 1.5600537061691284,
+      "period": 5.729317577,
+      "split_group": "KIC-8564587",
+      "star_id": 8564587
+    },
+    {
+      "candidate_id": "K00569.01",
+      "duration_hours": 2.8066,
+      "epoch_bjd": 2455018.43113,
+      "label": 1,
+      "logit": 0.9682117104530334,
+      "period": 20.72904234,
+      "split_group": "KIC-8008206",
+      "star_id": 8008206
+    },
+    {
+      "candidate_id": "K03828.01",
+      "duration_hours": 8.9793,
+      "epoch_bjd": 2454965.01852,
+      "label": 0,
+      "logit": 1.2718080282211304,
+      "period": 8.58965725,
+      "split_group": "KIC-10031907",
+      "star_id": 10031907
+    },
+    {
+      "candidate_id": "K02280.01",
+      "duration_hours": 4.965,
+      "epoch_bjd": 2454987.5286,
+      "label": 1,
+      "logit": 1.0058964490890503,
+      "period": 26.0203329,
+      "split_group": "KIC-2439243",
+      "star_id": 2439243
+    },
+    {
+      "candidate_id": "K04172.01",
+      "duration_hours": 1.8599,
+      "epoch_bjd": 2454965.0149343,
+      "label": 0,
+      "logit": 1.1523072719573975,
+      "period": 1.089088292,
+      "split_group": "KIC-9640907",
+      "star_id": 9640907
+    },
+    {
+      "candidate_id": "K00219.01",
+      "duration_hours": 5.3694,
+      "epoch_bjd": 2454965.469133,
+      "label": 1,
+      "logit": 1.5165706872940063,
+      "period": 8.025118521,
+      "split_group": "KIC-6305192",
+      "star_id": 6305192
+    },
+    {
+      "candidate_id": "K00190.01",
+      "duration_hours": 4.7366,
+      "epoch_bjd": 2454972.304999,
+      "label": 0,
+      "logit": 1.5647257566452026,
+      "period": 12.264867364,
+      "split_group": "KIC-5771719",
+      "star_id": 5771719
+    },
+    {
+      "candidate_id": "K06021.01",
+      "duration_hours": 7.5491,
+      "epoch_bjd": 2454982.1595,
+      "label": 0,
+      "logit": 1.3971210718154907,
+      "period": 22.44620704,
+      "split_group": "KIC-6146418",
+      "star_id": 6146418
+    },
+    {
+      "candidate_id": "K02847.01",
+      "duration_hours": 1.765,
+      "epoch_bjd": 2454964.50242,
+      "label": 0,
+      "logit": 0.8860468864440918,
+      "period": 1.099291188,
+      "split_group": "KIC-12935144",
+      "star_id": 12935144
+    },
+    {
+      "candidate_id": "K07286.01",
+      "duration_hours": 4.34296,
+      "epoch_bjd": 2454965.923023,
+      "label": 0,
+      "logit": 1.327013373374939,
+      "period": 3.008602107,
+      "split_group": "KIC-10095512",
+      "star_id": 10095512
+    },
+    {
+      "candidate_id": "K02367.01",
+      "duration_hours": 1.725,
+      "epoch_bjd": 2454964.63179,
+      "label": 1,
+      "logit": 1.1344170570373535,
+      "period": 6.89213244,
+      "split_group": "KIC-9086251",
+      "star_id": 9086251
+    },
+    {
+      "candidate_id": "K07045.01",
+      "duration_hours": 2.04757,
+      "epoch_bjd": 2454964.819082,
+      "label": 0,
+      "logit": 0.8323404788970947,
+      "period": 0.76757669,
+      "split_group": "KIC-8479107",
+      "star_id": 8479107
+    },
+    {
+      "candidate_id": "K00569.02",
+      "duration_hours": 1.5599,
+      "epoch_bjd": 2454967.54956,
+      "label": 1,
+      "logit": 0.1242075115442276,
+      "period": 1.632916419,
+      "split_group": "KIC-8008206",
+      "star_id": 8008206
+    },
+    {
+      "candidate_id": "K05544.01",
+      "duration_hours": 10.4143,
+      "epoch_bjd": 2454965.6997,
+      "label": 0,
+      "logit": 1.0967565774917603,
+      "period": 2.742590902,
+      "split_group": "KIC-8561192",
+      "star_id": 8561192
+    },
+    {
+      "candidate_id": "K00280.01",
+      "duration_hours": 2.5342,
+      "epoch_bjd": 2455013.895933,
+      "label": 1,
+      "logit": 1.3513247966766357,
+      "period": 11.87290814,
+      "split_group": "KIC-4141376",
+      "star_id": 4141376
+    },
+    {
+      "candidate_id": "K00528.03",
+      "duration_hours": 2.2013,
+      "epoch_bjd": 2454978.02837,
+      "label": 1,
+      "logit": -0.21388691663742065,
+      "period": 20.55280311,
+      "split_group": "KIC-9941859",
+      "star_id": 9941859
+    },
+    {
+      "candidate_id": "K03707.01",
+      "duration_hours": 10.5638,
+      "epoch_bjd": 2454970.14659,
+      "label": 0,
+      "logit": 1.2275974750518799,
+      "period": 19.979098,
+      "split_group": "KIC-5130380",
+      "star_id": 5130380
+    },
+    {
+      "candidate_id": "K01449.01",
+      "duration_hours": 3.74464,
+      "epoch_bjd": 2454970.1376073,
+      "label": 0,
+      "logit": 0.9720481634140015,
+      "period": 10.980246199,
+      "split_group": "KIC-7802136",
+      "star_id": 7802136
+    },
+    {
+      "candidate_id": "K01306.02",
+      "duration_hours": 2.361,
+      "epoch_bjd": 2454969.00831,
+      "label": 1,
+      "logit": 0.3629221022129059,
+      "period": 3.468073,
+      "split_group": "KIC-10858691",
+      "star_id": 10858691
+    },
+    {
+      "candidate_id": "K01306.01",
+      "duration_hours": 1.9139,
+      "epoch_bjd": 2454966.33662,
+      "label": 1,
+      "logit": 0.2816728949546814,
+      "period": 1.796320953,
+      "split_group": "KIC-10858691",
+      "star_id": 10858691
+    },
+    {
+      "candidate_id": "K02660.01",
+      "duration_hours": 4.016,
+      "epoch_bjd": 2454978.24169,
+      "label": 1,
+      "logit": 0.5962686538696289,
+      "period": 18.0161227,
+      "split_group": "KIC-9893318",
+      "star_id": 9893318
+    },
+    {
+      "candidate_id": "K03998.01",
+      "duration_hours": 4.56811,
+      "epoch_bjd": 2454965.623984,
+      "label": 0,
+      "logit": 1.066810965538025,
+      "period": 0.758354475,
+      "split_group": "KIC-7707742",
+      "star_id": 7707742
+    },
+    {
+      "candidate_id": "K03204.01",
+      "duration_hours": 2.576,
+      "epoch_bjd": 2454964.69432,
+      "label": 0,
+      "logit": -0.9563695192337036,
+      "period": 0.572937573,
+      "split_group": "KIC-11456279",
+      "star_id": 11456279
+    },
+    {
+      "candidate_id": "K02711.01",
+      "duration_hours": 3.011,
+      "epoch_bjd": 2454966.54199,
+      "label": 1,
+      "logit": 0.6566852331161499,
+      "period": 9.02436414,
+      "split_group": "KIC-5272233",
+      "star_id": 5272233
+    },
+    {
+      "candidate_id": "K07881.01",
+      "duration_hours": 2.203,
+      "epoch_bjd": 2454966.6127,
+      "label": 0,
+      "logit": -1.2467615604400635,
+      "period": 2.2502073,
+      "split_group": "KIC-8345473",
+      "star_id": 8345473
+    },
+    {
+      "candidate_id": "K07768.01",
+      "duration_hours": 1.734,
+      "epoch_bjd": 2454965.12333,
+      "label": 0,
+      "logit": -0.3844425678253174,
+      "period": 0.789171236,
+      "split_group": "KIC-6187888",
+      "star_id": 6187888
+    },
+    {
+      "candidate_id": "K02711.02",
+      "duration_hours": 3.398,
+      "epoch_bjd": 2454971.96694,
+      "label": 1,
+      "logit": 0.9747980237007141,
+      "period": 17.3408735,
+      "split_group": "KIC-5272233",
+      "star_id": 5272233
+    },
+    {
+      "candidate_id": "K01418.01",
+      "duration_hours": 1.8014,
+      "epoch_bjd": 2455194.839209,
+      "label": 0,
+      "logit": 1.4968676567077637,
+      "period": 8.344104633,
+      "split_group": "KIC-11100657",
+      "star_id": 11100657
+    },
+    {
+      "candidate_id": "K01017.01",
+      "duration_hours": 4.445,
+      "epoch_bjd": 2454974.6802,
+      "label": 1,
+      "logit": 1.2736836671829224,
+      "period": 17.44486016,
+      "split_group": "KIC-8174625",
+      "star_id": 8174625
+    },
+    {
+      "candidate_id": "K04156.01",
+      "duration_hours": 5.676,
+      "epoch_bjd": 2454968.31157,
+      "label": 1,
+      "logit": 0.01716124638915062,
+      "period": 4.85018974,
+      "split_group": "KIC-5881120",
+      "star_id": 5881120
+    },
+    {
+      "candidate_id": "K06621.01",
+      "duration_hours": 2.58667,
+      "epoch_bjd": 2454968.0947711,
+      "label": 0,
+      "logit": 0.9628658294677734,
+      "period": 7.946367138,
+      "split_group": "KIC-5731312",
+      "star_id": 5731312
+    },
+    {
+      "candidate_id": "K01750.01",
+      "duration_hours": 3.689,
+      "epoch_bjd": 2454971.06602,
+      "label": 1,
+      "logit": 0.7704550623893738,
+      "period": 7.76845639,
+      "split_group": "KIC-6209677",
+      "star_id": 6209677
+    },
+    {
+      "candidate_id": "K01078.02",
+      "duration_hours": 1.3692,
+      "epoch_bjd": 2454965.08426,
+      "label": 1,
+      "logit": 1.5465089082717896,
+      "period": 6.877446033,
+      "split_group": "KIC-10166274",
+      "star_id": 10166274
+    },
+    {
+      "candidate_id": "K07428.01",
+      "duration_hours": 3.41062,
+      "epoch_bjd": 2454964.6331462,
+      "label": 0,
+      "logit": 1.9845004081726074,
+      "period": 2.252822538,
+      "split_group": "KIC-11250867",
+      "star_id": 11250867
+    },
+    {
+      "candidate_id": "K06207.01",
+      "duration_hours": 9.1701,
+      "epoch_bjd": 2454969.194674,
+      "label": 0,
+      "logit": 1.3627439737319946,
+      "period": 7.964440392,
+      "split_group": "KIC-9576197",
+      "star_id": 9576197
+    },
+    {
+      "candidate_id": "K07326.01",
+      "duration_hours": 4.9641,
+      "epoch_bjd": 2454965.16558,
+      "label": 0,
+      "logit": -0.06753119826316833,
+      "period": 1.398890216,
+      "split_group": "KIC-10422852",
+      "star_id": 10422852
+    },
+    {
+      "candidate_id": "K02909.01",
+      "duration_hours": 1.7603,
+      "epoch_bjd": 2454965.09232,
+      "label": 0,
+      "logit": 0.8968460559844971,
+      "period": 0.77359329,
+      "split_group": "KIC-7461307",
+      "star_id": 7461307
+    },
+    {
+      "candidate_id": "K06479.01",
+      "duration_hours": 3.1273,
+      "epoch_bjd": 2454972.8333977,
+      "label": 0,
+      "logit": 1.2762103080749512,
+      "period": 8.643550046,
+      "split_group": "KIC-4948863",
+      "star_id": 4948863
+    },
+    {
+      "candidate_id": "K01125.01",
+      "duration_hours": 3.0122,
+      "epoch_bjd": 2455190.519981,
+      "label": 0,
+      "logit": 1.0536303520202637,
+      "period": 7.814839231,
+      "split_group": "KIC-6292162",
+      "star_id": 6292162
+    },
+    {
+      "candidate_id": "K04279.01",
+      "duration_hours": 1.6788,
+      "epoch_bjd": 2454965.138232,
+      "label": 0,
+      "logit": -0.2315661460161209,
+      "period": 1.050852976,
+      "split_group": "KIC-5876360",
+      "star_id": 5876360
+    },
+    {
+      "candidate_id": "K03627.01",
+      "duration_hours": 3.62939,
+      "epoch_bjd": 2454966.506768,
+      "label": 0,
+      "logit": 1.9596086740493774,
+      "period": 4.218512654,
+      "split_group": "KIC-10091110",
+      "star_id": 10091110
+    },
+    {
+      "candidate_id": "K00177.01",
+      "duration_hours": 5.2472,
+      "epoch_bjd": 2454976.59983,
+      "label": 1,
+      "logit": 1.0614285469055176,
+      "period": 21.06075303,
+      "split_group": "KIC-6803202",
+      "star_id": 6803202
+    },
+    {
+      "candidate_id": "K06420.01",
+      "duration_hours": 2.27811,
+      "epoch_bjd": 2454965.0189884,
+      "label": 0,
+      "logit": 1.4963459968566895,
+      "period": 0.572079631,
+      "split_group": "KIC-4484356",
+      "star_id": 4484356
+    },
+    {
+      "candidate_id": "K00491.01",
+      "duration_hours": 3.73,
+      "epoch_bjd": 2455002.65558,
+      "label": 0,
+      "logit": 1.2929726839065552,
+      "period": 4.66229074,
+      "split_group": "KIC-3541800",
+      "star_id": 3541800
+    },
+    {
+      "candidate_id": "K07481.01",
+      "duration_hours": 4.52648,
+      "epoch_bjd": 2454965.0170362,
+      "label": 0,
+      "logit": 1.7808738946914673,
+      "period": 2.274628199,
+      "split_group": "KIC-11811454",
+      "star_id": 11811454
+    },
+    {
+      "candidate_id": "K07063.01",
+      "duration_hours": 3.50007,
+      "epoch_bjd": 2454972.6966549,
+      "label": 0,
+      "logit": 1.551618218421936,
+      "period": 15.120212531,
+      "split_group": "KIC-8574270",
+      "star_id": 8574270
+    },
+    {
+      "candidate_id": "K07064.01",
+      "duration_hours": 4.75315,
+      "epoch_bjd": 2454967.1835162,
+      "label": 0,
+      "logit": 1.4665964841842651,
+      "period": 3.481657589,
+      "split_group": "KIC-8581658",
+      "star_id": 8581658
+    },
+    {
+      "candidate_id": "K03429.02",
+      "duration_hours": 4.235,
+      "epoch_bjd": 2454968.42727,
+      "label": 1,
+      "logit": -0.1003866195678711,
+      "period": 8.74192361,
+      "split_group": "KIC-9230021",
+      "star_id": 9230021
+    },
+    {
+      "candidate_id": "K01988.01",
+      "duration_hours": 1.4083,
+      "epoch_bjd": 2454964.580676,
+      "label": 1,
+      "logit": 1.0585134029388428,
+      "period": 0.934885365,
+      "split_group": "KIC-9044228",
+      "star_id": 9044228
+    },
+    {
+      "candidate_id": "K00385.01",
+      "duration_hours": 3.6399,
+      "epoch_bjd": 2455007.8467,
+      "label": 1,
+      "logit": 1.0412596464157104,
+      "period": 13.14496741,
+      "split_group": "KIC-3446746",
+      "star_id": 3446746
+    },
+    {
+      "candidate_id": "K07666.01",
+      "duration_hours": 0.998,
+      "epoch_bjd": 2454964.5725,
+      "label": 0,
+      "logit": -0.6824617385864258,
+      "period": 0.570953851,
+      "split_group": "KIC-3751231",
+      "star_id": 3751231
+    },
+    {
+      "candidate_id": "K02784.01",
+      "duration_hours": 2.203,
+      "epoch_bjd": 2454965.907,
+      "label": 0,
+      "logit": -0.1376832127571106,
+      "period": 4.14244748,
+      "split_group": "KIC-3119256",
+      "star_id": 3119256
+    },
+    {
+      "candidate_id": "K01746.01",
+      "duration_hours": 3.036,
+      "epoch_bjd": 2454967.54064,
+      "label": 1,
+      "logit": -0.43764728307724,
+      "period": 11.79161234,
+      "split_group": "KIC-8197343",
+      "star_id": 8197343
+    },
+    {
+      "candidate_id": "K04000.02",
+      "duration_hours": 12.81,
+      "epoch_bjd": 2454974.4159,
+      "label": 0,
+      "logit": -0.2912333905696869,
+      "period": 12.427135,
+      "split_group": "KIC-5471675",
+      "star_id": 5471675
+    },
+    {
+      "candidate_id": "K00251.01",
+      "duration_hours": 1.8464,
+      "epoch_bjd": 2455004.087935,
+      "label": 1,
+      "logit": 1.919263482093811,
+      "period": 4.164384505,
+      "split_group": "KIC-10489206",
+      "star_id": 10489206
+    },
+    {
+      "candidate_id": "K03617.01",
+      "duration_hours": 4.92134,
+      "epoch_bjd": 2454964.793034,
+      "label": 0,
+      "logit": 1.4670674800872803,
+      "period": 1.674984844,
+      "split_group": "KIC-10735564",
+      "star_id": 10735564
+    },
+    {
+      "candidate_id": "K01818.01",
+      "duration_hours": 3.7917,
+      "epoch_bjd": 2454971.64907,
+      "label": 1,
+      "logit": 0.6522390842437744,
+      "period": 16.87725775,
+      "split_group": "KIC-7870032",
+      "star_id": 7870032
+    },
+    {
+      "candidate_id": "K01007.01",
+      "duration_hours": 3.675,
+      "epoch_bjd": 2455188.49652,
+      "label": 1,
+      "logit": 0.8239513635635376,
+      "period": 7.40742502,
+      "split_group": "KIC-1725016",
+      "star_id": 1725016
+    },
+    {
+      "candidate_id": "K07366.01",
+      "duration_hours": 5.974,
+      "epoch_bjd": 2454964.5199,
+      "label": 0,
+      "logit": -0.8769794702529907,
+      "period": 0.933747375,
+      "split_group": "KIC-10732401",
+      "star_id": 10732401
+    },
+    {
+      "candidate_id": "K06846.01",
+      "duration_hours": 3.88,
+      "epoch_bjd": 2454966.26678,
+      "label": 0,
+      "logit": 0.3097793459892273,
+      "period": 2.24572117,
+      "split_group": "KIC-7203194",
+      "star_id": 7203194
+    },
+    {
+      "candidate_id": "K04910.01",
+      "duration_hours": 3.085,
+      "epoch_bjd": 2454965.48977,
+      "label": 0,
+      "logit": 0.6497414112091064,
+      "period": 3.37487541,
+      "split_group": "KIC-9307966",
+      "star_id": 9307966
+    },
+    {
+      "candidate_id": "K06916.01",
+      "duration_hours": 3.349,
+      "epoch_bjd": 2454964.8821,
+      "label": 0,
+      "logit": -1.0774093866348267,
+      "period": 0.88512187,
+      "split_group": "KIC-7777365",
+      "star_id": 7777365
+    },
+    {
+      "candidate_id": "K06837.01",
+      "duration_hours": 4.65638,
+      "epoch_bjd": 2454972.5431461,
+      "label": 0,
+      "logit": 1.4116060733795166,
+      "period": 17.99646148,
+      "split_group": "KIC-7177553",
+      "star_id": 7177553
+    },
+    {
+      "candidate_id": "K06171.01",
+      "duration_hours": 7.08365,
+      "epoch_bjd": 2454965.8681395,
+      "label": 0,
+      "logit": 1.2464207410812378,
+      "period": 2.103239235,
+      "split_group": "KIC-8095099",
+      "star_id": 8095099
+    },
+    {
+      "candidate_id": "K07292.01",
+      "duration_hours": 3.654,
+      "epoch_bjd": 2454964.6163,
+      "label": 0,
+      "logit": 1.707973599433899,
+      "period": 8.5412411,
+      "split_group": "KIC-10164018",
+      "star_id": 10164018
+    },
+    {
+      "candidate_id": "K00471.02",
+      "duration_hours": 3.231,
+      "epoch_bjd": 2454965.30566,
+      "label": 1,
+      "logit": -0.25871241092681885,
+      "period": 7.81100952,
+      "split_group": "KIC-10019643",
+      "star_id": 10019643
+    },
+    {
+      "candidate_id": "K01495.01",
+      "duration_hours": 5.0478,
+      "epoch_bjd": 2454970.5636,
+      "label": 1,
+      "logit": 1.2305947542190552,
+      "period": 15.59466045,
+      "split_group": "KIC-7629518",
+      "star_id": 7629518
+    },
+    {
+      "candidate_id": "K02045.02",
+      "duration_hours": 4.046,
+      "epoch_bjd": 2454974.4698,
+      "label": 1,
+      "logit": 0.9875636100769043,
+      "period": 24.2101973,
+      "split_group": "KIC-6026438",
+      "star_id": 6026438
+    },
+    {
+      "candidate_id": "K00250.01",
+      "duration_hours": 2.7096,
+      "epoch_bjd": 2455003.39809,
+      "label": 1,
+      "logit": 1.3560491800308228,
+      "period": 12.282998287,
+      "split_group": "KIC-9757613",
+      "star_id": 9757613
+    },
+    {
+      "candidate_id": "K04562.01",
+      "duration_hours": 1.677,
+      "epoch_bjd": 2454965.44697,
+      "label": 0,
+      "logit": 0.6983667612075806,
+      "period": 0.96807117,
+      "split_group": "KIC-8652360",
+      "star_id": 8652360
+    },
+    {
+      "candidate_id": "K00194.01",
+      "duration_hours": 2.1878,
+      "epoch_bjd": 2454972.466594,
+      "label": 1,
+      "logit": 1.814996361732483,
+      "period": 3.120828136,
+      "split_group": "KIC-10904857",
+      "star_id": 10904857
+    },
+    {
+      "candidate_id": "K08003.01",
+      "duration_hours": 4.637,
+      "epoch_bjd": 2454964.526,
+      "label": 0,
+      "logit": 0.11910773813724518,
+      "period": 0.93374894,
+      "split_group": "KIC-10340212",
+      "star_id": 10340212
+    },
+    {
+      "candidate_id": "K04278.01",
+      "duration_hours": 5.847,
+      "epoch_bjd": 2454969.8349,
+      "label": 0,
+      "logit": 1.0266714096069336,
+      "period": 5.62978034,
+      "split_group": "KIC-4861784",
+      "star_id": 4861784
+    },
+    {
+      "candidate_id": "K07627.01",
+      "duration_hours": 5.8883,
+      "epoch_bjd": 2454965.258305,
+      "label": 0,
+      "logit": 1.1993807554244995,
+      "period": 0.967427812,
+      "split_group": "KIC-2140389",
+      "star_id": 2140389
+    }
+  ],
+  "tess": [
+    {
+      "candidate_id": "TOI-1042.01",
+      "duration_hours": 1.8184632,
+      "epoch_bjd": 2459281.337956,
+      "label": 0,
+      "logit": -0.05401163175702095,
+      "period": 0.758082,
+      "split_group": "TIC-360286627",
+      "star_id": 360286627
+    },
+    {
+      "candidate_id": "TOI-105.01",
+      "duration_hours": 2.6989102,
+      "epoch_bjd": 2460904.412675,
+      "label": 1,
+      "logit": 2.086228609085083,
+      "period": 2.1846669,
+      "split_group": "TIC-144065872",
+      "star_id": 144065872
+    },
+    {
+      "candidate_id": "TOI-106.01",
+      "duration_hours": 3.548888,
+      "epoch_bjd": 2460988.068249,
+      "label": 1,
+      "logit": 1.5860050916671753,
+      "period": 2.8493827,
+      "split_group": "TIC-38846515",
+      "star_id": 38846515
+    },
+    {
+      "candidate_id": "TOI-1078.01",
+      "duration_hours": 0.8565249,
+      "epoch_bjd": 2458654.10332,
+      "label": 1,
+      "logit": 0.760612964630127,
+      "period": 0.5182425,
+      "split_group": "TIC-370133522",
+      "star_id": 370133522
+    },
+    {
+      "candidate_id": "TOI-1142.01",
+      "duration_hours": 3.012,
+      "epoch_bjd": 2460335.937572,
+      "label": 0,
+      "logit": 1.4606600999832153,
+      "period": 3.3686634,
+      "split_group": "TIC-284450803",
+      "star_id": 284450803
+    },
+    {
+      "candidate_id": "TOI-1155.01",
+      "duration_hours": 3.175,
+      "epoch_bjd": 2458683.92594,
+      "label": 0,
+      "logit": -0.15479658544063568,
+      "period": 1.32003,
+      "split_group": "TIC-161450762",
+      "star_id": 161450762
+    },
+    {
+      "candidate_id": "TOI-1170.01",
+      "duration_hours": 2.166,
+      "epoch_bjd": 2460556.995021,
+      "label": 0,
+      "logit": -0.9409904479980469,
+      "period": 1.8296155,
+      "split_group": "TIC-294176967",
+      "star_id": 294176967
+    },
+    {
+      "candidate_id": "TOI-1180.01",
+      "duration_hours": 2.512,
+      "epoch_bjd": 2460473.411486,
+      "label": 1,
+      "logit": 1.2767237424850464,
+      "period": 9.6867516,
+      "split_group": "TIC-158002130",
+      "star_id": 158002130
+    },
+    {
+      "candidate_id": "TOI-1184.01",
+      "duration_hours": 1.76,
+      "epoch_bjd": 2460558.350441,
+      "label": 1,
+      "logit": 1.1656759977340698,
+      "period": 5.7484439,
+      "split_group": "TIC-233087860",
+      "star_id": 233087860
+    },
+    {
+      "candidate_id": "TOI-120.01",
+      "duration_hours": 8.555958,
+      "epoch_bjd": 2458332.082805,
+      "label": 1,
+      "logit": 0.23746934533119202,
+      "period": 11.535076,
+      "split_group": "TIC-394137592",
+      "star_id": 394137592
+    },
+    {
+      "candidate_id": "TOI-1227.01",
+      "duration_hours": 4.0586418,
+      "epoch_bjd": 2458617.479256,
+      "label": 1,
+      "logit": -1.6166647672653198,
+      "period": 27.3613778,
+      "split_group": "TIC-360156606",
+      "star_id": 360156606
+    },
+    {
+      "candidate_id": "TOI-1223.01",
+      "duration_hours": 2.5483426,
+      "epoch_bjd": 2458337.747012,
+      "label": 0,
+      "logit": 1.028877854347229,
+      "period": 14.64319,
+      "split_group": "TIC-382437043",
+      "star_id": 382437043
+    },
+    {
+      "candidate_id": "TOI-1281.01",
+      "duration_hours": 3.766,
+      "epoch_bjd": 2460351.314066,
+      "label": 1,
+      "logit": -0.44170475006103516,
+      "period": 6.390888,
+      "split_group": "TIC-232971294",
+      "star_id": 232971294
+    },
+    {
+      "candidate_id": "TOI-1321.01",
+      "duration_hours": 1.558,
+      "epoch_bjd": 2458712.25971,
+      "label": 0,
+      "logit": -1.1671833992004395,
+      "period": 1.19888,
+      "split_group": "TIC-195199644",
+      "star_id": 195199644
+    },
+    {
+      "candidate_id": "TOI-1347.01",
+      "duration_hours": 0.8758764,
+      "epoch_bjd": 2459664.026959,
+      "label": 1,
+      "logit": 0.07337992638349533,
+      "period": 0.8474218,
+      "split_group": "TIC-229747848",
+      "star_id": 229747848
+    },
+    {
+      "candidate_id": "TOI-1347.02",
+      "duration_hours": 2.4105648,
+      "epoch_bjd": 2459656.582609,
+      "label": 1,
+      "logit": 0.03779667243361473,
+      "period": 4.8420438,
+      "split_group": "TIC-229747848",
+      "star_id": 229747848
+    },
+    {
+      "candidate_id": "TOI-1521.01",
+      "duration_hours": 4.394,
+      "epoch_bjd": 2459905.397712,
+      "label": 0,
+      "logit": 1.4970506429672241,
+      "period": 4.1812866,
+      "split_group": "TIC-366074069",
+      "star_id": 366074069
+    },
+    {
+      "candidate_id": "TOI-1536.01",
+      "duration_hours": 2.1214907,
+      "epoch_bjd": 2459882.951315,
+      "label": 0,
+      "logit": -1.6794761419296265,
+      "period": 2.013653,
+      "split_group": "TIC-445137888",
+      "star_id": 445137888
+    },
+    {
+      "candidate_id": "TOI-1573.01",
+      "duration_hours": 3.045,
+      "epoch_bjd": 2460463.952965,
+      "label": 1,
+      "logit": 1.23887300491333,
+      "period": 21.216464,
+      "split_group": "TIC-302773669",
+      "star_id": 302773669
+    },
+    {
+      "candidate_id": "TOI-1580.01",
+      "duration_hours": 4.799,
+      "epoch_bjd": 2460633.665722,
+      "label": 1,
+      "logit": 1.7884186506271362,
+      "period": 4.7947749,
+      "split_group": "TIC-354469661",
+      "star_id": 354469661
+    },
+    {
+      "candidate_id": "TOI-1585.01",
+      "duration_hours": 2.222,
+      "epoch_bjd": 2458764.8746,
+      "label": 0,
+      "logit": -2.139308452606201,
+      "period": 1.83641,
+      "split_group": "TIC-444415148",
+      "star_id": 444415148
+    },
+    {
+      "candidate_id": "TOI-1639.01",
+      "duration_hours": 2.5562155,
+      "epoch_bjd": 2458791.468047,
+      "label": 0,
+      "logit": -1.5744127035140991,
+      "period": 0.901465,
+      "split_group": "TIC-348673213",
+      "star_id": 348673213
+    },
+    {
+      "candidate_id": "TOI-1647.01",
+      "duration_hours": 2.124,
+      "epoch_bjd": 2460334.944097,
+      "label": 0,
+      "logit": 1.5594810247421265,
+      "period": 6.9744232,
+      "split_group": "TIC-154927364",
+      "star_id": 154927364
+    },
+    {
+      "candidate_id": "TOI-1753.01",
+      "duration_hours": 3.2617296,
+      "epoch_bjd": 2459653.733754,
+      "label": 1,
+      "logit": 0.12433774769306183,
+      "period": 5.3846239,
+      "split_group": "TIC-289580577",
+      "star_id": 289580577
+    },
+    {
+      "candidate_id": "TOI-177.01",
+      "duration_hours": 1.263753,
+      "epoch_bjd": 2460204.963281,
+      "label": 1,
+      "logit": 0.633159875869751,
+      "period": 2.8531016,
+      "split_group": "TIC-262530407",
+      "star_id": 262530407
+    },
+    {
+      "candidate_id": "TOI-1794.01",
+      "duration_hours": 4.0264463,
+      "epoch_bjd": 2458715.310896,
+      "label": 1,
+      "logit": -0.1911454200744629,
+      "period": 8.7655468,
+      "split_group": "TIC-286916251",
+      "star_id": 286916251
+    },
+    {
+      "candidate_id": "TOI-2625.01",
+      "duration_hours": 3.9313069,
+      "epoch_bjd": 2459963.148107,
+      "label": 0,
+      "logit": 1.1747528314590454,
+      "period": 2.1481182,
+      "split_group": "TIC-308396509",
+      "star_id": 308396509
+    },
+    {
+      "candidate_id": "TOI-197.01",
+      "duration_hours": 8.571366,
+      "epoch_bjd": 2460927.616153,
+      "label": 1,
+      "logit": 0.48456189036369324,
+      "period": 14.2811731,
+      "split_group": "TIC-441462736",
+      "star_id": 441462736
+    },
+    {
+      "candidate_id": "TOI-219.01",
+      "duration_hours": 5.4532494,
+      "epoch_bjd": 2460184.852236,
+      "label": 0,
+      "logit": 1.7327755689620972,
+      "period": 4.4617755,
+      "split_group": "TIC-260609205",
+      "star_id": 260609205
+    },
+    {
+      "candidate_id": "TOI-1988.01",
+      "duration_hours": 3.973,
+      "epoch_bjd": 2460064.293216,
+      "label": 0,
+      "logit": -1.9376708269119263,
+      "period": 2.2818488,
+      "split_group": "TIC-161156159",
+      "star_id": 161156159
+    },
+    {
+      "candidate_id": "TOI-2664.01",
+      "duration_hours": 0.884,
+      "epoch_bjd": 2460277.924101,
+      "label": 0,
+      "logit": 0.8595711588859558,
+      "period": 3.9602774,
+      "split_group": "TIC-277871306",
+      "star_id": 277871306
+    },
+    {
+      "candidate_id": "TOI-2671.01",
+      "duration_hours": 4.661,
+      "epoch_bjd": 2459991.730295,
+      "label": 0,
+      "logit": -0.49628549814224243,
+      "period": 3.1630387,
+      "split_group": "TIC-190081497",
+      "star_id": 190081497
+    },
+    {
+      "candidate_id": "TOI-2438.01",
+      "duration_hours": 1.0206743,
+      "epoch_bjd": 2459175.406024,
+      "label": 0,
+      "logit": 1.05426025390625,
+      "period": 1.9426003,
+      "split_group": "TIC-686072378",
+      "star_id": 686072378
+    },
+    {
+      "candidate_id": "TOI-186.02",
+      "duration_hours": 2.3434341,
+      "epoch_bjd": 2460980.806574,
+      "label": 1,
+      "logit": 1.244444727897644,
+      "period": 7.7897886,
+      "split_group": "TIC-279741379",
+      "star_id": 279741379
+    },
+    {
+      "candidate_id": "TOI-2540.01",
+      "duration_hours": 3.1582562,
+      "epoch_bjd": 2458480.943804,
+      "label": 1,
+      "logit": -0.3896900415420532,
+      "period": 12.7187255,
+      "split_group": "TIC-354518617",
+      "star_id": 354518617
+    },
+    {
+      "candidate_id": "TOI-2544.01",
+      "duration_hours": 3.7404027,
+      "epoch_bjd": 2459230.852582,
+      "label": 0,
+      "logit": 0.6537427306175232,
+      "period": 21.0689935,
+      "split_group": "TIC-341419787",
+      "star_id": 341419787
+    },
+    {
+      "candidate_id": "TOI-2548.01",
+      "duration_hours": 2.444,
+      "epoch_bjd": 2459985.304174,
+      "label": 1,
+      "logit": 1.395851731300354,
+      "period": 8.5234958,
+      "split_group": "TIC-350293646",
+      "star_id": 350293646
+    },
+    {
+      "candidate_id": "TOI-2548.02",
+      "duration_hours": 0.779,
+      "epoch_bjd": 2459985.331564,
+      "label": 1,
+      "logit": -0.1508183777332306,
+      "period": 1.4468993,
+      "split_group": "TIC-350293646",
+      "star_id": 350293646
+    },
+    {
+      "candidate_id": "TOI-2119.01",
+      "duration_hours": 2.03,
+      "epoch_bjd": 2460442.055186,
+      "label": 1,
+      "logit": 1.3104498386383057,
+      "period": 7.2008611,
+      "split_group": "TIC-236387002",
+      "star_id": 236387002
+    },
+    {
+      "candidate_id": "TOI-258.01",
+      "duration_hours": 1.8262867,
+      "epoch_bjd": 2458326.804271,
+      "label": 0,
+      "logit": 0.1682964414358139,
+      "period": 3.1901569,
+      "split_group": "TIC-350445771",
+      "star_id": 350445771
+    },
+    {
+      "candidate_id": "TOI-1910.01",
+      "duration_hours": 3.385,
+      "epoch_bjd": 2459296.222791,
+      "label": 1,
+      "logit": 0.0862613171339035,
+      "period": 5.4161129,
+      "split_group": "TIC-437261733",
+      "star_id": 437261733
+    },
+    {
+      "candidate_id": "TOI-1912.01",
+      "duration_hours": 4.859,
+      "epoch_bjd": 2459249.035676,
+      "label": 1,
+      "logit": 1.8205431699752808,
+      "period": 5.4053583,
+      "split_group": "TIC-50712784",
+      "star_id": 50712784
+    },
+    {
+      "candidate_id": "TOI-192.01",
+      "duration_hours": 2.6326626,
+      "epoch_bjd": 2460929.713786,
+      "label": 1,
+      "logit": 1.751151442527771,
+      "period": 3.9227113,
+      "split_group": "TIC-183537452",
+      "star_id": 183537452
+    },
+    {
+      "candidate_id": "TOI-1925.01",
+      "duration_hours": 1.814,
+      "epoch_bjd": 2459279.602393,
+      "label": 1,
+      "logit": 1.966166615486145,
+      "period": 2.3447752,
+      "split_group": "TIC-118956453",
+      "star_id": 118956453
+    },
+    {
+      "candidate_id": "TOI-2138.01",
+      "duration_hours": 2.5956827,
+      "epoch_bjd": 2458684.221959,
+      "label": 0,
+      "logit": 1.3141850233078003,
+      "period": 1.4821845,
+      "split_group": "TIC-336267424",
+      "star_id": 336267424
+    },
+    {
+      "candidate_id": "TOI-3808.01",
+      "duration_hours": 2.3005775,
+      "epoch_bjd": 2459549.76003,
+      "label": 0,
+      "logit": 0.65003502368927,
+      "period": 3.6754815,
+      "split_group": "TIC-138497780",
+      "star_id": 138497780
+    },
+    {
+      "candidate_id": "TOI-381.01",
+      "duration_hours": 2.478,
+      "epoch_bjd": 2458356.07068,
+      "label": 0,
+      "logit": -0.08560045063495636,
+      "period": 4.89577,
+      "split_group": "TIC-207084429",
+      "star_id": 207084429
+    },
+    {
+      "candidate_id": "TOI-353.01",
+      "duration_hours": 2.5298876,
+      "epoch_bjd": 2459088.397582,
+      "label": 0,
+      "logit": -0.5922532677650452,
+      "period": 1.2979921,
+      "split_group": "TIC-100099031",
+      "star_id": 100099031
+    },
+    {
+      "candidate_id": "TOI-329.01",
+      "duration_hours": 4.061264,
+      "epoch_bjd": 2459090.797418,
+      "label": 1,
+      "logit": 0.8736075162887573,
+      "period": 5.7042858,
+      "split_group": "TIC-169765334",
+      "star_id": 169765334
+    },
+    {
+      "candidate_id": "TOI-331.01",
+      "duration_hours": 1.154,
+      "epoch_bjd": 2459141.054998,
+      "label": 0,
+      "logit": -1.268810510635376,
+      "period": 2.4843369,
+      "split_group": "TIC-262531275",
+      "star_id": 262531275
+    },
+    {
+      "candidate_id": "TOI-3331.01",
+      "duration_hours": 1.967,
+      "epoch_bjd": 2459383.760485,
+      "label": 1,
+      "logit": 1.826176404953003,
+      "period": 2.0180196,
+      "split_group": "TIC-194795551",
+      "star_id": 194795551
+    },
+    {
+      "candidate_id": "TOI-3358.01",
+      "duration_hours": 4.411,
+      "epoch_bjd": 2459296.556389,
+      "label": 0,
+      "logit": 0.5547685623168945,
+      "period": 8.8088443,
+      "split_group": "TIC-146244533",
+      "star_id": 146244533
+    },
+    {
+      "candidate_id": "TOI-465.01",
+      "duration_hours": 2.4128495,
+      "epoch_bjd": 2458414.135893,
+      "label": 1,
+      "logit": 2.0658254623413086,
+      "period": 3.8361623,
+      "split_group": "TIC-270380593",
+      "star_id": 270380593
+    },
+    {
+      "candidate_id": "TOI-4443.01",
+      "duration_hours": 2.518276,
+      "epoch_bjd": 2459415.15198,
+      "label": 1,
+      "logit": 0.7991800308227539,
+      "period": 1.8498567,
+      "split_group": "TIC-158241252",
+      "star_id": 158241252
+    },
+    {
+      "candidate_id": "TOI-4443.02",
+      "duration_hours": 2.2763645,
+      "epoch_bjd": 2459393.257825,
+      "label": 1,
+      "logit": 0.49744316935539246,
+      "period": 10.3088724,
+      "split_group": "TIC-158241252",
+      "star_id": 158241252
+    },
+    {
+      "candidate_id": "TOI-3986.01",
+      "duration_hours": 3.262,
+      "epoch_bjd": 2458981.484997,
+      "label": 0,
+      "logit": 0.8704116940498352,
+      "period": 1.6212474,
+      "split_group": "TIC-470911286",
+      "star_id": 470911286
+    },
+    {
+      "candidate_id": "TOI-4479.01",
+      "duration_hours": 1.1688702,
+      "epoch_bjd": 2459797.406342,
+      "label": 1,
+      "logit": 0.3030080199241638,
+      "period": 1.1589013,
+      "split_group": "TIC-126606859",
+      "star_id": 126606859
+    },
+    {
+      "candidate_id": "TOI-4255.01",
+      "duration_hours": 1.962,
+      "epoch_bjd": 2459964.80591,
+      "label": 0,
+      "logit": -1.4999505281448364,
+      "period": 2.5057108,
+      "split_group": "TIC-82302240",
+      "star_id": 82302240
+    },
+    {
+      "candidate_id": "TOI-4275.01",
+      "duration_hours": 2.0029797,
+      "epoch_bjd": 2460015.058745,
+      "label": 0,
+      "logit": -1.0305947065353394,
+      "period": 0.7617828,
+      "split_group": "TIC-363635669",
+      "star_id": 363635669
+    },
+    {
+      "candidate_id": "TOI-4037.01",
+      "duration_hours": 2.701,
+      "epoch_bjd": 2459740.358181,
+      "label": 0,
+      "logit": 0.3083791136741638,
+      "period": 4.7257129,
+      "split_group": "TIC-367287018",
+      "star_id": 367287018
+    },
+    {
+      "candidate_id": "TOI-4518.01",
+      "duration_hours": 3.163,
+      "epoch_bjd": 2460229.806391,
+      "label": 1,
+      "logit": 1.9127205610275269,
+      "period": 3.408833,
+      "split_group": "TIC-398572544",
+      "star_id": 398572544
+    },
+    {
+      "candidate_id": "TOI-431.01",
+      "duration_hours": 3.3195777,
+      "epoch_bjd": 2458440.630295,
+      "label": 1,
+      "logit": 1.1344026327133179,
+      "period": 12.4610086,
+      "split_group": "TIC-31374837",
+      "star_id": 31374837
+    },
+    {
+      "candidate_id": "TOI-4087.01",
+      "duration_hours": 2.824,
+      "epoch_bjd": 2459765.673618,
+      "label": 1,
+      "logit": 1.9017646312713623,
+      "period": 3.1774814,
+      "split_group": "TIC-310002617",
+      "star_id": 310002617
+    },
+    {
+      "candidate_id": "TOI-413.01",
+      "duration_hours": 3.7669692,
+      "epoch_bjd": 2459174.669346,
+      "label": 1,
+      "logit": 1.8904660940170288,
+      "period": 3.6623918,
+      "split_group": "TIC-170634116",
+      "star_id": 170634116
+    },
+    {
+      "candidate_id": "TOI-4368.01",
+      "duration_hours": 2.8339358,
+      "epoch_bjd": 2459337.012838,
+      "label": 0,
+      "logit": -1.2916655540466309,
+      "period": 4.4518604,
+      "split_group": "TIC-314724818",
+      "star_id": 314724818
+    },
+    {
+      "candidate_id": "TOI-5173.01",
+      "duration_hours": 2.0958153,
+      "epoch_bjd": 2459552.707286,
+      "label": 1,
+      "logit": -0.5312433242797852,
+      "period": 4.0035773,
+      "split_group": "TIC-98669309",
+      "star_id": 98669309
+    },
+    {
+      "candidate_id": "TOI-5198.01",
+      "duration_hours": 2.91,
+      "epoch_bjd": 2459415.348922,
+      "label": 0,
+      "logit": 1.3396196365356445,
+      "period": 3.2623468,
+      "split_group": "TIC-193628179",
+      "star_id": 193628179
+    },
+    {
+      "candidate_id": "TOI-5513.01",
+      "duration_hours": 5.953,
+      "epoch_bjd": 2459578.095795,
+      "label": 0,
+      "logit": -1.4341552257537842,
+      "period": 7.7235903,
+      "split_group": "TIC-184869170",
+      "star_id": 184869170
+    },
+    {
+      "candidate_id": "TOI-5418.01",
+      "duration_hours": 2.459,
+      "epoch_bjd": 2459550.466346,
+      "label": 0,
+      "logit": 1.0582540035247803,
+      "period": 1.6421819,
+      "split_group": "TIC-115564354",
+      "star_id": 115564354
+    },
+    {
+      "candidate_id": "TOI-6448.01",
+      "duration_hours": 2.748,
+      "epoch_bjd": 2459971.671935,
+      "label": 1,
+      "logit": -0.8234702944755554,
+      "period": 14.8442674,
+      "split_group": "TIC-320411045",
+      "star_id": 320411045
+    },
+    {
+      "candidate_id": "TOI-5966.01",
+      "duration_hours": 2.441937,
+      "epoch_bjd": 2459826.813152,
+      "label": 0,
+      "logit": 0.18777258694171906,
+      "period": 3.5381039,
+      "split_group": "TIC-404610583",
+      "star_id": 404610583
+    },
+    {
+      "candidate_id": "TOI-6242.01",
+      "duration_hours": 1.893,
+      "epoch_bjd": 2459879.464465,
+      "label": 0,
+      "logit": -0.17530867457389832,
+      "period": 5.6020298,
+      "split_group": "TIC-437740083",
+      "star_id": 437740083
+    },
+    {
+      "candidate_id": "TOI-5818.01",
+      "duration_hours": 4.24521,
+      "epoch_bjd": 2459799.022189,
+      "label": 1,
+      "logit": 0.0012271702289581299,
+      "period": 2.6052674,
+      "split_group": "TIC-283419843",
+      "star_id": 283419843
+    },
+    {
+      "candidate_id": "TOI-5839.01",
+      "duration_hours": 3.491,
+      "epoch_bjd": 2459794.235051,
+      "label": 0,
+      "logit": -0.7985451221466064,
+      "period": 2.5411063,
+      "split_group": "TIC-355732304",
+      "star_id": 355732304
+    },
+    {
+      "candidate_id": "TOI-664.01",
+      "duration_hours": 7.0819612,
+      "epoch_bjd": 2459988.88442,
+      "label": 1,
+      "logit": 1.341467261314392,
+      "period": 4.7359232,
+      "split_group": "TIC-55092869",
+      "star_id": 55092869
+    },
+    {
+      "candidate_id": "TOI-589.01",
+      "duration_hours": 2.1596206,
+      "epoch_bjd": 2459230.346492,
+      "label": 0,
+      "logit": -0.6861948370933533,
+      "period": 2.5183846,
+      "split_group": "TIC-412961700",
+      "star_id": 412961700
+    },
+    {
+      "candidate_id": "TOI-6130.01",
+      "duration_hours": 1.806,
+      "epoch_bjd": 2459849.639834,
+      "label": 1,
+      "logit": 0.0658845603466034,
+      "period": 2.3927114,
+      "split_group": "TIC-210083929",
+      "star_id": 210083929
+    },
+    {
+      "candidate_id": "TOI-7475.01",
+      "duration_hours": 4.4705283,
+      "epoch_bjd": 2460775.586536,
+      "label": 1,
+      "logit": 1.354329228401184,
+      "period": 3.2527618,
+      "split_group": "TIC-376866659",
+      "star_id": 376866659
+    },
+    {
+      "candidate_id": "TOI-6977.01",
+      "duration_hours": 1.772,
+      "epoch_bjd": 2460250.885968,
+      "label": 1,
+      "logit": 0.136692613363266,
+      "period": 5.0957983,
+      "split_group": "TIC-436575927",
+      "star_id": 436575927
+    },
+    {
+      "candidate_id": "TOI-7394.01",
+      "duration_hours": 1.2067305,
+      "epoch_bjd": 2460556.902315,
+      "label": 1,
+      "logit": 0.01755349338054657,
+      "period": 1.2529966,
+      "split_group": "TIC-161687209",
+      "star_id": 161687211
+    },
+    {
+      "candidate_id": "TOI-920.01",
+      "duration_hours": 3.17,
+      "epoch_bjd": 2458335.23411,
+      "label": 0,
+      "logit": 0.10412900149822235,
+      "period": 19.2998,
+      "split_group": "TIC-271722899",
+      "star_id": 271722899
+    },
+    {
+      "candidate_id": "TOI-966.01",
+      "duration_hours": 3.2067861,
+      "epoch_bjd": 2459965.700001,
+      "label": 1,
+      "logit": 1.158209204673767,
+      "period": 3.4091568,
+      "split_group": "TIC-178367144",
+      "star_id": 178367144
+    }
+  ]
+}

@@ -61,6 +61,13 @@ def parser():
     sub.add_parser("seed-fixture", help="Explicitly add a SYNTHETIC demonstration; prefer a separate database")
     controls = sub.add_parser("detection-controls", help="Four TRAIN-star controls, six injections and four negatives; no downloads")
     controls.add_argument("--output", type=Path, required=True, help="New versioned local experiment directory")
+    comparison = sub.add_parser("compare-models", help="Append verified five-model scores to saved blind features; keep the reference scorer")
+    comparison.add_argument("--run-id", required=True)
+    comparison.add_argument("--spec-sha256", required=True, help="Explicit completed experiment identity")
+    comparison.add_argument("--candidate-id", action="append", help="Explicit IDs; otherwise process pending completed jobs")
+    comparison.add_argument("--limit", type=int, default=60)
+    comparison.add_argument("--watch", action="store_true", help="Keep comparing newly completed jobs, without downloads or training")
+    comparison.add_argument("--interval", type=int, default=60)
     vet = sub.add_parser("vet", help="Resume explicit detected jobs through shared inputs, frozen CNN, diagnostics and dossiers")
     vet.add_argument("--job-id", action="append", required=True, help="Repeat for at most 20 persisted job IDs")
     vet.add_argument("--catalog-mode", choices=("offline", "live"), default="offline")
@@ -151,6 +158,17 @@ def main(argv=None):
         print(json.dumps({"database": str(store.path), "protocol_id": protocol["id"], **store.summary()}, indent=2))
     elif args.command == "recover":
         print(json.dumps({"recovered_stages": store.recover_expired()}))
+    elif args.command == "compare-models":
+        import torch
+        from .model_comparison import ComparisonScorer, compare_candidates, serve_comparisons
+        if args.watch and args.candidate_id:
+            raise ValueError("Use explicit candidates for a single pass or --watch for pending jobs")
+        torch.set_num_threads(2)
+        scorer = ComparisonScorer(store.path.parent / "model_experiments", args.run_id, args.spec_sha256)
+        if args.watch:
+            serve_comparisons(store, artifacts, scorer, interval=args.interval, limit=args.limit)
+        else:
+            print(json.dumps(compare_candidates(store, artifacts, scorer, args.candidate_id, args.limit), indent=2))
     elif args.command == "seed-fixture":
         candidate = seed_fixture(store, artifacts, protocol["id"])
         print(json.dumps({"cohort": "synthetic_fixture", "candidate_id": candidate["id"],
