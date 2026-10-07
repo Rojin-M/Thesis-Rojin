@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "review_run": "outputs/research/ai_telescope/blind-review-v1",
+  "scan_run": "outputs/research/ai_telescope/blind-scan-v1",
+  "physical_run": "outputs/research/physical_experts/pilot-v1",
+  "output": "outputs/research/ai_telescope/event-vetting-v1",
+  "period_min_days": 0.5,
+  "period_max_days": 20.0,
+  "bls_max_period_grid": 6000,
+  "search_timeout_seconds": 180,
+  "seed": 92028
+}

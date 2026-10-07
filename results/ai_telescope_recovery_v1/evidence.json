@@ -1,0 +1,13 @@
+{
+  "files": {
+    "README.md": "9dc0372e1987d0c2d2695f9454653e1fe71e0b3e735a0d1e0d8cd5bb3103bcc8",
+    "calibration_resolution.json": "a4576c9937044bfee1131b3665cb98fc92ea5d3fc90e4355a65edd1de480dd71",
+    "comparison.pdf": "cace3bbc83a8d9e8eca91078f0c2fec0a3521285d02ae5faa7307eeb09b343ec",
+    "comparison.png": "94a29ee29920d5f8f2081d230ef1858fa957488082b5e5068dce03f8edcddcd3",
+    "host_recovery.csv": "4da1b4a2478da6082325f4a0f6de5f8525c12fe573215e9779418687da71a5ce"
+  },
+  "source": "outputs/research/ai_telescope/recovery-v1",
+  "source_artifacts_verified": 479,
+  "source_complete_sha256": "662eeda6a4a7734b085617dc9aa6d991c3cd530e0963c55263c049578882359b",
+  "spec_sha256": "119297ecb67fe51598894a06cf4a9403e73d5445c9eaf027f1ce137a0d3aecb3"
+}

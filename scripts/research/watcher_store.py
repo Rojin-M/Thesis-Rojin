@@ -69,9 +69,16 @@ def _automation_status(db):
     health = 'stale' if record['service_state'] == 'running' and age > 120 else record['service_state']
     requests = _rows(db, 'SELECT * FROM watch_check_requests WHERE config_id=? ORDER BY created_at DESC LIMIT 1',
                      (record['config_id'],))
+    discovery = None
+    targets = record['config']['targets']
+    if record['config'].get('schema_version') == 2:
+        cycle = record['last_cycle'] or {}
+        discovery = cycle.get('discovery') or {'status': 'waiting', 'targets': [], 'new_targets': [],
+                                               'errors': [], 'archive_wide_complete': False}
+        targets = cycle.get('targets', targets)
     return {'enabled': True, 'service_state': health, 'phase': record['phase'],
             'heartbeat_at': record['heartbeat_at'], 'config_id': record['config_id'],
-            'targets': record['config']['targets'], 'cohort': record['config']['cohort'],
+            'targets': targets, 'cohort': record['config']['cohort'], 'discovery': discovery,
             'config': record['config'], 'check_request': requests[0] if requests else None,
             'last_cycle': record['last_cycle'], 'last_error': record['last_error']}
 
@@ -352,7 +359,11 @@ def status(store):
         automatic_ids = set()
         if automation['enabled']:
             from .automation import metadata_configs
-            automatic_ids = {digest(config) for config in metadata_configs(automation['config'])}
+            effective_config = dict(automation['config'], targets=automation['targets'])
+            automatic_ids = {digest(config) for config in metadata_configs(effective_config)}
+            if automation['config'].get('schema_version') == 2:
+                from .discovery import discovery_config
+                automatic_ids.add(digest(discovery_config(automation['config']['discovery'])))
         for c in configs:
             age = (datetime.now(timezone.utc) - datetime.fromisoformat(c['heartbeat_at'].replace('Z','+00:00'))).total_seconds() if c['heartbeat_at'] else None
             c['health'] = 'circuit_open' if c['failures'] >= 3 else ('stale' if c['service_state'] == 'running' and (age is None or age > 120) else c['service_state'])
@@ -371,4 +382,6 @@ def status(store):
                 'by_kind': {r[0]:r[1] for r in db.execute('SELECT kind,SUM(COALESCE(used,cap)) FROM watch_spending GROUP BY kind')}},
             'automation': automation,
             'mode': 'automatic_watchlist' if automation['enabled'] else 'metadata_only_unless_explicit_frozen_pilot', 'observed_at': now,
-            'scope': 'Selected TICs and bounded latest SPOC light-curve observations; not archive-wide completeness'}
+            'scope': ('New-to-project TICs selected from bounded recent public SPOC metadata samples; not archive-wide completeness'
+                      if automation.get('discovery') is not None else
+                      'Selected TICs and bounded latest SPOC light-curve observations; not archive-wide completeness')}

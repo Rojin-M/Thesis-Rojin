@@ -1,0 +1,14 @@
+{
+  "bls": {
+    "events_per_27_days": 0.9206593202856168,
+    "exact_empirical_threshold": 72.59677975066101,
+    "original_coarse_threshold": 100.0,
+    "scope": "calibration-only grid-resolution diagnostic; not an evaluated operating point"
+  },
+  "tls": {
+    "events_per_27_days": 0.9810304232551653,
+    "exact_empirical_threshold": 7.5604120902904,
+    "original_coarse_threshold": 8.0,
+    "scope": "calibration-only grid-resolution diagnostic; not an evaluated operating point"
+  }
+}

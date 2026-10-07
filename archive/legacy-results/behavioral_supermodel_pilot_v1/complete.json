@@ -1,0 +1,11 @@
+{
+  "completed_at": "2026-09-27T18:20:29.456427Z",
+  "files": {
+    "behavioral_supermodel.pt": "e19601dc750367043ff85cda230181a5b89661092bfd78c3da1073b8732f1be3",
+    "report.md": "9d28f6537e861fe053589700f4e098afb0844be5455d01558d089264bea08af3",
+    "spec.json": "76ccfc9a0f326cb9c12a0da9ddb6929bed8c697840b8ab01282052567646f66e",
+    "summary.json": "54b15ab97e2fafdeb6a29a0d3397a26bfe629a15455cf9dfc9e230aef98a02b7"
+  },
+  "spec_sha256": "8d9b9571b85361ca6ac9a27f60f09b88156472c09717075b7d91529c8830b8a2",
+  "status": "complete"
+}

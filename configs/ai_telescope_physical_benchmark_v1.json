@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "model_runs": {
+    "v2": "outputs/research/ai_telescope/context-v2",
+    "v3": "outputs/research/ai_telescope/continuous-v3"
+  },
+  "validation_runs": {
+    "v2": "outputs/research/ai_telescope/continuous-validation-v1",
+    "v3": "outputs/research/ai_telescope/continuous-validation-v2"
+  },
+  "prospective_run": "outputs/research/ai_telescope/prospective-v1",
+  "physical_run": "outputs/research/physical_experts/pilot-v1",
+  "output": "outputs/research/ai_telescope/physical-benchmark-v1",
+  "seed": 28092026,
+  "depths": [0.0005, 0.001, 0.002, 0.005],
+  "modes": ["single", "periodic", "ttv"],
+  "periods_days": [3.0, 5.0, 8.0],
+  "single_period_days": 60.0,
+  "stellar_density_solar": [1.0, 4.0],
+  "impact_parameters": [0.1, 0.5, 0.8],
+  "limb_darkening": [0.3, 0.2],
+  "supersample_factor": 7,
+  "ttv_fraction_of_duration": 0.75,
+  "minimum_event_coverage": 0.5,
+  "detrend_window_days": 1.5,
+  "period_min_days": 0.5,
+  "period_max_days": 10.0,
+  "oversampling_factor": 2,
+  "duration_grid_step": 1.2,
+  "bls_durations_hours": [0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.5, 6.0, 7.0],
+  "bls_thresholds": [0, 5, 6, 7, 8, 9, 10, 12, 15, 20, 30, 50, 100, 300, 1000],
+  "tls_thresholds": [0, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15, 20, 30, 50, 100],
+  "target_control_events_per_27_days": 1.0,
+  "workers": 4,
+  "search_timeout_seconds": 240
+}

@@ -6,6 +6,7 @@ vetting, this repository’s results, and designing a defensible experiment.
 
 Open **http://127.0.0.1:8765/#dashboard**. If you already have an Academy tab,
 refresh it. The Research dashboard remains separate on port **8766**.
+For the shortest written model history, read the repository's [model journey](../MODEL_JOURNEY.md).
 
 ## What the course contains
 
@@ -29,6 +30,8 @@ refresh it. The Research dashboard remains separate on port **8766**.
   attention arithmetic and a real PyTorch gradient-reversal operation.
 - A searchable course map and glossary, source reading desk, project map,
   local gradebook, mistake review, spaced review and progress export/import.
+- An **optional, ungraded astronomy research tour** after the capstone: real
+  autonomous follow-up, alert brokers, recent exoplanet models and anomaly search.
 
 Using the course or grading answers makes **no paid API calls**. There is no
 LLM grader, account, analytics service or external runtime dependency. External
@@ -46,7 +49,7 @@ Python examples requires the project’s local Python environment.
 | 5. Choose a model with a reason | 17–20 | CNNs, baselines, Transformers and self-supervision |
 | 6. Transfer and the frontier | 21–24 | Transfer, DANN, uncertainty and recent papers |
 | 7. Become a careful vetter | 25–28 | Event checks, pixels, validation and our candidate case |
-| 8. Understand this repository | 29–32 | Input contract, finished DANN results, services and backups |
+| 8. Understand this repository | 29–32 | Input contract, historical/fresh comparisons, services and backups |
 | 9. Develop a research idea | 33–36 | Injections, ablations, literature gaps and study design |
 
 Start with lesson 1 if the astronomy is new. For ML specifically, use
@@ -115,31 +118,68 @@ not part of this course export.
 
 ## Research sources and project facts
 
-The reading desk was checked **23 September 2026**. It includes foundational
-CNN/DANN/attention/calibration sources and recent ExoMiner++, Transformer transit
-search, RAVEN and 2026 RAVEN survey work. The June 2026 EXOVEIL and August 2026
-Astro-Hunters manuscripts are explicitly labeled preprints, with their selection
-and sample-size limits. This is a curated reading path, not an exhaustive
-leaderboard; external publications and documentation can change.
+Project teaching was refreshed **28 September 2026**. Source access dates are
+shown individually in the reading desk; this content date does not imply that
+every external link or service policy was reverified.
 
-Project facts are a **dated teaching snapshot**, not a live feed:
+Open **http://127.0.0.1:8765/#research-updates** for the optional final research
+section (about 25 minutes). Navigation, overview, reading desk, final lesson and
+final-assessment results all link to it. Eight guided stops explain BTSbot/SEDM,
+Rubin brokers, ExoMiner++, unfolded-light-curve Transformers, RAVEN, DESI anomaly
+search, critical reading of EXOVEIL/Astro-Hunters and proposed decision-aware AI.
+A native workflow selector contrasts new telescope measurements, broker queues
+and our archival watcher; ungraded reflections reveal interpretations without
+saving answers. Galaxy representation learning and DESC provide wider context.
 
-- The watcher checks two configured TESS control targets, not the whole archive.
-- The five-arm, three-seed DANN pilot is complete. DANN mean audit AP was 0.6934,
-  pooled 0.7067 and fine-tuned 0.7644 on the same 82-row pilot audit. No DANN
-  benefit was demonstrated; convergence was not established at the short budget.
-- The original reference CNN stays primary; comparison scores are appended with
-  provenance. The 44 stored comparison proposals include real and synthetic
-  controls; they are not 44 new planets.
-- Unmatched is a limited catalog-check result. The highlighted 25.3244-day signal
-  has unresolved timing/source evidence and no established planet probability.
-- Live watcher updates are automatic; dated snapshots and remote backups are
-  separate explicit operations.
+Each stop includes inputs, mechanism, evidence, limits, project connections and
+direct primary links. Dates distinguish events, submissions, revisions, publication
+and source access; preprints and proposals are explicit. Figures are native HTML/CSS,
+with no remote assets or runtime requests. Selected-study results are attributed,
+not independently reproduced or combined into a cross-paper leaderboard.
+Deep links use `#research-updates/` followed by `btsbot`, `brokers`, `exominer`,
+`transit-search`, `raven`, `anomalies`, `reading-claims` or `next-decisions`.
 
-The **Your project** page links each pipeline stage to a lesson and gives local
-paths for the source, result receipts and operating guide. For live status and
-candidate dossiers, open Research on port 8766. For watcher and backup commands,
-use `docs/website_guide.md` and the snapshot guide it references.
+Open **http://127.0.0.1:8765/#project** for the served evidence snapshot:
+
+- The captured schema-2 archival watcher had **18 selected targets**, a six-hour
+  polling interval and at most two products per cycle. The two-control setup is
+  explicitly dated September 23; neither represents full archive coverage.
+- The authoritative scorer is **frozen_Kepler_shared_v1_CNN_seed42**. Saved
+  `model_score` rows from September 26 establish checkpoint/normalizer identity
+  as checked September 28. The sigmoid score is not a planet probability.
+  Comparison models and research-only event detectors have not replaced it.
+- Historical three-seed adaptation results remain visible. Reused 82-row
+  classifier comparisons are separated from the fresh 14-candidate audit
+  (3 positive, 11 negative). Static v4 ranks better on the fresh cohort;
+  nonlinear has 13/14 versus 12/14 correct at threshold 0.5. Of 295 registered
+  candidates, 281 lacked native 120-second products; all 14 available passed
+  unchanged preparation. This small, selected sample has no universal winner.
+- Separate detector tables show the historical 79-host trapezoidal audit,
+  90-host physical audit and fresh 99-host recovery study, with registered and
+  observable denominators, event counts and inverted-control rates. Calibrated
+  v3 loses five events while reducing controls by about 48%; both v3 settings
+  already meet the fresh mean budget. The hybrid failed and every method missed
+  all 25 fresh 500-ppm injections. These are injections, not new planet discoveries.
+- Lessons teach cross-fitting, complementary experts, physical assumptions,
+  one-to-one event matching, rejected routing and calibration transfer. Proposed
+  contamination, multi-sector and larger classifier studies are labeled as plans.
+  The TIC 150428135 case remains a September 23 teaching dossier.
+
+The public snapshot in `source/project_evidence.json` is compiled into course
+assets. Copyable provenance paths can be opened in an editor; they are not broken
+parent-directory browser links. No database, checkpoints, host list or private
+notes are served. Research on port 8766 remains the live-record interface.
+
+**Progress compatibility:** version 2, assessment revision `2026-09-23.1`, all
+36 lessons, nine units, 252 question IDs/options/keys/order and the storage key
+remain stable. `contentRevision=2026-09-28.3` records editorial changes without
+archiving existing grades. Imports/exports remain compatible. The historical
+watcher quiz prompt is dated; its options and correct answer are unchanged.
+
+The guided tour and its reviewed source metadata are authored in
+`source/research_extension.json` and compiled by `source/build_course.py` into
+`curriculum.js`. Keep source IDs stable; extend the optional data, not the lesson
+or exam arrays. The reading desk and primary-source lists share the same records.
 
 ## Start the Academy
 
@@ -157,7 +197,7 @@ browser and forwarded address to keep using the same locally saved grades.
 process owns that port; check it before starting another copy.
 
 For both sites, install the research environment from the
-[root README](../README.md#environment), plus `tmux` and `curl`, then use:
+[root README](../README.md#environment-and-checks), plus `tmux` and `curl`, then use:
 
 ```bash
 bash scripts/websites.sh start
@@ -179,15 +219,20 @@ refresh with `Cache-Control: no-store`.
 ## Files included
 
 - `source/build_course.py`: authored lessons, examples, sources and questions.
+- `source/project_evidence.json`: reviewed public metric snapshot and provenance.
+- `source/research_extension.json`: optional guided tour and dated primary sources.
 - `curriculum.js`: generated course data, ready to serve without a build step.
 - `index.html`, `app.js`, `styles.css`, `favicon.svg`: the course interface.
 - `grading.js`, `labs.js`: local grading and interactive teaching experiments.
 - `serve.py`: the local HTTP server.
-- `../tests/test_academy.py` and `../tests/test_academy_grading.cjs`: executable checks.
+- `../tests/test_academy.py`, `../tests/test_academy_grading.cjs` and
+  `../tests/test_academy_progress.cjs`: executable checks.
 
 ## Maintain and verify the course
 
-Author content in `academy/source/build_course.py`; regenerate the strict
+Author core content in `academy/source/build_course.py`, reviewed project metrics
+and provenance in `academy/source/project_evidence.json`, and optional literature
+in `academy/source/research_extension.json`; regenerate the strict
 JSON-wrapped `curriculum.js` rather than hand-editing both copies:
 
 ```bash
@@ -196,7 +241,7 @@ JSON-wrapped `curriculum.js` rather than hand-editing both copies:
 ```
 
 The suite checks curriculum/reference integrity, runs the Python examples,
-executes 15 tests against the actual JavaScript grader and math functions, and
+executes the actual JavaScript grader, math and application progress tests, and
 tests HTTP behavior on an ephemeral local port. Install Node 18 or newer to run
 the JavaScript grader checks; it is found from
 `NODE` or PATH. Without Node that check is explicitly skipped. Node is not
@@ -214,3 +259,22 @@ When changing the meaning or key of an assessment, update `D['revision']` and
 verify migration behavior. Earlier-edition records are archived separately;
 imports from another edition are rejected instead of silently granting mastery.
 Keep source status, project facts, explanations and worked answers consistent.
+
+## Optional extension authoring contract
+
+Edit the existing structure in `source/research_extension.json`: `title`, `lead`,
+`minutes`, `sourcePolicy`, `workflows`, `cards` and `sources`. Each card has a
+stable `id`, `shortTitle`, `title`, `status`, `hook`, `input`, `mechanism`,
+`evidence`, `limit`, `connection`, source IDs in `sources` and lesson IDs in
+`lessons`; `related` readings and a `reflection` are optional. Keep IDs stable
+so saved links continue to work. The builder merges source records into the
+reading desk and compiles the remaining data into `D['researchExtension']`.
+
+The `#research-updates` route stays outside `modules`, `units` and the assessment
+bank. Navigation, overview, reading desk, capstone and final results already link
+to it. Verify new claims against primary sources and retain cohort denominators,
+publication status, limitations and individual access dates. Advance only
+`contentRevision` for compatible editorial updates; keep the assessment revision
+and answer contract stable. Regenerate, run the checks above with Node and local
+sockets available, then refresh the existing server and inspect the changed routes
+at desktop and mobile sizes. Static content changes require no service restart.

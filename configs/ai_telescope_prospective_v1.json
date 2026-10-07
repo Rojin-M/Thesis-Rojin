@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "cohort_run": "results/prospective_cohort_v1",
+  "prior_pixel_run": "outputs/research/tls_pixel_pilot/pilot-v1",
+  "model_run": "outputs/research/ai_telescope/context-v2",
+  "scan_config": "configs/ai_telescope_blind_scan_v1.json",
+  "review_run": "outputs/research/ai_telescope/blind-review-v1",
+  "output": "outputs/research/ai_telescope/prospective-v1",
+  "target_pixel_root": "data/raw/tess/target_pixels",
+  "receipt_root": "data/raw/tess/metadata/target_pixel_receipts",
+  "max_product_bytes": 335544320,
+  "max_total_download_bytes": 8589934592
+}

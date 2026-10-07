@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "meta_seeds": [211, 223, 227],
+  "steps": 600,
+  "learning_rate": 0.01,
+  "weight_decay": 0.01,
+  "hidden_units": 12,
+  "jitter_std": 0.02,
+  "jitter_seed": 7301,
+  "max_grad_norm": 5.0
+}

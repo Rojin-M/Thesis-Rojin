@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "baseline_run": "outputs/research/ai_telescope/physical-benchmark-v1",
+  "cohort_run": "outputs/research/ai_telescope/fresh-recovery-cohort-v1",
+  "output": "outputs/research/ai_telescope/recovery-v1",
+  "seed": 28092027,
+  "durations_hours": [0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 4.5, 6.0, 8.0, 10.0, 12.0],
+  "minimum_score": 3.0,
+  "minimum_coverage": 0.7,
+  "control_budget_per_27_days": 1.0,
+  "calibration_budget_fraction": 0.5,
+  "hybrid_neural_budget_fraction": 0.5,
+  "workers": 4
+}

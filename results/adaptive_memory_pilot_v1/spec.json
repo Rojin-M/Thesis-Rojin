@@ -1,0 +1,20 @@
+{
+  "config": {
+    "fast_baseline_rate": 0.08,
+    "forgetting": 0.0005,
+    "gradient_clip": 5.0,
+    "learning_rates": [
+      0.08,
+      0.02,
+      0.005
+    ],
+    "momentum": 0.8,
+    "protection_hold": 3,
+    "protection_sigma": 3.5,
+    "scale_rate": 0.02,
+    "slow_baseline_rate": 0.008,
+    "warmup": 64
+  },
+  "source_sha256": "85fa399fb9660910ef2b7f67aa6c398d6b9ea0ef6a64673241c1c5170ecf5f11",
+  "version": "transit_preserving_test_time_memory_v1"
+}

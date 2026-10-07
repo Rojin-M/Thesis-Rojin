@@ -2,23 +2,36 @@
 
 ## Automatic website watcher
 
-An opt-in automatic service now connects metadata polling to selection,
-acquisition, detection, CNN scoring, diagnostics and saved dossiers. It uses
-`configs/research_automation_v1.json`; the default list contains two known control
-stars and retains that cohort label. The older metadata-only interface below
-remains unchanged.
+An opt-in automatic service connects bounded target discovery and metadata
+polling to acquisition, blind detection, CNN scoring, diagnostics and saved
+dossiers. For new archival targets, use `configs/research_discovery_v1.json`.
+This schema-2 configuration has `targets: []`, a `discovery` settings object and
+`cohort: "archival_pilot"`; the discovery selection supplies its target IDs.
+The older `configs/research_automation_v1.json` remains a schema-1 explicit list
+of TIC 231663901 and TIC 150428135, both known-object controls. Its existing
+results are historical controls, not results of the new archival discovery run.
+The older metadata-only interface below remains available.
 
 ```bash
 OMP_NUM_THREADS=2 MKL_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 \
-  .venv/bin/python -m scripts.research watch-auto-serve
+  .venv/bin/python -m scripts.research watch-auto-serve \
+  --config configs/research_discovery_v1.json
 .venv/bin/python -m scripts.research watch-auto-check
 ```
 
 The first command is a foreground worker, normally launched in tmux. It runs
 until stopped; `--max-hours` optionally limits its lifetime. The second queues a
 durable check for the active worker, equivalent to **Check for new data** in the
-website. `watch-auto-once --force` runs a single automatic cycle when the service
-is stopped. The service lock prevents overlapping metadata/automatic schedulers.
+website. With discovery enabled and selection capacity remaining, the check
+requests a fresh bounded search for additional targets. It also requests
+processing of eligible selected products. Once selection is full, the saved
+target list is reused; repeated clicks do not enlarge the batch or its budgets.
+`watch-auto-once --config configs/research_discovery_v1.json --force` runs a
+single automatic cycle when the service is stopped. The service lock prevents
+overlapping metadata/automatic schedulers. See the [website guide](website_guide.md#start-the-website-and-watcher)
+for tmux startup commands using this configuration. Stop an existing worker and
+wait for it to exit before switching configurations; a running worker retains
+the configuration with which it started.
 
 The browser reloads list/dashboard results every 30 seconds while visible and
 idle. Focused/edited forms pause updates; candidate review pages never refresh
@@ -26,8 +39,12 @@ automatically. A protected POST `/api/watcher/check` accepts only `{}` and requi
 the existing same-origin and CSRF checks. It records a request without launching
 work in an HTTP handler. Pending requests coalesce and survive worker restarts.
 
-The watchlist is polled in stable batches of two targets so lists larger than two
-do not starve. Only complete successful snapshots can feed automatic selection.
+Archive metadata checks use a six-hour interval. Eligible existing queue work
+is processed on every worker cycle, even when the metadata result is `not_due`.
+That status describes the metadata schedule, not necessarily an idle cycle.
+The explicit watchlist mode polls in stable batches of two targets so lists
+larger than two do not starve. Only complete successful snapshots can feed
+automatic selection.
 Each unqueued product gets one immutable pilot; subsequent releases get different
 identities. Repeated polls, requests and restarts reuse completed results.
 Dispatch respects existing stage leases, retry deadlines, attempt limits and
@@ -41,11 +58,30 @@ unknown interrupted usage stays conservatively charged. Assessments and failed
 refresh attempts are retained for 24 hours to avoid repeated network work;
 cached errors remain visible. Unavailable catalogs produce incomplete evidence.
 
-The service does not expand its own target list. It watches the latest public
-standard SPOC light curve per explicitly configured TIC, with the existing
-20-product/target and 2 GiB cumulative limits. These limits persist across
-restarts. `archival_pilot` is supported for an exploratory list; this engineering
-feature does not establish prospective search readiness or planet confirmation.
+Discovery selects targets from a bounded public standard SPOC metadata search;
+it does not scan all TESS pixels or provide a complete archive census. Its source
+exclusions include TIC IDs in local processed/raw TESS sources, the recorded
+Kepler overlap, and local candidate IDs. Known catalog periods and epochs do not
+select targets or seed detection. The resulting `archival_pilot` proposals are
+separate from the two historical known-object controls. An unmatched registry
+assessment is not evidence of a newly discovered planet.
+
+The existing **20-product and 20-target initial selection limits and 2 GiB byte
+cap** apply cumulatively across the database, including earlier control work.
+Two previously selected control products/targets leave at most **18 new
+product/target slots**; the remaining byte allowance may be more restrictive.
+Restarts and repeated checks do not reset the ledger or attempts. Existing pilot
+membership stays frozen as new selections are recorded.
+
+The Watcher discovery card reads `automation.discovery` and shows the latest
+selection, selected TIC IDs, bounded scope, remaining budget, exhaustion and
+errors. Source or budget exhaustion remains visible and does not imply that the
+entire public archive has been searched. This feature does not establish
+prospective search readiness or planet confirmation.
+“Latest batch that added targets” records the last selection event; selected
+targets are not counts of completed products or signal proposals. The discovery
+budget is captured at selection time; the global budget below includes later
+processing charges. At most two products are processed per cycle.
 
 On this installation, the private `forme/WEBSITE.md` guide and `forme/website.sh`
 helper provide exact start, open, refresh, status and stop commands.
@@ -68,7 +104,8 @@ and [product fields](https://mast.stsci.edu/api/v0/_productsfields.html) define
 public rights, release metadata, sectors, product URIs, sizes and versions.
 These APIs were verified against live metadata on 22 September 2026 (Vienna).
 
-Version 1 requests at most one page of 100 observations, then at most two pages
+The original metadata-only version 1 requests at most one page of 100
+observations, then at most two pages
 of 100 products (three API calls maximum per poll). It chooses the latest
 **standard SPOC light curve per explicitly listed TIC**, according to public
 release metadata. Fast-cadence, DV, pixel, FFI and HLSP products are outside this
@@ -170,7 +207,9 @@ nonretryable failures remain visible for inspection.
 The cumulative ledger reserves capacity **before** any request. The global cap
 is 2 GiB, across metadata, scientific products, retries, imported prior usage,
 and all pilots in this database. A second pilot does not reset the cap. The
-initial selection is also cumulatively limited to 20 products and 20 targets.
+initial selection is also cumulatively limited to 20 products and 20 targets,
+including the two historical control selections; those leave at most 18 new
+product/target slots for archival discovery.
 Individual native files are at most 64 MiB. Each pilot has its own tighter byte
 and runtime cap. Each invocation reserves at most 600 seconds of the remaining
 allowance, then charges actual elapsed time on orderly completion. The main-thread deadline interrupts
@@ -232,7 +271,8 @@ actual HTTP/CLI restarts. The HTTP integration downloads generated native FITS
 from an isolated local archive, runs the real detector and local trained model,
 then checks the research API, dossiers and no-redownload replay.
 
-This is an operational control-sized pipeline, not a complete FFI release
-monitor, pixel photometry system, calibrated search, prospective trial or novel
-planet claim. Registry/image/neighbor/calibration and adaptation research limits
-remain as described in the preceding evidence reports.
+This is a bounded archival pipeline with historical control evidence. It does
+not establish complete FFI release monitoring, pixel photometry, calibrated
+search performance, prospective-trial readiness or a novel planet claim.
+Registry/image/neighbor/calibration and adaptation research limits remain as
+described in the preceding evidence reports.

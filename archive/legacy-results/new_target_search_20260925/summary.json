@@ -1,0 +1,71 @@
+{
+  "automation": {
+    "config": {
+      "catalog_mode": "live",
+      "cohort": "archival_pilot",
+      "cycle_max_seconds": 3600,
+      "discovery": {
+        "lookback_days": 180,
+        "max_pages": 3,
+        "max_targets": 18,
+        "page_size": 100,
+        "poll_seconds": 21600
+      },
+      "max_products_per_cycle": 2,
+      "poll_max_seconds": 120,
+      "poll_seconds": 21600,
+      "product_max_bytes": 67108864,
+      "product_max_seconds": 900,
+      "schema_version": 2,
+      "targets": []
+    },
+    "heartbeat_at": "2026-09-25T12:59:16.252661Z",
+    "last_error": null,
+    "phase": "waiting",
+    "service_state": "running"
+  },
+  "budget": {
+    "cap": 2147483648,
+    "charged_bytes": 42487280,
+    "selected_products_cumulative": 6,
+    "unsettled_reservations": 0
+  },
+  "calibrated_planet_probabilities_available": false,
+  "cohort": "archival_pilot",
+  "complete_experimental_comparisons": 8,
+  "jobs_by_status": {
+    "succeeded": 4
+  },
+  "latest_registry_statuses": {
+    "UNMATCHED": 10
+  },
+  "limitations": [
+    "Proposals can be aliases or repeated fits to the same variability.",
+    "UNMATCHED applies only to the supported snapshots and does not establish novelty.",
+    "Source localization, contamination checks and search-wide completeness/false-alarm calibration remain incomplete.",
+    "The selected batch exhausts the initial cumulative product cap; this is not an unlimited rolling search."
+  ],
+  "limits": {
+    "network_bytes_cumulative": 2147483648,
+    "products_cumulative": 20,
+    "products_per_cycle": 2,
+    "targets_cumulative": 20
+  },
+  "new_planet_claim": false,
+  "observation_sectors": [
+    103,
+    104,
+    105,
+    106
+  ],
+  "products_by_state": {
+    "complete": 4,
+    "not_queued": 14
+  },
+  "science_bytes_downloaded": 8052480,
+  "scope": "18 new-to-project TESS targets; bounded recent public SPOC light curves, not a complete archive survey",
+  "selected_targets": 18,
+  "signal_proposals": 10,
+  "snapshot_at": "2026-09-25T12:59:23.023884+00:00",
+  "valid_reference_cnn_scores": 8
+}

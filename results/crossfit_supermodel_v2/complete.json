@@ -1,0 +1,11 @@
+{
+  "completed_at": "2026-09-28T05:10:47.891000Z",
+  "files": {
+    "report.md": "558e59e4399bbc90e353a7c16f839abf3d2a3c5f813b2008c7c3794492500985",
+    "spec.json": "13166cc01857add1eb345cad9414441e38b8edc76e99594070b15c53a92ca634",
+    "summary.json": "6cf8bf6c8d09dedf09dbe5eecc522e15b605e3c032975dacabb28d2562274feb",
+    "supermodel.joblib": "487bc15021319dbf16d1a9b10c672b1d27491f398ccd02c6701f5245d1f355b7"
+  },
+  "spec_sha256": "c7cd6e9fe02b23e9636aa24edb502f14f089a1beb493a6a1624c39f621a8f930",
+  "status": "complete"
+}

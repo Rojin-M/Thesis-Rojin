@@ -1,0 +1,17 @@
+{
+  "runs": {
+    "outputs/research/ai_telescope/event-vetting-v1": {
+      "complete_sha256": "38eb2e6ea50cde620abc5a866de6699742af81cdc458cdb26cf18c69a0daf7a3",
+      "spec_sha256": "6dbb4cea5f07ba07de34503db436931e8ce6d9b9f5a783357d215b1ee03826c9"
+    },
+    "outputs/research/ai_telescope/gaia-supplement-v1": {
+      "complete_sha256": "b39272e4291d36ca03e8562b7caa0357369fa56e2782637bfbc6f065b159b3a1",
+      "spec_sha256": "d8fe2c3cb191892fefb18b09bd29e9422d15e5bfad7cbc9f589e7677758db2d3"
+    }
+  },
+  "event_count": 79,
+  "host_count": 17,
+  "pixel_measurements_available": 64,
+  "gaia_hosts_available_with_supplement": 17,
+  "focused_tests_passed": 27
+}

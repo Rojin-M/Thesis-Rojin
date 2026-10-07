@@ -1,0 +1,19 @@
+{
+  "schema_version": 2,
+  "targets": [],
+  "discovery": {
+    "lookback_days": 180,
+    "max_pages": 3,
+    "page_size": 100,
+    "max_targets": 18,
+    "poll_seconds": 21600
+  },
+  "poll_seconds": 21600,
+  "poll_max_seconds": 120,
+  "cohort": "archival_pilot",
+  "product_max_bytes": 67108864,
+  "product_max_seconds": 900,
+  "max_products_per_cycle": 2,
+  "cycle_max_seconds": 3600,
+  "catalog_mode": "live"
+}

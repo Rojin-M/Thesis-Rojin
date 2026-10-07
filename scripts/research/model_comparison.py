@@ -33,6 +33,14 @@ class ComparisonScorer:
             raise ValidationError("Comparison requires the frozen shared_v1 normalizer")
         if set(summary["config"]["arms"]) != set(ARMS):
             raise ValidationError("Comparison requires all five completed experiment arms")
+        # Completed suites may keep their per-arm artifacts in a dedicated
+        # runs/ directory.  Older sealed fixtures used the experiment root.
+        runs_folder = folder / "runs"
+        if runs_folder.exists():
+            if runs_folder.is_symlink() or not runs_folder.is_dir():
+                raise ValidationError("Comparison run directory is unsafe")
+        else:
+            runs_folder = folder
         # The architecture used for inference must match the archived training source.
         for name in ("training/cnn/mission_adaptation.py", "training/cnn/train_kepler_cnn.py",
                      "scripts/data/tess_dataset.py"):
@@ -42,7 +50,7 @@ class ComparisonScorer:
         self.models, records = [], []
         for arm in ARMS:
             for seed in summary["config"]["seeds"]:
-                arm_folder = _folder(folder, f"{arm}-seed{seed}")
+                arm_folder = _folder(runs_folder, f"{arm}-seed{seed}")
                 complete = _json(arm_folder / "complete.json")
                 if complete.get("spec_sha256") != spec_sha256 or set(complete.get("files", {})) != {
                         "best_model.pt", "result.json", "predictions.json"}:

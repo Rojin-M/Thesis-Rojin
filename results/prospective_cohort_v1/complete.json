@@ -1,0 +1,10 @@
+{
+  "completed_at": "2026-09-27T18:37:40.923903Z",
+  "files": {
+    "README.md": "3d20b3f840702a55d13a64d5e6e795b872bc85f981e25d8dc934c662eb969c0e",
+    "manifest.json": "8527e1fbb89ead60c4e79b1611a28afc2cfc5ccba01d8ca556d3cc8e1ae06493",
+    "spec.json": "536151d4decf94f567ffb4e6a2cfc7057de2cac91d2dec0ba1f627a54664e974"
+  },
+  "spec_sha256": "5d37a06a438740d178d363f866fc2f1a076360d3873985aec2c3c6410914f128",
+  "status": "complete"
+}

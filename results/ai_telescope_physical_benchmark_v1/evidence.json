@@ -1,0 +1,39 @@
+{
+  "benchmark_spec_sha256": "baf28b59103f2a54312fee08f827a40078c00d12cc2a636bcb6847d99a3e3897",
+  "created_at": "2026-09-28T13:03:38.732740Z",
+  "durations_exceeding_neural_upper_prior": [
+    "307111282",
+    "159054620",
+    "298663873",
+    "268823307",
+    "349095149",
+    "2760710"
+  ],
+  "files": {
+    "outputs/research/ai_telescope/physical-benchmark-v1/complete.json": "2d907b5567fd1215ed087264e4d15a0a6a1eccbf338e705641529ba1ee680206",
+    "outputs/research/ai_telescope/physical-benchmark-v1/host_recovery.csv": "495d511160eef6281e913050ce7215364e86eb2f8151a6db9b4fea42f90c0557",
+    "outputs/research/ai_telescope/physical-benchmark-v1/operating_point.json": "4fc9b47e59fdbfbfc6bfe0dac99d428c40b9a616cfb72a700c24f23cd7507ec5",
+    "outputs/research/ai_telescope/physical-benchmark-v1/report.md": "77a27c3a2716db47d335ed29de59d6a995280a56925b734696222bfb80431614",
+    "outputs/research/ai_telescope/physical-benchmark-v1/spec.json": "b6537b953de8d81d87059b2bab3b1be2a3afb06de249b56f2b5e7dd0248fc4c3",
+    "outputs/research/ai_telescope/physical-benchmark-v1/summary.json": "3bead2722db58ed40eb496fc0adea04521a4ffa433f51d91ff189b8a0007a6c2",
+    "results/ai_telescope_physical_benchmark_v1/README.md": "0cef3dc581bfab87288fc6977e34c0d2951e841e178361f33b0cfc886d38da9c",
+    "results/ai_telescope_physical_benchmark_v1/comparison.pdf": "13cd69aacbd62e4bc61e76e88c9ade0ea40ecdf496bc63d0318bfa467dc51b31",
+    "results/ai_telescope_physical_benchmark_v1/comparison.png": "1cb75a3c7f7cca42bba39baa59c06a306c730e6ae97c8a15953f2e8c6d9806b8",
+    "scripts/experiments/ai_telescope_benchmark_report.py": "0eb2423f93089fb235976d6a34b24d38908778523f7054364c8fe8d40708684a"
+  },
+  "report_metadata": {
+    "calibration_hosts": 78,
+    "control_budget": 1.0,
+    "observable_hosts": 85,
+    "registered_hosts": 90,
+    "thresholds": {
+      "bls": 100.0,
+      "tls": 8.0,
+      "v2": 0.9,
+      "v3": 0.86
+    },
+    "unobservable_hosts": 5
+  },
+  "status": "complete",
+  "verified_benchmark_artifacts": 521
+}

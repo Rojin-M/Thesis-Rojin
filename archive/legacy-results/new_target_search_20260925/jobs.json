@@ -1,0 +1,38 @@
+[
+  {
+    "code_provenance_id": "03bfb2673e950215b5cbac3c7bc6fe88b41f8475969c04fae1d64f0609674c64",
+    "cohort": "archival_pilot",
+    "created_at": "2026-09-25T12:55:02.935486Z",
+    "id": "22609fd6fa0e4c5a9b78380e26bf1ed3",
+    "protocol_id": "0c3d6b220d1677f0fb0ccd4026543c82f2624d71aecfac333513d13142f6af23",
+    "status": "succeeded",
+    "updated_at": "2026-09-25T12:55:37.959064Z"
+  },
+  {
+    "code_provenance_id": "c6cf989b3e5cd1313328608472981137ee2d747edead6cef77df22a62cab69f4",
+    "cohort": "archival_pilot",
+    "created_at": "2026-09-25T12:55:40.511100Z",
+    "id": "4deda1d0f4614923a91e8cbc6a0f039c",
+    "protocol_id": "0c3d6b220d1677f0fb0ccd4026543c82f2624d71aecfac333513d13142f6af23",
+    "status": "succeeded",
+    "updated_at": "2026-09-25T12:56:09.508966Z"
+  },
+  {
+    "code_provenance_id": "4ceaf39a37f7fc9f435444ba46bd9d29e57ba0005558e646ed3773f7f8cc56e4",
+    "cohort": "archival_pilot",
+    "created_at": "2026-09-25T12:57:26.241810Z",
+    "id": "d82b68a0dd704bd7802098d603ebcd72",
+    "protocol_id": "0c3d6b220d1677f0fb0ccd4026543c82f2624d71aecfac333513d13142f6af23",
+    "status": "succeeded",
+    "updated_at": "2026-09-25T12:58:00.046427Z"
+  },
+  {
+    "code_provenance_id": "b97c94e3a77fb5ce0fa1856da7a624ae30a8c5f583ad52f375b12dc84b380abc",
+    "cohort": "archival_pilot",
+    "created_at": "2026-09-25T12:58:02.602183Z",
+    "id": "000d87f8136a4a07829f7c3b6f2ba68f",
+    "protocol_id": "0c3d6b220d1677f0fb0ccd4026543c82f2624d71aecfac333513d13142f6af23",
+    "status": "succeeded",
+    "updated_at": "2026-09-25T12:58:34.144061Z"
+  }
+]

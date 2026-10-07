@@ -1,0 +1,44 @@
+{
+  "files": {
+    "README.md": {
+      "bytes": 4764,
+      "sha256": "efa40f262b21f6985edbbbfbcaf474200adc742e77e693eb666c580253cbf6d5"
+    },
+    "archive_failures.json": {
+      "bytes": 868,
+      "sha256": "40be182758aef144835b5a0c3ed0b232593e9e73d23619720f0ed0e4d31e0e2f"
+    },
+    "candidates.json": {
+      "bytes": 499981,
+      "sha256": "8e871efb85919a84c980e8a84ee5bb14f72c0ef7970fecdd46be7bb8ec4ea5ba"
+    },
+    "jobs.json": {
+      "bytes": 1571,
+      "sha256": "6522828701b60074772bea7355ea6f702c660935e7b8eca766578728e4d81174"
+    },
+    "processing_provenance.json": {
+      "bytes": 36303,
+      "sha256": "ef0a003afa7bc9284769dae4da7399e8a5b41bd4458018c7eba562f7957125be"
+    },
+    "products.json": {
+      "bytes": 29826,
+      "sha256": "31eec20e1ef1ec54d15c3409c9840b9dc414659aa6041a67ee64e7611e1b2ede"
+    },
+    "selection.json": {
+      "bytes": 17095,
+      "sha256": "d177ef4aedadf3c81c1e379633600aebaf230376066b359083ae1f4539b7fe56"
+    },
+    "source_metadata.json": {
+      "bytes": 35528,
+      "sha256": "246128e8fe04d87fe29409702a0e0643a0275a76b653b4e9a7f2e6ee3a1fdc3e"
+    },
+    "summary.json": {
+      "bytes": 2062,
+      "sha256": "70105ad9723572e8f64f77295d72253ad5fdb845f343ec6478b793a1ff744b85"
+    },
+    "validation.json": {
+      "bytes": 3405,
+      "sha256": "6812f9fa0c3dc8f50bf080ffeff2d110aac100d3d4e911073b652288fcd5148d"
+    }
+  }
+}

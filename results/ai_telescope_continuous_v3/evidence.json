@@ -1,0 +1,21 @@
+{
+  "training_run": "outputs/research/ai_telescope/continuous-v3",
+  "validation_run": "outputs/research/ai_telescope/continuous-validation-v2",
+  "training_complete_sha256": "109bbcc35f581c2998a5dec733be499c12763dd486f03b37e31928f937a04b73",
+  "training_spec_sha256": "78594535d0f0148d3caf0da8ff53d7f8ce91de325d068295394563e87141323f",
+  "validation_complete_sha256": "38a9798f3f2bcad4b981dd7b0931e2203c0e49e9c11574196b6fd6e8ab9174f8",
+  "validation_spec_sha256": "61d000484bf2c90abc1b14995356336cb2dce19bfe36af4084e044247d7f103d",
+  "generated_optimization_hosts": 670,
+  "generated_optimization_windows": 1340,
+  "audit_hosts": 79,
+  "audit_injected_events": 276,
+  "selected_threshold": 0.86,
+  "audit_system_recovery": 0.35443037974683544,
+  "audit_event_recovery": 0.19202898550724637,
+  "audit_control_events_per_27_days": 0.5169169778806985,
+  "paired_system_improved": 10,
+  "paired_system_worsened": 3,
+  "paired_exact_mcnemar_p_two_sided": 0.09228515625,
+  "artifact_checksums_verified": 1510,
+  "focused_tests_passed": 32
+}

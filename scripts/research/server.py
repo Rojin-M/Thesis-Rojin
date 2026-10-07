@@ -193,7 +193,9 @@ class ResearchHandler(BaseHTTPRequestHandler):
         if path == "/api/health":
             from .watcher_store import status
             watcher = status(store)
-            self._json(200, {"status": "ok", "schema_version": store.summary()["schema_version"],
+            summary = store.summary()
+            self._json(200, {"status": "ok", "schema_version": summary["schema_version"],
+                            "supermodel": summary["supermodel"],
                             "watcher": [{"id": c["id"], "health": c["health"], "last_success_at": c["last_success_at"]} for c in watcher["configs"]]})
             return
         if path == "/api/watcher":
@@ -227,14 +229,18 @@ class ResearchHandler(BaseHTTPRequestHandler):
         if path in ("/api/jobs", "/api/candidates", "/api/releases", "/api/products"):
             try:
                 params = parse_qs(query, keep_blank_values=True, max_num_fields=10)
-                if set(params) - {"limit", "offset", "cohort", "review_status"} or any(len(v) != 1 for v in params.values()):
+                if set(params) - {"limit", "offset", "cohort", "review_status", "sort", "registry_status"} or any(len(v) != 1 for v in params.values()):
                     raise ValueError()
                 options = {k: v[0] for k, v in params.items()}
                 options.update(limit=int(options.get("limit", 100)), offset=int(options.get("offset", 0)))
             except ValueError as exc:
                 raise ValidationError("Invalid list query") from exc
-            self._json(200, {"items": store.list_records(path.rsplit("/", 1)[1], **options),
-                             "limit": options["limit"], "offset": options["offset"]})
+            table = path.rsplit("/", 1)[1]
+            result = {"items": store.list_records(table, **options),
+                      "limit": options["limit"], "offset": options["offset"]}
+            if table == 'candidates':
+                result.update(sort=options.get('sort', 'newest'), registry_status=options.get('registry_status'))
+            self._json(200, result)
             return
         match = re.fullmatch(r"/api/(jobs|candidates|provenance)/([a-f0-9]{32}|[a-f0-9]{64})", path)
         if match:

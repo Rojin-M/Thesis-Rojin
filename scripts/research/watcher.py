@@ -11,6 +11,7 @@ from pathlib import Path
 import signal
 import threading
 import time
+from datetime import datetime, timezone
 
 from . import mast
 from .protocol import ROOT, ConflictError, ValidationError, canonical_json, digest, identifier, nonempty, utc_now
@@ -90,10 +91,30 @@ def poll_once(store, config, *, client=None, force=False):
         try:
             with mast.wall_deadline(config['poll_max_seconds']):
                 request = mast.observation_request(config['targets'])
+                recent_window = None
+                if 'observation_lookback_days' in config:
+                    days = config['observation_lookback_days']
+                    if type(days) is not int or not 1 <= days <= 730:
+                        raise ValidationError('Invalid observation lookback bound')
+                    high = (datetime.now(timezone.utc) - datetime(1858, 11, 17, tzinfo=timezone.utc)).total_seconds() / 86400
+                    recent_window = {'min': high - days, 'max': high}
+                    for field in ('t_min', 't_obs_release'):
+                        request['params']['filters'].append({'paramName': field, 'values': [recent_window]})
                 raw = client.query(request)
                 prov = ledger.snapshot(key,request,raw,root)
                 result['snapshots'].append(prov)
                 rows, complete = mast.decode_page(raw)
+                if recent_window:
+                    # Recheck the archive's filter; an old sector re-released
+                    # recently must not replace the recent discovery data.
+                    def recent(row):
+                        try:
+                            return all(recent_window['min'] <= float(row.get(field)) <= recent_window['max']
+                                       for field in ('t_min', 't_obs_release'))
+                        except (TypeError, ValueError):
+                            return False
+                    rows = [row for row in rows if recent(row)]
+                    result['observation_mjd_window'] = recent_window
                 selected, selection = mast.select_observations(rows,config['targets'],config['max_products_per_poll'])
                 result.update(selection, observation_page_complete=complete)
                 result['metadata_pages_complete'] = complete

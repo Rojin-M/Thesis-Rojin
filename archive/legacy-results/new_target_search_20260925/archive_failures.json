@@ -1,0 +1,25 @@
+[
+  {
+    "config_id": "177a8926d8d5e096ca47b8f6c03434455e07922012828279f05be96b89ca554d",
+    "error": {
+      "code": "ReadTimeout",
+      "message": "HTTPSConnectionPool(host='mast.stsci.edu', port=443): Read timed out. (read timeout=10)"
+    },
+    "finished_at": "2026-09-25T12:44:15.080933Z",
+    "id": "0bde3f9af5bf46eab03678ac71513b41",
+    "started_at": "2026-09-25T12:44:04.592553Z",
+    "status": "failed"
+  },
+  {
+    "config_id": "7cc25e8f158f411bd1f29e67e99f590a3c3f47a80d2acba9fcf24d436a63b895",
+    "error": {
+      "code": "ReadTimeout",
+      "message": "HTTPSConnectionPool(host='mast.stsci.edu', port=443): Read timed out. (read timeout=45)",
+      "retryable": true
+    },
+    "finished_at": "2026-09-25T12:50:52.166355Z",
+    "id": "a3c4d02d08474fd387afd738ab1e0024",
+    "started_at": "2026-09-25T12:50:06.482424Z",
+    "status": "failed"
+  }
+]

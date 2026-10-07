@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "meta_seeds": [401, 409, 419],
+  "steps": 600,
+  "learning_rate": 0.01,
+  "stack_weight_decay": 0.01,
+  "residual_weight_decay": 0.2,
+  "jitter_std": 0.02,
+  "jitter_seed": 7301,
+  "cadence_dropout_fraction": 0.1,
+  "attenuation_factor": 0.9,
+  "alpha_grid": [0.0, 0.1, 0.25, 0.5, 1.0],
+  "max_grad_norm": 5.0
+}

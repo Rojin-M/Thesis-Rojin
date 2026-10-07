@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "router_seeds": [701, 709, 719],
+  "steps": 600,
+  "learning_rate": 0.01,
+  "weight_decay": 0.1,
+  "competence_weight": 0.1,
+  "competence_temperature": 0.5,
+  "shrinkage_grid": [0.0, 0.15, 0.35, 0.7],
+  "prior_kl_grid": [0.25, 1.0, 4.0],
+  "max_grad_norm": 5.0
+}

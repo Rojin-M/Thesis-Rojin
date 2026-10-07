@@ -24,8 +24,7 @@ from scripts.research.server import ResearchServer
 from scripts.research.store import Store
 from scripts.research.watcher import create_pilot, dispatch, load_config, poll_once
 from scripts.research.watcher_store import WatchStore, status
-from tests.test_research_detection import write_fits
-from tests.test_research_watcher import ReplayClient
+from tests.support import ReplayClient, write_fits
 
 
 @unittest.skipUnless(CHECKPOINT.is_file() and NORMALIZER.is_file(),'Locally retained model required for whole-pipeline integration')
@@ -89,7 +88,7 @@ class WatcherHTTPTests(unittest.TestCase):
         self.assertGreater(c['ephemeris']['epoch_bjd_tdb'],2457000)
         self.assertIsNotNone(c['assessment']['score']);self.assertEqual(c['assessment']['registry_status'],'INCOMPLETE_LOOKUP')
         self.assertIn('registry',c['incomplete_evidence']);self.assertIsNotNone(c['product'])
-        _,report=self.request('/api/candidates/'+self.ids[0]+'/report.md');self.assertIn(b'CNN ranking score',report)
+        _,report=self.request('/api/candidates/'+self.ids[0]+'/report.md');self.assertIn(b'Model ranking score',report)
         self.assertEqual(self.request('/api/health')[0],200)
     def test_actual_cli_restart_does_not_redownload_duplicate_or_reprocess(self):
         command=[sys.executable,'-m','scripts.research','--db',str(self.store.path),'--artifacts',str(self.root/'artifacts'),

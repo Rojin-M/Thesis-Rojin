@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "base_model_run": "outputs/research/ai_telescope/context-v2",
+  "physical_run": "outputs/research/physical_experts/pilot-v1",
+  "scan_config": "configs/ai_telescope_blind_scan_v1.json",
+  "output": "outputs/research/ai_telescope/continuous-v3",
+  "depths": [0.0005, 0.001, 0.002, 0.005],
+  "durations_hours": [1.0, 2.5, 5.0],
+  "hard_negative_candidates": 4,
+  "epochs": 8,
+  "batch_size": 32,
+  "learning_rate": 0.0002,
+  "weight_decay": 0.001,
+  "maximum_positive_weight": 50.0,
+  "synthetic_window_weight": 2.0,
+  "dice_weight": 0.2,
+  "distillation_weight": 0.05,
+  "modality_dropout": 0.1,
+  "seed": 93217,
+  "cpu_threads": 4
+}

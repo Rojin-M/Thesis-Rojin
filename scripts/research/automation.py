@@ -14,17 +14,22 @@ from .watcher import create_pilot, dispatch, poll_once, process_product
 from .watcher_store import WatchStore, exclusive_lock, later, status
 
 LOG = logging.getLogger(__name__)
-DEFAULT_CONFIG = ROOT / 'configs/research_automation_v1.json'
+DEFAULT_CONFIG = ROOT / 'configs/research_discovery_v1.json'
 
 
 def validate_config(value):
     required = {'schema_version', 'targets', 'poll_seconds', 'poll_max_seconds', 'cohort',
                 'product_max_bytes', 'product_max_seconds', 'max_products_per_cycle',
                 'cycle_max_seconds', 'catalog_mode'}
-    if not isinstance(value, dict) or set(value) != required or type(value['schema_version']) is not int or value['schema_version'] != 1:
-        raise ValidationError('Automatic watcher requires exactly the documented schema_version=1 settings')
+    if not isinstance(value, dict) or type(value.get('schema_version')) is not int or value['schema_version'] not in (1, 2):
+        raise ValidationError('Automatic watcher requires documented schema_version=1 or 2 settings')
+    discovery = value['schema_version'] == 2
+    if discovery:
+        required.add('discovery')
+    if set(value) != required:
+        raise ValidationError('Automatic watcher requires exactly the documented settings')
     targets = value['targets']
-    if (not isinstance(targets, list) or not 1 <= len(targets) <= 20
+    if (not isinstance(targets, list) or not (0 if discovery else 1) <= len(targets) <= 20
             or any(not isinstance(target, str) or not target.isascii() or not target.isdigit()
                    or not 0 < int(target) < 10**16 or str(int(target)) != target for target in targets)
             or len(set(targets)) != len(targets)):
@@ -38,6 +43,11 @@ def validate_config(value):
         raise ValidationError('Choose known_object_control or archival_pilot; scientific prospective readiness is not established')
     if value['catalog_mode'] not in ('live', 'offline'):
         raise ValidationError('Catalog mode must be live or offline')
+    if discovery:
+        from .discovery import validate_discovery
+        validate_discovery(value['discovery'])
+        if targets or value['cohort'] != 'archival_pilot':
+            raise ValidationError('Discovery requires targets=[] and archival_pilot; the saved selection supplies targets')
     return json.loads(canonical_json(value))
 
 
@@ -46,10 +56,14 @@ def load_config(path=DEFAULT_CONFIG):
 
 
 def metadata_configs(config):
-    return [{'version': 1, 'targets': config['targets'][offset:offset + 2],
+    groups = [{'version': 1, 'targets': config['targets'][offset:offset + 2],
              'max_products_per_poll': 2, 'poll_seconds': config['poll_seconds'],
              'poll_max_seconds': config['poll_max_seconds'], 'metadata_only': True}
             for offset in range(0, len(config['targets']), 2)]
+    if config.get('schema_version') == 2:
+        for group in groups:
+            group['observation_lookback_days'] = config['discovery']['lookback_days']
+    return groups
 
 
 def _error(exc):
@@ -116,6 +130,15 @@ def run_cycle(store, artifacts, protocol_id, config, *, client=None, processor=p
     try:
         with mast.wall_deadline(remaining()):
             ledger.automation_update(phase='polling', error=None)
+            if config['schema_version'] == 2:
+                from .discovery import discover_targets
+                discovery = discover_targets(store, config['discovery'], client=client, force=force)
+                result['discovery'] = discovery
+                result['errors'].extend(discovery.get('errors', []))
+                config = dict(config, targets=discovery['targets'])
+                result['targets'] = config['targets']
+                # Publish selection promptly while downloads and detection run.
+                ledger.automation_update(phase='polling', result=result)
             for metadata_config in metadata_configs(config):
                 remaining()
                 config_record = ledger.config(metadata_config)

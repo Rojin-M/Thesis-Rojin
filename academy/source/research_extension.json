@@ -1,0 +1,160 @@
+{
+  "checked": "2026-09-28",
+  "title": "When machine learning meets the sky",
+  "lead": "A model notices something. What happens next? Follow the evidence from a changing pixel to a telescope request, a planet candidate or an unusual spectrum—and learn where each claim stops.",
+  "minutes": 25,
+  "sourcePolicy": "Primary records opened 28 September 2026; dates below distinguish events, manuscripts and publication. Verified means the source supports the attributed claim, not that we reproduced the study. This is a curated path, not an exhaustive latest-paper survey or a common benchmark.",
+  "workflows": [
+    {
+      "id": "btsbot", "title": "BTSbot-nearby · obtaining a spectrum",
+      "steps": [
+        ["Observe", "ZTF images reveal a changing source."],
+        ["Score", "BTSbot combines image and scalar information."],
+        ["Choose", "Nearby-galaxy context and a selection policy trigger a request."],
+        ["Measure", "SEDM on Palomar's 60-inch telescope takes a spectrum."],
+        ["Interpret", "A spectrum adds physical evidence; scientists study the event."]
+      ],
+      "boundary": "A demonstrated observing loop: software requested a new measurement. The 2024jlf paper does not establish that every later interpretation or public report was autonomous.",
+      "sources": ["btsbot", "btsbot-nearby"]
+    },
+    {
+      "id": "broker", "title": "Survey broker · choosing what deserves attention",
+      "steps": [
+        ["Observe", "Rubin compares a new image with a reference image."],
+        ["Notify", "A difference-image detection produces an alert packet."],
+        ["Enrich", "A broker adds catalog matches, features and possible classes."],
+        ["Prioritize", "Rules or models select alerts for a science program."],
+        ["Follow up", "A separate observing program must arrange and obtain new data."]
+      ],
+      "boundary": "A broker output is a selection or classification. Telescope scheduling and a successful exposure are further steps; an alert alone is not a confirmed discovery.",
+      "sources": ["rubin-brokers"]
+    },
+    {
+      "id": "watcher", "title": "Our watcher · processing archival TESS data",
+      "steps": [
+        ["Retrieve", "Bounded polling finds public products for selected targets."],
+        ["Search", "BLS proposes periodic dimming signals."],
+        ["Rank", "The frozen Kepler CNN supplies model_score."],
+        ["Review", "Saved diagnostics and comparison scores support a human dossier."],
+        ["Test", "Source checks and independent follow-up are needed for a planet claim."]
+      ],
+      "boundary": "Our deployed loop acquires existing observations. It does not command a telescope. Research-only event localizers and ensembles have not replaced the authoritative scorer.",
+      "sources": [], "project": true
+    }
+  ],
+  "cards": [
+    {
+      "id": "btsbot", "shortTitle": "A telescope takes action", "title": "1. A score can trigger a real spectrum",
+      "status": "Demonstrated follow-up · 2024 event / 2025 paper",
+      "hook": "A young supernova changes quickly. Reducing the delay to a spectrum can preserve evidence that will soon disappear.",
+      "input": "ZTF transient images and extracted features; BTSbot-nearby adds nearby-galaxy context.",
+      "mechanism": "BTSbot is a multimodal CNN: an image branch and 25 scalar features help score bright transients. A selection policy uses the score and context to request SEDM spectroscopy on Palomar's 60-inch telescope. The model and the observing policy have different jobs.",
+      "evidence": "For SN 2024jlf on 28 May 2024, the request was logged at 07:53:40 and observing began at 08:00:51: about seven minutes later. The spectrum was taken about 0.7 days after inferred first light. Those are two different clocks.",
+      "limit": "This demonstrates autonomous follow-up for a selected transient task. Researchers performed the wider campaign and physical interpretation; automatic public reporting was future work in this paper.",
+      "connection": "Our pixel/scalar experts also combine evidence, but our watcher downloads archival observations. A future follow-up policy would need resource constraints, uncertainty and an auditable decision record.",
+      "sources": ["btsbot", "btsbot-nearby"], "lessons": ["pixels", "operations"],
+      "related": [{"title": "The earlier autonomous chain: SN 2023tyk", "text": "Northwestern's 13 October 2023 account describes ZTF detection on October 3, BTSbot selection on October 5, a requested SEDM spectrum, SNIascore Type Ia classification and automated sharing on October 7. This was a linked workflow built by people, not a 2026 discovery. It is a concrete example, not an identification of an unnamed news story.", "sources": ["btsbot-2023"]}],
+      "reflection": {"question": "Does a seven-minute response mean the star exploded seven minutes earlier?", "answer": "No. Request-to-observation latency measures the observing system. Time since first light requires a separate estimate from the light curve; it was about 0.7 days here."}
+    },
+    {
+      "id": "brokers", "shortTitle": "Sort a changing sky", "title": "2. Brokers turn alerts into useful queues",
+      "status": "Operational alert milestone · February 2026; documentation updated July 2026",
+      "hook": "A million notifications are useful only if the right evidence reaches the right observer in time.",
+      "input": "Difference-image alert packets: measurements of what changed relative to a reference sky image.",
+      "mechanism": "A broker adds context such as catalog matches and light-curve classifications, then exposes filters or ranked selections. Rubin describes ML classification in ALeRCE and ML enrichment in Fink. Rules also matter: a science program can require a particular brightness or history before requesting scarce follow-up time.",
+      "evidence": "Rubin reported 800,000 alerts on the night of 24 February 2026. Its February 25 release forecast up to seven million per night eventually; that forecast is not the measured rate that night or a verified September rate.",
+      "limit": "Alerts are change notifications, not counts of unique objects or confirmed discoveries. Brokers differ; a broker classification does not prove a telescope took a spectrum. The July documentation describes roles, not a shared performance benchmark.",
+      "connection": "Keep acquisition, event records, model scores and review decisions distinct in our pipeline too. A useful queue must balance missed events with review workload.",
+      "sources": ["rubin-alerts", "rubin-brokers"], "lessons": ["operations", "metrics"]
+    },
+    {
+      "id": "exominer", "shortTitle": "Vet a transit signal", "title": "3. ExoMiner++ asks whether a detected signal looks planetary",
+      "status": "Published research · 2025 manuscript; NASA coverage January 2026",
+      "hook": "A convincing dip can come from the wrong star. Give the model evidence about the cause, not just the shape.",
+      "input": "Already detected TESS threshold-crossing events (TCEs), with light-curve and instrument diagnostics; training combines Kepler and TESS examples.",
+      "mechanism": "The deep model combines views including difference images, periodograms, flux trends, unfolded flux and spacecraft information. A difference image can reveal where the changing light comes from; an instrument channel can expose a systematic that resembles a transit.",
+      "evidence": "The paper reports 7,330 candidate-classified TCEs among about 148,000 unlabeled TCEs, with 50 newly introduced Community TESS Objects of Interest after further selection. NASA's January 22, 2026 article is later coverage of the 2025 work.",
+      "limit": "These are not 7,330 new confirmed planets. TCEs, unique hosts and catalog candidates are different counting units. Vetting a supplied signal does not establish sensitivity to every unseen transit in raw time series.",
+      "connection": "This motivates complementary pixel, variability and morphology experts and an explicit input contract. It does not show that our stack or mission-adaptation method must improve.",
+      "sources": ["exominer", "exominer-nasa"], "lessons": ["frontier", "contract", "pixels"]
+    },
+    {
+      "id": "transit-search", "shortTitle": "Search before folding", "title": "4. A Transformer can search without a supplied period",
+      "status": "Published candidate search · MNRAS April 2025 issue",
+      "hook": "If a planet crosses its star only once during the observations, there may be no reliable period to fold on.",
+      "input": "Unfolded light curves extracted from TESS full-frame images, plus background and centroid time series. The network does not need an input transit ephemeris.",
+      "mechanism": "Salinas and colleagues use a Transformer-inspired model to identify transit candidates in time order. Attention relates measurements across a sequence, while background and centroid changes supply clues about nonplanetary events. FFI describes the data product origin; it does not mean the network ingests every raw image pixel.",
+      "evidence": "The paper reports 214 candidate systems from sectors 1–26 under its selection: 122 multi-transit, 88 single-transit and four multi-planet systems.",
+      "limit": "Candidate systems are not confirmed planets. No matched fixed-control-budget comparison with our detector is established here; candidate counts do not rank architectures.",
+      "connection": "Our candidate Transformer and our direct event localizer solve different tasks. To test an attention-based localizer, freeze the same inputs, host splits, injection depths and control budget as the CNN and TLS comparisons.",
+      "sources": ["transformer"], "lessons": ["attention", "injections"],
+      "reflection": {"question": "Why would a candidate classifier be an unfair baseline for finding an unknown single transit?", "answer": "A classifier may require a detected event and a period to construct its input. A search must first locate that event. Compare search with search, then evaluate vetting on the same candidate set."}
+    },
+    {
+      "id": "raven", "shortTitle": "Model the alternatives", "title": "5. RAVEN separates ranking from statistical validation",
+      "status": "Framework submitted 2025 · survey application published in MNRAS, March 2026",
+      "hook": "A planet claim needs alternatives: could a stellar eclipse or a background system explain the data?",
+      "input": "Transit candidates, simulated planets, eight astrophysical false-positive scenarios, real false positives and source-position information.",
+      "mechanism": "RAVEN uses gradient-boosted and Gaussian-process classifiers with scenario priors to estimate competing explanations. Its initial framework targets SPOC candidates at 0.5–16-day periods and depths above 300 ppm; posterior and radius conditions also govern validation.",
+      "evidence": "The 2026 application searched over 2.2 million magnitude-selected main-sequence stars with BLS and applied ML vetting. The authors report 118 newly statistically validated planets, including 31 newly detected in this work, alongside over 2,000 unvalidated candidates.",
+      "limit": "Statistical validation is conditional on the modeled alternatives, priors and selection; the survey also manually checked highly ranked candidates. The 118 and 2,000 counts describe different evidence levels. We have not independently validated these objects.",
+      "connection": "Our frozen CNN sigmoid is a ranking score, not this kind of astrophysical posterior. On-target injections do not establish background-binary rejection. Automation already exists; a contribution needs a measured advance on a defined task.",
+      "sources": ["raven", "raven26"], "lessons": ["probability", "validation"]
+    },
+    {
+      "id": "anomalies", "shortTitle": "Find the unusual", "title": "6. An unusual spectrum is an invitation to investigate",
+      "status": "DESI VAE · published January 2026 / MNRAS April issue",
+      "hook": "What if the interesting object has no familiar class label? Learn typical structure, then inspect what does not fit.",
+      "input": "About 200,000 DESI spectra: brightness measured across wavelength rather than across time.",
+      "mechanism": "A variational autoencoder compresses spectra into a small latent representation and reconstructs them. Large reconstruction residuals or unusual latent locations flag outliers. Astronomaly uses human feedback to prioritize what to inspect next.",
+      "evidence": "Nicolaou and colleagues find both instrumental artifacts and physically unusual spectra. The useful product is an ordered review set and interpretable spectral differences, not a single planet-like classification score.",
+      "limit": "Rare stars or quasars can reconstruct poorly when galaxies dominate training. An outlier score is neither a calibrated class probability nor proof of new astrophysics.",
+      "connection": "Our self-supervised representations could support event triage, but rarity and planet evidence must stay separate. Inspect pixels and instrument channels before treating an unusual dip as a scientific discovery.",
+      "sources": ["desi-vae"], "lessons": ["representation", "uncertainty"],
+      "related": [{"title": "Dated context: learning galaxy images without morphology labels", "text": "Mohale and Lochner (MNRAS May 2024 issue) use BYOL to learn representations from Galaxy Zoo DECaLS images. Similar images cluster together; Astronomaly uses the features to find merger candidates. The representation objective needs no morphology labels, but physical interpretation still needs evidence. Augmentations decide which differences the model is encouraged to ignore.", "sources": ["galaxy-byol"]}]
+    },
+    {
+      "id": "reading-claims", "shortTitle": "Read a headline critically", "title": "7. Two new preprints, two questions worth asking",
+      "status": "Preprints · June and August 2026; not reproduced here",
+      "hook": "Before admiring a metric, ask what counted as an example and where its truth label came from.",
+      "input": "EXOVEIL predicts stellar flux with a transit-masked, self-supervised Transformer. Astro-Hunters derives seven sliding-window features per TESS cadence and compares classifiers using star-disjoint splits.",
+      "mechanism": "EXOVEIL searches prediction residuals with a matched filter and vets them with XGBoost. Astro-Hunters changes the source of the training labels while holding the comparison protocol fixed. One probes a search strategy; the other probes what the benchmark actually rewards.",
+      "evidence": "EXOVEIL v3 reports 47/47 selected confirmed TESS planets recovered and 179 transit-like anomalies in a separate Kepler search. Astro-Hunters v1 uses 189,279 cadences from twelve hosts; feature-derived labels give AUC 0.9915, while properly converted ephemeris labels give AUC 0.7880 and AUPRC 0.2092.",
+      "limit": "Selected-planet recovery is not survey-wide completeness; 179 anomalies are not 179 confirmed planets. Cadences are not independent stars. The high feature-label AUC measures circular agreement, not independently labeled transit detection. Neither study is a head-to-head ranking against our candidate AP.",
+      "connection": "Pin label provenance and time systems, split by host, and report depth-stratified recovery. Our missed 500-ppm injections motivate a fair residual-search experiment; they do not prove that another paper's system would solve the problem.",
+      "sources": ["exoveil", "hunters"], "lessons": ["frontier", "splits", "injections"],
+      "reflection": {"question": "Which is the useful denominator: 189,279 cadences or twelve hosts?", "answer": "Both, for different purposes. Cadences describe the prediction task; twelve hosts describe how few independent stellar systems support transfer to new stars. A large row count cannot replace a diverse held-out host sample."}
+    },
+    {
+      "id": "next-decisions", "shortTitle": "Design the next decision", "title": "8. Optimize what the next observation can teach",
+      "status": "Outlook · June 2026 Perspective submission; proposed framework",
+      "hook": "The most certain classification may not be the most valuable next observation. An uncertain, fast-fading source could teach us more.",
+      "input": "Evolving measurements, uncertainties and a finite observing budget are the inputs envisioned by Bom and colleagues.",
+      "mechanism": "Their decision-aware framework proposes maintaining a representation of the source state, then selecting follow-up by expected scientific value under resource constraints. Human supervision and auditable choices are part of the design.",
+      "evidence": "The June 2026 manuscript is a submitted Perspective: it develops an agenda, not a measured deployment of an agent operating Rubin.",
+      "limit": "Better classification accuracy does not by itself prove better use of telescope time. A policy needs an explicit scientific objective and evaluation of missed opportunities, costs and uncertainty.",
+      "connection": "A possible project experiment is to freeze a candidate queue and compare review policies at the same human-review budget. Define the endpoint and held-out population before testing. This is proposed work; the watcher and model deployment remain unchanged.",
+      "sources": ["decision-ai"], "lessons": ["capstone", "uncertainty"],
+      "related": [{"title": "Wider astronomy: cosmology also depends on calibrated errors", "text": "The DESC January 2026 white paper discusses photometric redshifts (distance clues from broad-band colors), weak-lensing inference, transient classification and simulations. It is a collaboration research agenda, not one new cosmological measurement. Domain shift and model misspecification matter because errors can propagate into the final scientific inference.", "sources": ["desc-ai"]}],
+      "reflection": {"question": "Carry one idea back to the capstone", "answer": "Choose one input or decision to change. State the failure it addresses, the independent evaluation population, the fixed control or review budget, and the observation that would make you reject the idea. A useful negative result still narrows the next experiment."}
+    }
+  ],
+  "sources": [
+    {"id":"btsbot", "title":"Rehemtulla et al. · BTSbot architecture", "url":"https://arxiv.org/abs/2401.15167", "year":"2024", "submitted":"2024-01-26", "status":"Published · ApJ 972, 7", "evidenceType":"Model and operational workflow", "takeaway":"Image and scalar evidence can drive a defined bright-transient follow-up policy.", "published":"2024-08-21", "issueDate":"2024-09", "publicationUrl":"https://sites.astro.caltech.edu/ztf/bts/bts.php", "fullText":"https://researchonline.ljmu.ac.uk/24472/1/The%20Zwicky%20Transient%20Facility%20Bright%20Transient%20Survey.%20III.%20BTSbot%20Automated%20Identification%20and%20Follow-up%20of%20Bright%20Transients%20with%20Deep%20Learning.pdf"},
+    {"id":"btsbot-nearby", "title":"Rehemtulla et al. · BTSbot-nearby and SN 2024jlf", "url":"https://arxiv.org/abs/2501.18686", "fullText":"https://arxiv.org/html/2501.18686v2", "year":"2025 paper / 2024 event", "submitted":"2025-01-30", "revised":"2025-04-21", "version":"v2", "eventDate":"2024-05-28", "status":"Published · ApJ 985, 241", "evidenceType":"Demonstrated autonomous follow-up", "takeaway":"Seven minutes measures request-to-observation latency, not time since explosion.", "published":"2025-05-29", "issueDate":"2025-06", "publicationUrl":"https://researchdiscovery.drexel.edu/esploro/outputs/journalArticle/The-BTSbot-nearby-Discovery-of-SN-2024jlf/991022055174904721"},
+    {"id":"btsbot-2023", "title":"Northwestern · the SN 2023tyk automated chain", "url":"https://news.northwestern.edu/stories/2023/10/first-supernova-detected-confirmed-classified-and-shared-by-ai", "year":"2023 historical context", "published":"2023-10-13", "eventDate":"2023-10-03 to 2023-10-07", "status":"Responsible-institution report", "evidenceType":"Historical operational milestone", "takeaway":"Detection, selection, spectroscopy, classification and reporting were linked stages."},
+    {"id":"rubin-alerts", "title":"Rubin Observatory · first scientific alerts", "url":"https://rubinobservatory.org/news/first-alerts", "year":"2026", "published":"2026-02-25", "eventDate":"2026-02-24", "status":"Official observatory release", "evidenceType":"Measured alert milestone", "takeaway":"800,000 alerts in the reported night; seven million nightly was an eventual forecast."},
+    {"id":"rubin-brokers", "title":"Rubin Observatory · alerts and brokers", "url":"https://rubinobservatory.org/for-scientists/data-products/alerts-and-brokers", "year":"Living documentation", "updated":"2026-07-03", "status":"Official observatory documentation", "evidenceType":"System roles, not comparative performance", "takeaway":"Brokers enrich and select alert packets; follow-up observations require further action."},
+    {"id":"exominer", "title":"Valizadegan et al. · ExoMiner++", "url":"https://arxiv.org/abs/2502.09790", "fullText":"https://arxiv.org/html/2502.09790v4", "year":"2025", "submitted":"2025-02-13", "revised":"2025-05-19", "version":"v4", "status":"Published · AJ 170(5), 287", "evidenceType":"Candidate vetting and catalog", "takeaway":"Diagnostic-rich classification of detected signals; 7,330 candidate-classified TCEs are not confirmed new planets.", "accessNote":"Abstract/full-text unlabeled-TCE totals differ by one; the tour uses about 148,000.", "published":"2025-11-03", "earlyOnline":"2025-10-28", "publicationUrl":"https://research.birmingham.ac.uk/en/publications/exominer-enhanced-transit-classification-and-a-new-vetting-catalo/"},
+    {"id":"exominer-nasa", "title":"NASA · ExoMiner++ moves into TESS data", "url":"https://science.nasa.gov/open-science/deep-learning-exoplanets-tess/", "year":"2026 coverage of 2025 work", "published":"2026-01-22", "status":"Responsible-institution article", "evidenceType":"Publication context and follow-up caveat", "takeaway":"The news date is distinct from the model's manuscript date; candidates still need follow-up."},
+    {"id":"transformer", "title":"Salinas et al. · Transformer search of TESS light curves", "url":"https://arxiv.org/abs/2502.07542", "year":"2025", "submitted":"2025-02-11", "revised":"2025-03-07", "version":"v2", "status":"Published · MNRAS 538(3)", "evidenceType":"Ephemeris-free candidate search", "takeaway":"Unfolded flux, background and centroids support a search yielding 214 candidate systems, not 214 confirmed planets.", "issueDate":"2025-04"},
+    {"id":"raven", "title":"Hadjigeorghiou et al. · RAVEN framework", "url":"https://arxiv.org/abs/2509.17645", "year":"2025", "submitted":"2025-09-22", "version":"v1", "status":"Submitted to MNRAS in inspected record", "evidenceType":"Scenario-based validation framework", "takeaway":"Classifiers and priors compare planetary and false-positive scenarios within a stated selection."},
+    {"id":"raven26", "title":"Lafarga et al. · TESS-SPOC FFI search with RAVEN", "url":"https://arxiv.org/abs/2603.22597", "year":"2026", "submitted":"2026-03-23", "revised":"2026-04-24", "version":"v2", "status":"Published · MNRAS 548(3), stag512", "evidenceType":"Survey search and statistical validation", "takeaway":"118 newly statistically validated planets, including 31 newly detected here, are distinct from over 2,000 unvalidated candidates.", "published":"2026-03-25", "issueDate":"2026-05", "publicationUrl":"https://academic.oup.com/mnras/article/548/3/stag512/8528996"},
+    {"id":"desi-vae", "title":"Nicolaou et al. · anomalous DESI spectra with a VAE", "url":"https://arxiv.org/abs/2506.17376", "fullText":"https://arxiv.org/html/2506.17376v2", "year":"2025–2026", "submitted":"2025-06-20", "revised":"2026-03-11", "published":"2026-01-07", "version":"v2", "status":"Published · MNRAS 547(2)", "evidenceType":"Anomaly detection with human review", "takeaway":"Reconstruction and latent-space outliers include artifacts as well as physically unusual spectra.", "issueDate":"2026-04", "publicationUrl":"https://academic.oup.com/mnras/article/547/2/stag010/8416432"},
+    {"id":"galaxy-byol", "title":"Mohale & Lochner · self-supervised galaxy representations", "url":"https://arxiv.org/abs/2311.14157", "year":"2023–2024 context", "submitted":"2023-11-23", "revised":"2024-04-19", "status":"Published · MNRAS 530(1)", "evidenceType":"Image representation and anomaly search", "takeaway":"Learning without morphology labels supports clustering and merger-candidate review, not automatic physical validation.", "issueDate":"2024-05"},
+    {"id":"exoveil", "title":"Priyanshu · EXOVEIL", "url":"https://arxiv.org/abs/2606.02778", "fullText":"https://arxiv.org/html/2606.02778v3", "year":"2026", "submitted":"2026-06-01", "revised":"2026-06-10", "version":"v3", "status":"Preprint; no journal acceptance established", "evidenceType":"Reported search and selected-control recovery", "takeaway":"47/47 selected TESS recoveries and 179 Kepler transit-like anomalies are separate evaluations, not survey completeness or confirmed discoveries."},
+    {"id":"hunters", "title":"Eldin · Astro-Hunters", "url":"https://arxiv.org/abs/2608.18172", "fullText":"https://arxiv.org/html/2608.18172v1", "year":"2026", "submitted":"2026-08-17", "version":"v1", "status":"Preprint; no journal acceptance established", "evidenceType":"Label-provenance ablation", "takeaway":"189,279 cadences from twelve hosts: label circularity and time conversion can dominate architecture differences."},
+    {"id":"decision-ai", "title":"Bom et al. · decision-aware time-domain AI", "url":"https://arxiv.org/abs/2606.05285", "year":"2026", "submitted":"2026-06-03", "version":"v1", "status":"Submitted Perspective; proposed framework", "evidenceType":"Conceptual agenda, not deployed performance", "takeaway":"Evaluate follow-up by scientific value, uncertainty and resource constraints under human supervision."},
+    {"id":"desc-ai", "title":"LSST DESC · opportunities in AI/ML", "url":"https://arxiv.org/abs/2601.14235", "year":"2026", "submitted":"2026-01-20", "version":"v1.0", "status":"Collaboration white paper; not planned for journal submission", "evidenceType":"Application survey and research agenda", "takeaway":"Photometric redshifts, lensing and simulations share uncertainty and domain-shift challenges."}
+  ]
+}

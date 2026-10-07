@@ -1,0 +1,91 @@
+{
+  "browser": {
+    "application_request_failures": [],
+    "audit_n": 82,
+    "benchmark_estimate": 0.2686690740362187,
+    "calibration_id": "5aec4e2e3c4743790436c17309bb89851ce942efa2274eae75862ec4d215fdaf",
+    "candidate_id": "cc12c5e48a5845a8bb47a7a2c6fb66a3",
+    "checks": [
+      "List/detail/JSON export share the exact annotation; Markdown displays 26.9%, unchanged raw 0.031902 and unavailable actual planet probability",
+      "Probability candidate list desktop fits 1440px viewport",
+      "Probability candidate list mobile fits 390px viewport",
+      "Probability dossier desktop fits 1440px viewport",
+      "Probability dossier mobile fits 390px viewport",
+      "Real Chromium list and dossier show the scoped 26.9% benchmark estimate with original raw ranking and untouched review controls",
+      "Missing-score proposal displays a reason and no percentage while remaining reviewable",
+      "Synthetic fixture receives no benchmark percentage or actual planet probability"
+    ],
+    "console_errors": [],
+    "displayed_estimate": "26.9%",
+    "exceptions": [],
+    "finished_at": "2026-09-25T13:15:38.684Z",
+    "fit_n": 81,
+    "layout_issues": [],
+    "missing_score_candidate_id": "592ca38c37794e8daa67b3419ad0c254",
+    "mutating_requests": [],
+    "noncritical_resource_responses": [
+      {
+        "status": 404,
+        "url": "http://127.0.0.1:8766/favicon.ico"
+      }
+    ],
+    "observed_at": "2026-09-25T13:15:36.475Z",
+    "planet_probability": null,
+    "raw_score": 0.031901828944683075,
+    "review_revision_before": 0,
+    "screenshots": [
+      "probability-list-desktop.png",
+      "probability-list-mobile.png",
+      "probability-dossier-desktop.png",
+      "probability-dossier-mobile.png",
+      "mobile-navigation.png",
+      "missing-score-dossier.png",
+      "synthetic-probability-dossier.png"
+    ],
+    "status": "passed",
+    "support_n": 12,
+    "synthetic_candidate_id": "93615b3d2d174d39bb711e573a53f2b3",
+    "target_id": "62024272"
+  },
+  "calibration_sha256": "5aec4e2e3c4743790436c17309bb89851ce942efa2274eae75862ec4d215fdaf",
+  "integration_tests": {
+    "count": 43,
+    "log_sha256": "376f1a744e7b1b5ac43ff10e8094b76350a235313255b48f837abccd0bed8fee",
+    "modules": [
+      "tests.test_research_store",
+      "tests.test_research_probability_http",
+      "tests.test_research_http",
+      "tests.test_research_vetting_http",
+      "tests.test_model_comparison"
+    ],
+    "result": "passed",
+    "seconds": 47.958
+  },
+  "integrity": "Calibration, selection, predictions and every builder/inference source receipt verified.",
+  "rebuild": "Byte-identical calibration artifacts reproduced on recorded local environment; original test rows not fitted or evaluated.",
+  "service_verification": {
+    "both_candidate_endpoints": 200,
+    "processing_failures_at_check": 0,
+    "recovery_port": 8767,
+    "research_port": 8766,
+    "watcher": "resumed_processing"
+  },
+  "status": "passed",
+  "ui_render_checks": {
+    "checks": [
+      "Available estimate is separate from unavailable planet probability and includes scope/audit.",
+      "Missing, wrong-type, nonfinite and out-of-range estimates do not become percentages.",
+      "Valid zero and one estimates render correctly.",
+      "Reasons, labels and provenance are HTML-escaped.",
+      "List reads assessment.probability and preserves raw ranking/review status.",
+      "Full candidate dossier reads probability and retains the human review form."
+    ],
+    "fixture": "synthetic UI data only",
+    "status": "passed"
+  },
+  "unit_tests": {
+    "count": 12,
+    "module": "tests.test_research_probabilities",
+    "result": "passed"
+  }
+}

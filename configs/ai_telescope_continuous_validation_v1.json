@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "model_run": "outputs/research/ai_telescope/context-v2",
+  "physical_run": "outputs/research/physical_experts/pilot-v1",
+  "scan_config": "configs/ai_telescope_blind_scan_v1.json",
+  "review_run": "outputs/research/ai_telescope/blind-review-v1",
+  "output": "outputs/research/ai_telescope/continuous-validation-v1",
+  "roles": ["calibration", "audit"],
+  "depths": [0.0005, 0.001, 0.002, 0.005],
+  "durations_hours": [1.0, 2.5, 5.0],
+  "event_modes": ["single", "periodic", "ttv"],
+  "nominal_period_days": 5.0,
+  "ttv_fraction_of_duration": 0.75,
+  "ingress_fraction": 0.15,
+  "threshold_grid": [0.86, 0.88, 0.9, 0.92, 0.94, 0.96, 0.97, 0.98, 0.99, 0.995, 0.999, 0.9995],
+  "target_control_events_per_27_days": 1.0,
+  "maximum_hosts_per_role": 79,
+  "seed": 71321,
+  "cpu_threads": 4
+}

@@ -1,0 +1,833 @@
+{
+  "exclusions": {
+    "research_candidate_targets": 33,
+    "shared_v1_hosts": 2105
+  },
+  "frozen_at": "2026-09-27T18:37:40.881216Z",
+  "governance": {
+    "allowed_next_actions": [
+      "blind_detection",
+      "fixed_expert_scoring",
+      "catalog_and_human_vetting"
+    ],
+    "catalog_label_selection": false,
+    "human_review_selection": false,
+    "model_inference_before_freeze": false,
+    "original_test_partition_used": false,
+    "prohibited": [
+      "changing_membership_after_viewing_scores",
+      "hyperparameter_tuning_on_this_cohort"
+    ]
+  },
+  "schema_version": 1,
+  "selection": {
+    "requested_hosts": 100,
+    "rule": "first SHA256(seed:target_id) among cached TESS hosts absent from all shared_v1 rows and current research candidates; earliest filename only",
+    "seed": 92027
+  },
+  "spec_sha256": "5d37a06a438740d178d363f866fc2f1a076360d3873985aec2c3c6410914f128",
+  "status": "frozen_unscored",
+  "targets": [
+    {
+      "mission": "TESS",
+      "order": 1,
+      "product_path": "data/raw/tess/lightcurves/TIC52041724/tess2020106103520-s0024-0000000052041724-0180-s_lc.fits",
+      "product_sha256": "fa4c9588c2d3b73a91fdbd2e03bff933fcfe1faacee2a222581a7c61026f8324",
+      "selection_score_sha256": "00ae3f8a0d9701c35e5ae9e3eb6b1d73d6f7ebd7ef0d72f58e457fe4b1f0e75b",
+      "target_id": "52041724"
+    },
+    {
+      "mission": "TESS",
+      "order": 2,
+      "product_path": "data/raw/tess/lightcurves/TIC318209162/tess2020020091053-s0021-0000000318209162-0167-s_lc.fits",
+      "product_sha256": "8e678153084d545ae6eba0b50cc7ad1f07d69b0ec6be5a520cf91f175fff6e52",
+      "selection_score_sha256": "00d6c9122a735d501c3feb03d58bbf9a4cd2f85327cda70ff2ea9d198384bb83",
+      "target_id": "318209162"
+    },
+    {
+      "mission": "TESS",
+      "order": 3,
+      "product_path": "data/raw/tess/lightcurves/TIC164786087/tess2021175071901-s0040-0000000164786087-0211-s_lc.fits",
+      "product_sha256": "efa29c9af9e2230abb6d9d75beb57bb26b7011613fa384f9305af8b0eacb70dc",
+      "selection_score_sha256": "013b31d0def96d47871ec8f33d46f2633345f34699d217c3284e6293c035498e",
+      "target_id": "164786087"
+    },
+    {
+      "mission": "TESS",
+      "order": 4,
+      "product_path": "data/raw/tess/lightcurves/TIC279212407/tess2022138205153-s0052-0000000279212407-0224-s_lc.fits",
+      "product_sha256": "e619809242fbbb0a53f94da37d2d42b8ea9676a8641417a30f579bc3b162b1d6",
+      "selection_score_sha256": "02093b3885c97a7abfd7a363466fb47f40fdd52a84cc46945c07c8cb869f8ce1",
+      "target_id": "279212407"
+    },
+    {
+      "mission": "TESS",
+      "order": 5,
+      "product_path": "data/raw/tess/lightcurves/TIC369480087/tess2021232031932-s0042-0000000369480087-0213-s_lc.fits",
+      "product_sha256": "de63f8122503f05b43c5979af4527be6039b6fa717ee6cf5a3d64c1965a8f0d4",
+      "selection_score_sha256": "032f231626951bfa96921deee3a4099f3e78c235611a2c09b5f8270e40948645",
+      "target_id": "369480087"
+    },
+    {
+      "mission": "TESS",
+      "order": 6,
+      "product_path": "data/raw/tess/lightcurves/TIC54002556/tess2020266004630-s0030-0000000054002556-0195-s_lc.fits",
+      "product_sha256": "2559352e483d46b12b9c074d2a3323ac41d5c2b10bf5a5b8e0d37cfd87e2b5cf",
+      "selection_score_sha256": "039f782ac1bb0609a42baba7e5801df7fdb066475d11022b681ceb0bdf90ee3d",
+      "target_id": "54002556"
+    },
+    {
+      "mission": "TESS",
+      "order": 7,
+      "product_path": "data/raw/tess/lightcurves/TIC136916387/tess2019140104343-s0012-0000000136916387-0144-s_lc.fits",
+      "product_sha256": "ab80ecebd7c439383a0ac0307b577afd2b3e65edfcc6f05c8c81cd99bca475a0",
+      "selection_score_sha256": "0483d1b6ab07078e6ffc85d3849fe1422679db95942c125f1ec04899aafbaef6",
+      "target_id": "136916387"
+    },
+    {
+      "mission": "TESS",
+      "order": 8,
+      "product_path": "data/raw/tess/lightcurves/TIC198485881/tess2019198215352-s0014-0000000198485881-0150-s_lc.fits",
+      "product_sha256": "883350f1eb728468f3d70272cef5c0c4061b52b03c1751933bd98feddda6db04",
+      "selection_score_sha256": "0526b2ca85d20c61b9b1e05f0dc665a5ffea74cd9ae1a5872101baebd2747a2b",
+      "target_id": "198485881"
+    },
+    {
+      "mission": "TESS",
+      "order": 9,
+      "product_path": "data/raw/tess/lightcurves/TIC366119858/tess2024300212641-s0085-0000000366119858-0282-s_lc.fits",
+      "product_sha256": "6f9464543fc3c492a9dd3c6130886439857ad52d888165278f1baa567369a17e",
+      "selection_score_sha256": "07cefa7f4312977ba300d06d14dc5f697b09589b60cdbc729aa05047d6658b44",
+      "target_id": "366119858"
+    },
+    {
+      "mission": "TESS",
+      "order": 10,
+      "product_path": "data/raw/tess/lightcurves/TIC273231214/tess2019198215352-s0014-0000000273231214-0150-s_lc.fits",
+      "product_sha256": "7a583968703254ca08baa19c1873e86993f5c5cd55c9489977fbdf1d025755e9",
+      "selection_score_sha256": "0984ac61fd56f9aec292f2f9c40060b6cc89d033746d431a2ef1c36008fb0634",
+      "target_id": "273231214"
+    },
+    {
+      "mission": "TESS",
+      "order": 11,
+      "product_path": "data/raw/tess/lightcurves/TIC309792357/tess2018206045859-s0001-0000000309792357-0120-s_lc.fits",
+      "product_sha256": "6b02f8b9a351a3dcb374fc7481000e86888ac145594319ade13b6c22404a3e43",
+      "selection_score_sha256": "0a75de243625b38313b4ab45803f8f3965100b497e561ac4405db23ae0c006a8",
+      "target_id": "309792357"
+    },
+    {
+      "mission": "TESS",
+      "order": 12,
+      "product_path": "data/raw/tess/lightcurves/TIC322807371/tess2023069172124-s0063-0000000322807371-0255-s_lc.fits",
+      "product_sha256": "3991b9e43c55fdcfcce61da06daf399a662e7fcf3a7da59abaf661adb82b0064",
+      "selection_score_sha256": "0b8b4d3bc0f01e571aba4fc59cce9d88cb8025bea0795226b4d546f9ae8e2ed2",
+      "target_id": "322807371"
+    },
+    {
+      "mission": "TESS",
+      "order": 13,
+      "product_path": "data/raw/tess/lightcurves/TIC444977814/tess2024003055635-s0074-0000000444977814-0269-s_lc.fits",
+      "product_sha256": "9e1120d364f269c6173411f9c662c108dfe485c54f3b1691dd9bf81c24043512",
+      "selection_score_sha256": "0bbed91057b93c0f2e22ce5aab993919a47d86c0b661e907fb9edee39288bb68",
+      "target_id": "444977814"
+    },
+    {
+      "mission": "TESS",
+      "order": 14,
+      "product_path": "data/raw/tess/lightcurves/TIC459952217/tess2018319095959-s0005-0000000459952217-0125-s_lc.fits",
+      "product_sha256": "094457db899bd3bd56242c78cdb54ab4fe3d5a4f751e55068e6c3116c6847b5c",
+      "selection_score_sha256": "0ed7dd567e725b1fd10b47d38b7c19e2bf96b0dac8428fb94b42de527dea099b",
+      "target_id": "459952217"
+    },
+    {
+      "mission": "TESS",
+      "order": 15,
+      "product_path": "data/raw/tess/lightcurves/TIC264508014/tess2021204101404-s0041-0000000264508014-0212-s_lc.fits",
+      "product_sha256": "24242c9ff40627ab757bcfeae29f54e077cc47694ce0d3e144b265f1783f40f7",
+      "selection_score_sha256": "0fe85d692402bf8e2ce2d98c43a813bfb19f6840ed1f4679faf609499dde5781",
+      "target_id": "264508014"
+    },
+    {
+      "mission": "TESS",
+      "order": 16,
+      "product_path": "data/raw/tess/lightcurves/TIC63452790/tess2021175071901-s0040-0000000063452790-0211-s_lc.fits",
+      "product_sha256": "1cc68c14e791c174bf7495320b63be7af57c7ea42cf37e22fb4d5880a55ef009",
+      "selection_score_sha256": "11269b4c23d3f5cc531adb97dfeab060c4336a744bf6d5039650e5fbf531d447",
+      "target_id": "63452790"
+    },
+    {
+      "mission": "TESS",
+      "order": 17,
+      "product_path": "data/raw/tess/lightcurves/TIC441765914/tess2019198215352-s0014-0000000441765914-0150-s_lc.fits",
+      "product_sha256": "1d08432a56328989f542d2c9fdaccbd91ee330d8ae003215f710f3f3eee37716",
+      "selection_score_sha256": "114c102e57d5f01ffbba7a8037147be90b95bd6e6bd90a37ccddab19fbbfe5f5",
+      "target_id": "441765914"
+    },
+    {
+      "mission": "TESS",
+      "order": 18,
+      "product_path": "data/raw/tess/lightcurves/TIC157236902/tess2020160202036-s0026-0000000157236902-0188-s_lc.fits",
+      "product_sha256": "35146c6b8d51ac07ace88de3fe147fd01e939b4793cb70bc7ad482c197ec50de",
+      "selection_score_sha256": "11e644517590dfa771879c40e69cf8af1c241805f679177fc5844a9db1cde4db",
+      "target_id": "157236902"
+    },
+    {
+      "mission": "TESS",
+      "order": 19,
+      "product_path": "data/raw/tess/lightcurves/TIC159098316/tess2021175071901-s0040-0000000159098316-0211-s_lc.fits",
+      "product_sha256": "05f66e6b528c8ff9f9594cbd9601b07e2a2fa76d8f6fab5a98c794e91d26bd05",
+      "selection_score_sha256": "11ecc78f36cac7285f0d29f765b650656b7e7c94a9bb1c5027eda7f7cb8eed03",
+      "target_id": "159098316"
+    },
+    {
+      "mission": "TESS",
+      "order": 20,
+      "product_path": "data/raw/tess/lightcurves/TIC121731834/tess2019198215352-s0014-0000000121731834-0150-s_lc.fits",
+      "product_sha256": "64b3d5811ac184ef50f4b15e0ae1e608904d7ce7a55f6efa311c2f578fa61b5c",
+      "selection_score_sha256": "125647b8e930ea8560e6247975be029565ca0e5de01e79b939d89724b44ea3a6",
+      "target_id": "121731834"
+    },
+    {
+      "mission": "TESS",
+      "order": 21,
+      "product_path": "data/raw/tess/lightcurves/TIC405484221/tess2021232031932-s0042-0000000405484221-0213-s_lc.fits",
+      "product_sha256": "ea24982c2391dc1f3a17f18b17a2d730e332b4fe3011d760f242d02feb60d879",
+      "selection_score_sha256": "13fa0d31bdbd171d1a45947fbfda1480909ac645e2af8fb91a72957d8b4603fc",
+      "target_id": "405484221"
+    },
+    {
+      "mission": "TESS",
+      "order": 22,
+      "product_path": "data/raw/tess/lightcurves/TIC120317234/tess2021175071901-s0040-0000000120317234-0211-s_lc.fits",
+      "product_sha256": "560b55cdeb09254a3c9120cfe162e968ac66cd433fe36844d588a529fa2fe568",
+      "selection_score_sha256": "1482a67637cdce58c9384e81dbddd9b4466833e57e0e7af006ec42d93d0670a3",
+      "target_id": "120317234"
+    },
+    {
+      "mission": "TESS",
+      "order": 23,
+      "product_path": "data/raw/tess/lightcurves/TIC327017634/tess2019112060037-s0011-0000000327017634-0143-s_lc.fits",
+      "product_sha256": "4ec9eb3c8a2ed63c032dfefa85d033f2998afb270ffad2563915894f6597d00b",
+      "selection_score_sha256": "14e19ab8b1325552f07dd9ffed21ae85f543e075056c504a658fecd4e1defb77",
+      "target_id": "327017634"
+    },
+    {
+      "mission": "TESS",
+      "order": 24,
+      "product_path": "data/raw/tess/lightcurves/TIC141488193/tess2021175071901-s0040-0000000141488193-0211-s_lc.fits",
+      "product_sha256": "8efd091c47fa7c4648f19d034c48efa70fdd990f422a0036465868c3154d02dc",
+      "selection_score_sha256": "14f1ce33b4b32bb1dbb4d43bf45b9bf8eaa405b6c7a57f71b24f2586a57ea2c2",
+      "target_id": "141488193"
+    },
+    {
+      "mission": "TESS",
+      "order": 25,
+      "product_path": "data/raw/tess/lightcurves/TIC333736132/tess2021065132309-s0036-0000000333736132-0207-s_lc.fits",
+      "product_sha256": "3f1237c7ee98ae314dd3d28411f037fc739ccf5f87e6c535202edf17de17c16f",
+      "selection_score_sha256": "156e6130d3d270908d8353ffcc3dfaa0be9491e4d3f1360c2f829fef8fa98ee3",
+      "target_id": "333736132"
+    },
+    {
+      "mission": "TESS",
+      "order": 26,
+      "product_path": "data/raw/tess/lightcurves/TIC122785299/tess2021175071901-s0040-0000000122785299-0211-s_lc.fits",
+      "product_sha256": "8d763c3be8b56daac15be0ad0c0befaee9cea0368cf668a4faf9294cf25bf6b5",
+      "selection_score_sha256": "15b53661b914887e975038b5827d7fe43b4266de2cbc6173bf3feff91d1036df",
+      "target_id": "122785299"
+    },
+    {
+      "mission": "TESS",
+      "order": 27,
+      "product_path": "data/raw/tess/lightcurves/TIC367855829/tess2019198215352-s0014-0000000367855829-0150-s_lc.fits",
+      "product_sha256": "3e3a483478222c9c038aa9035e268938418a48cf382f334b5cae7325ad6ea69a",
+      "selection_score_sha256": "1702ace1277af8d05919ae22bc963add010e63831f847d0b514fde90e48f42ed",
+      "target_id": "367855829"
+    },
+    {
+      "mission": "TESS",
+      "order": 28,
+      "product_path": "data/raw/tess/lightcurves/TIC27774415/tess2021175071901-s0040-0000000027774415-0211-s_lc.fits",
+      "product_sha256": "4817cba76346b935158d8af1d5f4a8940b23c0924149460b6bfc4bfc7a1abf3f",
+      "selection_score_sha256": "1783bcef18c901c0f2c642ca4bcfad9e4cd7c40fe2712054fdcb160c85e87ca7",
+      "target_id": "27774415"
+    },
+    {
+      "mission": "TESS",
+      "order": 29,
+      "product_path": "data/raw/tess/lightcurves/TIC142381532/tess2019198215352-s0014-0000000142381532-0150-s_lc.fits",
+      "product_sha256": "1a1060c3a77897c08a7025c8cd9e6786c8d33faa6dd0087e02d75db6ff26aa39",
+      "selection_score_sha256": "17de4004e7ef2c114d6f52df75e74a9128a871dacd074b293d0db11d7911a129",
+      "target_id": "142381532"
+    },
+    {
+      "mission": "TESS",
+      "order": 30,
+      "product_path": "data/raw/tess/lightcurves/TIC64837857/tess2022273165103-s0057-0000000064837857-0245-s_lc.fits",
+      "product_sha256": "6aa4ca0c14bcf41606a591b9c10e24ebd428b4a880accdf6d794495238e0bb8a",
+      "selection_score_sha256": "18122c85256eabb536556f07c39cd84ea9e78f9b1a64792cb68db3784f400dac",
+      "target_id": "64837857"
+    },
+    {
+      "mission": "TESS",
+      "order": 31,
+      "product_path": "data/raw/tess/lightcurves/TIC279251651/tess2018234235059-s0002-0000000279251651-0121-s_lc.fits",
+      "product_sha256": "9d3b0bc25ad136d8ecd33d4d5dc8157b38e50cf09e0cabfd19e7c631d848b0f3",
+      "selection_score_sha256": "189a41695356544a18560d84da1122ba1f89802cfd3a0f8b1e1a4aa81698f940",
+      "target_id": "279251651"
+    },
+    {
+      "mission": "TESS",
+      "order": 32,
+      "product_path": "data/raw/tess/lightcurves/TIC349488688/tess2020133194932-s0025-0000000349488688-0182-s_lc.fits",
+      "product_sha256": "eedfdcbaf70043dd608eb260713744f19ea94923e77ba1d4b8ac2b402a9eaf4a",
+      "selection_score_sha256": "19d26777efa56b0c61e2eebee7cd030e24539e20db9b05b8ae079f5041042815",
+      "target_id": "349488688"
+    },
+    {
+      "mission": "TESS",
+      "order": 33,
+      "product_path": "data/raw/tess/lightcurves/TIC380887434/tess2021232031932-s0042-0000000380887434-0213-s_lc.fits",
+      "product_sha256": "f053f56047d6eeedf1aaa573f2ec5b5fb3cdaa53a4f0d03af8d757b8ff83f541",
+      "selection_score_sha256": "1c5ec75fd3afc77cfeb4a8a0483d0a9349d8161c5adb16a6435871df8007d9d6",
+      "target_id": "380887434"
+    },
+    {
+      "mission": "TESS",
+      "order": 34,
+      "product_path": "data/raw/tess/lightcurves/TIC27844066/tess2022190063128-s0054-0000000027844066-0227-s_lc.fits",
+      "product_sha256": "bef27d52bbc78c3915ac760a594d460bab145b856b740e8092a98c5f245e25da",
+      "selection_score_sha256": "1d9540428f5bdb706dbd61e99872215974d53c447b54cd76334b73dc9763045f",
+      "target_id": "27844066"
+    },
+    {
+      "mission": "TESS",
+      "order": 35,
+      "product_path": "data/raw/tess/lightcurves/TIC352011875/tess2019198215352-s0014-0000000352011875-0150-s_lc.fits",
+      "product_sha256": "d0e39cdcfb831a2b383589c234bf4cd093b6fa55fb0d39da205ea5be5ee52f50",
+      "selection_score_sha256": "1dafc9f82c338482a95245df3288053dbed828b6303c4f47ce7437e043f24f42",
+      "target_id": "352011875"
+    },
+    {
+      "mission": "TESS",
+      "order": 36,
+      "product_path": "data/raw/tess/lightcurves/TIC356158613/tess2019198215352-s0014-0000000356158613-0150-s_lc.fits",
+      "product_sha256": "7b73bd1239a44056fb9fb1d708e88aa68549066c843c38dd8db5999d11401951",
+      "selection_score_sha256": "1e772eb6ec3fac3e94b796f3d80205b464f49ada9aecc6f2e3d0e634ad6fff8d",
+      "target_id": "356158613"
+    },
+    {
+      "mission": "TESS",
+      "order": 37,
+      "product_path": "data/raw/tess/lightcurves/TIC260128333/tess2018292075959-s0004-0000000260128333-0124-s_lc.fits",
+      "product_sha256": "e59006befc8bf99fa4e097eb2fffe87b9837536fff0db85645505478e87e9e5b",
+      "selection_score_sha256": "1e92f8cbe5c1b33cea49aca51b65cc7d0159b4084fcda505f9fd2a0a3da176c6",
+      "target_id": "260128333"
+    },
+    {
+      "mission": "TESS",
+      "order": 38,
+      "product_path": "data/raw/tess/lightcurves/TIC55383975/tess2018206045859-s0001-0000000055383975-0120-s_lc.fits",
+      "product_sha256": "4725b856c3b71cffec320551f0244a38bbc932fdcfe13336f6fe95b07486940a",
+      "selection_score_sha256": "20158a279439255570a3f44ce45509471d827139c42699ae7b6bac03f199f455",
+      "target_id": "55383975"
+    },
+    {
+      "mission": "TESS",
+      "order": 39,
+      "product_path": "data/raw/tess/lightcurves/TIC160476088/tess2023124020739-s0065-0000000160476088-0259-s_lc.fits",
+      "product_sha256": "3cd0d4ef417a27f12d01db1d2bd5204b7ff6b6fd8d0f2d6df5e968aebc20ed65",
+      "selection_score_sha256": "214695998ffea069574896353054e337599c50fd52b68063eb807e32889d7c8b",
+      "target_id": "160476088"
+    },
+    {
+      "mission": "TESS",
+      "order": 40,
+      "product_path": "data/raw/tess/lightcurves/TIC27846348/tess2019198215352-s0014-0000000027846348-0150-s_lc.fits",
+      "product_sha256": "99c0e425395d9e9c95e8f51e6c5405743125d927fae75f3568b556921ca1a13d",
+      "selection_score_sha256": "227dd6717022745fc5eb5da90725f07c0c84c8b02717d090bb77ca62e579f3f4",
+      "target_id": "27846348"
+    },
+    {
+      "mission": "TESS",
+      "order": 41,
+      "product_path": "data/raw/tess/lightcurves/TIC388804061/tess2021310001228-s0045-0000000388804061-0216-s_lc.fits",
+      "product_sha256": "b59b74ca3fe085b664a1d7ec42804e58c255336cabf006342b24c61230e9d3d8",
+      "selection_score_sha256": "23978f56260c6b5f8d60f7603ecdf4382b7b4ea2dca852d0f768d0f9a96ec60f",
+      "target_id": "388804061"
+    },
+    {
+      "mission": "TESS",
+      "order": 42,
+      "product_path": "data/raw/tess/lightcurves/TIC48448369/tess2021175071901-s0040-0000000048448369-0211-s_lc.fits",
+      "product_sha256": "329249c116a60ba7173ac7d62b0216e1388799e2ef778249f15babe19550e901",
+      "selection_score_sha256": "24224fedc52c469dd1a95d34d62a2cda8c51ab25f0d1b5d7fd7e258c5adbdc1c",
+      "target_id": "48448369"
+    },
+    {
+      "mission": "TESS",
+      "order": 43,
+      "product_path": "data/raw/tess/lightcurves/TIC269333648/tess2023018032328-s0061-0000000269333648-0250-s_lc.fits",
+      "product_sha256": "1a9ea7a81a023ddf1eea3f6cc5127d799644a9cdd050f5f3d5d76e6571bbe7ca",
+      "selection_score_sha256": "2509ac9361217d129b488a49429f3b361f39af0ccb5be5e7a4fa4b2d4d14f3a0",
+      "target_id": "269333648"
+    },
+    {
+      "mission": "TESS",
+      "order": 44,
+      "product_path": "data/raw/tess/lightcurves/TIC257527578/tess2020294194027-s0031-0000000257527578-0198-s_lc.fits",
+      "product_sha256": "fd10569cddda4f1874418903b1a86b16ec603e2302f47654f94464d872db3ce2",
+      "selection_score_sha256": "25182b445d49cc9ed2a5ff36746a2b19281d1e992efa4e88fb574f4ec94b0e80",
+      "target_id": "257527578"
+    },
+    {
+      "mission": "TESS",
+      "order": 45,
+      "product_path": "data/raw/tess/lightcurves/TIC122596693/tess2021175071901-s0040-0000000122596693-0211-s_lc.fits",
+      "product_sha256": "24fa3743f6bd3a40327149cddc5fc3db640ed8dfa80a2cd7c7e4717125688438",
+      "selection_score_sha256": "252ace12bfda8fb84b2ff6c8190b042d42ac69d9d39b66291f211dc7b0862c12",
+      "target_id": "122596693"
+    },
+    {
+      "mission": "TESS",
+      "order": 46,
+      "product_path": "data/raw/tess/lightcurves/TIC393818343/tess2022217014003-s0055-0000000393818343-0242-s_lc.fits",
+      "product_sha256": "56104e6975adeec65a4a1e46dfd9a376705ca73168355f6bb2daddd4f71d2b4d",
+      "selection_score_sha256": "256f18aa5dfa35003a0701e1a2e5f1f00b80f9383a3e8e8a4e0707a2bb24cfee",
+      "target_id": "393818343"
+    },
+    {
+      "mission": "TESS",
+      "order": 47,
+      "product_path": "data/raw/tess/lightcurves/TIC179582003/tess2018234235059-s0002-0000000179582003-0121-s_lc.fits",
+      "product_sha256": "5cd88128f7b9b79b3554a32074a69f9b03816a450709ea8a6048b3ba2c5d0422",
+      "selection_score_sha256": "26141a702431610b26e0670ebc1cdf88fb2e67687c389ee4fe433777c1f2a36a",
+      "target_id": "179582003"
+    },
+    {
+      "mission": "TESS",
+      "order": 48,
+      "product_path": "data/raw/tess/lightcurves/TIC415969574/tess2021232031932-s0042-0000000415969574-0213-s_lc.fits",
+      "product_sha256": "b9d9d0b59326420c442adb30e6e7a71fe43c087ac6e4b1479bcf074adece8a88",
+      "selection_score_sha256": "26ef927b6e382c78e50594d66c2b375b5a008cba3139dd79defab1294c4c17ee",
+      "target_id": "415969574"
+    },
+    {
+      "mission": "TESS",
+      "order": 49,
+      "product_path": "data/raw/tess/lightcurves/TIC302766000/tess2023289093419-s0071-0000000302766000-0266-s_lc.fits",
+      "product_sha256": "add89310ec6c34d5a9a17be4e13fb0de760a8e7c2c529dff4b83f5cf589104af",
+      "selection_score_sha256": "271b8132b83e747b0eab25de129dcaf25409fab3dafac0e438cb453a3e798d50",
+      "target_id": "302766000"
+    },
+    {
+      "mission": "TESS",
+      "order": 50,
+      "product_path": "data/raw/tess/lightcurves/TIC333473672/tess2019253231442-s0016-0000000333473672-0152-s_lc.fits",
+      "product_sha256": "4b80d538514750248841e957a353419df7e6c517b58187c0d86e01381ecd129a",
+      "selection_score_sha256": "28b68cdb578b4e3ad4a25b57958c430e2016f5babd1dac93a7926be7371b34fc",
+      "target_id": "333473672"
+    },
+    {
+      "mission": "TESS",
+      "order": 51,
+      "product_path": "data/raw/tess/lightcurves/TIC307111282/tess2019306063752-s0018-0000000307111282-0162-s_lc.fits",
+      "product_sha256": "519649d411625d93bdff393d089dc88d3eb4114143ddcd264ce951fb42fa7b75",
+      "selection_score_sha256": "2de7a34f049ecf770e2d2c3267ba63f2f5dee6b37ba313e5bcb0c559647e7488",
+      "target_id": "307111282"
+    },
+    {
+      "mission": "TESS",
+      "order": 52,
+      "product_path": "data/raw/tess/lightcurves/TIC230086768/tess2019226182529-s0015-0000000230086768-0151-s_lc.fits",
+      "product_sha256": "7f525f92b038c63b4f0db7173f574fb5edece83fe0192f4733937991cd2045d3",
+      "selection_score_sha256": "2f538afdfaac533d9f922c9cafa971c1f2e7fe8ad4398d68ac5206fed93144a5",
+      "target_id": "230086768"
+    },
+    {
+      "mission": "TESS",
+      "order": 53,
+      "product_path": "data/raw/tess/lightcurves/TIC158933249/tess2021175071901-s0040-0000000158933249-0211-s_lc.fits",
+      "product_sha256": "29280af51ac125224a5f8585362eefa611a3a8d13fbf0a23535a9a4d4ccf71e8",
+      "selection_score_sha256": "2f7992b3916fd14b04fb1de800ad27ddd02a9011e81384d2afe3107913f6f6ec",
+      "target_id": "158933249"
+    },
+    {
+      "mission": "TESS",
+      "order": 54,
+      "product_path": "data/raw/tess/lightcurves/TIC402898317/tess2019226182529-s0015-0000000402898317-0151-s_lc.fits",
+      "product_sha256": "830d034e169344aaff1ba598253923310602c70e2d25f4b0a29478175248e8fd",
+      "selection_score_sha256": "31b5ffed99873ae8f6f280239b3cd108e9a6902ca96c0421fb47ec70dd7e70e5",
+      "target_id": "402898317"
+    },
+    {
+      "mission": "TESS",
+      "order": 55,
+      "product_path": "data/raw/tess/lightcurves/TIC78154865/tess2019032160000-s0008-0000000078154865-0136-s_lc.fits",
+      "product_sha256": "30079be4b4cb4e4059f7577f0683c6449e392fba402b1a3e203d80db30816dd7",
+      "selection_score_sha256": "3340fa59dddb7de31571a6578845ff2cb47d22909b8b53b5428aa3837dcb7a8c",
+      "target_id": "78154865"
+    },
+    {
+      "mission": "TESS",
+      "order": 56,
+      "product_path": "data/raw/tess/lightcurves/TIC48451130/tess2021175071901-s0040-0000000048451130-0211-s_lc.fits",
+      "product_sha256": "0f78eeadf09dd11cbbe91aef2d26d3d7e7805350f7373f675544ab269d737d5a",
+      "selection_score_sha256": "337537d59b47eb13640de1bcdeb9c28c6a979487a1ad0150a48d703ada3fdabe",
+      "target_id": "48451130"
+    },
+    {
+      "mission": "TESS",
+      "order": 57,
+      "product_path": "data/raw/tess/lightcurves/TIC443616612/tess2021065132309-s0036-0000000443616612-0207-s_lc.fits",
+      "product_sha256": "c25d34848c436425b482c162a2e35239b66afe5441d2c5bf94b1ac01542209a7",
+      "selection_score_sha256": "339eee124715aaef21e2d34c3f8dbf8ac5bac1f04d34fb608c88f11be4de87f4",
+      "target_id": "443616612"
+    },
+    {
+      "mission": "TESS",
+      "order": 58,
+      "product_path": "data/raw/tess/lightcurves/TIC159054620/tess2021175071901-s0040-0000000159054620-0211-s_lc.fits",
+      "product_sha256": "7055217a768d331aeddcb34c245c4b3fa71f7513fd43ffb37d63d724a8143db6",
+      "selection_score_sha256": "345eae8f9dea971937b2a57cd4aec9accf1e177b6ddcd9188c703cbe17f77e64",
+      "target_id": "159054620"
+    },
+    {
+      "mission": "TESS",
+      "order": 59,
+      "product_path": "data/raw/tess/lightcurves/TIC28230919/tess2019198215352-s0014-0000000028230919-0150-s_lc.fits",
+      "product_sha256": "83e9579e7fa140969f762adfc23313c498585f0de16cc1510212627d186286a1",
+      "selection_score_sha256": "356dfd129c1c1f95996e4c705d726d1124f9fb48d784e82a38962388c17fe960",
+      "target_id": "28230919"
+    },
+    {
+      "mission": "TESS",
+      "order": 60,
+      "product_path": "data/raw/tess/lightcurves/TIC239277658/tess2021204101404-s0041-0000000239277658-0212-s_lc.fits",
+      "product_sha256": "fbadd8e8faf070f088ce9c7ac685136d10addb518e782bbc0870730c20396f9d",
+      "selection_score_sha256": "361d2f2d145e416bf0f4470f3903855131d2fb1c061428de40e0018c7b0a0210",
+      "target_id": "239277658"
+    },
+    {
+      "mission": "TESS",
+      "order": 61,
+      "product_path": "data/raw/tess/lightcurves/TIC271167979/tess2022190063128-s0054-0000000271167979-0227-s_lc.fits",
+      "product_sha256": "d3c930a54840aa8098702a4f3f3461fa8fff5bc2b5d7b9cc5e8e4a84b77cc48d",
+      "selection_score_sha256": "3697b29f0e519c4f69a177d47e7a70d98ea991ed7fa420f210c7cb0fd79477a9",
+      "target_id": "271167979"
+    },
+    {
+      "mission": "TESS",
+      "order": 62,
+      "product_path": "data/raw/tess/lightcurves/TIC364075352/tess2021175071901-s0040-0000000364075352-0211-s_lc.fits",
+      "product_sha256": "93469666e278043154235d6078c1177b1e78c1b2d189caf040a6bafee4c87db4",
+      "selection_score_sha256": "376ec8e2ce4deddcb971908bbc0e170d1d80015a553fb03fb2a0c86385180984",
+      "target_id": "364075352"
+    },
+    {
+      "mission": "TESS",
+      "order": 63,
+      "product_path": "data/raw/tess/lightcurves/TIC137903329/tess2021175071901-s0040-0000000137903329-0211-s_lc.fits",
+      "product_sha256": "7f679cd54b84c624fb74296e88d56682fe47d84d13f6a1ef08360053305d6e84",
+      "selection_score_sha256": "3b0c00666b0a597551559d9bf94a29eb6ecc07fe3b59824ecb6b054fa0554172",
+      "target_id": "137903329"
+    },
+    {
+      "mission": "TESS",
+      "order": 64,
+      "product_path": "data/raw/tess/lightcurves/TIC298663873/tess2019198215352-s0014-0000000298663873-0150-s_lc.fits",
+      "product_sha256": "9f47ac001a44053efc5ab839b626dc0be2aedb357701c4b4831b39297e724cca",
+      "selection_score_sha256": "3b8db3f0c176c171576e73f9ece6dc1ff8cac6efecec6db1d57cceb0650a13f3",
+      "target_id": "298663873"
+    },
+    {
+      "mission": "TESS",
+      "order": 65,
+      "product_path": "data/raw/tess/lightcurves/TIC306472057/tess2018292075959-s0004-0000000306472057-0124-s_lc.fits",
+      "product_sha256": "2797fca97fdc9ea238356d2d2835b55f2a00b46375dd8730eeca0c266061572b",
+      "selection_score_sha256": "3bba7e4a5cd738ff041228ed254384b3a646676bfabbf330bbf7d97613619539",
+      "target_id": "306472057"
+    },
+    {
+      "mission": "TESS",
+      "order": 66,
+      "product_path": "data/raw/tess/lightcurves/TIC299089652/tess2021175071901-s0040-0000000299089652-0211-s_lc.fits",
+      "product_sha256": "ba6a8820d869dc25af76aaabdb2b7b2fea0293a9ab39a696b6b237ae72f10072",
+      "selection_score_sha256": "3bf514d5aed5170b9b7599a5c190bf9b8ab984fd4ec3684d80b9023fd43c323a",
+      "target_id": "299089652"
+    },
+    {
+      "mission": "TESS",
+      "order": 67,
+      "product_path": "data/raw/tess/lightcurves/TIC349576261/tess2020186164531-s0027-0000000349576261-0189-s_lc.fits",
+      "product_sha256": "99ceeb822e43f2d7edf7c5d5d798c767c3c8c1adf6a14b168c0334e7d5d44d56",
+      "selection_score_sha256": "3ca42a121d7904fc429cf2cc4eaa39a3df0735449350fc24f1410f8723b99c30",
+      "target_id": "349576261"
+    },
+    {
+      "mission": "TESS",
+      "order": 68,
+      "product_path": "data/raw/tess/lightcurves/TIC377780790/tess2019198215352-s0014-0000000377780790-0150-s_lc.fits",
+      "product_sha256": "cb3c03f56e27d7adbef81ac6f71dbb3159587af422a0b1f1d9325d710067f7b6",
+      "selection_score_sha256": "3e18d4cd96ae57e129e130c9d8a4138cf04c9df4cab743fea0aa967fda4204dc",
+      "target_id": "377780790"
+    },
+    {
+      "mission": "TESS",
+      "order": 69,
+      "product_path": "data/raw/tess/lightcurves/TIC405717754/tess2021175071901-s0040-0000000405717754-0211-s_lc.fits",
+      "product_sha256": "4c92c700a50e17b48e1baea911d0b6cc1c95f948e34f6666ee4bea74a025d10e",
+      "selection_score_sha256": "3e60dd6bf81893b5bbbd12c37a673987f5503e0a7af8b9e3e7d13f069c40e3e1",
+      "target_id": "405717754"
+    },
+    {
+      "mission": "TESS",
+      "order": 70,
+      "product_path": "data/raw/tess/lightcurves/TIC371210825/tess2021284114741-s0044-0000000371210825-0215-s_lc.fits",
+      "product_sha256": "8a1a8f644d4577e48feea81dd92b25c31479da6739a2942417d7176d9c35428b",
+      "selection_score_sha256": "3f485adb70f6a29f384fcaa7a2e8f9c46312cfbc3fa24d36e7a5c5b70659bf84",
+      "target_id": "371210825"
+    },
+    {
+      "mission": "TESS",
+      "order": 71,
+      "product_path": "data/raw/tess/lightcurves/TIC169461816/tess2019198215352-s0014-0000000169461816-0150-s_lc.fits",
+      "product_sha256": "59257cd8898cd7531d5b9a1c3b1bf0674e94552f640ab9e1c230b05466e2d7b9",
+      "selection_score_sha256": "409a00c355429feac027c6bcf06adf13037a21f8c376510b7192063804058533",
+      "target_id": "169461816"
+    },
+    {
+      "mission": "TESS",
+      "order": 72,
+      "product_path": "data/raw/tess/lightcurves/TIC48217457/tess2021175071901-s0040-0000000048217457-0211-s_lc.fits",
+      "product_sha256": "5f8faf05f6d10c4ea7324988254861f9ae83347c08109baa2c2a5e8e8c83d0be",
+      "selection_score_sha256": "4436c5740cc2d36084710025a2049148b6fd84567e0a2e5407e68b54243d177f",
+      "target_id": "48217457"
+    },
+    {
+      "mission": "TESS",
+      "order": 73,
+      "product_path": "data/raw/tess/lightcurves/TIC258804746/tess2020294194027-s0031-0000000258804746-0198-s_lc.fits",
+      "product_sha256": "fa9cd44f576687535a6c444f697f702e0bf4bdd2138970603139173a3ab739a7",
+      "selection_score_sha256": "4452f180431e48f95b4e382e7ab4afde7271f12f73eb5452f6a325b2ff6a62db",
+      "target_id": "258804746"
+    },
+    {
+      "mission": "TESS",
+      "order": 74,
+      "product_path": "data/raw/tess/lightcurves/TIC248250955/tess2019140104343-s0012-0000000248250955-0144-s_lc.fits",
+      "product_sha256": "ae22b053acc8f7e93c33ffa68a79f70569b3746dcc9d31bb4f1c3d35433dc617",
+      "selection_score_sha256": "45e236b0b008d715edcd822c95091183224f6cfbf0264c86c80c296dc6cef40a",
+      "target_id": "248250955"
+    },
+    {
+      "mission": "TESS",
+      "order": 75,
+      "product_path": "data/raw/tess/lightcurves/TIC202428245/tess2020078014623-s0023-0000000202428245-0177-s_lc.fits",
+      "product_sha256": "c2016584e58be10e56ebf4b007dd1d679af20a53d0d9c249d198d8325d66d432",
+      "selection_score_sha256": "46414e5f33bc51dd40ba4039893839a80d5919a1c8008e19fc452313becfe786",
+      "target_id": "202428245"
+    },
+    {
+      "mission": "TESS",
+      "order": 76,
+      "product_path": "data/raw/tess/lightcurves/TIC65347776/tess2018263035959-s0003-0000000065347776-0123-s_lc.fits",
+      "product_sha256": "01bebf855094f9b10f5a958ebdf888ffeb3650623544c453dbe43107ba3b6749",
+      "selection_score_sha256": "467030a5b94c1bfae6c8f42bf7f5cb90b8bc6df8c347988ef2222c69391af75f",
+      "target_id": "65347776"
+    },
+    {
+      "mission": "TESS",
+      "order": 77,
+      "product_path": "data/raw/tess/lightcurves/TIC207501148/tess2019253231442-s0016-0000000207501148-0152-s_lc.fits",
+      "product_sha256": "c07486e538696ed47800698bc0c9205684903b204438aff446581f83153a0d06",
+      "selection_score_sha256": "46ef2eeb194a909aa22f0012c50ac657d80090e60a2fea70345da243b5cd4e30",
+      "target_id": "207501148"
+    },
+    {
+      "mission": "TESS",
+      "order": 78,
+      "product_path": "data/raw/tess/lightcurves/TIC137402055/tess2021175071901-s0040-0000000137402055-0211-s_lc.fits",
+      "product_sha256": "f97b8207558d0632442cb719d19ce8da58e7440f23724fbd2855b18752a2ab03",
+      "selection_score_sha256": "4702686c574cb461a8ef3fff86540cd9e31c10bca1566e61800ae068f729b92a",
+      "target_id": "137402055"
+    },
+    {
+      "mission": "TESS",
+      "order": 79,
+      "product_path": "data/raw/tess/lightcurves/TIC158555987/tess2019198215352-s0014-0000000158555987-0150-s_lc.fits",
+      "product_sha256": "4596bc0e8b95ad786776ab1c1f5e3231dbd296ff9f1526e5849985fdd307bf89",
+      "selection_score_sha256": "49ea59af1eb4239d2d5aff40cbdbc0d9f787335a5e49657c34990e4a19c86069",
+      "target_id": "158555987"
+    },
+    {
+      "mission": "TESS",
+      "order": 80,
+      "product_path": "data/raw/tess/lightcurves/TIC258514800/tess2019226182529-s0015-0000000258514800-0151-s_lc.fits",
+      "product_sha256": "ae0d78c090733c4455ab6cccb8812b7eb5056af0968577412429a2228b3b235b",
+      "selection_score_sha256": "4b0f68b9c8d90d28c9734b2933e9adb29b60c2a5a9a83e1ab1236fb891e637c4",
+      "target_id": "258514800"
+    },
+    {
+      "mission": "TESS",
+      "order": 81,
+      "product_path": "data/raw/tess/lightcurves/TIC271052158/tess2019226182529-s0015-0000000271052158-0151-s_lc.fits",
+      "product_sha256": "1777f8a06704858205fa3c079901d0a02a7ffe8aacc32dd1ad2eae06e7e43617",
+      "selection_score_sha256": "4c8f3833744b92ec963581acf8c311255c70b6aa66549ac3959857ed40b91b57",
+      "target_id": "271052158"
+    },
+    {
+      "mission": "TESS",
+      "order": 82,
+      "product_path": "data/raw/tess/lightcurves/TIC268823307/tess2021204101404-s0041-0000000268823307-0212-s_lc.fits",
+      "product_sha256": "2edee32a79a7d9c85eaafbb4efe4dff901f87ef905814679917c34e442314ef1",
+      "selection_score_sha256": "4cd993c2d9f4ef72da091fff3b0bb58b92f2bbc4af58ca72c08c88d9e822fa39",
+      "target_id": "268823307"
+    },
+    {
+      "mission": "TESS",
+      "order": 83,
+      "product_path": "data/raw/tess/lightcurves/TIC130611752/tess2023018032328-s0061-0000000130611752-0250-s_lc.fits",
+      "product_sha256": "eca6a2c111b212cfd93fbd7127c0a5045d5228a6ff9d85ef18d093d299e09428",
+      "selection_score_sha256": "4ec65d994a0c71d82fd1ed3d83fe610906555e8c6a7890ba4d3f97923a08e269",
+      "target_id": "130611752"
+    },
+    {
+      "mission": "TESS",
+      "order": 84,
+      "product_path": "data/raw/tess/lightcurves/TIC274599700/tess2020106103520-s0024-0000000274599700-0180-s_lc.fits",
+      "product_sha256": "3132d8ba46eff672c642789a8c45d67fbb6748b9a1e36a96f2497d68a291b61d",
+      "selection_score_sha256": "505ca3f3ce597acecd36e909749e32dce22179344584bb9a52951c1aee4a690d",
+      "target_id": "274599700"
+    },
+    {
+      "mission": "TESS",
+      "order": 85,
+      "product_path": "data/raw/tess/lightcurves/TIC139158696/tess2024196212429-s0081-0000000139158696-0276-s_lc.fits",
+      "product_sha256": "45e1f28be60835d9f935ae98b85a2aaf545c0fbe89ed5eb837db802903b088a1",
+      "selection_score_sha256": "50b22e26976122e615e65c88261a3f796f0d17f4172cd66846429c0282bad1fb",
+      "target_id": "139158696"
+    },
+    {
+      "mission": "TESS",
+      "order": 86,
+      "product_path": "data/raw/tess/lightcurves/TIC27769688/tess2019198215352-s0014-0000000027769688-0150-s_lc.fits",
+      "product_sha256": "422f660e620e52284b8c61734ecf694651f40f0cee20f0625ffb9644f89ead65",
+      "selection_score_sha256": "5168372e6e94a1a14c4724eeac130b0072ea2346a4b7312138b18711aa10a803",
+      "target_id": "27769688"
+    },
+    {
+      "mission": "TESS",
+      "order": 87,
+      "product_path": "data/raw/tess/lightcurves/TIC328934463/tess2022085151738-s0050-0000000328934463-0222-s_lc.fits",
+      "product_sha256": "f1347168fee8b92e834932d0b03d780624537edbf32adb496a55ff1eb723a12b",
+      "selection_score_sha256": "536fc20d743c2f2b537d368452a5f30ecd349e362507965c8b292b68adcaef78",
+      "target_id": "328934463"
+    },
+    {
+      "mission": "TESS",
+      "order": 88,
+      "product_path": "data/raw/tess/lightcurves/TIC164892194/tess2021175071901-s0040-0000000164892194-0211-s_lc.fits",
+      "product_sha256": "b1ff6fa4b4bf64b4ab6d2c7f026f71b604868b2300d8db445d0f349de325caa6",
+      "selection_score_sha256": "54e43eab78ce8c56d959f5f97b3270c9cfa32adeb6b6bf2feb920f3956225ba1",
+      "target_id": "164892194"
+    },
+    {
+      "mission": "TESS",
+      "order": 89,
+      "product_path": "data/raw/tess/lightcurves/TIC349095149/tess2018206045859-s0001-0000000349095149-0120-s_lc.fits",
+      "product_sha256": "fd24ea500729f87e958e0318d3d570328f5e98940fff87a8e76ced882a669535",
+      "selection_score_sha256": "54ed5803be961d079b35ba89fdc3437e7a30732734c7d5d2761e8cb3268d8dcb",
+      "target_id": "349095149"
+    },
+    {
+      "mission": "TESS",
+      "order": 90,
+      "product_path": "data/raw/tess/lightcurves/TIC158657354/tess2021175071901-s0040-0000000158657354-0211-s_lc.fits",
+      "product_sha256": "a4cd454246258d147857a5c902c53d5d237ee8eda1b39c476c4d8d99b44c4233",
+      "selection_score_sha256": "55398fe3f132403b2b6030d94e7984427d954f9358c9f81da00b844713f84e7e",
+      "target_id": "158657354"
+    },
+    {
+      "mission": "TESS",
+      "order": 91,
+      "product_path": "data/raw/tess/lightcurves/TIC2760710/tess2018234235059-s0002-0000000002760710-0121-s_lc.fits",
+      "product_sha256": "c533278e066198eea94c16fa3c0285413e8ea5b42c04b1b4525e685ccadce49b",
+      "selection_score_sha256": "562436d8310e5c0c5e538b59d3ab67b35f7a9361be607f6069a3aa20628c8a42",
+      "target_id": "2760710"
+    },
+    {
+      "mission": "TESS",
+      "order": 92,
+      "product_path": "data/raw/tess/lightcurves/TIC63211674/tess2021175071901-s0040-0000000063211674-0211-s_lc.fits",
+      "product_sha256": "0f9a59f3151e9d38b5a78039ba1a73fde212b96ad37fbb29ba1199ab1bb4bccc",
+      "selection_score_sha256": "562fd9d9856ec66de0c1b759b6e3635ffcd6932a9ee9ad7fbf60ea354d558cc2",
+      "target_id": "63211674"
+    },
+    {
+      "mission": "TESS",
+      "order": 93,
+      "product_path": "data/raw/tess/lightcurves/TIC420645189/tess2019331140908-s0019-0000000420645189-0164-s_lc.fits",
+      "product_sha256": "411ed26ea9d87039f715f556d195af5234ab570000561d991c444232b2fd226d",
+      "selection_score_sha256": "575c50dd3d67bd6341ad9bbef6e402ef840177d9cdc8883d21f3a095a21dbea4",
+      "target_id": "420645189"
+    },
+    {
+      "mission": "TESS",
+      "order": 94,
+      "product_path": "data/raw/tess/lightcurves/TIC233684293/tess2019198215352-s0014-0000000233684293-0150-s_lc.fits",
+      "product_sha256": "0e5df19a17020cba20931561140f8ae71b006892cd35d4e10ece051b49c0ac60",
+      "selection_score_sha256": "5989a366b874325f6ed90326b1b994f544fd16ba76b3967f910c641d654365b8",
+      "target_id": "233684293"
+    },
+    {
+      "mission": "TESS",
+      "order": 95,
+      "product_path": "data/raw/tess/lightcurves/TIC299158887/tess2019198215352-s0014-0000000299158887-0150-s_lc.fits",
+      "product_sha256": "8b79d99ed9ccda35f66d6cfef43f10fe7fb977c6b7dee2fb4b55b7548a878bab",
+      "selection_score_sha256": "59c4803ce474b30728f42fd48c3892630c84120d29f818a66405851f9a3ff4c7",
+      "target_id": "299158887"
+    },
+    {
+      "mission": "TESS",
+      "order": 96,
+      "product_path": "data/raw/tess/lightcurves/TIC261135533/tess2019253231442-s0016-0000000261135533-0152-s_lc.fits",
+      "product_sha256": "42716287e6aa0e8f25e444184eaf12dc5f43b996c1ebaff17c6fbda53d5142d9",
+      "selection_score_sha256": "5af641a501a2c3cfb30da817d7b9b8c0857f0164efbdc685b54e2792da8fb5e2",
+      "target_id": "261135533"
+    },
+    {
+      "mission": "TESS",
+      "order": 97,
+      "product_path": "data/raw/tess/lightcurves/TIC4294779/tess2020324010417-s0032-0000000004294779-0200-s_lc.fits",
+      "product_sha256": "378fd737191fd810858183c27cddc03afe544e78daf5d5d60f48ad8d62859fe7",
+      "selection_score_sha256": "5d130ef83e4afe84ad3d9ef311b28e4ab77c1a006c251c1a1f0c5672755dabf4",
+      "target_id": "4294779"
+    },
+    {
+      "mission": "TESS",
+      "order": 98,
+      "product_path": "data/raw/tess/lightcurves/TIC11996814/tess2019306063752-s0018-0000000011996814-0162-s_lc.fits",
+      "product_sha256": "b3850a6a74697a66e7f10a1a48ba5a8260b0b1c6ebdbade0d13d168116c970ef",
+      "selection_score_sha256": "5e6e4859df8e973b47d493a615b560948eb74f786b6e35660569f7a4feb6c482",
+      "target_id": "11996814"
+    },
+    {
+      "mission": "TESS",
+      "order": 99,
+      "product_path": "data/raw/tess/lightcurves/TIC304142124/tess2019085135100-s0010-0000000304142124-0140-s_lc.fits",
+      "product_sha256": "fceb0acb44c9bfd88181221c8c9604d68fedb10c3da757296a8d160502be7cdc",
+      "selection_score_sha256": "5f1b54e84d1c070451b3ef3f75fe66f1e72fb692e97e60922c760d7520a3272a",
+      "target_id": "304142124"
+    },
+    {
+      "mission": "TESS",
+      "order": 100,
+      "product_path": "data/raw/tess/lightcurves/TIC268924036/tess2021204101404-s0041-0000000268924036-0212-s_lc.fits",
+      "product_sha256": "60c18d949e6253b0f4713e7a4681bbfa2baeccf9b939e2ca0f3fdf2e1b3b12fe",
+      "selection_score_sha256": "5f634673bcf1ffc57cf5efc044d5f7392319ba344bc0ed51eca4d6e24da25c8a",
+      "target_id": "268924036"
+    }
+  ],
+  "version": "prospective_cached_host_cohort_v1"
+}

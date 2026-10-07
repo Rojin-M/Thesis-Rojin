@@ -1,4 +1,4 @@
-"""Dossier exports contain recorded evidence only, with no generated claims."""
+"""Recorded evidence and explicitly scoped, versioned calibration annotations."""
 import json
 import re
 from html import escape
@@ -32,12 +32,44 @@ def markdown_report(document):
     lines.extend(["", "## Evidence for the reviewer", ""])
     if model.get("state") == "complete":
         score = model["payload"]
-        lines.extend([f"- CNN ranking score: **{score['score']:.6f}**; logit {score.get('logit')}. Uncalibrated; uncertainty not estimated.",
+        lines.extend([f"- Model ranking score: **{score['score']:.6f}**; logit {score.get('logit')}. Uncalibrated for blind search; uncertainty not estimated.",
                       f"- Model: {literal(score.get('model_name'))}; checkpoint `{score['model_sha256']}`.",
                       f"- Frozen Kepler TRAIN normalizer: `{score['normalization_sha256']}`.",
                       f"- Source validation threshold: {score.get('validation_threshold')} (context only; never a search rejection gate)."])
+        lines.append(f"- Scoring role: {literal(score.get('score_role', 'reference'))}.")
+        if score.get("fallback_reason"):
+            lines.append("- Fallback reason: " + literal(score["fallback_reason"]))
     else:
-        lines.append("- CNN score unavailable. The proposal remains in the human review queue.")
+        lines.append("- Model score unavailable. The proposal remains in the human review queue.")
+    v2 = latest.get("supermodel_v2")
+    if v2:
+        p = v2["payload"]
+        lines.extend(["", "### Supermodel v2 deployment", "",
+                      f"- Evidence: {literal(v2['state'])}; primary eligible: {p.get('eligible_for_primary', False)}.",
+                      f"- Release: `{literal(p.get('release_id'))}`.",
+                      "- Input timing comes from blind proposals; catalog labels are not inference inputs.",
+                      "- All eleven experts are required for primary promotion; the retained CNN is the fallback."])
+        if p.get("reason"):
+            lines.append("- " + literal(p["reason"]))
+        if p.get("expert_logits"):
+            lines.extend(["", "| Expert | Logit | Available |", "| --- | ---: | --- |"])
+            lines.extend(f"| {literal(name)} | {value:.6f} | {p['expert_available'][name]} |"
+                         for name, value in p["expert_logits"].items())
+    probability = c.get("probability", {})
+    benchmark = probability.get("benchmark", {})
+    lines.extend(["", "### Probability estimates", "",
+                  "- **Planet probability: unavailable.** " + literal(probability.get("reason",
+                      "Calibration on representative blind-search results has not been established."))])
+    if benchmark.get("status") == "available" and benchmark.get("estimate") is not None:
+        lines.extend([f"- Experimental TESS benchmark estimate: **{100 * benchmark['estimate']:.1f}%**.",
+                      "- This estimates the CP/KP label under the curated TESS benchmark. It is **not this signal's probability of being a planet** and is not validated for blind detections.",
+                      f"- Calibration: {literal(benchmark.get('method'))}; temperature {benchmark.get('temperature')}; {benchmark.get('fit_n')} fit examples and {benchmark.get('audit_n')} separate audit examples.",
+                      f"- Calibration receipt: `{literal(benchmark.get('calibration_id'))}`.",
+                      "- " + literal(benchmark.get("reason", ""))])
+        audit = benchmark.get("audit", {})
+        lines.append(f"- Descriptive audit Brier score: {audit.get('raw_brier')} raw → {audit.get('calibrated_brier')} adjusted. This audit does not establish blind-search calibration.")
+    else:
+        lines.append("- Experimental benchmark estimate unavailable: " + literal(benchmark.get("reason", "No compatible calibration is available.")))
     rp = registry.get("payload", {})
     comparison = latest.get("model_comparison", {})
     if comparison.get("state") == "complete":
@@ -72,5 +104,5 @@ def markdown_report(document):
     lines.extend(f"- [{literal(a['filename'])}](/api/artifacts/{a['id']}): `{a['sha256']}` ({a['size_bytes']} bytes)" for a in c["artifacts"])
     text = json.dumps(document, indent=2, sort_keys=True, allow_nan=False)
     fence = "`" * (max((len(part) for part in re.findall(r"`+", text)), default=0) + 4)
-    lines.extend(["", "## Complete persisted record", "", fence + "json", text, fence, ""])
+    lines.extend(["", "## Complete record and derived calibration annotation", "", fence + "json", text, fence, ""])
     return "\n".join(lines)

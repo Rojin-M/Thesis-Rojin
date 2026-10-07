@@ -1,0 +1,30 @@
+{
+  "calibration_sha256": "5aec4e2e3c4743790436c17309bb89851ce942efa2274eae75862ec4d215fdaf",
+  "environment": {
+    "cpu_threads": 2,
+    "numpy": "1.26.4",
+    "python": "3.9.25",
+    "scipy": "1.13.1",
+    "sklearn": "1.6.1",
+    "torch": "2.1.2+cu118"
+  },
+  "input_receipts": {
+    "data/processed/kepler/shared_v1/kepler_train_normalization.npz": "6f4ac773f6f2dd6c2200e68b903acb0c7a3f585a593ac2d882c03af03c705dc1",
+    "data/processed/tess/shared_v1/dataset_tess_shared_v1.npz": "1f0a73da84e66da04703efd776c085bc7f18725dad9329eb06808dc049dfb5f1",
+    "data/processed/tess/shared_v1/manifest_tess_shared_v1.csv": "c144797b6aefa85cdc3bfe9b30ea8dd77b47c1fd832bc540ebfe72f85ad981bf",
+    "data/processed/tess/shared_v1/splits_tess_shared_v1_seed42.npz": "875315696dd8cfa2c38c92bcb9dc0f2fe94195ed371a8c83933158e2608a60bb",
+    "data/processed/tess/v0/kepler_overlap.csv": "ac57648fd6c56ac490c55d37e77d6e6f0a51eeb6665fe318014452c182d86ac5",
+    "outputs/shared_cnn/kepler/dataset_kepler_shared_v1_cnn_20260915_080811/best_model.pt": "7890efd17fc072efb74465a9fbfa6fb8b0192388d91af520961349f0066ba703"
+  },
+  "original_test_used": false,
+  "source_receipts": {
+    "scripts/data/tess_dataset.py": "50a9dda01931486fee56dc3d5c55cf88f8ec110dde36edfad146638bb7495a31",
+    "scripts/data/tess_selection.py": "c52c3dac20453026d72497a8a28e95281d39a97f8ea346600e6055cc5f15dd94",
+    "scripts/experiments/adaptation_data.py": "a03c50947fa0ccaac583c02075e09db119e94872ed616831b859a8e31b442fb8",
+    "scripts/experiments/adaptation_metrics.py": "1d52ffbf232934a47aec968c7b7d0d94aa3f224f38fb41f262948de24b864f19",
+    "scripts/experiments/calibrate_reference.py": "8ed689c2d65d6ba11e6c169218f5d22b9fb297741dd78faee52cb8d2d526cb91",
+    "scripts/research/contracts.py": "7ebee0c3717a432322d1ef072896a6438726236038e5de5dd6efc58f4b966f8c",
+    "scripts/research/scoring.py": "73376145fd487256f4cdeba702674292f38afa5f2b86d0a3f1ec697f6cb04a1a",
+    "training/cnn/train_kepler_cnn.py": "95fd32f3f82fea260c36cbbed035608ffb4548ac05aa87e6adf1b58626978259"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "scan_run": "outputs/research/ai_telescope/blind-scan-v1",
+  "physical_run": "outputs/research/physical_experts/pilot-v1",
+  "output": "outputs/research/ai_telescope/blind-review-v1",
+  "duration_lower_quantile": 0.005,
+  "duration_upper_quantile": 0.995,
+  "common_mode_window_days": 0.02,
+  "maximum_common_mode_targets": 2,
+  "top_events": 500
+}

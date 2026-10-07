@@ -1,0 +1,11 @@
+{
+  "completed_at": "2026-09-28T05:02:54.965044Z",
+  "files": {
+    "competence_model.pt": "3896c160cd559f85bca110ec2b0807a549f198ee2b02978d1f575c0f9cbcd516",
+    "report.md": "8147fffbc0ba4d78da29a0d9e772a24a6f3fb17d55379ff059fd79e0bf4cf7cf",
+    "spec.json": "cf8ef8e97f1565c26ac29d89ee6574cced2f740caefe6de1d7573e7e38df8e4e",
+    "summary.json": "b16e74a6b2998443797d12a8d34f2680b7b70eeb723b6d2f9223a1b501269d0f"
+  },
+  "spec_sha256": "3284bf6cb835696bf9198dcfd980562d833a4437c390995f072afd1f1479bf9b",
+  "status": "complete"
+}

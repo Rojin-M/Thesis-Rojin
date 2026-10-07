@@ -1,0 +1,96 @@
+{
+  "browser": {
+    "archival_proposal_count_at_start": 14,
+    "archival_targets_at_start": [
+      "33426484",
+      "23595159",
+      "21365473",
+      "7015521",
+      "1334706",
+      "589445"
+    ],
+    "bad_responses": [
+      {
+        "status": 404,
+        "url": "http://127.0.0.1:8766/favicon.ico"
+      }
+    ],
+    "candidate_id": "2356011d9a7944a6a9f29bff3ac76cec",
+    "checks": [
+      "Watcher desktop fits 1440px viewport",
+      "Watcher shows all 18 selected TICs, archival cohort, retained selection batch and bounded exhausted state",
+      "Watcher mobile reviewed with horizontal overflow recorded",
+      "Archival candidate list desktop fits 1440px viewport",
+      "Archival candidate list mobile reviewed with horizontal overflow recorded",
+      "Archival-only filter renders new persisted proposals and dossier links",
+      "Candidate dossier desktop fits 1440px viewport",
+      "Candidate dossier mobile reviewed with horizontal overflow recorded",
+      "Completed archival dossier shows model score, catalog evidence, 10 loaded plots, evidence gaps and untouched review form",
+      "Archival proposal with unavailable score retains visible evidence-gap explanations"
+    ],
+    "console_errors": [],
+    "dossier_plot_count": 10,
+    "exceptions": [],
+    "finished_at": "2026-09-25T13:01:12.161Z",
+    "mutating_requests": [],
+    "observed_at": "2026-09-25T13:01:09.256Z",
+    "selected_target_count": 18,
+    "status": "passed_with_layout_issue"
+  },
+  "browser_limitations": [
+    "Existing mobile header/navigation expands a requested390px viewport to433px; desktop rendering passed. No source changes were made during active frozen processing."
+  ],
+  "read_only_api_checks": {
+    "archival_candidates": 200,
+    "completed_new_targets": 6,
+    "health": 200,
+    "new_proposals": 14,
+    "note": "Later than the frozen four-target result export; demonstrates continued processing.",
+    "watcher": 200,
+    "worker_last_error": null,
+    "worker_state": "running"
+  },
+  "snapshot_checks": [
+    "Consistent SQLite backup used for export",
+    "18 distinct selected targets",
+    "Four completed products and ten blind-search proposals at export time",
+    "All completed product byte sizes and SHA-256 reverified",
+    "Original archive response SHA-256 verified",
+    "Relative documentation links and git diff --check passed"
+  ],
+  "status": "processing_and_desktop_checks_passed_mobile_navigation_issue_recorded",
+  "suites": [
+    {
+      "log_sha256": "a8b29b6b6b36fd19069789e11bb5d2c8f464452fbf0000ba83345a597d55e4b8",
+      "modules": [
+        "tests.test_research_discovery",
+        "tests.test_research_automation",
+        "tests.test_research_watcher"
+      ],
+      "result": "passed",
+      "seconds": 24.42,
+      "tests": 61
+    },
+    {
+      "log_sha256": "e595d18682e5aa577d476f001ccd0dfe13417fa1700a937cb381539b12182b72",
+      "modules": [
+        "tests.test_research_watcher_http",
+        "tests.test_research_http"
+      ],
+      "result": "passed",
+      "seconds": 33.448,
+      "tests": 18
+    },
+    {
+      "modules": [
+        "tests.test_research_discovery",
+        "tests.test_research_automation",
+        "tests.test_research_mast_redirect"
+      ],
+      "note": "Earlier overlapping suite; counts must not be summed as distinct tests.",
+      "result": "passed",
+      "seconds": 15.736,
+      "tests": 48
+    }
+  ]
+}

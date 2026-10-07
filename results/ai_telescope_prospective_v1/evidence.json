@@ -1,0 +1,20 @@
+{
+  "run": "outputs/research/ai_telescope/prospective-v1",
+  "complete_sha256": "6b4d2cda1d0d4690a054abf9a991fae946845da7cd12994db7a69109e5cb72ec",
+  "spec_sha256": "8d1d0d1f40bce02dac43f54a2181d4b8d85f58362d157943842c07a0d4140119",
+  "counts": {
+    "completed_hosts": 90,
+    "events_before_per_host_cap": 1045,
+    "failed_hosts": 0,
+    "hosts_with_retained_events": 65,
+    "new_download_bytes_this_invocation": 4292786880,
+    "registered_hosts": 90,
+    "retained_events": 776,
+    "valid_cadences": 1491027,
+    "windows": 13476,
+    "within_frozen_duration_prior": 307
+  },
+  "artifact_checksums_verified": 96,
+  "catalog_labels_used": false,
+  "model_and_threshold_tuned": false
+}

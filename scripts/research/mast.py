@@ -165,7 +165,7 @@ class MastClient:
         self.session = session or requests.Session()
         self.session.headers.update({'User-Agent':'Thesis-Rojin-bounded-research/1', 'Accept-Encoding':'identity'})
 
-    def _transfer(self, method, url, cap, *, pilot_id=None, path=None, redirect_url=None, **kwargs):
+    def _transfer(self, method, url, cap, *, pilot_id=None, path=None, redirect_url=None, read_timeout=10, **kwargs):
         key = self.ledger.reserve(cap, 'science_product' if path else 'metadata', pilot_id)
         used, chunks, complete = 0, [], False
         handle = None
@@ -175,7 +175,7 @@ class MastClient:
             with wall_deadline(60):
                 with ExitStack() as responses:
                     response = responses.enter_context(self.session.request(
-                        method, url, timeout=(5,10), allow_redirects=False, stream=True, **kwargs))
+                        method, url, timeout=(5,read_timeout), allow_redirects=False, stream=True, **kwargs))
                     final_url, redirects = url, []
                     if redirect_url is not None and response.status_code in (301, 302, 303, 307, 308):
                         if (method != 'GET' or url != DOWNLOAD or path is None
@@ -236,7 +236,13 @@ class MastClient:
                 'complete' if complete else 'failed_conservative')
 
     def query(self, request):
-        raw, receipt = self._transfer('POST', INVOKE, METADATA_CAP, data={'request':canonical_json(request)})
+        # A bounded archive-wide metadata sample can take longer to prepare than
+        # a lookup of explicit TICs. The enclosing 60-second wall deadline stays.
+        filters = request.get('params', {}).get('filters', [])
+        broad = request.get('service') == 'Mast.Caom.Filtered' and not any(
+            item.get('paramName') == 'target_name' for item in filters)
+        raw, receipt = self._transfer('POST', INVOKE, METADATA_CAP, read_timeout=45 if broad else 10,
+                                     data={'request':canonical_json(request)})
         return raw
 
     def download(self, product, path, pilot_id):

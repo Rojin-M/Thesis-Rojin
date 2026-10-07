@@ -29,7 +29,7 @@ def parser():
     sub.add_parser("watch-auto-check", help="Ask the running automatic watcher to check for new data now")
     for command in ("watch-auto-once", "watch-auto-serve"):
         automatic = sub.add_parser(command, help="Poll the configured watchlist and automatically detect/vet unseen products within cumulative bounds")
-        automatic.add_argument("--config", type=Path, default=ROOT / "configs/research_automation_v1.json")
+        automatic.add_argument("--config", type=Path, default=ROOT / "configs/research_discovery_v1.json")
         if command == "watch-auto-once":
             automatic.add_argument("--force", action="store_true", help="Recheck public metadata now while retaining circuit and resource limits")
         else:

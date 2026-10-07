@@ -1,0 +1,33 @@
+{
+  "config": {
+    "depths": [
+      0.0005,
+      0.002,
+      0.008
+    ],
+    "duration_hours": 2.4,
+    "memory": {
+      "fast_baseline_rate": 0.08,
+      "forgetting": 0.0005,
+      "gradient_clip": 5.0,
+      "learning_rates": [
+        0.08,
+        0.02,
+        0.005
+      ],
+      "momentum": 0.8,
+      "protection_hold": 3,
+      "protection_sigma": 3.5,
+      "scale_rate": 0.02,
+      "slow_baseline_rate": 0.008,
+      "warmup": 64
+    },
+    "periods_days": [
+      2.731,
+      5.173
+    ],
+    "protocol": "configs/research_protocol_v1.json"
+  },
+  "source_sha256": "4ed4a43e4cc24b937ba8275ac7863c0e98ed9099e588e1de43d5dc40dd6974d0",
+  "version": "adaptive_memory_real_injection_v1"
+}

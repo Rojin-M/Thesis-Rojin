@@ -16,8 +16,7 @@ from scripts.research.protocol import ConflictError, STAGES, ValidationError, lo
 from scripts.research.store import Store
 from scripts.research.watcher import create_pilot, load_config, poll_once
 from scripts.research.watcher_store import WatchStore, status
-from tests.test_research_detection import write_fits
-from tests.test_research_watcher import ReplayClient
+from tests.support import ReplayClient, write_fits
 
 
 class OfflineArchiveSession:
@@ -134,6 +133,72 @@ class AutomaticWatcherTests(unittest.TestCase):
         self.assertEqual(len(self.processed), 1)
         self.assertEqual(len(status(self.store)["pilots"]), 1)
         self.assertEqual(self.store.list_records("candidates")[0]["id"], candidate_id)
+
+    def test_discovery_processes_new_unconfigured_target_and_exposes_dynamic_status(self):
+        from datetime import datetime, timezone
+        now_mjd = (datetime.now(timezone.utc) - datetime(1858, 11, 17, tzinfo=timezone.utc)).total_seconds() / 86400
+        original_query = self.client.query
+
+        def recent_archive(request):
+            response = json.loads(original_query(request))
+            if request['service'] == 'Mast.Caom.Filtered':
+                for row in response['data']:
+                    row.update(t_min=now_mjd - 30, t_obs_release=now_mjd - 2)
+                ancient = dict(response['data'][0], t_min=55000, t_obs_release=now_mjd - 1)
+                ancient['dataURL'] = ancient['dataURL'].replace('-s0001-', '-s0002-')
+                ancient['sequence_number'] = 2
+                response['data'].append(ancient)
+                response['paging']['rowsFiltered'] = len(response['data'])
+            return json.dumps(response).encode()
+
+        self.client.query = recent_archive
+        self.config.update(schema_version=2, targets=[], discovery={
+            'lookback_days': 365, 'max_pages': 3, 'page_size': 100,
+            'max_targets': 18, 'poll_seconds': 21600})
+        ledger = WatchStore(self.store)
+        ledger.start_automation(self.config)
+        discovery = {'status': 'succeeded', 'targets': ['123'], 'new_targets': ['123'],
+                     'errors': [], 'archive_wide_complete': False}
+        with patch('scripts.research.discovery.discover_targets', return_value=discovery) as discover:
+            result = self.cycle(force=True)
+            self.assertTrue(discover.call_args.kwargs['force'])
+        self.assertEqual(result['new_candidates'], 1)
+        self.assertEqual(result['targets'], ['123'])
+        self.assertEqual(result['discovery'], discovery)
+        runtime = status(self.store)
+        self.assertEqual(runtime['automation']['targets'], ['123'])
+        self.assertEqual(runtime['automation']['config']['targets'], [])
+        self.assertEqual(runtime['configs'][0]['scheduler']['kind'], 'automatic')
+        self.assertEqual(self.store.list_records('candidates')[0]['cohort'], 'archival_pilot')
+        with self.store.connection() as db:
+            metadata = json.loads(db.execute('SELECT metadata_json FROM products').fetchone()[0])
+        self.assertAlmostEqual(metadata['archive_release_mjd'], now_mjd - 2)
+        self.restart()
+        with patch('scripts.research.discovery.discover_targets', return_value=dict(
+                discovery, status='cached', new_targets=[])):
+            replay = self.cycle()
+        self.assertEqual(replay['new_candidates'], 0)
+        self.assertEqual(self.client.downloads, 1)
+
+    def test_discovery_failure_does_not_create_fake_candidates(self):
+        self.config.update(schema_version=2, targets=[], discovery={
+            'lookback_days': 365, 'max_pages': 3, 'page_size': 100,
+            'max_targets': 18, 'poll_seconds': 21600})
+        error = {'code': 'ArchiveUnavailable', 'message': 'Fixture outage'}
+        with patch('scripts.research.discovery.discover_targets', return_value={
+                'status': 'failed', 'targets': [], 'errors': [error]}):
+            result = self.cycle(force=True)
+        self.assertEqual(result['status'], 'failed')
+        self.assertEqual(result['new_candidates'], 0)
+        self.assertEqual(result['errors'], [error])
+        self.assertEqual(self.client.downloads, 0)
+
+    def test_discovery_must_not_label_new_targets_as_known_controls(self):
+        config = dict(self.config, schema_version=2, targets=[], cohort='known_object_control',
+                      discovery={'lookback_days': 365, 'max_pages': 3, 'page_size': 100,
+                                 'max_targets': 18, 'poll_seconds': 21600})
+        with self.assertRaises(ValidationError):
+            validate_config(config)
 
     def test_new_release_and_reprocessing_each_add_only_one_product(self):
         self.cycle(force=True)

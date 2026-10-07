@@ -1,0 +1,18 @@
+{
+  "protocol": "configs/research_protocol_v1.json",
+  "periods_days": [2.731, 5.173],
+  "depths": [0.0005, 0.002, 0.008],
+  "duration_hours": 2.4,
+  "memory": {
+    "warmup": 64,
+    "learning_rates": [0.08, 0.02, 0.005],
+    "momentum": 0.8,
+    "forgetting": 0.0005,
+    "fast_baseline_rate": 0.08,
+    "slow_baseline_rate": 0.008,
+    "scale_rate": 0.02,
+    "protection_sigma": 3.5,
+    "protection_hold": 3,
+    "gradient_clip": 5.0
+  }
+}

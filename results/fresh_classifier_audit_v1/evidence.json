@@ -1,0 +1,10 @@
+{
+  "files": {
+    "README.md": "fdf411055829db8a647e05f64e2130ff52b353a520fcd60814e7ab30ebd46ee5",
+    "predictions.csv": "ac6b928a609b06970947e3d155060257a43248070826aebc5dbea2801aff943e"
+  },
+  "source": "outputs/research/fresh_classifier_audit/audit-v1",
+  "source_artifacts_verified": 23,
+  "source_complete_sha256": "480fa7bc593940c2ecc31f2dbd47a18dfd20123b787af442f9e4e397673ed4c1",
+  "spec_sha256": "6d1fc0370ff7662d2035aefd94b7e8d550f624dc20b09c04dfabeb3cd9db6db5"
+}

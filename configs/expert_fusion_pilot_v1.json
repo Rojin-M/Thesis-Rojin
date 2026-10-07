@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "gate_seeds": [101, 102, 103],
+  "steps": 400,
+  "learning_rate": 0.01,
+  "weight_decay": 0.001,
+  "hidden_units": 16,
+  "competence_weight": 0.25,
+  "competence_temperature": 0.5,
+  "max_grad_norm": 5.0,
+  "abstention_target_accuracy": 0.9,
+  "abstention_min_coverage": 0.1
+}

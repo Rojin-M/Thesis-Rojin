@@ -1,0 +1,423 @@
+{
+  "archive_wide_complete": false,
+  "scope": "bounded_sample_of_public_TESS_SPOC_observations",
+  "selected_observations": [
+    {
+      "archive_release_mjd": 61293,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61232.92736224537,
+      "obsid": "453641824",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 106,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026192185000-s0106-0000000000589445-0308-s_lc.fits",
+      "target_id": "589445"
+    },
+    {
+      "archive_release_mjd": 61293,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61232.92772814815,
+      "obsid": "453641930",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 106,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026192185000-s0106-0000000001334706-0308-s_lc.fits",
+      "target_id": "1334706"
+    },
+    {
+      "archive_release_mjd": 61234,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61178.105895023145,
+      "obsid": "426748451",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 104,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026137223500-s0104-0000000007015521-0306-s_lc.fits",
+      "target_id": "7015521"
+    },
+    {
+      "archive_release_mjd": 61234,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61178.10695019676,
+      "obsid": "426749040",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 104,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026137223500-s0104-0000000021365473-0306-s_lc.fits",
+      "target_id": "21365473"
+    },
+    {
+      "archive_release_mjd": 61234,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61178.10683162037,
+      "obsid": "426749249",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 104,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026137223500-s0104-0000000023595159-0306-s_lc.fits",
+      "target_id": "23595159"
+    },
+    {
+      "archive_release_mjd": 61293,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61232.930700509256,
+      "obsid": "453642636",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 106,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026192185000-s0106-0000000033426484-0308-s_lc.fits",
+      "target_id": "33426484"
+    },
+    {
+      "archive_release_mjd": 61234,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61178.089162303244,
+      "obsid": "426752069",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 104,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026137223500-s0104-0000000062024272-0306-s_lc.fits",
+      "target_id": "62024272"
+    },
+    {
+      "archive_release_mjd": 61234,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61178.082979224535,
+      "obsid": "426752934",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 104,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026137223500-s0104-0000000067644505-0306-s_lc.fits",
+      "target_id": "67644505"
+    },
+    {
+      "archive_release_mjd": 61293,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61232.93269825231,
+      "obsid": "453656844",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 106,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026192185000-s0106-0000000070744402-0308-s_lc.fits",
+      "target_id": "70744402"
+    },
+    {
+      "archive_release_mjd": 61216,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61151.53389327546,
+      "obsid": "417355715",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 103,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026111101500-s0103-0000000076812373-0305-s_lc.fits",
+      "target_id": "76812373"
+    },
+    {
+      "archive_release_mjd": 61293,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61232.92930052083,
+      "obsid": "453644314",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 106,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026192185000-s0106-0000000079589711-0308-s_lc.fits",
+      "target_id": "79589711"
+    },
+    {
+      "archive_release_mjd": 61234,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61178.08414215278,
+      "obsid": "426755318",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 104,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026137223500-s0104-0000000080337451-0306-s_lc.fits",
+      "target_id": "80337451"
+    },
+    {
+      "archive_release_mjd": 61216,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61151.925781527774,
+      "obsid": "417357126",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 103,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026111101500-s0103-0000000084404935-0305-s_lc.fits",
+      "target_id": "84404935"
+    },
+    {
+      "archive_release_mjd": 61269,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61204.91442347222,
+      "obsid": "449974010",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 105,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026164183000-s0105-0000000089093834-0307-s_lc.fits",
+      "target_id": "89093834"
+    },
+    {
+      "archive_release_mjd": 61269,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61204.91431392361,
+      "obsid": "449888073",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 105,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026164183000-s0105-0000000089255169-0307-s_lc.fits",
+      "target_id": "89255169"
+    },
+    {
+      "archive_release_mjd": 61293,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61232.929864074074,
+      "obsid": "453645153",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 106,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026192185000-s0106-0000000091515492-0308-s_lc.fits",
+      "target_id": "91515492"
+    },
+    {
+      "archive_release_mjd": 61234,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61179.04483381945,
+      "obsid": "426756776",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 104,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026137223500-s0104-0000000091525583-0306-s_lc.fits",
+      "target_id": "91525583"
+    },
+    {
+      "archive_release_mjd": 61269,
+      "archive_wide_complete": false,
+      "cohort": "archival_pilot",
+      "observation_start_mjd": 61205.21434803241,
+      "obsid": "449888437",
+      "page": 1,
+      "policy": "ascending_TIC_in_recorded_bounded_recent_observation_page",
+      "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+      "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+      "sector": 105,
+      "selected_at": "2026-09-25T12:53:52.186839Z",
+      "source_exclusions_sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+      "source_uri": "mast:TESS/product/tess2026164183000-s0105-0000000092876453-0307-s_lc.fits",
+      "target_id": "92876453"
+    }
+  ],
+  "selection_origin": "Verified successful recent-observation preflight response reused after a later archive query timed out. The original retrieval time, poll, request and checksum are retained; no new retrieval is claimed by this reuse.",
+  "settings": {
+    "lookback_days": 180,
+    "max_pages": 3,
+    "max_targets": 18,
+    "page_size": 100,
+    "poll_seconds": 21600
+  },
+  "source_exclusions": {
+    "sha256": "b67f88fda4105fde71b261fe6c249530babe7809f163c6aabe03c08200e41745",
+    "sources": [
+      {
+        "path": "data/raw/tess/metadata/manifest.csv",
+        "present": true,
+        "rows": 15744,
+        "sha256": "43f99a662524f9c9dcdff86208586daae5b54c24b53b67bd34acfc5c27b37a1b",
+        "targets": 2368
+      },
+      {
+        "path": "data/processed/tess/v0/manifest_tess_v0.csv",
+        "present": true,
+        "rows": 2208,
+        "sha256": "04fbc1bb071b8eea9c65f639fd5a9f58dba008d8fee8858d4b431dc9063b1c24",
+        "targets": 2105
+      },
+      {
+        "path": "data/processed/tess/v0/selection.csv",
+        "present": true,
+        "rows": 2237,
+        "sha256": "7a9efcc233d32975afb30b70166720f445dc88c0d65777e56c9d08d99b8d6ddf",
+        "targets": 2129
+      },
+      {
+        "path": "data/processed/tess/v0/kepler_overlap.csv",
+        "present": true,
+        "rows": 97,
+        "sha256": "ac57648fd6c56ac490c55d37e77d6e6f0a51eeb6665fe318014452c182d86ac5",
+        "targets": 97
+      },
+      {
+        "sha256": "9f5340436e3a15c9adef056ad5569ae31222e164ea1d748a323470d86ff9b942",
+        "source": "research_database_TESS_products_jobs_candidates",
+        "targets": 3
+      }
+    ],
+    "targets": 2371
+  },
+  "source_snapshot": {
+    "bytes": 35528,
+    "id": "e6777b2ce442411eacf35d4f5916e035",
+    "poll_id": "7838cd3ed0674b789a13c492e185b1ee",
+    "provenance_id": "d95c69277e129da8dde061aa5f1211ca50d3f79c830742e36168818b5cf39ca2",
+    "request": {
+      "format": "json",
+      "page": 1,
+      "pagesize": 100,
+      "params": {
+        "columns": "obsid,target_name,obs_collection,provenance_name,dataproduct_type,dataRights,dataURL,t_obs_release,sequence_number,t_min,t_max,t_exptime",
+        "filters": [
+          {
+            "paramName": "obs_collection",
+            "values": [
+              "TESS"
+            ]
+          },
+          {
+            "paramName": "provenance_name",
+            "values": [
+              "SPOC"
+            ]
+          },
+          {
+            "paramName": "dataproduct_type",
+            "values": [
+              "timeseries"
+            ]
+          },
+          {
+            "paramName": "dataRights",
+            "values": [
+              "PUBLIC"
+            ]
+          },
+          {
+            "paramName": "t_obs_release",
+            "values": [
+              {
+                "max": 61308.53334203154,
+                "min": 61128.53334203154
+              }
+            ]
+          },
+          {
+            "paramName": "t_min",
+            "values": [
+              {
+                "max": 61308.53334203154,
+                "min": 61128.53334203154
+              }
+            ]
+          }
+        ]
+      },
+      "service": "Mast.Caom.Filtered"
+    },
+    "retrieved_at": "2026-09-25T12:48:13.554287Z",
+    "sha256": "246128e8fe04d87fe29409702a0e0643a0275a76b653b4e9a7f2e6ee3a1fdc3e",
+    "snapshot_file": "source_metadata.json"
+  },
+  "targets": [
+    "589445",
+    "1334706",
+    "7015521",
+    "21365473",
+    "23595159",
+    "33426484",
+    "62024272",
+    "67644505",
+    "70744402",
+    "76812373",
+    "79589711",
+    "80337451",
+    "84404935",
+    "89093834",
+    "89255169",
+    "91515492",
+    "91525583",
+    "92876453"
+  ]
+}

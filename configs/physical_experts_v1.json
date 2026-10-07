@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "adaptation_config": "configs/mission_adaptation_pilot_v1.json",
+  "prepared_manifest": "data/processed/tess/shared_v1/manifest_tess_shared_v1.csv",
+  "raw_manifest": "data/raw/tess/metadata/manifest.csv",
+  "target_pixel_root": "data/raw/tess/target_pixels",
+  "receipt_root": "data/raw/tess/metadata/target_pixel_receipts",
+  "output": "outputs/research/physical_experts/pilot-v1",
+  "max_product_bytes": 335544320,
+  "max_total_download_bytes": 137438953472,
+  "period_min_days": 0.5,
+  "period_max_days": 20.0,
+  "tls_oversampling_factor": 2,
+  "tls_duration_grid_step": 1.2,
+  "tls_use_threads": 4,
+  "archive_attempts": 3,
+  "c_grid": [0.01, 0.1, 1.0, 10.0],
+  "max_iterations": 2000,
+  "minimum_pixel_coverage": 0.7
+}

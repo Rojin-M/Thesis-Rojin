@@ -1,0 +1,188 @@
+{
+  "calibrated": {
+    "at_0_5": {
+      "fn": 14,
+      "fp": 11,
+      "fpr": 0.2894736842105263,
+      "precision": 0.7317073170731707,
+      "recall": 0.6818181818181818,
+      "selected": 41,
+      "threshold": 0.5,
+      "tn": 27,
+      "tp": 30
+    },
+    "average_precision": 0.8378434408031668,
+    "brier": 0.19988188960185885,
+    "ece_10_equal_width": 0.11262937762728968,
+    "n": 82,
+    "nll": 0.5841037337484745,
+    "positive": 44,
+    "ranking_basis": "logits_avoids_sigmoid_saturation_ties",
+    "reliability": [
+      {
+        "lower": 0.0,
+        "mean_score": null,
+        "n": 0,
+        "positive_fraction": null,
+        "upper": 0.1
+      },
+      {
+        "lower": 0.1,
+        "mean_score": 0.1765991375336659,
+        "n": 20,
+        "positive_fraction": 0.2,
+        "upper": 0.2
+      },
+      {
+        "lower": 0.2,
+        "mean_score": 0.2430148297054883,
+        "n": 12,
+        "positive_fraction": 0.5,
+        "upper": 0.3
+      },
+      {
+        "lower": 0.3,
+        "mean_score": 0.3459440069919527,
+        "n": 4,
+        "positive_fraction": 0.5,
+        "upper": 0.4
+      },
+      {
+        "lower": 0.4,
+        "mean_score": 0.46605881954071726,
+        "n": 5,
+        "positive_fraction": 0.4,
+        "upper": 0.5
+      },
+      {
+        "lower": 0.5,
+        "mean_score": 0.5459834675416146,
+        "n": 7,
+        "positive_fraction": 0.5714285714285714,
+        "upper": 0.6
+      },
+      {
+        "lower": 0.6,
+        "mean_score": 0.6513547647082357,
+        "n": 7,
+        "positive_fraction": 0.5714285714285714,
+        "upper": 0.7
+      },
+      {
+        "lower": 0.7,
+        "mean_score": 0.7574969312009576,
+        "n": 14,
+        "positive_fraction": 0.6428571428571429,
+        "upper": 0.8
+      },
+      {
+        "lower": 0.8,
+        "mean_score": 0.8157926549337382,
+        "n": 13,
+        "positive_fraction": 1.0,
+        "upper": 0.9
+      },
+      {
+        "lower": 0.9,
+        "mean_score": null,
+        "n": 0,
+        "positive_fraction": null,
+        "upper": 1.0
+      }
+    ],
+    "roc_auc": 0.784688995215311
+  },
+  "raw": {
+    "at_0_5": {
+      "fn": 14,
+      "fp": 11,
+      "fpr": 0.2894736842105263,
+      "precision": 0.7317073170731707,
+      "recall": 0.6818181818181818,
+      "selected": 41,
+      "threshold": 0.5,
+      "tn": 27,
+      "tp": 30
+    },
+    "average_precision": 0.8378434408031668,
+    "brier": 0.25727354164415633,
+    "ece_10_equal_width": 0.24040914147226633,
+    "n": 82,
+    "nll": 1.0097915362047205,
+    "positive": 44,
+    "ranking_basis": "logits_avoids_sigmoid_saturation_ties",
+    "reliability": [
+      {
+        "lower": 0.0,
+        "mean_score": 0.014627698894068059,
+        "n": 34,
+        "positive_fraction": 0.3235294117647059,
+        "upper": 0.1
+      },
+      {
+        "lower": 0.1,
+        "mean_score": 0.16150811450667607,
+        "n": 2,
+        "positive_fraction": 0.5,
+        "upper": 0.2
+      },
+      {
+        "lower": 0.2,
+        "mean_score": 0.21326276651162027,
+        "n": 1,
+        "positive_fraction": 0.0,
+        "upper": 0.3
+      },
+      {
+        "lower": 0.3,
+        "mean_score": 0.3191775299514358,
+        "n": 1,
+        "positive_fraction": 0.0,
+        "upper": 0.4
+      },
+      {
+        "lower": 0.4,
+        "mean_score": 0.4775740171797382,
+        "n": 3,
+        "positive_fraction": 0.6666666666666666,
+        "upper": 0.5
+      },
+      {
+        "lower": 0.5,
+        "mean_score": 0.5348424794285425,
+        "n": 2,
+        "positive_fraction": 0.5,
+        "upper": 0.6
+      },
+      {
+        "lower": 0.6,
+        "mean_score": 0.6505324679626446,
+        "n": 3,
+        "positive_fraction": 0.6666666666666666,
+        "upper": 0.7
+      },
+      {
+        "lower": 0.7,
+        "mean_score": 0.7537422631882948,
+        "n": 2,
+        "positive_fraction": 0.5,
+        "upper": 0.8
+      },
+      {
+        "lower": 0.8,
+        "mean_score": 0.8536591542039651,
+        "n": 4,
+        "positive_fraction": 0.75,
+        "upper": 0.9
+      },
+      {
+        "lower": 0.9,
+        "mean_score": 0.9797993549684022,
+        "n": 30,
+        "positive_fraction": 0.7666666666666667,
+        "upper": 1.0
+      }
+    ],
+    "roc_auc": 0.784688995215311
+  }
+}

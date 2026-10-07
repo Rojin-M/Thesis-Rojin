@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "cohort_manifest": "results/prospective_cohort_v1/manifest.json",
+  "cohort_complete": "results/prospective_cohort_v1/complete.json",
+  "limit": 10,
+  "target_pixel_root": "data/raw/tess/target_pixels",
+  "receipt_root": "data/raw/tess/metadata/target_pixel_receipts",
+  "output": "outputs/research/tls_pixel_pilot/pilot-v1",
+  "max_product_bytes": 335544320,
+  "max_total_download_bytes": 1073741824,
+  "period_min_days": 0.5,
+  "period_max_days": 20.0,
+  "bls_max_period_grid": 6000,
+  "tls_oversampling_factor": 2,
+  "tls_duration_grid_step": 1.2,
+  "tls_use_threads": 4
+}

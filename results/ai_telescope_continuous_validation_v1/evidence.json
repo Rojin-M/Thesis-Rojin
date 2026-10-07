@@ -1,0 +1,15 @@
+{
+  "run": "outputs/research/ai_telescope/continuous-validation-v1",
+  "complete_sha256": "1f5993cac559611026af1e9cda9b1c1a4c91777770f841c0fe30bd33a1ce735a",
+  "spec_sha256": "1b5628e8feee73a9197291dc18845129bb72714cb57083c80f42bca3dda4271c",
+  "calibration_hosts": 78,
+  "audit_hosts": 79,
+  "model_inferences": 314,
+  "frozen_threshold": 0.8545884490013123,
+  "selected_threshold": 0.9,
+  "audit_control_events_per_27_days": 0.744968585769242,
+  "audit_system_recovery": 0.26582278481012656,
+  "audit_event_recovery": 0.14855072463768115,
+  "artifact_checksums_verified": 162,
+  "focused_tests_passed": 28
+}

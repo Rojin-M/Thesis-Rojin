@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "model_run": "outputs/research/ai_telescope/context-v2",
+  "physical_run": "outputs/research/physical_experts/pilot-v1",
+  "output": "outputs/research/ai_telescope/blind-scan-v1",
+  "window_length": 256,
+  "pixel_frames": 32,
+  "spatial_size": 11,
+  "stride": 128,
+  "batch_size": 16,
+  "maximum_events_per_target": 20,
+  "top_unmatched": 500,
+  "merge_gap_cadences": 2,
+  "minimum_event_cadences": 2,
+  "cpu_threads": 4
+}

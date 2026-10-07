@@ -1,7 +1,311 @@
 window.ACADEMY_CURRICULUM = {
   "version": 2,
   "revision": "2026-09-23.1",
-  "checked": "2026-09-23",
+  "checked": "2026-09-28",
+  "contentRevision": "2026-09-28.3",
+  "researchExtension": {
+    "checked": "2026-09-28",
+    "title": "When machine learning meets the sky",
+    "lead": "A model notices something. What happens next? Follow the evidence from a changing pixel to a telescope request, a planet candidate or an unusual spectrum—and learn where each claim stops.",
+    "minutes": 25,
+    "sourcePolicy": "Primary records opened 28 September 2026; dates below distinguish events, manuscripts and publication. Verified means the source supports the attributed claim, not that we reproduced the study. This is a curated path, not an exhaustive latest-paper survey or a common benchmark.",
+    "workflows": [
+      {
+        "id": "btsbot",
+        "title": "BTSbot-nearby · obtaining a spectrum",
+        "steps": [
+          [
+            "Observe",
+            "ZTF images reveal a changing source."
+          ],
+          [
+            "Score",
+            "BTSbot combines image and scalar information."
+          ],
+          [
+            "Choose",
+            "Nearby-galaxy context and a selection policy trigger a request."
+          ],
+          [
+            "Measure",
+            "SEDM on Palomar's 60-inch telescope takes a spectrum."
+          ],
+          [
+            "Interpret",
+            "A spectrum adds physical evidence; scientists study the event."
+          ]
+        ],
+        "boundary": "A demonstrated observing loop: software requested a new measurement. The 2024jlf paper does not establish that every later interpretation or public report was autonomous.",
+        "sources": [
+          "btsbot",
+          "btsbot-nearby"
+        ]
+      },
+      {
+        "id": "broker",
+        "title": "Survey broker · choosing what deserves attention",
+        "steps": [
+          [
+            "Observe",
+            "Rubin compares a new image with a reference image."
+          ],
+          [
+            "Notify",
+            "A difference-image detection produces an alert packet."
+          ],
+          [
+            "Enrich",
+            "A broker adds catalog matches, features and possible classes."
+          ],
+          [
+            "Prioritize",
+            "Rules or models select alerts for a science program."
+          ],
+          [
+            "Follow up",
+            "A separate observing program must arrange and obtain new data."
+          ]
+        ],
+        "boundary": "A broker output is a selection or classification. Telescope scheduling and a successful exposure are further steps; an alert alone is not a confirmed discovery.",
+        "sources": [
+          "rubin-brokers"
+        ]
+      },
+      {
+        "id": "watcher",
+        "title": "Our watcher · processing archival TESS data",
+        "steps": [
+          [
+            "Retrieve",
+            "Bounded polling finds public products for selected targets."
+          ],
+          [
+            "Search",
+            "BLS proposes periodic dimming signals."
+          ],
+          [
+            "Rank",
+            "The frozen Kepler CNN supplies model_score."
+          ],
+          [
+            "Review",
+            "Saved diagnostics and comparison scores support a human dossier."
+          ],
+          [
+            "Test",
+            "Source checks and independent follow-up are needed for a planet claim."
+          ]
+        ],
+        "boundary": "Our deployed loop acquires existing observations. It does not command a telescope. Research-only event localizers and ensembles have not replaced the authoritative scorer.",
+        "sources": [],
+        "project": true
+      }
+    ],
+    "cards": [
+      {
+        "id": "btsbot",
+        "shortTitle": "A telescope takes action",
+        "title": "1. A score can trigger a real spectrum",
+        "status": "Demonstrated follow-up · 2024 event / 2025 paper",
+        "hook": "A young supernova changes quickly. Reducing the delay to a spectrum can preserve evidence that will soon disappear.",
+        "input": "ZTF transient images and extracted features; BTSbot-nearby adds nearby-galaxy context.",
+        "mechanism": "BTSbot is a multimodal CNN: an image branch and 25 scalar features help score bright transients. A selection policy uses the score and context to request SEDM spectroscopy on Palomar's 60-inch telescope. The model and the observing policy have different jobs.",
+        "evidence": "For SN 2024jlf on 28 May 2024, the request was logged at 07:53:40 and observing began at 08:00:51: about seven minutes later. The spectrum was taken about 0.7 days after inferred first light. Those are two different clocks.",
+        "limit": "This demonstrates autonomous follow-up for a selected transient task. Researchers performed the wider campaign and physical interpretation; automatic public reporting was future work in this paper.",
+        "connection": "Our pixel/scalar experts also combine evidence, but our watcher downloads archival observations. A future follow-up policy would need resource constraints, uncertainty and an auditable decision record.",
+        "sources": [
+          "btsbot",
+          "btsbot-nearby"
+        ],
+        "lessons": [
+          "pixels",
+          "operations"
+        ],
+        "related": [
+          {
+            "title": "The earlier autonomous chain: SN 2023tyk",
+            "text": "Northwestern's 13 October 2023 account describes ZTF detection on October 3, BTSbot selection on October 5, a requested SEDM spectrum, SNIascore Type Ia classification and automated sharing on October 7. This was a linked workflow built by people, not a 2026 discovery. It is a concrete example, not an identification of an unnamed news story.",
+            "sources": [
+              "btsbot-2023"
+            ]
+          }
+        ],
+        "reflection": {
+          "question": "Does a seven-minute response mean the star exploded seven minutes earlier?",
+          "answer": "No. Request-to-observation latency measures the observing system. Time since first light requires a separate estimate from the light curve; it was about 0.7 days here."
+        }
+      },
+      {
+        "id": "brokers",
+        "shortTitle": "Sort a changing sky",
+        "title": "2. Brokers turn alerts into useful queues",
+        "status": "Operational alert milestone · February 2026; documentation updated July 2026",
+        "hook": "A million notifications are useful only if the right evidence reaches the right observer in time.",
+        "input": "Difference-image alert packets: measurements of what changed relative to a reference sky image.",
+        "mechanism": "A broker adds context such as catalog matches and light-curve classifications, then exposes filters or ranked selections. Rubin describes ML classification in ALeRCE and ML enrichment in Fink. Rules also matter: a science program can require a particular brightness or history before requesting scarce follow-up time.",
+        "evidence": "Rubin reported 800,000 alerts on the night of 24 February 2026. Its February 25 release forecast up to seven million per night eventually; that forecast is not the measured rate that night or a verified September rate.",
+        "limit": "Alerts are change notifications, not counts of unique objects or confirmed discoveries. Brokers differ; a broker classification does not prove a telescope took a spectrum. The July documentation describes roles, not a shared performance benchmark.",
+        "connection": "Keep acquisition, event records, model scores and review decisions distinct in our pipeline too. A useful queue must balance missed events with review workload.",
+        "sources": [
+          "rubin-alerts",
+          "rubin-brokers"
+        ],
+        "lessons": [
+          "operations",
+          "metrics"
+        ]
+      },
+      {
+        "id": "exominer",
+        "shortTitle": "Vet a transit signal",
+        "title": "3. ExoMiner++ asks whether a detected signal looks planetary",
+        "status": "Published research · 2025 manuscript; NASA coverage January 2026",
+        "hook": "A convincing dip can come from the wrong star. Give the model evidence about the cause, not just the shape.",
+        "input": "Already detected TESS threshold-crossing events (TCEs), with light-curve and instrument diagnostics; training combines Kepler and TESS examples.",
+        "mechanism": "The deep model combines views including difference images, periodograms, flux trends, unfolded flux and spacecraft information. A difference image can reveal where the changing light comes from; an instrument channel can expose a systematic that resembles a transit.",
+        "evidence": "The paper reports 7,330 candidate-classified TCEs among about 148,000 unlabeled TCEs, with 50 newly introduced Community TESS Objects of Interest after further selection. NASA's January 22, 2026 article is later coverage of the 2025 work.",
+        "limit": "These are not 7,330 new confirmed planets. TCEs, unique hosts and catalog candidates are different counting units. Vetting a supplied signal does not establish sensitivity to every unseen transit in raw time series.",
+        "connection": "This motivates complementary pixel, variability and morphology experts and an explicit input contract. It does not show that our stack or mission-adaptation method must improve.",
+        "sources": [
+          "exominer",
+          "exominer-nasa"
+        ],
+        "lessons": [
+          "frontier",
+          "contract",
+          "pixels"
+        ]
+      },
+      {
+        "id": "transit-search",
+        "shortTitle": "Search before folding",
+        "title": "4. A Transformer can search without a supplied period",
+        "status": "Published candidate search · MNRAS April 2025 issue",
+        "hook": "If a planet crosses its star only once during the observations, there may be no reliable period to fold on.",
+        "input": "Unfolded light curves extracted from TESS full-frame images, plus background and centroid time series. The network does not need an input transit ephemeris.",
+        "mechanism": "Salinas and colleagues use a Transformer-inspired model to identify transit candidates in time order. Attention relates measurements across a sequence, while background and centroid changes supply clues about nonplanetary events. FFI describes the data product origin; it does not mean the network ingests every raw image pixel.",
+        "evidence": "The paper reports 214 candidate systems from sectors 1–26 under its selection: 122 multi-transit, 88 single-transit and four multi-planet systems.",
+        "limit": "Candidate systems are not confirmed planets. No matched fixed-control-budget comparison with our detector is established here; candidate counts do not rank architectures.",
+        "connection": "Our candidate Transformer and our direct event localizer solve different tasks. To test an attention-based localizer, freeze the same inputs, host splits, injection depths and control budget as the CNN and TLS comparisons.",
+        "sources": [
+          "transformer"
+        ],
+        "lessons": [
+          "attention",
+          "injections"
+        ],
+        "reflection": {
+          "question": "Why would a candidate classifier be an unfair baseline for finding an unknown single transit?",
+          "answer": "A classifier may require a detected event and a period to construct its input. A search must first locate that event. Compare search with search, then evaluate vetting on the same candidate set."
+        }
+      },
+      {
+        "id": "raven",
+        "shortTitle": "Model the alternatives",
+        "title": "5. RAVEN separates ranking from statistical validation",
+        "status": "Framework submitted 2025 · survey application published in MNRAS, March 2026",
+        "hook": "A planet claim needs alternatives: could a stellar eclipse or a background system explain the data?",
+        "input": "Transit candidates, simulated planets, eight astrophysical false-positive scenarios, real false positives and source-position information.",
+        "mechanism": "RAVEN uses gradient-boosted and Gaussian-process classifiers with scenario priors to estimate competing explanations. Its initial framework targets SPOC candidates at 0.5–16-day periods and depths above 300 ppm; posterior and radius conditions also govern validation.",
+        "evidence": "The 2026 application searched over 2.2 million magnitude-selected main-sequence stars with BLS and applied ML vetting. The authors report 118 newly statistically validated planets, including 31 newly detected in this work, alongside over 2,000 unvalidated candidates.",
+        "limit": "Statistical validation is conditional on the modeled alternatives, priors and selection; the survey also manually checked highly ranked candidates. The 118 and 2,000 counts describe different evidence levels. We have not independently validated these objects.",
+        "connection": "Our frozen CNN sigmoid is a ranking score, not this kind of astrophysical posterior. On-target injections do not establish background-binary rejection. Automation already exists; a contribution needs a measured advance on a defined task.",
+        "sources": [
+          "raven",
+          "raven26"
+        ],
+        "lessons": [
+          "probability",
+          "validation"
+        ]
+      },
+      {
+        "id": "anomalies",
+        "shortTitle": "Find the unusual",
+        "title": "6. An unusual spectrum is an invitation to investigate",
+        "status": "DESI VAE · published January 2026 / MNRAS April issue",
+        "hook": "What if the interesting object has no familiar class label? Learn typical structure, then inspect what does not fit.",
+        "input": "About 200,000 DESI spectra: brightness measured across wavelength rather than across time.",
+        "mechanism": "A variational autoencoder compresses spectra into a small latent representation and reconstructs them. Large reconstruction residuals or unusual latent locations flag outliers. Astronomaly uses human feedback to prioritize what to inspect next.",
+        "evidence": "Nicolaou and colleagues find both instrumental artifacts and physically unusual spectra. The useful product is an ordered review set and interpretable spectral differences, not a single planet-like classification score.",
+        "limit": "Rare stars or quasars can reconstruct poorly when galaxies dominate training. An outlier score is neither a calibrated class probability nor proof of new astrophysics.",
+        "connection": "Our self-supervised representations could support event triage, but rarity and planet evidence must stay separate. Inspect pixels and instrument channels before treating an unusual dip as a scientific discovery.",
+        "sources": [
+          "desi-vae"
+        ],
+        "lessons": [
+          "representation",
+          "uncertainty"
+        ],
+        "related": [
+          {
+            "title": "Dated context: learning galaxy images without morphology labels",
+            "text": "Mohale and Lochner (MNRAS May 2024 issue) use BYOL to learn representations from Galaxy Zoo DECaLS images. Similar images cluster together; Astronomaly uses the features to find merger candidates. The representation objective needs no morphology labels, but physical interpretation still needs evidence. Augmentations decide which differences the model is encouraged to ignore.",
+            "sources": [
+              "galaxy-byol"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "reading-claims",
+        "shortTitle": "Read a headline critically",
+        "title": "7. Two new preprints, two questions worth asking",
+        "status": "Preprints · June and August 2026; not reproduced here",
+        "hook": "Before admiring a metric, ask what counted as an example and where its truth label came from.",
+        "input": "EXOVEIL predicts stellar flux with a transit-masked, self-supervised Transformer. Astro-Hunters derives seven sliding-window features per TESS cadence and compares classifiers using star-disjoint splits.",
+        "mechanism": "EXOVEIL searches prediction residuals with a matched filter and vets them with XGBoost. Astro-Hunters changes the source of the training labels while holding the comparison protocol fixed. One probes a search strategy; the other probes what the benchmark actually rewards.",
+        "evidence": "EXOVEIL v3 reports 47/47 selected confirmed TESS planets recovered and 179 transit-like anomalies in a separate Kepler search. Astro-Hunters v1 uses 189,279 cadences from twelve hosts; feature-derived labels give AUC 0.9915, while properly converted ephemeris labels give AUC 0.7880 and AUPRC 0.2092.",
+        "limit": "Selected-planet recovery is not survey-wide completeness; 179 anomalies are not 179 confirmed planets. Cadences are not independent stars. The high feature-label AUC measures circular agreement, not independently labeled transit detection. Neither study is a head-to-head ranking against our candidate AP.",
+        "connection": "Pin label provenance and time systems, split by host, and report depth-stratified recovery. Our missed 500-ppm injections motivate a fair residual-search experiment; they do not prove that another paper's system would solve the problem.",
+        "sources": [
+          "exoveil",
+          "hunters"
+        ],
+        "lessons": [
+          "frontier",
+          "splits",
+          "injections"
+        ],
+        "reflection": {
+          "question": "Which is the useful denominator: 189,279 cadences or twelve hosts?",
+          "answer": "Both, for different purposes. Cadences describe the prediction task; twelve hosts describe how few independent stellar systems support transfer to new stars. A large row count cannot replace a diverse held-out host sample."
+        }
+      },
+      {
+        "id": "next-decisions",
+        "shortTitle": "Design the next decision",
+        "title": "8. Optimize what the next observation can teach",
+        "status": "Outlook · June 2026 Perspective submission; proposed framework",
+        "hook": "The most certain classification may not be the most valuable next observation. An uncertain, fast-fading source could teach us more.",
+        "input": "Evolving measurements, uncertainties and a finite observing budget are the inputs envisioned by Bom and colleagues.",
+        "mechanism": "Their decision-aware framework proposes maintaining a representation of the source state, then selecting follow-up by expected scientific value under resource constraints. Human supervision and auditable choices are part of the design.",
+        "evidence": "The June 2026 manuscript is a submitted Perspective: it develops an agenda, not a measured deployment of an agent operating Rubin.",
+        "limit": "Better classification accuracy does not by itself prove better use of telescope time. A policy needs an explicit scientific objective and evaluation of missed opportunities, costs and uncertainty.",
+        "connection": "A possible project experiment is to freeze a candidate queue and compare review policies at the same human-review budget. Define the endpoint and held-out population before testing. This is proposed work; the watcher and model deployment remain unchanged.",
+        "sources": [
+          "decision-ai"
+        ],
+        "lessons": [
+          "capstone",
+          "uncertainty"
+        ],
+        "related": [
+          {
+            "title": "Wider astronomy: cosmology also depends on calibrated errors",
+            "text": "The DESC January 2026 white paper discusses photometric redshifts (distance clues from broad-band colors), weak-lensing inference, transient classification and simulations. It is a collaboration research agenda, not one new cosmological measurement. Domain shift and model misspecification matter because errors can propagate into the final scientific inference.",
+            "sources": [
+              "desc-ai"
+            ]
+          }
+        ],
+        "reflection": {
+          "question": "Carry one idea back to the capstone",
+          "answer": "Choose one input or decision to change. State the failure it addresses, the independent evaluation population, the fixed control or review budget, and the observation that would make you reject the idea. A useful negative result still narrows the next experiment."
+        }
+      }
+    ]
+  },
   "units": [
     {
       "id": "sky",
@@ -417,7 +721,7 @@ window.ACADEMY_CURRICULUM = {
         },
         {
           "type": "single",
-          "prompt": "Which action most improves the highlighted unmatched case now?",
+          "prompt": "Which action best addresses the 23 September unmatched case evidence?",
           "options": [
             "Resolve event/alias and source-localization evidence.",
             "Promote it because the DANN mean exceeds the reference score.",
@@ -864,6 +1168,12 @@ window.ACADEMY_CURRICULUM = {
           "paragraphs": [
             "Mission changes affect sampling, pixel scale, crowding, noise, observing baseline and label selection. A model can learn shortcuts from these differences. More Kepler training examples do not automatically make a TESS detector better. Control the input transformation, group related stars correctly and evaluate on the population that will receive the model. Mission adaptation begins with measurement and labeling differences, not with choosing a fashionable network."
           ]
+        },
+        {
+          "title": "Availability defines the population",
+          "paragraphs": [
+            "The fresh classifier study registered 295 candidate hosts before inference, but 281 had no public native 120-second SPOC product. All 14 available products passed the unchanged preparation. This is an archive-availability restriction, not a claim that cleaning destroyed 281 usable light curves. A result on these available hosts may not transfer to other cadences, pipelines or fainter targets."
+          ]
         }
       ],
       "example": {
@@ -875,7 +1185,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "A short sector does not provide the same period evidence as several continuous years."
       },
-      "project": "Our watcher checks new public SPOC products for two configured control stars every six hours. It is not a continuous search of every new TESS star. Kepler supplies archival training examples; this is why a TESS-facing project contains a Kepler-trained reference model.",
+      "project": "The 28 September snapshot has 18 selected archival targets, a six-hour configured poll and at most two products per cycle. The two fixed controls belong to the 23 September setup. Neither is archive-wide coverage. Kepler supplies archival training examples; this is why a TESS-facing project contains a Kepler-trained reference model.",
       "sources": [
         "tess",
         "lightkurve"
@@ -953,7 +1263,7 @@ window.ACADEMY_CURRICULUM = {
         },
         {
           "type": "single",
-          "prompt": "What is the current watcher’s sky coverage?",
+          "prompt": "In the 23 September 2026 known-object-control snapshot, what was the watcher's sky coverage?",
           "options": [
             "New products for two configured control targets",
             "Every TESS star and every Kepler star",
@@ -961,7 +1271,7 @@ window.ACADEMY_CURRICULUM = {
             "A guaranteed full-sky discovery survey"
           ],
           "answer": 0,
-          "explanation": "The scope is the configured target list; automation does not imply archive-wide coverage.",
+          "explanation": "That dated setup checked two configured controls. By 28 September a bounded archival-discovery pilot had 18 selected targets; neither snapshot represents the whole archive.",
           "id": "missions-q6",
           "lesson": "missions"
         }
@@ -1014,7 +1324,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "The apparent 1% dip could resemble a giant-planet transit on the target, while actually originating on the neighbor."
       },
-      "project": "The current dossier has useful flux checks and catalog matches but lacks complete pixel-level source attribution. “Unmatched” therefore leaves both new-planet and non-planet explanations open.",
+      "project": "The 23 September TIC 150428135 teaching dossier has useful flux checks and catalog matches but lacks complete pixel-level source attribution. “Unmatched” therefore leaves both new-planet and non-planet explanations open.",
       "sources": [
         "crowd",
         "dave"
@@ -1276,6 +1586,12 @@ window.ACADEMY_CURRICULUM = {
             "Dividing flux by a known constant k also divides its uncertainty by |k|. If k is estimated from the data, its uncertainty and induced correlations may matter. A trend fit can correlate residuals and distort event depth. Keep original times and gap boundaries; interpolated points do not become additional independent observations.",
             "The strongest practical test is to inject a synthetic transit before detrending and see whether the entire pipeline recovers it. Injecting afterward tests only later stages and cannot reveal signal loss caused by cleaning."
           ]
+        },
+        {
+          "title": "A completed test still has assumptions",
+          "paragraphs": [
+            "The physical benchmark now adds limb-darkened circular transits to archival observations, distributing their signal across pixels with an empirical static point-spread function (PSF). Sending these injections through cleaning can expose lost sensitivity. Assumed stellar density, fixed limb-darkening coefficients and a static PSF simplify the sky; they do not cover every systematic or eclipsing blend. The fresh 99-host recovery study changes search and calibration, not neural weights."
+          ]
         }
       ],
       "example": {
@@ -1287,7 +1603,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Compare recovery with a longer trend scale and transit masking; the best-looking residual plot is not sufficient."
       },
-      "project": "The watcher’s detrending and detection settings belong in the run evidence. The current tiny injection pilot is a smoke test, not a complete measurement of what preprocessing loses.",
+      "project": "The watcher’s detrending and detection settings belong in the run evidence. The original tiny injection pilot was a smoke test. Completed 90-host physical and 99-host fresh recovery studies now test injected signals through cleaning and search, with remaining weak-signal and contamination limits.",
       "sources": [
         "lightkurve",
         "tess"
@@ -1426,7 +1742,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Repeated events line up. At the wrong period, they can spread out or align only at an alias."
       },
-      "project": "The local blind search currently uses BLS from 0.5 to 30 days, six trial durations and at most three retained signals per light curve. The field named bls_snr in the legacy model contract is a BLS power statistic, not a physical transit SNR.",
+      "project": "The operational watcher uses BLS proposals (0.5–30 days, six trial durations, up to three signals per light curve). Offline detector BLS/TLS benchmarks use their own locked protocol and control calibration. The legacy bls_snr input is BLS power, not a physical SNR.",
       "sources": [
         "bls"
       ],
@@ -1560,7 +1876,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "A tiny per-trial probability can still produce numerous false alerts. Correlated real searches require empirical evaluation."
       },
-      "project": "The watcher’s strongest unmatched period is unresolved under harmonic alternatives. Our six-injection pilot and four negative controls are far too small to assign a survey-wide false-alarm rate.",
+      "project": "The historical TIC 150428135 case remains an alias exercise, not a current ranking claim. Offline BLS/TLS physical-injection comparisons now exist, but their inverted controls still cannot assign a survey-wide false-alarm rate.",
       "sources": [
         "tls",
         "bls"
@@ -1824,6 +2140,12 @@ window.ACADEMY_CURRICULUM = {
             "ROC-AUC measures discrimination across thresholds and can be interpreted through the ordering of positive-negative pairs. A precision–recall curve emphasizes the positive class. Average precision (AP) summarizes precision at increasing recall using its defined step-weighted calculation; it is not simply accuracy or the mean predicted probability.",
             "AP depends on labels and prevalence. Comparing AP from different target populations, labeling rules or data splits is not a controlled model comparison. Specify the same held-out examples and uncertainty for paired comparisons."
           ]
+        },
+        {
+          "title": "Perfect ranking can still miss positives",
+          "paragraphs": [
+            "Static v4 placed all three fresh positive candidates above all eleven negatives, giving AP and ROC AUC of 1.0. At threshold 0.5 it selected only one positive, so two positives were missed and accuracy was 12/14. The nonlinear stack selected two positives with no false positives: 13/14 correct, despite worse ranking (AP 0.833333). A threshold decides which cases are selected; AP summarizes their ordering across thresholds. With only three positives, neither number establishes a general winner."
+          ]
         }
       ],
       "example": {
@@ -1835,7 +2157,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Excellent-looking sensitivity and specificity still yield an alert list dominated by false positives."
       },
-      "project": "The completed pilot reports AP on 82 TESS audit rows. That is a ranking metric for those labels and that cohort, not a 76% probability that a high-scoring blind candidate is a planet.",
+      "project": "On the fresh 14-candidate audit (3 positive, 11 negative), static v4 has AP/AUC 1.0 but 12/14 correct at 0.5. The nonlinear stack has AP 0.833333, AUC 0.909091 and 13/14 correct. Ranking, threshold accuracy and planet confirmation are different claims.",
       "sources": [
         "cal"
       ],
@@ -1959,6 +2281,13 @@ window.ACADEMY_CURRICULUM = {
             "A normalizer estimates means, standard deviations or other scales. If these are learned from all rows before splitting, held-out data influence the representation. Fit it on training data and apply the frozen transformation elsewhere. The same rule applies to imputation, feature selection and learned detrending when they borrow population information.",
             "Data augmentation creates modified training examples; it does not create independent test stars. Near-duplicate injections or transformations must remain tied to their source group. Random seeds make a chosen procedure repeatable, but cannot repair a scientifically invalid split."
           ]
+        },
+        {
+          "title": "Cross-fitting protects one boundary, not every boundary",
+          "paragraphs": [
+            "To train a stack on expert predictions, divide training hosts into folds. Fit an expert without one fold, predict the omitted hosts, and repeat. Every training prediction then comes from an expert that did not train on that host. Otherwise a stack could learn from unrealistically easy in-sample expert scores.",
+            "Our nonlinear model uses 538 out-of-fold rows, 162 selection rows for complexity and blend, 81 calibration rows and 82 audit rows. Host-disjoint cross-fitting protects stack training, but it cannot make a repeatedly consulted audit independent again. The later 14-candidate study froze all weights, preprocessing and calibration before new inference."
+          ]
         }
       ],
       "example": {
@@ -1970,7 +2299,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Split Star A as one group before creating sector-level examples or augmentations."
       },
-      "project": "The pilot uses grouped partitions and a five-arcsecond cross-mission overlap quarantine. Its 82-row audit comes from the original validation pool; it is not a new external test. The original frozen benchmark test and the pilot audit must not be conflated.",
+      "project": "The reused 82-row classifier audit is development evidence. The frozen fresh check evaluates 14 available candidates from 295 registered; 281 lacked native 120-second public products. All 14 available passed unchanged preparation. Coverage selection is part of the result.",
       "sources": [
         "astro",
         "dann"
@@ -2097,7 +2426,13 @@ window.ACADEMY_CURRICULUM = {
           "title": "Bayes compares explicit alternatives",
           "paragraphs": [
             "Bayes’ rule multiplies prior probabilities by likelihoods and normalizes across hypotheses. In odds form, posterior odds = prior odds × likelihood ratio. A planet-versus-binary calculation needs astrophysical alternatives, population priors, selection effects and relevant observations. Statistical validation estimates whether plausible false-positive scenarios are sufficiently unlikely under a specified model. It is a different task from calibrating a classifier against catalog labels.",
-            "Neither a low CNN score nor a high one gives our current unmatched signal a defensible planet probability. The honest answer is that it has not been quantified with validated, applicable evidence."
+            "Neither a low CNN score nor a high one gives the September 23 unmatched teaching case a defensible planet probability. That snapshot did not quantify it with validated, applicable evidence."
+          ]
+        },
+        {
+          "title": "Read calibration labels beside the metric",
+          "paragraphs": [
+            "Temperature scaling divides logits by a positive fitted temperature before sigmoid. It changes confidence, while preserving ranking and the binary 0.5 boundary. Our nonlinear stack carries a frozen temperature of about 0.83621 into the fresh audit; comparator Brier scores use raw logits. Brier is a mean squared confidence error, so different calibration treatment matters. Do not call its smaller Brier proof of an intrinsically better architecture or a planet-confirmation probability."
           ]
         }
       ],
@@ -2110,7 +2445,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "This two-hypothesis teaching calculation is not a real candidate validation: actual alternatives and likelihoods still need justification."
       },
-      "project": "The pilot’s temperature calibration is limited to its labeled partition. The appended blind-candidate comparison intentionally shows raw model rankings, with no planet-probability claim.",
+      "project": "Fresh nonlinear Brier is 0.106743 using its frozen temperature; static v4 Brier is 0.135148 from raw logits. These are not matched-calibration comparisons or blind planet probabilities. The authoritative watcher score remains not_calibrated_for_blind_search.",
       "sources": [
         "cal",
         "raven"
@@ -2184,7 +2519,7 @@ window.ACADEMY_CURRICULUM = {
         },
         {
           "type": "single",
-          "prompt": "What is the probability of the current unmatched candidate based solely on its CNN score?",
+          "prompt": "What is the probability of the 23 September unmatched case based solely on its CNN score?",
           "options": [
             "Not established by that score",
             "Exactly 1.458%",
@@ -2787,6 +3122,12 @@ window.ACADEMY_CURRICULUM = {
             "A global phase-folded view contains the whole orbit and may expose secondary events or broad variability. A local view zooms into the proposed transit and preserves ingress/egress detail. Scalar features supply quantities such as period and duration. Separate branches can encode each input before their representations are combined for a final score.",
             "Folding assumes an ephemeris. If blind search gives the wrong period, the network sees a distorted representation. Global/local CNNs are established methods, not a unique invention of this repository."
           ]
+        },
+        {
+          "title": "One architecture, two different jobs",
+          "paragraphs": [
+            "A candidate CNN reads a folded global view and a close-up local view, looking for repeated morphology. An event localizer scans observations for where something happened. Both can use convolution, but the inputs, outputs and labels differ. Our deployed candidate scorer is the frozen Kepler CNN; the v2/v3 event localizers and their pixel branches belong to separate research experiments. An injection-recovery gain cannot be substituted for a candidate-classification score."
+          ]
         }
       ],
       "example": {
@@ -2934,7 +3275,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "B is a better tested system, but the result alone cannot attribute the gain to trees rather than the extra diagnostic inputs."
       },
-      "project": "The next project comparison should include well-defined simple baselines and input ablations. The current five-arm study primarily compares training approaches within a shared neural input setup.",
+      "project": "The historical five-arm pilot compared training approaches within a shared neural input setup. Later studies add a Transformer, diagnostic experts and static/nonlinear stacks. Keep simple task-matched baselines and input ablations when testing another architecture.",
       "sources": [
         "raven",
         "triage"
@@ -3068,6 +3409,12 @@ window.ACADEMY_CURRICULUM = {
             "A Transformer can classify an already folded candidate or search an unfolded light curve. These are different tasks with different labels and evaluation. Direct search can inspect single events without requiring a period beforehand, but must demonstrate event localization and false-alarm control. Folded classification gains a prepared periodic representation but inherits ephemeris errors.",
             "Salinas et al. (2025) demonstrate a TESS FFI search with unfolded flux plus background and centroid series. Their candidate output should not be read as a list of automatically confirmed planets. Use their paper to study the task boundary, not to claim attention universally beats CNNs."
           ]
+        },
+        {
+          "title": "The implemented Transformer expert",
+          "paragraphs": [
+            "In our classifier comparison, attention supplies one sequence-based expert alongside five CNN/DANN regimes. Convolution shares local filters; attention lets a representation combine information from other positions, with time/position encoding needed to interpret the order. Neither mechanism guarantees superiority. The experts must receive documented inputs and be tested on the same hosts. Our implemented candidate Transformer is not the unfolded-light-curve search described by an external paper, and neither is the live watcher scorer."
+          ]
         }
       ],
       "example": {
@@ -3079,7 +3426,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "The output mixes values using learned compatibility. It is not an astrophysical posterior."
       },
-      "project": "A direct-search Transformer would require a different input/evaluation pipeline from our catalog-folded CNN. It is a research comparator to implement and test, not a drop-in model-name change.",
+      "project": "A Transformer candidate expert has been implemented and evaluated alongside CNNs. It is one of eleven comparison experts, not the watcher scorer. A direct-search Transformer over unfolded observations would require its own search and evaluation contract.",
       "sources": [
         "attention",
         "transformer"
@@ -3205,6 +3552,12 @@ window.ACADEMY_CURRICULUM = {
             "A foundation model is typically pretrained broadly and reused across tasks. A large Transformer trained on one small disposition table does not become broadly validated merely by being called foundational. Modern approaches worth investigating include masked sequence learning, contrastive representations, multimodal fusion and efficient long-sequence architectures. This course treats these as research directions, not as implemented capabilities or a ranked leaderboard.",
             "Unlabeled access can still cross an evaluation boundary. If a method sees the final audit light curves during pretraining, disclose that transductive setting and compare accordingly. For a claim about new unseen stars, keep their data outside all fitting stages. Check whether representation learning preserves low-SNR transit information using controlled injections."
           ]
+        },
+        {
+          "title": "Pretraining needs a downstream test",
+          "paragraphs": [
+            "Research-only AI-telescope pilots have used unlabeled light-curve and pixel windows for pretraining before event localization. That can encourage a useful representation, but the task objective must still test whether small transits survive. The fresh recovery experiment reused v3 weights; it did not fit a new representation. A future residual-prediction study should compare against the same frozen detectors at a fixed control budget, including the weak signals every current method misses."
+          ]
         }
       ],
       "example": {
@@ -3216,7 +3569,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "A useful result is better label efficiency without erasing rare signals, not simply lower reconstruction loss."
       },
-      "project": "Self-supervised pretraining and a broadly pretrained astronomy model are not implemented in our watcher. They are possible experiments after the baseline and evaluation contract are fixed.",
+      "project": "Research-only AI-telescope work has tested pretraining and event localization; it is separate from the watcher. Residual-prediction or broader foundation-model experiments remain possible next studies, not measured improvements in the fresh recovery run.",
       "sources": [
         "attention",
         "torch"
@@ -3349,6 +3702,13 @@ window.ACADEMY_CURRICULUM = {
           "paragraphs": [
             "Negative transfer occurs when transferred information reduces target performance relative to an appropriate comparator. This may result from mismatched labels, shortcuts, incompatible noise or optimization choices. Do not diagnose the cause from a single aggregate score. Examine learning curves and performance by cadence, signal strength, period and stellar properties.",
             "Compare methods on the same grouped target audit, with prespecified seeds and fair tuning. A cross-mission result on known, correctly folded planets does not establish performance on unknown blind detections. “Zero-shot” means no target-task training under a stated setup; it does not mean no evaluation selection or no prior knowledge anywhere in the pipeline."
+          ]
+        },
+        {
+          "title": "Why complementary experts might help",
+          "paragraphs": [
+            "Transit morphology asks what the dip looks like. Variability measures the wider behavior of the star. TLS compares transit-shaped periodic templates. Aperture photometry asks whether the signal survives a change in extracted pixels; difference images ask where the changing light is located. The Transformer and five CNN/DANN regimes provide other learned summaries. These eleven experts offer different evidence, but physical experts in the labeled studies use known catalog ephemerides: they do not demonstrate blind search.",
+            "A static stack combines expert scores with fixed learned weights. The nonlinear stack uses regularized trees to learn joint patterns, then blends with the static v4 prior. Selection chose at most seven leaves per tree, L2 regularization 10 and a 0.5 blend. Extra flexibility needs fresh evaluation because it can also learn development-specific patterns."
           ]
         }
       ],
@@ -3496,6 +3856,12 @@ window.ACADEMY_CURRICULUM = {
             "If the domain head is weak, poorly optimized or evaluated on imbalanced domains, its low accuracy says little about invariance. Even with a capable balanced probe, making domains indistinguishable can remove useful task information. Aligning marginal feature distributions can mix classes when label distributions differ. A collapsed representation can confuse the domain head while destroying planet discrimination.",
             "Evaluate target-task performance first, then inspect an independently trained domain probe, class-conditional behavior, λ ablations and learning curves. DANN is an established approach. Its relevance to this project is a testable transfer hypothesis, not architectural novelty or a guarantee of better candidates."
           ]
+        },
+        {
+          "title": "Keep the negative result when the project grows",
+          "paragraphs": [
+            "The September 23 three-seed pilot still tells us that supervised DANN did not beat pooling or fine-tuning at 120 updates per fit. Later eleven-expert comparisons address a different combination of evidence. Adding the DANN prediction as one expert is not proof that its domain-alignment objective helped, and a new stack does not replace the deployed CNN without a separate deployment decision."
+          ]
         }
       ],
       "example": {
@@ -3631,6 +3997,12 @@ window.ACADEMY_CURRICULUM = {
             "Selective prediction lets the system defer uncertain cases. Coverage is the fraction of cases it accepts for automatic handling; selective risk is error on those accepted cases. Plot the tradeoff and track human workload. Choosing a reject threshold requires held-out evaluation, and rejected cases still matter scientifically.",
             "Conformal prediction constructs prediction sets or intervals using calibration residuals or nonconformity scores. Under assumptions such as exchangeability, it can provide marginal coverage across future examples. This does not promise the same coverage for every individual star or shifted subgroup, and it does not create a planet posterior. A set containing both planet and non-planet expresses unresolved classification under that procedure."
           ]
+        },
+        {
+          "title": "A router must earn its complexity",
+          "paragraphs": [
+            "A router changes expert weights according to a case’s diagnostics. It is attractive when experts fail on different kinds of stars, but estimating who is reliable is itself a learning problem. Behavioral v4 and diagnostic v5 did not beat their strongest declared comparators. With host-disjoint cross-fitted competence learning, selection chose routing strength zero: the static prior. That is a useful rejection of adaptation under this evidence, not a successful adaptive system."
+          ]
         }
       ],
       "example": {
@@ -3642,7 +4014,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Low spread means agreement under the modeling procedure, not that all relevant uncertainty is small."
       },
-      "project": "Our side-by-side comparison preserves all three seed scores for each approach. There is no validated OOD gate, conformal guarantee or calibrated blind-candidate probability currently attached to those ranges.",
+      "project": "The reused-audit nonlinear advantage did not repeat as a ranking advantage over static v4 on the fresh 14. Three positive labels make the estimate fragile. The saved fresh AP bootstrap compares nonlinear with variability, not with static v4; seed ranges do not quantify planet probability.",
       "sources": [
         "cal",
         "conformal"
@@ -3762,7 +4134,7 @@ window.ACADEMY_CURRICULUM = {
         {
           "title": "From ranking to explicit validation",
           "paragraphs": [
-            "RAVEN (2025) combines learned classifiers, simulated false-positive scenarios and priors in a Bayesian framework. The 2026 RAVEN survey manuscript reports an automated TESS-SPOC FFI search and newly validated planets within its selection and validation criteria. This demonstrates that a website plus automated search and vetting is not, by itself, a new research concept.",
+            "RAVEN (2025) combines learned classifiers, simulated false-positive scenarios and priors in a Bayesian framework. The 2026 RAVEN survey manuscript, accepted to MNRAS in the inspected record, reports an automated TESS-SPOC FFI search and newly validated planets within its selection and validation criteria. This demonstrates that a website plus automated search and vetting is not, by itself, a new research concept.",
             "Our inference from these systems: prioritize missing evidence, honest evaluation and a specific failure mode before claiming that a larger architecture is the needed advance. Reproducing another paper’s scope and assumptions is part of a comparison, not an optional footnote."
           ]
         },
@@ -3770,7 +4142,7 @@ window.ACADEMY_CURRICULUM = {
           "title": "2026 reading desk: promising, with boundaries",
           "paragraphs": [
             "EXOVEIL (June 2026 preprint) combines self-supervised stellar prediction, residual matched filtering and a boosted-tree vetter. Its reported transfer recovery on 47 confirmed TESS planets is a selected-control result; it does not measure blind-survey purity. Study the separation between its representation objective and detection evaluation.",
-            "Astro-Hunters (August 2026 preprint) studies label provenance using twelve TESS hosts and star-disjoint evaluation. It highlights how circular labels and time-conversion errors can dominate apparent model gains. Treat its small scope explicitly. These summaries were checked on 23 September 2026; preprints can change and this course has not independently reproduced their reported results."
+            "Astro-Hunters (August 2026 preprint) studies label provenance using twelve TESS hosts and star-disjoint evaluation. It highlights how circular labels and time-conversion errors can dominate apparent model gains. Treat its small scope explicitly. These summaries were checked again on 28 September 2026 (EXOVEIL v3, Astro-Hunters v1); preprints can change and this course has not independently reproduced their reported results."
           ]
         }
       ],
@@ -3783,7 +4155,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "They address different stages. First align task, inputs, labels, population and compute before comparing any metric."
       },
-      "project": "Our strongest near-term opportunities are controlled blind-transfer evaluation, improved pixel/source diagnostics, realistic injection recovery and transparent review efficiency. No literature search performed here establishes that any proposed variant is the first of its kind.",
+      "project": "The local evidence now includes eleven-expert classification and completed physical/fresh event-recovery studies. Read their cohort-specific project tables before comparing them with papers. Background-source rejection, weak-event sensitivity and larger independent classifier validation remain open.",
       "sources": [
         "triage",
         "exominer",
@@ -4076,7 +4448,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Revisit the neighbor’s properties and eclipsing-binary scenarios before reporting a target-planet radius."
       },
-      "project": "Complete centroid/difference-image/Gaia/aperture analysis is still missing for the highlighted unmatched signal. Adding richer model inputs without obtaining reliable source evidence would leave this gap unresolved.",
+      "project": "The 23 September TIC 150428135 teaching dossier had unresolved source evidence. Later pixel experts and physical detector injections do not by themselves resolve that individual dossier; inspect its current evidence before claiming a new outcome.",
       "sources": [
         "crowd",
         "dave"
@@ -4208,7 +4580,7 @@ window.ACADEMY_CURRICULUM = {
           "title": "Prepare a dossier before approaching a catalog",
           "paragraphs": [
             "Check existing planets, candidates, TCEs, eclipsing-binary lists and relevant literature using coordinates, identifiers and harmonic ephemerides. Include target identifiers, sky position, time system, period and epoch uncertainties, duration, depth, data products, plots, diagnostics and limitations. A supervisor or experienced collaborator can help assess the claim and follow-up.",
-            "Current ExoFOP-TESS help, checked 23 September 2026, requires approved upload access and an online peer-reviewed publication for Community Candidate uploads. Read the current requirements before submitting. A submitted candidate is still a candidate; the Research website does not automatically publish or certify it."
+            "Check the official current ExoFOP-TESS contribution requirements before submitting. The precise policy was last checked here on 23 September 2026 and was not freshly reverified on 28 September. A submitted candidate is still a candidate; the Research website does not automatically publish or certify it."
           ]
         }
       ],
@@ -4221,7 +4593,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Do not substitute a registration request for the missing validation work."
       },
-      "project": "We have no validated new planet from the retained proposals. The highest real reference-CNN score belongs to an already known planet match; high model rank and scientific novelty answer different questions.",
+      "project": "The 23 September retained-proposal snapshot established no validated new planet; its highest real reference-CNN score was a known planet match. Later classifier and injection studies are evaluations, not confirmation of a new planet.",
       "sources": [
         "raven",
         "exofop"
@@ -4338,14 +4710,14 @@ window.ACADEMY_CURRICULUM = {
         {
           "title": "What the stored result actually says",
           "paragraphs": [
-            "Treat this candidate as a case file, not a verdict. The saved signal on TIC 150428135 has a proposed period of about 25.3244 days and a reference CNN score of about 0.01458. UNMATCHED means that the supported catalog checks did not find a compatible record in the snapshots they used. It leaves several possibilities open, including a new signal, an alias, an artifact or an existing object missed by the limited match. Start by writing down which observations support the period and which predicted events fall in usable coverage. Those questions determine what the result can tell you.",
+            "Treat this candidate as a case file, not a verdict. The 23 September 2026 saved signal on TIC 150428135 has a proposed period of about 25.3244 days and a reference CNN score of about 0.01458. UNMATCHED means that the supported catalog checks did not find a compatible record in the snapshots they used. It leaves several possibilities open, including a new signal, an alias, an artifact or an existing object missed by the limited match. Start by writing down which observations support the period and which predicted events fall in usable coverage. Those questions determine what the result can tell you.",
             "Two observed dips support multiple cycle-count interpretations. P/2, P and 2P need scrutiny, and a predicted intermediate event falling in a gap cannot be treated as a measured absence. More sectors may distinguish hypotheses, but additional data must be inspected with the same care."
           ]
         },
         {
           "title": "Why a different model score does not settle it",
           "paragraphs": [
-            "The new comparison evidence gives a DANN mean raw score near 0.6265, while other short-budget approaches also differ from the frozen reference. These models were trained differently and have not been calibrated for blind proposals. The disagreement is a reason to inspect representation and model failure, not to select the largest number as the true planet probability.",
+            "The 23 September comparison evidence gives a DANN mean raw score near 0.6265, while other short-budget approaches also differ from the frozen reference. These models were trained differently and have not been calibrated for blind proposals. The disagreement is a reason to inspect representation and model failure, not to select the largest number as the true planet probability.",
             "The primary score remains unchanged. The side-by-side table retains provenance and seed ranges so you can study sensitivity to training approach. None of these score values measures the probability that an unmatched signal is a novel planet."
           ]
         },
@@ -4366,7 +4738,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "The correct next action follows the missing evidence, not the most exciting number."
       },
-      "project": "This case is a dated teaching snapshot, not a live candidate feed. Open the Research website for current dossiers. Counts and scores here should be refreshed when the underlying evidence changes.",
+      "project": "This case preserves the 23 September 2026 teaching snapshot for TIC 150428135, not a live candidate feed. Open Research for current dossiers. The newer classifier and detector experiments do not establish a changed outcome for this signal.",
       "sources": [],
       "quiz": [
         {
@@ -4399,7 +4771,7 @@ window.ACADEMY_CURRICULUM = {
         },
         {
           "type": "multi",
-          "prompt": "Which checks directly address current gaps?",
+          "prompt": "Which checks directly address gaps in the 23 September case file?",
           "options": [
             "Known-signal masking and aliases",
             "Additional event coverage",
@@ -4497,6 +4869,13 @@ window.ACADEMY_CURRICULUM = {
             "The frozen shared normalizer was fitted on 3,759 Kepler TRAIN rows. Reuse its parameters for the corresponding model inputs; fitting a new scale on an individual candidate or on the target audit changes the model being evaluated. Retain checksums for the normalizer, checkpoint, input file and code.",
             "Catalog-prepared inputs and blind-search inputs can differ despite using the same contract: the latter depend on a detected, potentially incorrect ephemeris. This is a scientifically important transfer boundary. Input compatibility is necessary for inference, but it is not evidence of calibrated performance on blind signals."
           ]
+        },
+        {
+          "title": "Tie every score to exact bytes",
+          "paragraphs": [
+            "The authoritative checkpoint is the September 15 shared_v1 Kepler CNN, paired with frozen Kepler TRAIN normalization. Its scorer checks 200 global bins, 100 local bins, seven scalars and the 907-feature flat representation with the auxiliary branch disabled. Hashes let us test identity rather than trusting a model nickname.",
+            "The project map exposes the checkpoint and normalizer hashes in expandable provenance. Completed model_score records from 26 September confirm that identity as checked on 28 September; they do not prove a new scoring event on the check date. The output is a sigmoid ranking score, explicitly not_calibrated_for_blind_search. The saved source-validation F1 threshold near 0.785 is provenance, not a blind-search gate."
+          ]
         }
       ],
       "example": {
@@ -4508,7 +4887,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Preserving units is part of reproducing a model, not just formatting a report."
       },
-      "project": "Trace code in scripts/data/shared_preprocessing.py, scripts/experiments/mission_adaptation.py and scripts/research/model_comparison.py. Checkpoints and frozen preprocessing are a coupled artifact.",
+      "project": "FrozenScorer in scripts/research/scoring.py emits authoritative model_score evidence from frozen_Kepler_shared_v1_CNN_seed42. The latest three completed scores inspected on 28 September were saved on 26 September. Checkpoint and normalizer hashes are in the project map.",
       "sources": [],
       "quiz": [
         {
@@ -4602,7 +4981,7 @@ window.ACADEMY_CURRICULUM = {
       "id": "results",
       "unit": "project",
       "order": 30,
-      "title": "Read the finished DANN experiment correctly",
+      "title": "Read project comparisons without inventing a winner",
       "hook": "The comparison is complete. Its useful result is that this DANN pilot did not outperform simpler transfer approaches.",
       "minutes": 35,
       "objectives": [
@@ -4612,14 +4991,14 @@ window.ACADEMY_CURRICULUM = {
       ],
       "sections": [
         {
-          "title": "Two experiments, two evaluation cohorts",
+          "title": "Historical reference and adaptation cohorts",
           "paragraphs": [
             "Before comparing two numbers, check which examples produced them. This repository contains a frozen Kepler-to-TESS reference benchmark and a separate five-arm mission-adaptation pilot. They answer related questions, but they use different evaluation cohorts and should not be treated as one leaderboard. The adaptation pilot compares its five methods on the same 82 TESS audit rows from 79 groups. That audit was reserved from the previous validation pool; it is not an external, previously untouched discovery survey. Keep the cohort description beside the metric so another reader can tell what comparison is supported.",
             "The completed pilot evaluates 82 labeled TESS audit rows from 79 groups, partitioned from the original validation pool. Its original test set was not evaluated in the pilot. Do not compare AP across these cohorts as if one method beat another on the same held-out targets."
           ]
         },
         {
-          "title": "The five-arm result",
+          "title": "The 23 September five-arm result",
           "paragraphs": [
             "Each pilot arm uses seeds 42, 43 and 44 with a short 120-update budget per fit. Mean audit AP ± seed sample standard deviation: TESS-only 0.7474 ± 0.0131; fresh Kepler-only 0.5588 ± 0.0315; fine-tuned 0.7644 ± 0.0180; pooled 0.7067 ± 0.0124; DANN 0.6934 ± 0.0003. The fresh Kepler-only arm is not the older frozen watcher model.",
             "DANN’s mean is below pooling and fine-tuning here. The paired DANN-minus-pooled bootstrap intervals include zero. Low DANN seed spread does not imply superiority or well-calibrated candidate probabilities; a stable method can consistently underperform."
@@ -4629,7 +5008,19 @@ window.ACADEMY_CURRICULUM = {
           "title": "What completion does and does not establish",
           "paragraphs": [
             "All 15 fits completed with receipts and saved selected checkpoints. Several selected checkpoints lie at the update limit, so convergence is not established. No post-audit hyperparameter search was performed to manufacture a better result. A larger, prespecified experiment may answer a different question, but these pilot outcomes should remain visible.",
-            "All 15 checkpoints were also applied to 44 saved proposals: 17 real known-object controls and 27 synthetic or transformed controls. This verifies comparison inference and preserves per-seed evidence. It is not an independent discovery benchmark. The original reference scores remain primary, and the comparison service appends additional rankings."
+            "In the 23 September snapshot, all 15 checkpoints were also applied to 44 saved proposals: 17 real known-object controls and 27 synthetic or transformed controls. This verifies comparison inference and preserves per-seed evidence. It is not an independent discovery benchmark. The original reference scores remain primary, and the comparison service appends additional rankings."
+          ]
+        },
+        {
+          "title": "Reused versus fresh classifier evidence",
+          "paragraphs": [
+            "On the reused 82-row audit (44 positive, 38 negative), nonlinear AP is 0.871627, variability 0.863083 and static v4 0.861315. This is development evidence because earlier experiments consulted that audit. On the frozen fresh 14-candidate audit, static v4 ranks better while nonlinear has higher fixed-threshold accuracy. Read the tables in the project map by cohort; do not average these studies into one winner."
+          ]
+        },
+        {
+          "title": "Detector recovery asks a different question",
+          "paragraphs": [
+            "The 90-host physical benchmark and the later 99-host recovery experiment inject events into archival observations. Candidate AP asks whether labeled candidates rank above negatives; recovery asks whether a search locates the injected events at an acceptable control-alert burden. Both neural settings meet the mean control budget on the fresh cohort, but the calibrated threshold sacrifices five events. No classifier or detector comparison here authorizes a deployment or confirms a new planet."
           ]
         }
       ],
@@ -4642,7 +5033,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Report no demonstrated DANN benefit in this pilot, while preserving the limitations and complete results."
       },
-      "project": "The reviewable evidence is in results/mission_adaptation_pilot/README.md, summary.json, per-run receipts, blind_comparison.json and validation.json. The pinned specification and hashes make the result traceable.",
+      "project": "Read results/crossfit_supermodel_v2/report.md, results/fresh_classifier_audit_v1/README.md and results/ai_telescope_recovery_v1/README.md alongside the historical adaptation pilot. The project map includes served tables with denominators, dates and provenance; no comparison model has replaced the frozen watcher scorer.",
       "sources": [],
       "quiz": [
         {
@@ -4755,7 +5146,7 @@ window.ACADEMY_CURRICULUM = {
         {
           "title": "The actual configured scope",
           "paragraphs": [
-            "The current automatic watcher checks two known control targets, TIC 231663901 and TIC 150428135, on a six-hour schedule. New qualifying public SPOC products can be downloaded into the local watcher data area and processed. It does not automatically monitor every new star in the TESS archive. The model-comparison worker polls completed local jobs about once per minute; it does not download the archive or retrain models.",
+            "At the 28 September snapshot, schema-2 archival discovery had selected 18 targets, with a six-hour configured interval and a two-product-per-cycle cap. The selection budget was full; archive_wide_complete was false. Two fixed known controls describe the earlier 23 September setup. New qualifying public SPOC products can be downloaded and processed within the saved policy; this is a bounded archival sample. The model-comparison worker polls completed local jobs about once per minute; it does not download the archive or retrain models.",
             "A manual watch-auto-check requests an immediate archive check under the configured policy. An unchanged archive can legitimately produce no new jobs. Inspect status and logs before assuming the website failed because the candidate list stayed the same."
           ]
         },
@@ -4764,6 +5155,12 @@ window.ACADEMY_CURRICULUM = {
           "paragraphs": [
             "Run commands from the repository root so module imports and relative paths resolve correctly. Address already in use means another process owns the requested port; inspect the existing service rather than blindly starting duplicates. In a remote VS Code session, your computer’s 127.0.0.1 is reached through port forwarding. A healthy remote server can still look unavailable through a stale or stopped local forward.",
             "Use the Ports panel to forward 8765 for Academy and 8766 for Research, then open the matching forwarded address. Refresh reloads displayed evidence; it is not a backup, Git push or model-training request. Copy only command text, not terminal prompts such as [user@host]$."
+          ]
+        },
+        {
+          "title": "A dated snapshot is not a live monitor",
+          "paragraphs": [
+            "This Academy compiles reviewed facts into local static assets; it never polls the research database. The 28 September captured watcher state was running/waiting with 18 selected targets. Its authoritative scorer identity is supported by completed 26 September model_score records. Heartbeats, selected targets, archive downloads and completed scores are different events. Inspect Research for live status, and preserve the original evidence when comparison workers append scores."
           ]
         }
       ],
@@ -4776,7 +5173,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "These operations answer different questions. A successful check may find no new archive products."
       },
-      "project": "Useful paths: outputs/research/server.log, outputs/research/automatic-watcher.log, outputs/research/logs/model-comparison.log and docs/website_guide.md. The Academy’s Project map includes the current command guide.",
+      "project": "Useful paths: outputs/research/server.log, outputs/research/automatic-watcher.log, outputs/research/logs/model-comparison.log and docs/website_guide.md. The Academy’s Project map separates dated evidence from live service status.",
       "sources": [],
       "quiz": [
         {
@@ -4894,7 +5291,7 @@ window.ACADEMY_CURRICULUM = {
           "title": "A reproducible snapshot includes references",
           "paragraphs": [
             "A database backup can preserve rows while leaving referenced files behind. The project’s vetting_snapshot tool collects the database and required referenced artifacts, including comparison checkpoints when model-comparison evidence points to them. It records checksums and supports verification and restoration. Verify an archive before relying on it, and test restoration into a separate destination rather than overwriting the live workspace.",
-            "The existing results/vetting_snapshot_20260923 archive predates the appended DANN comparison evidence. The new pilot’s compact result exports are separately reviewable; a later full backup is needed to include the latest live state. Archive size should be checked before deciding how to store it remotely."
+            "The existing results/vetting_snapshot_20260923 archive predates the appended DANN comparison evidence. The September 23 pilot’s compact result exports are separately reviewable. A backup covers only the records and files included in its own manifest; check a later backup’s contents before assuming it includes newer experiments. Archive size should be checked before deciding how to store it remotely."
           ]
         },
         {
@@ -4914,7 +5311,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "Refreshing a page or pushing source alone does not perform those backup steps."
       },
-      "project": "See docs/website_guide.md, results/vetting_snapshot_20260923/README.md and results/mission_adaptation_pilot/README.md. The shareable course is versioned under academy/; personal notes remain local and course progress is separately exported from the browser.",
+      "project": "The 23 September backup has its own dated scope; it is not evidence of a complete backup of the newer experiments. New result summaries live in results/fresh_classifier_audit_v1/ and results/ai_telescope_recovery_v1/. Export Academy progress separately from the research database.",
       "sources": [],
       "quiz": [
         {
@@ -5045,10 +5442,23 @@ window.ACADEMY_CURRICULUM = {
             "Injections measure what the pipeline finds when signals are present. Negative controls or an empirical null measure false detections when no injected target signal is present under a defined construction. Real “negative” stars can contain unknown planets, while transformed or scrambled data may destroy real noise correlations. Report these limitations instead of calling one negative set perfect truth.",
             "Reliability concerns the fraction of selected detections that are genuinely the desired class. It depends on prevalence and false-positive mechanisms as well as completeness. Four recovered injections do not determine the reliability of every alert in a large blind search."
           ]
+        },
+        {
+          "title": "Three observations and one-to-one matching",
+          "paragraphs": [
+            "For each host, keep the original observation, a physically injected version and an inverted control. The original tells us whether a search already found an event at the injected time; subtract those matches before crediting incremental recovery. Inversion reverses dips and rises to stress-test alert behavior, but it cannot represent every astrophysical false positive.",
+            "Match each predicted event to at most one injected event within half the true duration, and each injection to at most one prediction. This prevents multiple nearby detections from claiming the same transit. The original physical study had 90 registered hosts, 85 observable injections and 330 events; the fresh one has 99, 96 and 326. Keep every registered host in the primary denominator even when coverage is poor."
+          ]
+        },
+        {
+          "title": "Sensitivity and controls must travel together",
+          "paragraphs": [
+            "Fresh v3 at 0.86 recovers 21/99 hosts and 58/326 events, with 27 inverted alerts. At 0.90 it recovers 21/99 and 53/326, with 14 alerts over the same exposure: a 48.148% control reduction at the cost of five events. Equal host totals conceal one host gained and one lost. Every method misses all 25 registered 500-ppm injections. Among 33 single-transit hosts, v3 recovers four and TLS has three incidental event matches, not correct orbital periods. These failures define useful next experiments."
+          ]
         }
       ],
       "example": {
-        "title": "Read our tiny pilot conservatively",
+        "title": "Read the historical six-injection pilot conservatively",
         "steps": [
           "Six box injections used two periods and three depths.",
           "Four were recovered; both 500 ppm injections were missed.",
@@ -5056,7 +5466,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "This identifies useful failure cases. The tiny, selected control set cannot support a survey completeness map or a false-alarm-rate claim."
       },
-      "project": "A strong next experiment would freeze a larger, grouped injection/null protocol across signal strength, period, cadence and stellar variability, then compare BLS plus each vetter under the same candidate budget.",
+      "project": "Completed physical studies retain 90 and 99 registered hosts in their denominators, including poorly observed injections. On the fresh cohort every method missed all 25 registered 500-ppm injections. Recovery of injected signals does not establish discovery of a real planet.",
       "sources": [
         "bls",
         "tls"
@@ -5186,6 +5596,13 @@ window.ACADEMY_CURRICULUM = {
             "A primary endpoint might be recall at a fixed number of candidates sent to human vetters. Safety or secondary metrics might include shallow-transit recovery, false-alert count, subgroup behavior and runtime. Set a minimum useful effect and stopping or failure criteria before audit evaluation. This reduces the temptation to find a favorable metric after seeing results.",
             "Use tuning data for model choices and preserve a final evaluation boundary. Log failed runs, compute usage and excluded cases. If the available budget supports only a pilot, call it a pilot and report what question remains unanswered."
           ]
+        },
+        {
+          "title": "Separate a calibration fix from a sensitivity gain",
+          "paragraphs": [
+            "Recovery thresholds were frozen on 78 separate calibration hosts. Testing exact observed score boundaries, with tied events counted together, avoids missing an operating point merely because a threshold grid is coarse. The new rule also uses a 50% transfer margin and Poisson/host-bootstrap upper estimates. That conservatism can select a high threshold: exact-boundary BLS recovered 0/99 hosts here. Fixing grid mechanics did not solve sensitivity.",
+            "The single-event search compares local dips with surrounding sidebands across 0.5–12-hour durations, avoiding a requirement for a repeating period. Its hybrid with the neural detector splits the control budget between searches. It recovered only 5/99 hosts and is rejected. Neural weights were unchanged; claim only the implemented search/calibration change and the measured outcome."
+          ]
         }
       ],
       "example": {
@@ -5197,7 +5614,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "A gain would support this adversarial setup under these conditions; a loss identifies a result to explain, not one to hide."
       },
-      "project": "The completed short pilot is a starting point for a larger registered comparison. It already shows why pooling and fine-tuning must remain comparators and why “DANN is newer” is not a result.",
+      "project": "More machinery did not automatically help: cross-fitted competence selection returned routing strength zero, and the fresh detector hybrid recovered only 5/99 hosts. Keep rejected experiments visible and compare the mechanism at a fixed control budget.",
       "sources": [
         "dann"
       ],
@@ -5337,7 +5754,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "The narrow question identifies a mechanism and measurable endpoint without asserting novelty in advance."
       },
-      "project": "Read results/mission_adaptation_pilot/README.md alongside the source papers in the reading desk. The repository’s existing negative DANN result is evidence to build on, not a reason to erase the comparator.",
+      "project": "Use the current project evidence map alongside primary papers. The negative DANN, routing and hybrid results constrain the next hypothesis. Automated classification alone is not novelty, and no cross-paper leaderboard is justified without matched tasks and populations.",
       "sources": [
         "astro",
         "exominer",
@@ -5457,14 +5874,14 @@ window.ACADEMY_CURRICULUM = {
         {
           "title": "Your scenario",
           "paragraphs": [
-            "You now have the pieces to design a study around this repository. There is a working watcher, a frozen CNN reference, five completed short-budget model arms and candidate evidence that still has limitations. Your task is to choose one question the existing evidence does not settle and design a fair way to test it. A useful study might target shallow signals or incomplete observing coverage, but it needs a measurable outcome and a meaningful comparator. The aim is to make a result interpretable whether the proposed method improves performance or fails to do so.",
+            "You now have the pieces to design a study around this repository. There is a working bounded watcher, a frozen CNN reference, eleven comparison experts, a small fresh classifier audit and two completed physical detector studies. They test different tasks and leave specific failures unresolved. Your task is to choose one question the existing evidence does not settle and design a fair way to test it. A useful study might target shallow signals or incomplete observing coverage, but it needs a measurable outcome and a meaningful comparator. The aim is to make a result interpretable whether the proposed method improves performance or fails to do so.",
             "One plausible study is to add explicit coverage or quality information and test whether it helps a matched model preserve shallow-event sensitivity. Another is to add reliable source-location diagnostics. Choose one mechanism initially; adding every idea at once makes success or failure hard to interpret."
           ]
         },
         {
           "title": "Choose a complete experimental contract",
           "paragraphs": [
-            "Use grouped development data, a separate calibration role if needed and an untouched final cohort. Include the strongest relevant simple baseline, such as fine-tuning or pooling with the same input evidence. Prespecify a primary endpoint such as injection recovery at a fixed candidate-review budget, plus false-alert and subgroup checks. Count all training and tuning costs.",
+            "Use grouped development data, a separate calibration role if needed and an untouched final cohort. Include strong task-matched baselines: static v4 and variability for candidate classification; calibrated v3 and independently calibrated TLS/BLS for event recovery. Match inputs, search limits and tuning budgets. Prespecify a primary endpoint such as injection recovery at a fixed candidate-review budget, plus false-alert and subgroup checks. Count all training and tuning costs.",
             "Ablate the new information or objective. Retain raw data, configuration, seeds, model hashes and all results. If a method improves AP while worsening shallow-event recovery at the chosen operating point, the answer depends on the declared objective; do not redefine success after seeing the audit."
           ]
         },
@@ -5473,6 +5890,13 @@ window.ACADEMY_CURRICULUM = {
           "paragraphs": [
             "A successful controlled study can support a bounded improvement on its evaluated population. It does not automatically establish general superiority, a novel architecture or a new planet. A failed hypothesis can still reveal a useful limitation if the design and evidence are strong. Candidate discoveries need their own physical and catalog vetting chain.",
             "Passing this course’s objective checks shows progress in the concepts tested. It is not a professional credential or proof of independent research expertise. The next stage is reproducing an analysis, reviewing real cases with an experienced researcher and defending an experiment against the primary literature. Use the final exam to locate remaining conceptual gaps, then apply the methods to real evidence."
+          ]
+        },
+        {
+          "title": "Three possible experiments, not three results",
+          "paragraphs": [
+            "For shallow events, freeze a new 500-ppm injection cohort and compare one change in detrending or representation against calibrated v3 and TLS at a prespecified control budget. Report depth-stratified recovery even if the overall metric improves. For contamination, add off-target and eclipsing-binary cases and test source localization rather than assuming an on-target PSF injection proves host identity.",
+            "For candidate classification, acquire a larger independent cohort with enough positive labels and document which products are unavailable. Compare frozen nonlinear, static and single experts with matched calibration. Keep multi-sector robustness and review workload as explicit endpoints if they motivate the study. These are proposals; none has a measured improvement yet."
           ]
         }
       ],
@@ -5485,7 +5909,7 @@ window.ACADEMY_CURRICULUM = {
         ],
         "answer": "The study can fail cleanly, which makes a successful result interpretable."
       },
-      "project": "The next scientific work is a larger locked evaluation and candidate-source diagnostics. Replacing the reference model should require evidence relevant to blind operation; the comparison table allows that work without overwriting historical scores.",
+      "project": "Choose a remaining failure: 500-ppm events, single-transit sensitivity, background/binary rejection, multi-sector robustness or a larger independent classifier cohort. Prespecify controls and decision criteria. None of these proposed improvements has been demonstrated by planning it.",
       "sources": [],
       "quiz": [
         {
@@ -5591,7 +6015,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://heasarc.gsfc.nasa.gov/docs/tess/",
       "year": "Living documentation",
       "status": "NASA / HEASARC",
-      "takeaway": "Mission, products and observing context. Inspect individual product metadata for cadence and processing version."
+      "takeaway": "Mission, products and observing context. Inspect individual product metadata for cadence and processing version.",
+      "checked": "2026-09-23"
     },
     {
       "id": "bls",
@@ -5599,7 +6024,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://docs.astropy.org/en/stable/timeseries/bls.html",
       "year": "Living documentation",
       "status": "Official implementation",
-      "takeaway": "How to evaluate a period, duration and transit-time search; the statistic depends on the selected objective."
+      "takeaway": "How to evaluate a period, duration and transit-time search; the statistic depends on the selected objective.",
+      "checked": "2026-09-23"
     },
     {
       "id": "tls",
@@ -5607,7 +6033,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://arxiv.org/abs/1901.02015",
       "year": "2019",
       "status": "Research paper",
-      "takeaway": "Searches with transit-shaped templates that include ingress, egress and limb darkening. Compare recovery and runtime on the same data."
+      "takeaway": "Searches with transit-shaped templates that include ingress, egress and limb darkening. Compare recovery and runtime on the same data.",
+      "checked": "2026-09-23"
     },
     {
       "id": "astro",
@@ -5615,7 +6042,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://arxiv.org/abs/1712.05044",
       "year": "2018",
       "status": "Research paper",
-      "takeaway": "A foundational global/local light-curve CNN. Read the input construction and train/test separation before comparing metrics."
+      "takeaway": "A foundational global/local light-curve CNN. Read the input construction and train/test separation before comparing metrics.",
+      "checked": "2026-09-23"
     },
     {
       "id": "dann",
@@ -5623,7 +6051,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://jmlr.org/papers/v17/15-239.html",
       "year": "2016",
       "status": "JMLR research paper",
-      "takeaway": "A gradient reversal layer encourages a representation that supports the task while confusing a domain classifier. Alignment is not a guarantee of target improvement."
+      "takeaway": "A gradient reversal layer encourages a representation that supports the task while confusing a domain classifier. Alignment is not a guarantee of target improvement.",
+      "checked": "2026-09-23"
     },
     {
       "id": "cal",
@@ -5631,7 +6060,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://proceedings.mlr.press/v70/guo17a.html",
       "year": "2017",
       "status": "ICML research paper",
-      "takeaway": "Temperature scaling is a post-training calibration method. Its evaluation needs separate data and a clearly defined target population."
+      "takeaway": "Temperature scaling is a post-training calibration method. Its evaluation needs separate data and a clearly defined target population.",
+      "checked": "2026-09-23"
     },
     {
       "id": "crowd",
@@ -5639,7 +6069,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://heasarc.gsfc.nasa.gov/docs/tess/UnderstandingCrowdingv2.html",
       "year": "Living documentation",
       "status": "NASA / HEASARC",
-      "takeaway": "Aperture contamination and nearby sources affect the inferred depth and host identity."
+      "takeaway": "Aperture contamination and nearby sources affect the inferred depth and host identity.",
+      "checked": "2026-09-23"
     },
     {
       "id": "dave",
@@ -5647,7 +6078,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://arxiv.org/abs/1901.07459",
       "year": "2019",
       "status": "Research paper",
-      "takeaway": "Automated diagnostic tests support human vetting; investigate morphology and source location instead of trusting one score."
+      "takeaway": "Automated diagnostic tests support human vetting; investigate morphology and source location instead of trusting one score.",
+      "checked": "2026-09-23"
     },
     {
       "id": "triage",
@@ -5655,39 +6087,72 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://arxiv.org/abs/2301.01371",
       "year": "2023",
       "status": "Research paper",
-      "takeaway": "Triage separates eclipsing/transiting signals from other variability in TESS FFI searches. Its positive class includes stellar eclipses; its precision is not planet purity."
+      "takeaway": "Triage separates eclipsing/transiting signals from other variability in TESS FFI searches. Its positive class includes stellar eclipses; its precision is not planet purity.",
+      "checked": "2026-09-23"
     },
     {
       "id": "exominer",
       "title": "Valizadegan et al. · ExoMiner++",
       "url": "https://arxiv.org/abs/2502.09790",
       "year": "2025",
-      "status": "Research paper / linked arXiv version",
-      "takeaway": "Combines Kepler and TESS training with diagnostic inputs including periodograms, trends, difference images, unfolded flux and spacecraft attitude. It classifies existing transit signals, providing candidates for follow-up."
+      "status": "Published · AJ 170(5), 287",
+      "takeaway": "Diagnostic-rich classification of detected signals; 7,330 candidate-classified TCEs are not confirmed new planets.",
+      "checked": "2026-09-28",
+      "fullText": "https://arxiv.org/html/2502.09790v4",
+      "submitted": "2025-02-13",
+      "revised": "2025-05-19",
+      "version": "v4",
+      "evidenceType": "Candidate vetting and catalog",
+      "accessNote": "Abstract/full-text unlabeled-TCE totals differ by one; the tour uses about 148,000.",
+      "published": "2025-11-03",
+      "earlyOnline": "2025-10-28",
+      "publicationUrl": "https://research.birmingham.ac.uk/en/publications/exominer-enhanced-transit-classification-and-a-new-vetting-catalo/",
+      "accessed": "2026-09-28"
     },
     {
       "id": "transformer",
-      "title": "Salinas et al. · Transformer search of TESS FFIs",
+      "title": "Salinas et al. · Transformer search of TESS light curves",
       "url": "https://arxiv.org/abs/2502.07542",
       "year": "2025",
-      "status": "MNRAS research paper",
-      "takeaway": "Processes unfolded light curves with background and centroid time series, without an input ephemeris. Its reported new systems are candidates, including single-transit events."
+      "status": "Published · MNRAS 538(3)",
+      "takeaway": "Unfolded flux, background and centroids support a search yielding 214 candidate systems, not 214 confirmed planets.",
+      "checked": "2026-09-28",
+      "submitted": "2025-02-11",
+      "revised": "2025-03-07",
+      "version": "v2",
+      "evidenceType": "Ephemeris-free candidate search",
+      "issueDate": "2025-04",
+      "accessed": "2026-09-28"
     },
     {
       "id": "raven",
       "title": "Hadjigeorghiou et al. · RAVEN framework",
       "url": "https://arxiv.org/abs/2509.17645",
       "year": "2025",
-      "status": "Research manuscript",
-      "takeaway": "Combines simulated astrophysical scenarios, classifiers and priors in a Bayesian validation framework. Its stated scope includes periods 0.5–16 days and depths above 300 ppm."
+      "status": "Submitted to MNRAS in inspected record",
+      "takeaway": "Classifiers and priors compare planetary and false-positive scenarios within a stated selection.",
+      "checked": "2026-09-28",
+      "submitted": "2025-09-22",
+      "version": "v1",
+      "evidenceType": "Scenario-based validation framework",
+      "accessed": "2026-09-28"
     },
     {
       "id": "raven26",
-      "title": "Lafarga et al. · Automatic TESS-SPOC FFI search with RAVEN",
+      "title": "Lafarga et al. · TESS-SPOC FFI search with RAVEN",
       "url": "https://arxiv.org/abs/2603.22597",
       "year": "2026",
-      "status": "2026 manuscript; use linked record for publication updates",
-      "takeaway": "Reports a search over 2.2 million stars, over 2,000 vetted candidates and 118 newly validated planets, within its stated selection and validation scope. It is evidence that automated search plus vetting already exists."
+      "status": "Published · MNRAS 548(3), stag512",
+      "takeaway": "118 newly statistically validated planets, including 31 newly detected here, are distinct from over 2,000 unvalidated candidates.",
+      "checked": "2026-09-28",
+      "submitted": "2026-03-23",
+      "revised": "2026-04-24",
+      "version": "v2",
+      "evidenceType": "Survey search and statistical validation",
+      "published": "2026-03-25",
+      "issueDate": "2026-05",
+      "publicationUrl": "https://academic.oup.com/mnras/article/548/3/stag512/8528996",
+      "accessed": "2026-09-28"
     },
     {
       "id": "lightkurve",
@@ -5695,7 +6160,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://lightkurve.github.io/lightkurve/tutorials/",
       "year": "Living documentation",
       "status": "Official project tutorials",
-      "takeaway": "Worked Python workflows for mission light curves, pixels, flattening and transit searches. Record package versions when reproducing."
+      "takeaway": "Worked Python workflows for mission light curves, pixels, flattening and transit searches. Record package versions when reproducing.",
+      "checked": "2026-09-23"
     },
     {
       "id": "numpy",
@@ -5703,7 +6169,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://numpy.org/doc/stable/user/absolute_beginners.html",
       "year": "Living documentation",
       "status": "Official documentation",
-      "takeaway": "Arrays, shapes, indexing and vectorized operations underlying the project’s preprocessing and model inputs."
+      "takeaway": "Arrays, shapes, indexing and vectorized operations underlying the project’s preprocessing and model inputs.",
+      "checked": "2026-09-23"
     },
     {
       "id": "torch",
@@ -5711,7 +6178,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://docs.pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html",
       "year": "Living documentation",
       "status": "Official documentation",
-      "takeaway": "How tensors record a computation graph and gradients drive parameter updates."
+      "takeaway": "How tensors record a computation graph and gradients drive parameter updates.",
+      "checked": "2026-09-23"
     },
     {
       "id": "attention",
@@ -5719,7 +6187,8 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://arxiv.org/abs/1706.03762",
       "year": "2017",
       "status": "Research paper",
-      "takeaway": "Defines attention and the Transformer architecture; applying it to astronomy still requires appropriate time encoding, masks, data and evaluation."
+      "takeaway": "Defines attention and the Transformer architecture; applying it to astronomy still requires appropriate time encoding, masks, data and evaluation.",
+      "checked": "2026-09-23"
     },
     {
       "id": "exofop",
@@ -5727,23 +6196,38 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://exofop.ipac.caltech.edu/tess/help.php",
       "year": "Checked 2026-09-23",
       "status": "Official service documentation",
-      "takeaway": "Check current upload permissions and Community Candidate publication requirements before submission. A catalog entry is not confirmation."
+      "takeaway": "Check current upload permissions and Community Candidate publication requirements before submission. A catalog entry is not confirmation.",
+      "checked": "2026-09-23",
+      "accessNote": "Fresh access on 2026-09-28 was unsuccessful; consult the current official requirements."
     },
     {
       "id": "exoveil",
       "title": "Priyanshu · EXOVEIL",
       "url": "https://arxiv.org/abs/2606.02778",
-      "year": "June 2026",
-      "status": "Preprint; not an independently verified benchmark",
-      "takeaway": "Studies transit-masked self-supervised stellar prediction, residual matched filtering and a boosted-tree vetter. Its reported recovery on 47 confirmed TESS planets is a selected-control result, not survey-wide completeness."
+      "year": "2026",
+      "status": "Preprint; no journal acceptance established",
+      "takeaway": "47/47 selected TESS recoveries and 179 Kepler transit-like anomalies are separate evaluations, not survey completeness or confirmed discoveries.",
+      "checked": "2026-09-28",
+      "fullText": "https://arxiv.org/html/2606.02778v3",
+      "submitted": "2026-06-01",
+      "revised": "2026-06-10",
+      "version": "v3",
+      "evidenceType": "Reported search and selected-control recovery",
+      "accessed": "2026-09-28"
     },
     {
       "id": "hunters",
       "title": "Eldin · Astro-Hunters",
       "url": "https://arxiv.org/abs/2608.18172",
-      "year": "August 2026",
-      "status": "Preprint; small study",
-      "takeaway": "Examines label provenance for per-cadence TESS classification using twelve confirmed hosts and star-disjoint comparisons. Useful for studying circular labels and time-conversion errors, not a universal architecture ranking."
+      "year": "2026",
+      "status": "Preprint; no journal acceptance established",
+      "takeaway": "189,279 cadences from twelve hosts: label circularity and time conversion can dominate architecture differences.",
+      "checked": "2026-09-28",
+      "fullText": "https://arxiv.org/html/2608.18172v1",
+      "submitted": "2026-08-17",
+      "version": "v1",
+      "evidenceType": "Label-provenance ablation",
+      "accessed": "2026-09-28"
     },
     {
       "id": "conformal",
@@ -5751,7 +6235,151 @@ window.ACADEMY_CURRICULUM = {
       "url": "https://arxiv.org/abs/2107.07511",
       "year": "2021",
       "status": "Methods tutorial",
-      "takeaway": "Prediction sets or intervals can have marginal coverage under assumptions such as exchangeability. Distribution shift and conditional coverage require care."
+      "takeaway": "Prediction sets or intervals can have marginal coverage under assumptions such as exchangeability. Distribution shift and conditional coverage require care.",
+      "checked": "2026-09-23"
+    },
+    {
+      "id": "btsbot",
+      "title": "Rehemtulla et al. · BTSbot architecture",
+      "url": "https://arxiv.org/abs/2401.15167",
+      "year": "2024",
+      "submitted": "2024-01-26",
+      "status": "Published · ApJ 972, 7",
+      "evidenceType": "Model and operational workflow",
+      "takeaway": "Image and scalar evidence can drive a defined bright-transient follow-up policy.",
+      "published": "2024-08-21",
+      "issueDate": "2024-09",
+      "publicationUrl": "https://sites.astro.caltech.edu/ztf/bts/bts.php",
+      "fullText": "https://researchonline.ljmu.ac.uk/24472/1/The%20Zwicky%20Transient%20Facility%20Bright%20Transient%20Survey.%20III.%20BTSbot%20Automated%20Identification%20and%20Follow-up%20of%20Bright%20Transients%20with%20Deep%20Learning.pdf",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
+    },
+    {
+      "id": "btsbot-nearby",
+      "title": "Rehemtulla et al. · BTSbot-nearby and SN 2024jlf",
+      "url": "https://arxiv.org/abs/2501.18686",
+      "fullText": "https://arxiv.org/html/2501.18686v2",
+      "year": "2025 paper / 2024 event",
+      "submitted": "2025-01-30",
+      "revised": "2025-04-21",
+      "version": "v2",
+      "eventDate": "2024-05-28",
+      "status": "Published · ApJ 985, 241",
+      "evidenceType": "Demonstrated autonomous follow-up",
+      "takeaway": "Seven minutes measures request-to-observation latency, not time since explosion.",
+      "published": "2025-05-29",
+      "issueDate": "2025-06",
+      "publicationUrl": "https://researchdiscovery.drexel.edu/esploro/outputs/journalArticle/The-BTSbot-nearby-Discovery-of-SN-2024jlf/991022055174904721",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
+    },
+    {
+      "id": "btsbot-2023",
+      "title": "Northwestern · the SN 2023tyk automated chain",
+      "url": "https://news.northwestern.edu/stories/2023/10/first-supernova-detected-confirmed-classified-and-shared-by-ai",
+      "year": "2023 historical context",
+      "published": "2023-10-13",
+      "eventDate": "2023-10-03 to 2023-10-07",
+      "status": "Responsible-institution report",
+      "evidenceType": "Historical operational milestone",
+      "takeaway": "Detection, selection, spectroscopy, classification and reporting were linked stages.",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
+    },
+    {
+      "id": "rubin-alerts",
+      "title": "Rubin Observatory · first scientific alerts",
+      "url": "https://rubinobservatory.org/news/first-alerts",
+      "year": "2026",
+      "published": "2026-02-25",
+      "eventDate": "2026-02-24",
+      "status": "Official observatory release",
+      "evidenceType": "Measured alert milestone",
+      "takeaway": "800,000 alerts in the reported night; seven million nightly was an eventual forecast.",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
+    },
+    {
+      "id": "rubin-brokers",
+      "title": "Rubin Observatory · alerts and brokers",
+      "url": "https://rubinobservatory.org/for-scientists/data-products/alerts-and-brokers",
+      "year": "Living documentation",
+      "updated": "2026-07-03",
+      "status": "Official observatory documentation",
+      "evidenceType": "System roles, not comparative performance",
+      "takeaway": "Brokers enrich and select alert packets; follow-up observations require further action.",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
+    },
+    {
+      "id": "exominer-nasa",
+      "title": "NASA · ExoMiner++ moves into TESS data",
+      "url": "https://science.nasa.gov/open-science/deep-learning-exoplanets-tess/",
+      "year": "2026 coverage of 2025 work",
+      "published": "2026-01-22",
+      "status": "Responsible-institution article",
+      "evidenceType": "Publication context and follow-up caveat",
+      "takeaway": "The news date is distinct from the model's manuscript date; candidates still need follow-up.",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
+    },
+    {
+      "id": "desi-vae",
+      "title": "Nicolaou et al. · anomalous DESI spectra with a VAE",
+      "url": "https://arxiv.org/abs/2506.17376",
+      "fullText": "https://arxiv.org/html/2506.17376v2",
+      "year": "2025–2026",
+      "submitted": "2025-06-20",
+      "revised": "2026-03-11",
+      "published": "2026-01-07",
+      "version": "v2",
+      "status": "Published · MNRAS 547(2)",
+      "evidenceType": "Anomaly detection with human review",
+      "takeaway": "Reconstruction and latent-space outliers include artifacts as well as physically unusual spectra.",
+      "issueDate": "2026-04",
+      "publicationUrl": "https://academic.oup.com/mnras/article/547/2/stag010/8416432",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
+    },
+    {
+      "id": "galaxy-byol",
+      "title": "Mohale & Lochner · self-supervised galaxy representations",
+      "url": "https://arxiv.org/abs/2311.14157",
+      "year": "2023–2024 context",
+      "submitted": "2023-11-23",
+      "revised": "2024-04-19",
+      "status": "Published · MNRAS 530(1)",
+      "evidenceType": "Image representation and anomaly search",
+      "takeaway": "Learning without morphology labels supports clustering and merger-candidate review, not automatic physical validation.",
+      "issueDate": "2024-05",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
+    },
+    {
+      "id": "decision-ai",
+      "title": "Bom et al. · decision-aware time-domain AI",
+      "url": "https://arxiv.org/abs/2606.05285",
+      "year": "2026",
+      "submitted": "2026-06-03",
+      "version": "v1",
+      "status": "Submitted Perspective; proposed framework",
+      "evidenceType": "Conceptual agenda, not deployed performance",
+      "takeaway": "Evaluate follow-up by scientific value, uncertainty and resource constraints under human supervision.",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
+    },
+    {
+      "id": "desc-ai",
+      "title": "LSST DESC · opportunities in AI/ML",
+      "url": "https://arxiv.org/abs/2601.14235",
+      "year": "2026",
+      "submitted": "2026-01-20",
+      "version": "v1.0",
+      "status": "Collaboration white paper; not planned for journal submission",
+      "evidenceType": "Application survey and research agenda",
+      "takeaway": "Photometric redshifts, lensing and simulations share uncertainty and domain-shift challenges.",
+      "checked": "2026-09-28",
+      "accessed": "2026-09-28"
     }
   ],
   "glossary": [
@@ -5992,89 +6620,703 @@ window.ACADEMY_CURRICULUM = {
     }
   ],
   "project": {
-    "updated": "2026-09-23",
-    "metrics": [
-      [
-        "TESS only",
-        "0.7474",
-        "0.0131"
+    "checked": "2026-09-28",
+    "metric_policy": {
+      "classification": "Compare methods only within a named cohort. AP and ROC AUC describe ranking; accuracy uses threshold 0.5. Brier/NLL depend on calibration. None is a blind planet-confirmation probability.",
+      "detector": "Incremental one-to-one matched injected events, removing original-curve matches. Host denominator remains all registered hosts; event denominator is the protocol retained injected-event count. Control rate = inverted alerts / summed exposure_days * 27.",
+      "uncertainty": "Small fresh samples and reused audits do not establish universal superiority. Paired p-values are unadjusted. Model seed SD is not a confidence interval for planet probability."
+    },
+    "deployment": {
+      "model_name": "frozen_Kepler_shared_v1_CNN_seed42",
+      "class": "scripts.research.scoring.FrozenScorer",
+      "authoritative_evidence_kind": "model_score",
+      "checkpoint_path": "outputs/shared_cnn/kepler/dataset_kepler_shared_v1_cnn_20260915_080811/best_model.pt",
+      "checkpoint_sha256": "7890efd17fc072efb74465a9fbfa6fb8b0192388d91af520961349f0066ba703",
+      "normalizer_path": "data/processed/kepler/shared_v1/kepler_train_normalization.npz",
+      "normalizer_sha256": "6f4ac773f6f2dd6c2200e68b903acb0c7a3f585a593ac2d882c03af03c705dc1",
+      "input_contract": {
+        "name": "shared_v1",
+        "global_bins": 200,
+        "local_bins": 100,
+        "scalar_features": 7,
+        "flat_features": 907,
+        "normalization": "frozen Kepler TRAIN moments"
+      },
+      "semantics": "sigmoid_ranking_score_not_planet_confirmation_probability",
+      "calibration": "not_calibrated_for_blind_search",
+      "source_validation_threshold": 0.7849999999999999,
+      "threshold_use": "recorded_source_validation_F1_only_not_a_search_gate",
+      "limits": [
+        "Records prove completed scoring on 2026-09-26, not a new scoring event on 2026-09-28.",
+        "Experimental comparison scores are appended separately and do not replace authoritative model_score.",
+        "No deployed Transformer, nonlinear stack, neural localizer v3 or recovery hybrid is established by these records."
       ],
-      [
-        "Fresh Kepler only",
-        "0.5588",
-        "0.0315"
+      "latest_completed_score_at": "2026-09-26T22:54:24.879009Z"
+    },
+    "watcher": {
+      "as_of_utc": "2026-09-28T13:57:36.139457+00:00",
+      "selected_target_count": 18,
+      "scope": "bounded_sample_of_public_TESS_SPOC_observations",
+      "archive_wide_complete": false,
+      "exhausted_reason": "target_selection_full",
+      "correction": "Two fixed control stars describe the September 23 historical setup. Current schema-2 archival_pilot discovers a bounded sample, capped at 18 selected targets, with two products per cycle and a six-hour configured interval. Selection full does not mean the whole archive has been searched.",
+      "schema_version": 2,
+      "cohort": "archival_pilot",
+      "poll_seconds": 21600,
+      "max_products_per_cycle": 2
+    },
+    "historical_dann": {
+      "source": "results/mission_adaptation_pilot/summary.json",
+      "generated_at": "2026-09-23T16:02:43.503039Z",
+      "audit_rows": 82,
+      "audit_host_groups": 79,
+      "seeds": [
+        42,
+        43,
+        44
       ],
-      [
-        "Kepler → TESS fine-tuning",
-        "0.7644",
-        "0.0180"
+      "updates_per_fit": 120,
+      "fits": 15,
+      "methods": {
+        "dann": {
+          "mean": 0.6933715821549344,
+          "sd": 0.00027602448669550143,
+          "values": [
+            0.693401393985691,
+            0.6936314906465944,
+            0.6930818618325181
+          ]
+        },
+        "fine_tuned": {
+          "mean": 0.7644444642874241,
+          "sd": 0.01795150409809908,
+          "values": [
+            0.7465778541315504,
+            0.7824796746899395,
+            0.7642758640407821
+          ]
+        },
+        "kepler_only": {
+          "mean": 0.5587534468305261,
+          "sd": 0.03147136678270309,
+          "values": [
+            0.5837345714469147,
+            0.5234067149647096,
+            0.569119054079954
+          ]
+        },
+        "pooled": {
+          "mean": 0.7067378374650864,
+          "sd": 0.012438511854217887,
+          "values": [
+            0.7167731835738648,
+            0.7106187850063452,
+            0.6928215438150493
+          ]
+        },
+        "tess_only": {
+          "mean": 0.7473523036732489,
+          "sd": 0.013121909794847605,
+          "values": [
+            0.7327392337031513,
+            0.7511906754267164,
+            0.7581270018898789
+          ]
+        }
+      },
+      "comparison_inference": {
+        "saved_proposals": 44,
+        "real_known_object_controls": 17,
+        "synthetic_or_transformed_controls": 27,
+        "date": "2026-09-23"
+      },
+      "limits": [
+        "Known catalog ephemerides; not blind recovery",
+        "Short budgets; no convergence claim",
+        "Validation-derived audit; previously consulted benchmark is not an untouched test",
+        "TESS-only weights share frozen Kepler TRAIN normalization",
+        "Kepler-only selects and calibrates on Kepler; other arms on TESS",
+        "Empirical labelled-negative FPR is not survey false-alarm calibration",
+        "DANN uses both missions' labels; no unsupervised-adaptation claim",
+        "Mission head accuracy alone does not prove invariant representations",
+        "Calibrated scores are not planet confirmation probabilities"
       ],
-      [
-        "Pooled",
-        "0.7067",
-        "0.0124"
+      "decision": "Historical short-budget fine-tuning has highest mean AP; DANN benefit was not demonstrated. Fresh Kepler-only arm is not the older deployed frozen CNN. Retain as historical evidence, not current full leaderboard."
+    },
+    "reused_classifier": {
+      "source": "results/crossfit_supermodel_v2/summary.json",
+      "generated_at": "2026-09-28T05:10:47.813175Z",
+      "audit_rows": 82,
+      "positive": 44,
+      "negative": 38,
+      "partitions_rows": {
+        "audit": 82,
+        "calibration": 81,
+        "selection": 162,
+        "train": 538
+      },
+      "experts": [
+        "tess_only",
+        "kepler_only",
+        "fine_tuned",
+        "pooled",
+        "dann",
+        "transformer",
+        "transit_morphology",
+        "stellar_variability",
+        "tls",
+        "aperture_photometry",
+        "difference_image"
       ],
-      [
-        "Supervised DANN",
-        "0.6934",
-        "0.0003"
-      ]
-    ],
-    "evidence": [
-      [
-        "Shared preprocessing",
-        "scripts/data/shared_preprocessing.py"
+      "selected_configuration": {
+        "blend": 0.5,
+        "l2_regularization": 10.0,
+        "max_leaf_nodes": 7,
+        "selection_average_precision": 0.8818776174128418,
+        "selection_brier": 0.1502933668257696,
+        "selection_nll": 0.4736246565941875
+      },
+      "limits": [
+        "The audit is validation-derived and was consulted by earlier experiments",
+        "Selection labels choose tree complexity, regularization and blend strength",
+        "Physical experts use known catalog ephemerides on these labelled examples",
+        "A new frozen host-disjoint evaluation is required for a paper-level claim"
       ],
-      [
-        "Adaptation experiment",
-        "scripts/experiments/mission_adaptation.py"
+      "decision": "Nonlinear eleven-expert stack leads these AP/AUC comparisons on a reused development/audit cohort. This is not independent confirmation or deployment justification.",
+      "methods": {
+        "crossfit_nonlinear": {
+          "average_precision": 0.8716273788620068,
+          "roc_auc": 0.832535885167464,
+          "n": 82
+        },
+        "stellar_variability": {
+          "average_precision": 0.8630833445673054,
+          "roc_auc": 0.819377990430622,
+          "n": 82
+        },
+        "v4_static_stack": {
+          "average_precision": 0.8613152514966733,
+          "roc_auc": 0.8086124401913876,
+          "n": 82
+        }
+      }
+    },
+    "fresh_classifier": {
+      "source": "outputs/research/fresh_classifier_audit/audit-v1/summary.json",
+      "completed_at": "2026-09-28T13:27:30.382396Z",
+      "registered_candidates": 295,
+      "accepted_candidates": 14,
+      "positive": 3,
+      "negative": 11,
+      "acquisition": {
+        "source": "outputs/research/fresh_classifier_audit/audit-v1/preparation.json",
+        "json_pointer": "/audit",
+        "statuses": {
+          "rejected": 281,
+          "accepted": 14
+        },
+        "rejection_reasons": {
+          "no_public_120s_product": 281
+        },
+        "available_passed_unchanged_preparation": 14,
+        "registered_coverage_fraction": 0.04745762711864407
+      },
+      "calibration_caveat": "Supermodel Brier/NLL use frozen temperature 0.836210480795994; comparator Brier/NLL use raw logits. AP/AUC rank logits. Do not call this a matched-calibration superiority result.",
+      "limits": [
+        "Archive availability and unchanged coverage rules restrict this cohort.",
+        "A small, imbalanced audit cannot establish a general superiority claim.",
+        "Labels are catalog dispositions from a pinned snapshot, not independent follow-up.",
+        "Latest three LC sectors and one pixel sector per host; known ephemerides."
       ],
+      "claims": {
+        "deployed": false,
+        "large_confirmatory_audit": false,
+        "new_host_validation": true,
+        "weights_or_thresholds_tuned": false
+      },
+      "decision": "Static v4 ranks all 3 positives above 11 negatives (AP/AUC 1); nonlinear has 13/14 correct versus 12/14 for v4 at 0.5. Ranking and threshold accuracy answer different questions; cohort is too small and coverage-selected for a general winner.",
+      "methods": {
+        "crossfit_supermodel": {
+          "average_precision": 0.8333333333333333,
+          "roc_auc": 0.9090909090909091,
+          "brier": 0.10674314753925308,
+          "n": 14,
+          "correct_at_0_5": 13,
+          "at_0_5": {
+            "fn": 1,
+            "fp": 0,
+            "fpr": 0.0,
+            "precision": 1.0,
+            "recall": 0.6666666666666666,
+            "selected": 2,
+            "threshold": 0.5,
+            "tn": 11,
+            "tp": 2
+          },
+          "calibration": "Frozen temperature 0.836210480795994"
+        },
+        "v4_static": {
+          "average_precision": 1.0,
+          "roc_auc": 1.0,
+          "brier": 0.1351477895434869,
+          "n": 14,
+          "correct_at_0_5": 12,
+          "at_0_5": {
+            "fn": 2,
+            "fp": 0,
+            "fpr": 0.0,
+            "precision": 1.0,
+            "recall": 0.3333333333333333,
+            "selected": 1,
+            "threshold": 0.5,
+            "tn": 11,
+            "tp": 1
+          },
+          "calibration": "Raw logits (no matched temperature fit)"
+        }
+      }
+    },
+    "physical_benchmark": {
+      "source": "outputs/research/ai_telescope/physical-benchmark-v1/summary.json",
+      "completed_at": "2026-09-28T12:53:26.563870Z",
+      "registered_hosts": 90,
+      "observable_hosts": 85,
+      "injected_events": 330,
+      "calibration_hosts": 78,
+      "limits": [
+        "Physical limb-darkened circular transit model with synthetic stellar density, fixed limb darkening and empirical static PSF; not real planet discoveries.",
+        "One sector per host; no established background-source rejection, eclipsing-binary rejection or multi-sector sensitivity.",
+        "Inverted-control alerts per exposure are not a survey astrophysical false-positive rate.",
+        "Event matching within half true duration is not necessarily correct orbital-period recovery, especially for single-transit TLS matches.",
+        "Read sensitivity and control burden together; no universal winner across classifier and detector tasks."
+      ],
+      "claims": {
+        "model_training_or_tuning_on_evaluation": false,
+        "planet_classification": false,
+        "survey_false_positive_rate": false,
+        "watcher_deployed": false
+      },
+      "decision": "Original physical audit: v3 fails the budget of 1 control alert/27 exposure-days; v3-v2 host recovery difference not conclusive (paired exact p=0.21875). TLS equals v3 host count and has more event recoveries.",
+      "methods": {
+        "bls": {
+          "incremental_hosts": 1,
+          "incremental_events": 1,
+          "inverted_alerts": 0,
+          "inverted_alerts_per_27_days": 0.0,
+          "control_exposure_days_recomputed": 2070.8886979429517
+        },
+        "tls": {
+          "incremental_hosts": 17,
+          "incremental_events": 88,
+          "inverted_alerts": 45,
+          "inverted_alerts_per_27_days": 0.5867046361336945,
+          "control_exposure_days_recomputed": 2070.8886979429517
+        },
+        "v2": {
+          "incremental_hosts": 13,
+          "incremental_events": 34,
+          "inverted_alerts": 69,
+          "inverted_alerts_per_27_days": 0.8996137754049984,
+          "control_exposure_days_recomputed": 2070.8886979429517
+        },
+        "v3": {
+          "incremental_hosts": 17,
+          "incremental_events": 44,
+          "inverted_alerts": 105,
+          "inverted_alerts_per_27_days": 1.368977484311954,
+          "control_exposure_days_recomputed": 2070.8886979429517
+        }
+      },
+      "thresholds": {
+        "bls": 100.0,
+        "tls": 8.0,
+        "v2": 0.9,
+        "v3": 0.86
+      },
+      "v3_v2_paired_p": 0.21875
+    },
+    "fresh_recovery": {
+      "source": "outputs/research/ai_telescope/recovery-v1/summary.json",
+      "completed_at": "2026-09-28T13:37:52.250186Z",
+      "registered_hosts": 99,
+      "observable_hosts": 96,
+      "injected_events": 326,
+      "calibration_hosts": 78,
+      "limits": [
+        "Physical limb-darkened circular transit model with synthetic stellar density, fixed limb darkening and empirical static PSF; not real planet discoveries.",
+        "One sector per host; no established background-source rejection, eclipsing-binary rejection or multi-sector sensitivity.",
+        "Inverted-control alerts per exposure are not a survey astrophysical false-positive rate.",
+        "Event matching within half true duration is not necessarily correct orbital-period recovery, especially for single-transit TLS matches.",
+        "Read sensitivity and control burden together; no universal winner across classifier and detector tasks."
+      ],
+      "claims": {
+        "classifier_validation": false,
+        "deployed": false,
+        "fresh_host_evaluation": true,
+        "hybrid_within_control_budget": true
+      },
+      "decision": "Recovery changes search and thresholds, not neural weights. Hybrid rejected. All methods miss all 25 registered 500-ppm injections; v3 single-transit 4/33, TLS 3/33 incidental event matches, not recovered single-transit periods.",
+      "methods": {
+        "bls_exact": {
+          "incremental_hosts": 0,
+          "incremental_events": 0,
+          "inverted_alerts": 0,
+          "inverted_alerts_per_27_days": 0.0,
+          "control_exposure_days_recomputed": 2199.044553302694
+        },
+        "hybrid": {
+          "incremental_hosts": 5,
+          "incremental_events": 17,
+          "inverted_alerts": 33,
+          "inverted_alerts_per_27_days": 0.4051759654718354,
+          "control_exposure_days_recomputed": 2199.044553302694
+        },
+        "single_event": {
+          "incremental_hosts": 2,
+          "incremental_events": 4,
+          "inverted_alerts": 34,
+          "inverted_alerts_per_27_days": 0.41745402503158796,
+          "control_exposure_days_recomputed": 2199.044553302694
+        },
+        "tls_exact": {
+          "incremental_hosts": 22,
+          "incremental_events": 105,
+          "inverted_alerts": 32,
+          "inverted_alerts_per_27_days": 0.3928979059120828,
+          "control_exposure_days_recomputed": 2199.044553302694
+        },
+        "v3_calibrated": {
+          "incremental_hosts": 21,
+          "incremental_events": 53,
+          "inverted_alerts": 14,
+          "inverted_alerts_per_27_days": 0.17189283383653622,
+          "control_exposure_days_recomputed": 2199.044553302694
+        },
+        "v3_original": {
+          "incremental_hosts": 21,
+          "incremental_events": 58,
+          "inverted_alerts": 27,
+          "inverted_alerts_per_27_days": 0.33150760811331986,
+          "control_exposure_days_recomputed": 2199.044553302694
+        }
+      },
+      "derived_comparison": {
+        "inverted_control_relative_reduction": 0.4814814814814815,
+        "formula": "1 - (14/27); both methods have the same summed control exposure",
+        "host_count_change": 0,
+        "event_count_change": -5,
+        "both_v3_mean_control_rates_below_budget_1": true,
+        "same_host_count_not_identical_hosts": true,
+        "calibrated_only_hosts": 1,
+        "original_only_hosts": 1
+      },
+      "by_depth": {
+        "0.0005": {
+          "bls_exact": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "hybrid": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "single_event": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "tls_exact": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "v3_calibrated": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "v3_original": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          }
+        },
+        "0.001": {
+          "bls_exact": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "hybrid": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "single_event": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "tls_exact": {
+            "registered_hosts": 25,
+            "incremental_hosts": 6
+          },
+          "v3_calibrated": {
+            "registered_hosts": 25,
+            "incremental_hosts": 4
+          },
+          "v3_original": {
+            "registered_hosts": 25,
+            "incremental_hosts": 3
+          }
+        },
+        "0.002": {
+          "bls_exact": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "hybrid": {
+            "registered_hosts": 25,
+            "incremental_hosts": 1
+          },
+          "single_event": {
+            "registered_hosts": 25,
+            "incremental_hosts": 0
+          },
+          "tls_exact": {
+            "registered_hosts": 25,
+            "incremental_hosts": 5
+          },
+          "v3_calibrated": {
+            "registered_hosts": 25,
+            "incremental_hosts": 5
+          },
+          "v3_original": {
+            "registered_hosts": 25,
+            "incremental_hosts": 5
+          }
+        },
+        "0.005": {
+          "bls_exact": {
+            "registered_hosts": 24,
+            "incremental_hosts": 0
+          },
+          "hybrid": {
+            "registered_hosts": 24,
+            "incremental_hosts": 4
+          },
+          "single_event": {
+            "registered_hosts": 24,
+            "incremental_hosts": 2
+          },
+          "tls_exact": {
+            "registered_hosts": 24,
+            "incremental_hosts": 11
+          },
+          "v3_calibrated": {
+            "registered_hosts": 24,
+            "incremental_hosts": 12
+          },
+          "v3_original": {
+            "registered_hosts": 24,
+            "incremental_hosts": 13
+          }
+        }
+      },
+      "by_mode": {
+        "periodic": {
+          "bls_exact": {
+            "registered_hosts": 33,
+            "incremental_hosts": 0
+          },
+          "hybrid": {
+            "registered_hosts": 33,
+            "incremental_hosts": 2
+          },
+          "single_event": {
+            "registered_hosts": 33,
+            "incremental_hosts": 1
+          },
+          "tls_exact": {
+            "registered_hosts": 33,
+            "incremental_hosts": 12
+          },
+          "v3_calibrated": {
+            "registered_hosts": 33,
+            "incremental_hosts": 8
+          },
+          "v3_original": {
+            "registered_hosts": 33,
+            "incremental_hosts": 7
+          }
+        },
+        "single": {
+          "bls_exact": {
+            "registered_hosts": 33,
+            "incremental_hosts": 0
+          },
+          "hybrid": {
+            "registered_hosts": 33,
+            "incremental_hosts": 1
+          },
+          "single_event": {
+            "registered_hosts": 33,
+            "incremental_hosts": 1
+          },
+          "tls_exact": {
+            "registered_hosts": 33,
+            "incremental_hosts": 3
+          },
+          "v3_calibrated": {
+            "registered_hosts": 33,
+            "incremental_hosts": 4
+          },
+          "v3_original": {
+            "registered_hosts": 33,
+            "incremental_hosts": 4
+          }
+        },
+        "ttv": {
+          "bls_exact": {
+            "registered_hosts": 33,
+            "incremental_hosts": 0
+          },
+          "hybrid": {
+            "registered_hosts": 33,
+            "incremental_hosts": 2
+          },
+          "single_event": {
+            "registered_hosts": 33,
+            "incremental_hosts": 0
+          },
+          "tls_exact": {
+            "registered_hosts": 33,
+            "incremental_hosts": 7
+          },
+          "v3_calibrated": {
+            "registered_hosts": 33,
+            "incremental_hosts": 9
+          },
+          "v3_original": {
+            "registered_hosts": 33,
+            "incremental_hosts": 10
+          }
+        }
+      },
+      "thresholds": {
+        "bls_exact": 231.95611061593218,
+        "hybrid_neural": 0.985,
+        "hybrid_single": 34.468068817779766,
+        "single_event": 32.73197682404179,
+        "tls_exact": 9.663561072185,
+        "v3_calibrated": 0.9,
+        "v3_original": 0.86
+      }
+    },
+    "continuous_history": {
+      "source": "results/ai_telescope_continuous_v3/README.md",
+      "cohort": "reused 79-host trapezoidal audit, 276 events; not the later physical benchmark",
+      "v2": {
+        "threshold": 0.9,
+        "hosts": 21,
+        "events": 41,
+        "control_rate_rounded": 0.745
+      },
+      "v3": {
+        "threshold": 0.86,
+        "hosts": 28,
+        "events": 53,
+        "control_rate_rounded": 0.517
+      },
+      "paired_exact_p_rounded": 0.092,
+      "limits": "Historical exploratory improvement. Do not compare percentages directly with stricter physical injection and one-to-one matching protocol. Later physical and fresh tests now exist; earlier README future-work lists are historical."
+    },
+    "rejected_routing": {
+      "behavioral_v4": {
+        "source": "results/behavioral_supermodel_v4/report.md",
+        "status": "did not beat strongest single expert on both declared audit metrics"
+      },
+      "diagnostic_v5": {
+        "source": "results/behavioral_supermodel_v5/report.md",
+        "status": "dynamic gate selected but did not beat static stack and strongest single expert on both declared metrics"
+      },
+      "crossfit_competence": {
+        "source": "results/crossfit_competence_v1/report.md",
+        "routing_strength": 0.0,
+        "status": "selection returned the static prior; not a successful adaptive router"
+      }
+    },
+    "baseline_calibration_resolution": {
+      "bls": {
+        "events_per_27_days": 0.9206593202856168,
+        "exact_empirical_threshold": 72.59677975066101,
+        "original_coarse_threshold": 100.0,
+        "scope": "calibration-only grid-resolution diagnostic; not an evaluated operating point"
+      },
+      "tls": {
+        "events_per_27_days": 0.9810304232551653,
+        "exact_empirical_threshold": 7.5604120902904,
+        "original_coarse_threshold": 8.0,
+        "scope": "calibration-only grid-resolution diagnostic; not an evaluated operating point"
+      }
+    },
+    "baseline_calibration_resolution_note": "Calibration-only exact old-budget boundaries were not evaluated by rescoring fresh/historical hosts. Exact score boundaries resolve grid mechanics, not low sensitivity from a conservative transfer margin.",
+    "reports": [
       [
-        "Finished pilot and limitations",
+        "Historical adaptation pilot",
         "results/mission_adaptation_pilot/README.md"
       ],
       [
-        "Comparison inference worker",
-        "scripts/research/model_comparison.py"
+        "Reused classifier audit",
+        "results/crossfit_supermodel_v2/report.md"
       ],
       [
-        "Website / watcher / backup guide",
-        "docs/website_guide.md"
+        "Fresh classifier audit",
+        "results/fresh_classifier_audit_v1/README.md"
       ],
       [
-        "Frozen backup guide",
-        "results/vetting_snapshot_20260923/README.md"
+        "Continuous v2 validation",
+        "results/ai_telescope_continuous_validation_v1/README.md"
+      ],
+      [
+        "Continuous v3 history",
+        "results/ai_telescope_continuous_v3/README.md"
+      ],
+      [
+        "Original physical benchmark",
+        "results/ai_telescope_physical_benchmark_v1/README.md"
+      ],
+      [
+        "Fresh recovery study",
+        "results/ai_telescope_recovery_v1/README.md"
+      ],
+      [
+        "Consolidated limitations",
+        "results/research_fixes_v1/README.md"
       ]
     ],
     "stages": [
       [
         "Archive products",
-        "Two configured TESS control targets; new public SPOC products checked every six hours.",
+        "18 selected archival targets in the 28 September snapshot; six-hour polling and two products per cycle.",
         "operations"
       ],
       [
         "Clean and detect",
-        "Documented preprocessing and BLS proposals; aliases and correlated noise remain important.",
+        "Watcher BLS proposals; offline localizer and physical-injection studies remain research-only.",
         "fold"
       ],
       [
         "Build model inputs",
-        "shared_v1 global/local arrays + seven scalars; frozen training normalizer.",
+        "shared_v1 global/local arrays + seven scalars; frozen Kepler training normalization.",
         "contract"
       ],
       [
         "Rank and compare",
-        "Original reference CNN stays primary; five approaches × three seeds append comparison evidence.",
+        "Frozen Kepler CNN stays authoritative; appended comparison evidence does not replace it.",
         "results"
       ],
       [
         "Check and review",
-        "Catalog checks and a human-vetting dossier; incomplete source-location and validation evidence.",
+        "Inspect aliases, source location and catalog context; model rank does not validate a planet.",
         "vetter"
       ],
       [
         "Preserve and investigate",
-        "Live database and referenced files; explicit verified backup and independent scientific follow-up.",
+        "Keep dated results, live dossiers and proposed experiments distinct.",
         "reproduce"
       ]
     ]

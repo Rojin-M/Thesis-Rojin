@@ -1,0 +1,11 @@
+{
+  "completed_at": "2026-09-27T17:57:08.798840Z",
+  "files": {
+    "fusion_model.pt": "95e1d0618f6a0ece382cbdff6816bdaffdc3b6463e40e9a8dd31ec66ebf9498e",
+    "report.md": "8359d24b104e353c758dbecd93fc1fd45d972a7d3d7a7911b382e664369e6eb1",
+    "spec.json": "26ce47ade56fcc71b66798a0fe5003ca946f071b649af3414097e3dc6cded9b7",
+    "summary.json": "b38e62833c53d2cbd63da70e98343abe0f5a209ed0a4bb54d2bf40751b18f20e"
+  },
+  "spec_sha256": "1de60a322c103cf347dfc9a3834711bbe2a9209d08b367be76bd8204ef9f267c",
+  "status": "complete"
+}

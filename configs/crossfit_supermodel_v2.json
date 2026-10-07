@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "max_leaf_nodes_grid": [7, 15, 31],
+  "l2_regularization_grid": [1.0, 10.0, 100.0],
+  "blend_grid": [0.0, 0.05, 0.1, 0.2, 0.35, 0.5, 0.75, 1.0],
+  "max_iterations": 150,
+  "learning_rate": 0.05,
+  "minimum_leaf_samples": 20,
+  "random_seed": 331,
+  "cpu_threads": 2
+}

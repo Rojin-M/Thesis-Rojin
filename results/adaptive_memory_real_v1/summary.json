@@ -1,0 +1,1843 @@
+{
+  "claims": {
+    "outperformance_established": false,
+    "real_cached_photometry": true,
+    "search_ready": false,
+    "survey_false_alarm_calibrated": false,
+    "titans_or_hope_reproduction": false,
+    "tls_run": false
+  },
+  "generated_at": "2026-09-27T18:11:40.152056Z",
+  "injections": {
+    "depths": [
+      0.0005,
+      0.002,
+      0.008
+    ],
+    "duration_hours": 2.4,
+    "periods_days": [
+      2.731,
+      5.173
+    ],
+    "placement": "multiplicative_box_before_normalization_memory_detrending_and_BLS"
+  },
+  "limitations": [
+    "One selected TESS TRAIN target and six injections are an engineering comparison, not a held-out survey estimate",
+    "The 7.1 white-noise S/N value is descriptive and does not establish a false-alarm rate",
+    "Known astrophysical signals remain in the injection curves",
+    "TLS dependency and adapter are absent",
+    "The memory prototype is Titans/HOPE-inspired, not a reproduction"
+  ],
+  "memory_config": {
+    "fast_baseline_rate": 0.08,
+    "forgetting": 0.0005,
+    "gradient_clip": 5.0,
+    "learning_rates": [
+      0.08,
+      0.02,
+      0.005
+    ],
+    "momentum": 0.8,
+    "protection_hold": 3,
+    "protection_sigma": 3.5,
+    "scale_rate": 0.02,
+    "slow_baseline_rate": 0.008,
+    "warmup": 64
+  },
+  "rows": [
+    {
+      "depth": 0.0005,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.27699598491854,
+            "depth_snr_white": 98.68890662371278,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.30265750020453197,
+            "harmonic_relation": null,
+            "period_days": 1.4304458965886524,
+            "rank": 1,
+            "relative_period_error": 0.47621900527694894,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 9.578116055929197,
+            "depth_snr_white": 6.050256458262108,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.8479700002046685,
+            "harmonic_relation": null,
+            "period_days": 1.792771340923904,
+            "rank": 2,
+            "relative_period_error": 0.34354765985942726,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 21.803015935452187,
+            "depth_snr_white": 3.93131826992976,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.07681799306139797,
+            "harmonic_relation": null,
+            "period_days": 0.5952757839344697,
+            "rank": 3,
+            "relative_period_error": 0.7820301047475394,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.0005,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "raw",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 98.68890662371278
+    },
+    {
+      "depth": 0.0005,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.2769651499342,
+            "depth_snr_white": 85.9096991442462,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.30265750020453197,
+            "harmonic_relation": null,
+            "period_days": 1.430448917043389,
+            "rank": 1,
+            "relative_period_error": 0.47621789928839653,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 9.551414275197248,
+            "depth_snr_white": 5.585327307623906,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.8698450002045773,
+            "harmonic_relation": null,
+            "period_days": 1.7953869258452804,
+            "rank": 2,
+            "relative_period_error": 0.34258992096474533,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 16.77616766295856,
+            "depth_snr_white": 4.928824898701526,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.43286740359440046,
+            "harmonic_relation": null,
+            "period_days": 1.087682963649222,
+            "rank": 3,
+            "relative_period_error": 0.6017272194620205,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.0005,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "frozen",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 85.9096991442462
+    },
+    {
+      "depth": 0.0005,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.271032132567292,
+            "depth_snr_white": 13.688976625042677,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.3354700002046229,
+            "harmonic_relation": null,
+            "period_days": 1.4310300884236402,
+            "rank": 1,
+            "relative_period_error": 0.4760050939496008,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 22.037145217204596,
+            "depth_snr_white": 5.893136153670966,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22796308981625124,
+            "harmonic_relation": null,
+            "period_days": 0.5723415450104143,
+            "rank": 2,
+            "relative_period_error": 0.7904278487695298,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.0005,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "adaptive",
+      "period_days": 2.731,
+      "proposal_count": 2,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 13.688976625042677
+    },
+    {
+      "depth": 0.0005,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.27774626273652,
+            "depth_snr_white": 50.298225977680815,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.30265750020453186,
+            "harmonic_relation": null,
+            "period_days": 1.4303724027880984,
+            "rank": 1,
+            "relative_period_error": 0.47624591622552237,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 22.1236251002507,
+            "depth_snr_white": 5.798712691422994,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.27352073826535744,
+            "harmonic_relation": null,
+            "period_days": 0.5638703692349675,
+            "rank": 2,
+            "relative_period_error": 0.7935297073471375,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 0.07513015458519252,
+            "depth_snr_white": 5.5884737184717945,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 1.1591105921767904,
+            "harmonic_relation": null,
+            "period_days": 2.7236405919722584,
+            "rank": 3,
+            "relative_period_error": 0.0026947667622634524,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.0005,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "protected",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.03671481724666229,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 50.298225977680815
+    },
+    {
+      "depth": 0.002,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.27699598491854,
+            "depth_snr_white": 98.71600520817704,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.30265750020453197,
+            "harmonic_relation": null,
+            "period_days": 1.4304458965886524,
+            "rank": 1,
+            "relative_period_error": 0.47621900527694894,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.022508499464321638,
+            "depth_snr_white": 12.767984205440742,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.006717499795513504,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.022526686032259095,
+              "epoch_separation_days": 0.006717499795513504,
+              "period_ratio": 1.0
+            },
+            "period_days": 2.728795169828084,
+            "rank": 2,
+            "relative_period_error": 0.0008073343727264638,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 9.571995189243465,
+            "depth_snr_white": 6.127089010821083,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.8667200002046228,
+            "harmonic_relation": null,
+            "period_days": 1.7933709131685298,
+            "rank": 3,
+            "relative_period_error": 0.34332811674532043,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.002,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "raw",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 98.71600520817704
+    },
+    {
+      "depth": 0.002,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.277016541502425,
+            "depth_snr_white": 85.88948345256692,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.30265750020453186,
+            "harmonic_relation": null,
+            "period_days": 1.4304438829592476,
+            "rank": 1,
+            "relative_period_error": 0.4762197426000558,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.022508499464321638,
+            "depth_snr_white": 11.211127698438837,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.006717499795513504,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.022526686032259095,
+              "epoch_separation_days": 0.006717499795513504,
+              "period_ratio": 1.0
+            },
+            "period_days": 2.728795169828084,
+            "rank": 2,
+            "relative_period_error": 0.0008073343727264638,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 9.57538720416987,
+            "depth_snr_white": 5.6616769467094965,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.872970000204532,
+            "harmonic_relation": null,
+            "period_days": 1.7930386468233128,
+            "rank": 3,
+            "relative_period_error": 0.3434497814634519,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.002,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "frozen",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 85.88948345256692
+    },
+    {
+      "depth": 0.002,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.271032132567292,
+            "depth_snr_white": 13.533369377399248,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.3354700002046229,
+            "harmonic_relation": null,
+            "period_days": 1.4310300884236402,
+            "rank": 1,
+            "relative_period_error": 0.4760050939496008,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 22.037145217204596,
+            "depth_snr_white": 5.891947230926744,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22796308981625124,
+            "harmonic_relation": null,
+            "period_days": 0.5723415450104143,
+            "rank": 2,
+            "relative_period_error": 0.7904278487695298,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.002,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "adaptive",
+      "period_days": 2.731,
+      "proposal_count": 2,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 13.533369377399248
+    },
+    {
+      "depth": 0.002,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.277756539979558,
+            "depth_snr_white": 50.71745652672813,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.30265750020453197,
+            "harmonic_relation": null,
+            "period_days": 1.4303713960761417,
+            "rank": 1,
+            "relative_period_error": 0.47624628484945375,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 0.024041987925640676,
+            "depth_snr_white": 6.776136242412865,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.02297000020462292,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.02406273812717046,
+              "epoch_separation_days": 0.02297000020462292,
+              "period_ratio": 1.0
+            },
+            "period_days": 2.72864495627728,
+            "rank": 2,
+            "relative_period_error": 0.0008623375037421362,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 0.07444077125103388,
+            "depth_snr_white": 5.565930014505353,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 1.1591781210308385,
+            "harmonic_relation": null,
+            "period_days": 2.7237081208263065,
+            "rank": 3,
+            "relative_period_error": 0.0026700399757207394,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.002,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "protected",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.03693368351936967,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 50.71745652672813
+    },
+    {
+      "depth": 0.008,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.276975428276783,
+            "depth_snr_white": 98.74064688961874,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.30265750020453197,
+            "harmonic_relation": null,
+            "period_days": 1.4304479102237262,
+            "rank": 1,
+            "relative_period_error": 0.4762182679517663,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.011600901129794514,
+            "depth_snr_white": 42.592234151867316,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.003592499795331605,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.011605730284276803,
+              "epoch_separation_days": 0.003592499795331605,
+              "period_ratio": 1.0
+            },
+            "period_days": 2.7298636285207314,
+            "rank": 2,
+            "relative_period_error": 0.00041610087120779317,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 9.571995189243465,
+            "depth_snr_white": 6.375189411068358,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.8667200002046228,
+            "harmonic_relation": null,
+            "period_days": 1.7933709131685298,
+            "rank": 3,
+            "relative_period_error": 0.34332811674532043,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.008,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "raw",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 98.74064688961874
+    },
+    {
+      "depth": 0.008,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.277016541502425,
+            "depth_snr_white": 85.96493332736304,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.30265750020453186,
+            "harmonic_relation": null,
+            "period_days": 1.4304438829592476,
+            "rank": 1,
+            "relative_period_error": 0.4762197426000558,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.011750634379503319,
+            "depth_snr_white": 36.97162903914614,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.003592499795331605,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.011755589025245228,
+              "epoch_separation_days": 0.003592499795331605,
+              "period_ratio": 1.0
+            },
+            "period_days": 2.729848961333022,
+            "rank": 2,
+            "relative_period_error": 0.00042147150017493373,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 9.571728620515978,
+            "depth_snr_white": 5.871517439989459,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.866720000204623,
+            "harmonic_relation": null,
+            "period_days": 1.7933970250279267,
+            "rank": 3,
+            "relative_period_error": 0.3433185554639594,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.008,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "frozen",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 85.96493332736304
+    },
+    {
+      "depth": 0.008,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.271032132567292,
+            "depth_snr_white": 13.009677206331428,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.3354700002046229,
+            "harmonic_relation": null,
+            "period_days": 1.4310300884236402,
+            "rank": 1,
+            "relative_period_error": 0.4760050939496008,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.021348920483699192,
+            "depth_snr_white": 10.276045484439498,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.032345000204486496,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.021365280789764466,
+              "epoch_separation_days": 0.032345000204486496,
+              "period_ratio": 1.0
+            },
+            "period_days": 2.728908756907811,
+            "rank": 2,
+            "relative_period_error": 0.0007657426188900279,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 22.037368992173846,
+            "depth_snr_white": 6.0848070288546685,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.2216692498611546,
+            "harmonic_relation": null,
+            "period_days": 0.5723196250328205,
+            "rank": 3,
+            "relative_period_error": 0.7904358751252946,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.008,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "adaptive",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 13.009677206331428
+    },
+    {
+      "depth": 0.008,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 13.278208724351998,
+            "depth_snr_white": 45.88689214305155,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.30265750020453186,
+            "harmonic_relation": null,
+            "period_days": 1.4303271021528972,
+            "rank": 1,
+            "relative_period_error": 0.47626250378875973,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 83.55512556014008,
+            "depth_snr_white": 15.458917366971436,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 5.447342499795468,
+            "harmonic_relation": null,
+            "period_days": 10.915679842618577,
+            "rank": 2,
+            "relative_period_error": 2.996953439259823,
+            "sampling_gate_passed": false
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.02232147712572685,
+            "depth_snr_white": 10.594859423528863,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.032345000204486496,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.022339362606050288,
+              "epoch_separation_days": 0.032345000204486496,
+              "period_ratio": 1.0
+            },
+            "period_days": 2.7288134896852387,
+            "rank": 3,
+            "relative_period_error": 0.0008006262595244,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458326.3108171616,
+          "injected_depth": 0.008,
+          "period_days": 2.731
+        }
+      },
+      "kind": "injection",
+      "mode": "protected",
+      "period_days": 2.731,
+      "proposal_count": 3,
+      "protection_fraction": 0.03895819654191289,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 45.88689214305155
+    },
+    {
+      "depth": 0.0005,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.170605849182753,
+            "depth_snr_white": 98.6119439544417,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22424638290089616,
+            "harmonic_relation": null,
+            "period_days": 1.4304438829592476,
+            "rank": 1,
+            "relative_period_error": 0.7234788550243094,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 18.22315649283525,
+            "depth_snr_white": 5.92386232569413,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.034023475559675886,
+            "harmonic_relation": null,
+            "period_days": 1.7917834756180728,
+            "rank": 2,
+            "relative_period_error": 0.6536277835650353,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 22.017822985253332,
+            "depth_snr_white": 5.552800827479116,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.24905281786688216,
+            "harmonic_relation": null,
+            "period_days": 1.0877018828530114,
+            "rank": 3,
+            "relative_period_error": 0.7897347993711558,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.0005,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "raw",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 98.6119439544417
+    },
+    {
+      "depth": 0.0005,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.170600422931923,
+            "depth_snr_white": 85.85884499188967,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.2242473897148901,
+            "harmonic_relation": null,
+            "period_days": 1.4304448897732416,
+            "rank": 1,
+            "relative_period_error": 0.7234786603956618,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 18.20372705368863,
+            "depth_snr_white": 5.542876532375631,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.022003511862132563,
+            "harmonic_relation": null,
+            "period_days": 1.7953885119205297,
+            "rank": 2,
+            "relative_period_error": 0.6529308888612932,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 22.01722210080756,
+            "depth_snr_white": 4.78304565408566,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.25171902945925184,
+            "harmonic_relation": null,
+            "period_days": 1.0878133739889229,
+            "rank": 3,
+            "relative_period_error": 0.7897132468608307,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.0005,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "frozen",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 85.85884499188967
+    },
+    {
+      "depth": 0.0005,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.167457340598382,
+            "depth_snr_white": 13.644313734822564,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.19201807309073227,
+            "harmonic_relation": null,
+            "period_days": 1.431028073149175,
+            "rank": 1,
+            "relative_period_error": 0.7233659243863957,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 24.041764852747335,
+            "depth_snr_white": 5.28138024843387,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.11154603363126397,
+            "harmonic_relation": null,
+            "period_days": 0.7121694832135893,
+            "rank": 2,
+            "relative_period_error": 0.862329502568415,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.0005,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "adaptive",
+      "period_days": 5.173,
+      "proposal_count": 2,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 13.644313734822564
+    },
+    {
+      "depth": 0.0005,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.170996519169424,
+            "depth_snr_white": 50.028364569945545,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22417389601779014,
+            "harmonic_relation": null,
+            "period_days": 1.4303713960761417,
+            "rank": 1,
+            "relative_period_error": 0.723492867566955,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 24.841026876428362,
+            "depth_snr_white": 5.825045429379484,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.06614889235349469,
+            "harmonic_relation": null,
+            "period_days": 0.5638703692349675,
+            "rank": 2,
+            "relative_period_error": 0.8909974155741412,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 13.200966440057924,
+            "depth_snr_white": 5.611129761028732,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.6609899999416484,
+            "harmonic_relation": null,
+            "period_days": 2.7236259915792163,
+            "rank": 3,
+            "relative_period_error": 0.47349197920370845,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.0005,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "protected",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.03671481724666229,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 50.028364569945545
+    },
+    {
+      "depth": 0.002,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.170578717852226,
+            "depth_snr_white": 98.42234745179479,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22425141698503737,
+            "harmonic_relation": null,
+            "period_days": 1.430448917043389,
+            "rank": 1,
+            "relative_period_error": 0.723477881878332,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.005114026951222406,
+            "depth_snr_white": 9.892503632832783,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.0063024999415119964,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.005114965188306111,
+              "epoch_separation_days": 0.0063024999415119964,
+              "period_ratio": 1.0
+            },
+            "period_days": 5.172051117601915,
+            "rank": 2,
+            "relative_period_error": 0.00018342980825158278,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 18.22315649283525,
+            "depth_snr_white": 5.881728382978325,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.034023475559675886,
+            "harmonic_relation": null,
+            "period_days": 1.7917834756180728,
+            "rank": 3,
+            "relative_period_error": 0.6536277835650353,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.002,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "raw",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 98.42234745179479
+    },
+    {
+      "depth": 0.002,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.170594996673458,
+            "depth_snr_white": 85.67223077227618,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22424839653030082,
+            "harmonic_relation": null,
+            "period_days": 1.4304458965886524,
+            "rank": 1,
+            "relative_period_error": 0.7234784657667404,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.005078557531480901,
+            "depth_snr_white": 8.414822346978916,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.0063024999415119964,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.0050794827978353,
+              "epoch_separation_days": 0.0063024999415119964,
+              "period_ratio": 1.0
+            },
+            "period_days": 5.172057698777255,
+            "rank": 2,
+            "relative_period_error": 0.0001821575918702389,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 18.22315649283525,
+            "depth_snr_white": 5.434492584393787,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.034023475559675886,
+            "harmonic_relation": null,
+            "period_days": 1.7917834756180728,
+            "rank": 3,
+            "relative_period_error": 0.6536277835650353,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.002,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "frozen",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 85.67223077227618
+    },
+    {
+      "depth": 0.002,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.16506710083497,
+            "depth_snr_white": 13.442218464006116,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.19246157025262411,
+            "harmonic_relation": null,
+            "period_days": 1.4314715703110668,
+            "rank": 1,
+            "relative_period_error": 0.7232801913181777,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 24.041756782686782,
+            "depth_snr_white": 5.618127286360495,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.11154303891165068,
+            "harmonic_relation": null,
+            "period_days": 0.7121709805733959,
+            "rank": 2,
+            "relative_period_error": 0.8623292131116574,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.002,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "adaptive",
+      "period_days": 5.173,
+      "proposal_count": 2,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 13.442218464006116
+    },
+    {
+      "depth": 0.002,
+      "direct_recovery": false,
+      "evaluation": {
+        "direct_recovery": false,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.170996519169424,
+            "depth_snr_white": 49.901251195873655,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22417389601779014,
+            "harmonic_relation": null,
+            "period_days": 1.4303713960761417,
+            "rank": 1,
+            "relative_period_error": 0.723492867566955,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 24.841026876428362,
+            "depth_snr_white": 5.731407996524539,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.06614889235349469,
+            "harmonic_relation": null,
+            "period_days": 0.5638703692349675,
+            "rank": 2,
+            "relative_period_error": 0.8909974155741412,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 17.506600363204598,
+            "depth_snr_white": 5.8585418906158,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 1.3624475000583516,
+            "harmonic_relation": null,
+            "period_days": 8.42126307983971,
+            "rank": 3,
+            "relative_period_error": 0.6279263637811153,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": false,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.002,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "protected",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.03693368351936967,
+      "recovered_with_sampling_gate": false,
+      "strongest_snr": 49.901251195873655
+    },
+    {
+      "depth": 0.008,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.170578717852226,
+            "depth_snr_white": 97.68992505533755,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22425141698503737,
+            "harmonic_relation": null,
+            "period_days": 1.430448917043389,
+            "rank": 1,
+            "relative_period_error": 0.723477881878332,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.0008215717303658298,
+            "depth_snr_white": 32.76852430510433,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.003177499941557471,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.0008215959412512218,
+              "epoch_separation_days": 0.003177499941557471,
+              "period_ratio": 1.0
+            },
+            "period_days": 5.172847561430328,
+            "rank": 2,
+            "relative_period_error": 2.9468117083329648e-05,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 18.22315649283525,
+            "depth_snr_white": 6.084641351496046,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.034023475559675886,
+            "harmonic_relation": null,
+            "period_days": 1.7917834756180728,
+            "rank": 3,
+            "relative_period_error": 0.6536277835650353,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.008,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "raw",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 97.68992505533755
+    },
+    {
+      "depth": 0.008,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.170578717852226,
+            "depth_snr_white": 84.92055114591624,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22425141698503737,
+            "harmonic_relation": null,
+            "period_days": 1.430448917043389,
+            "rank": 1,
+            "relative_period_error": 0.723477881878332,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.0008925321483587387,
+            "depth_snr_white": 28.66248649533929,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.003177499941557471,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.0008925607221941705,
+              "epoch_separation_days": 0.003177499941557471,
+              "period_ratio": 1.0
+            },
+            "period_days": 5.172834395075861,
+            "rank": 2,
+            "relative_period_error": 3.2013323823544456e-05,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 18.22315649283525,
+            "depth_snr_white": 5.585493390196969,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.034023475559675886,
+            "harmonic_relation": null,
+            "period_days": 1.7917834756180728,
+            "rank": 3,
+            "relative_period_error": 0.6536277835650353,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.008,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "frozen",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 84.92055114591624
+    },
+    {
+      "depth": 0.008,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.16506710083497,
+            "depth_snr_white": 12.808060540566586,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.19246157025262411,
+            "harmonic_relation": null,
+            "period_days": 1.4314715703110668,
+            "rank": 1,
+            "relative_period_error": 0.7232801913181777,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.010465731429197035,
+            "depth_snr_white": 8.448410063144522,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.04213500005835158,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.010461804228699018,
+              "epoch_separation_days": 0.04213500005835158,
+              "period_ratio": 1.0
+            },
+            "period_days": 5.174941864685301,
+            "rank": 2,
+            "relative_period_error": 0.0003753846289001865,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 24.795371249017013,
+            "depth_snr_white": 6.203515867231313,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.10323536502715402,
+            "harmonic_relation": null,
+            "period_days": 0.5723415450104143,
+            "rank": 3,
+            "relative_period_error": 0.8893598405160614,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.008,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "adaptive",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.0,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 12.808060540566586
+    },
+    {
+      "depth": 0.008,
+      "direct_recovery": true,
+      "evaluation": {
+        "direct_recovery": true,
+        "evaluation_rules": {
+          "accumulated_drift_limit": "one_truth_duration",
+          "descriptive_snr_reference": 7.1,
+          "epoch_tolerance": "half_the_larger_duration",
+          "relative_period_tolerance": 0.005,
+          "truth_used_in_search": false
+        },
+        "proposals": [
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 20.170996519169424,
+            "depth_snr_white": 49.38615775791755,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.22417389601779014,
+            "harmonic_relation": null,
+            "period_days": 1.4303713960761417,
+            "rank": 1,
+            "relative_period_error": 0.723492867566955,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": true,
+            "accumulated_drift_days": 0.010394713540909149,
+            "depth_snr_white": 11.51350330071323,
+            "direct_ephemeris_recovery": true,
+            "epoch_phase_error_days": 0.04213500005835158,
+            "harmonic_relation": {
+              "accumulated_drift_days": 0.01039083944775278,
+              "epoch_separation_days": 0.04213500005835158,
+              "period_ratio": 1.0
+            },
+            "period_days": 5.174928687667505,
+            "rank": 2,
+            "relative_period_error": 0.00037283736081667254,
+            "sampling_gate_passed": true
+          },
+          {
+            "above_descriptive_snr_reference": false,
+            "accumulated_drift_days": 24.841026876428362,
+            "depth_snr_white": 5.5320728112802,
+            "direct_ephemeris_recovery": false,
+            "epoch_phase_error_days": 0.06614889235349469,
+            "harmonic_relation": null,
+            "period_days": 0.5638703692349675,
+            "rank": 3,
+            "relative_period_error": 0.8909974155741412,
+            "sampling_gate_passed": true
+          }
+        ],
+        "recovered_with_sampling_gate": true,
+        "truth": {
+          "duration_hours": 2.4,
+          "epoch_bjd_tdb": 2458327.2143571614,
+          "injected_depth": 0.008,
+          "period_days": 5.173
+        }
+      },
+      "kind": "injection",
+      "mode": "protected",
+      "period_days": 5.173,
+      "proposal_count": 3,
+      "protection_fraction": 0.038848763405559206,
+      "recovered_with_sampling_gate": true,
+      "strongest_snr": 49.38615775791755
+    },
+    {
+      "kind": "negative",
+      "label": "flux_permutation_seed_2401",
+      "mode": "raw",
+      "proposal_count": 3,
+      "proposals_above_reference": 1,
+      "protection_fraction": 0.0,
+      "strongest_snr": 7.72977781752768
+    },
+    {
+      "kind": "negative",
+      "label": "flux_permutation_seed_2401",
+      "mode": "frozen",
+      "proposal_count": 3,
+      "proposals_above_reference": 3,
+      "protection_fraction": 0.0,
+      "strongest_snr": 7.949265835336833
+    },
+    {
+      "kind": "negative",
+      "label": "flux_permutation_seed_2401",
+      "mode": "adaptive",
+      "proposal_count": 3,
+      "proposals_above_reference": 2,
+      "protection_fraction": 0.0,
+      "strongest_snr": 8.942032091341478
+    },
+    {
+      "kind": "negative",
+      "label": "flux_permutation_seed_2401",
+      "mode": "protected",
+      "proposal_count": 3,
+      "proposals_above_reference": 3,
+      "protection_fraction": 0.12283869555701467,
+      "strongest_snr": 8.23693425216153
+    },
+    {
+      "kind": "negative",
+      "label": "flux_inversion",
+      "mode": "raw",
+      "proposal_count": 2,
+      "proposals_above_reference": 1,
+      "protection_fraction": 0.0,
+      "strongest_snr": 17.455606416496593
+    },
+    {
+      "kind": "negative",
+      "label": "flux_inversion",
+      "mode": "frozen",
+      "proposal_count": 2,
+      "proposals_above_reference": 1,
+      "protection_fraction": 0.0,
+      "strongest_snr": 15.037412838873552
+    },
+    {
+      "kind": "negative",
+      "label": "flux_inversion",
+      "mode": "adaptive",
+      "proposal_count": 3,
+      "proposals_above_reference": 1,
+      "protection_fraction": 0.0,
+      "strongest_snr": 18.125597943515295
+    },
+    {
+      "kind": "negative",
+      "label": "flux_inversion",
+      "mode": "protected",
+      "proposal_count": 3,
+      "proposals_above_reference": 1,
+      "protection_fraction": 0.018767782884657476,
+      "strongest_snr": 17.87132467472362
+    },
+    {
+      "kind": "negative",
+      "label": "white_noise_seed_2402",
+      "mode": "raw",
+      "proposal_count": 1,
+      "proposals_above_reference": 0,
+      "protection_fraction": 0.0,
+      "strongest_snr": 4.161379735552795
+    },
+    {
+      "kind": "negative",
+      "label": "white_noise_seed_2402",
+      "mode": "frozen",
+      "proposal_count": 2,
+      "proposals_above_reference": 0,
+      "protection_fraction": 0.0,
+      "strongest_snr": 5.722148737868344
+    },
+    {
+      "kind": "negative",
+      "label": "white_noise_seed_2402",
+      "mode": "adaptive",
+      "proposal_count": 3,
+      "proposals_above_reference": 0,
+      "protection_fraction": 0.0,
+      "strongest_snr": 6.376690587763873
+    },
+    {
+      "kind": "negative",
+      "label": "white_noise_seed_2402",
+      "mode": "protected",
+      "proposal_count": 3,
+      "proposals_above_reference": 0,
+      "protection_fraction": 0.01329612606697308,
+      "strongest_snr": 6.8337077402149236
+    },
+    {
+      "kind": "negative",
+      "label": "white_noise_seed_2403",
+      "mode": "raw",
+      "proposal_count": 3,
+      "proposals_above_reference": 0,
+      "protection_fraction": 0.0,
+      "strongest_snr": 5.894506861762715
+    },
+    {
+      "kind": "negative",
+      "label": "white_noise_seed_2403",
+      "mode": "frozen",
+      "proposal_count": 3,
+      "proposals_above_reference": 3,
+      "protection_fraction": 0.0,
+      "strongest_snr": 9.142937659572985
+    },
+    {
+      "kind": "negative",
+      "label": "white_noise_seed_2403",
+      "mode": "adaptive",
+      "proposal_count": 3,
+      "proposals_above_reference": 0,
+      "protection_fraction": 0.0,
+      "strongest_snr": 6.23149083916431
+    },
+    {
+      "kind": "negative",
+      "label": "white_noise_seed_2403",
+      "mode": "protected",
+      "proposal_count": 3,
+      "proposals_above_reference": 0,
+      "protection_fraction": 0.017181002407529,
+      "strongest_snr": 6.12087725575083
+    }
+  ],
+  "schema_version": 1,
+  "search_config": {
+    "detrend_window_days": 1.5,
+    "durations_hours": [
+      0.75,
+      1.25,
+      2.0,
+      3.0,
+      4.5,
+      6.0
+    ],
+    "mask_duration_factor": 1.5,
+    "max_period_grid": 20000,
+    "max_seconds": 300,
+    "max_signals": 3,
+    "minimum_event_fraction": 0.5,
+    "minimum_event_points": 3,
+    "minimum_sampled_events": 2,
+    "oversample": 10,
+    "period_max_days": 30.0,
+    "period_min_days": 0.5
+  },
+  "source": {
+    "mission": "TESS",
+    "path": "/restricteddata/t_comp/moradian/Thesis-Rojin/data/raw/tess/lightcurves/TIC231663901/tess2018206045859-s0001-0000000231663901-0120-s_lc.fits",
+    "sha256": "9c59e545b60333877c5528012726adecbabf95e3e3aba1bfce91f297eabc5060",
+    "split": "train",
+    "target_id": "231663901"
+  },
+  "spec_sha256": "0aecac87626fab5d610140133669f8fdf1ceaf84c47c83a9356b84474abe153d",
+  "status": "complete",
+  "summary": {
+    "adaptive": {
+      "injections_recovered": 2,
+      "injections_total": 6,
+      "mean_protection_fraction": 0.0,
+      "negative_controls_total": 4,
+      "negative_controls_with_alert": 2
+    },
+    "frozen": {
+      "injections_recovered": 4,
+      "injections_total": 6,
+      "mean_protection_fraction": 0.0,
+      "negative_controls_total": 4,
+      "negative_controls_with_alert": 3
+    },
+    "protected": {
+      "injections_recovered": 3,
+      "injections_total": 6,
+      "mean_protection_fraction": 0.03751732691325601,
+      "negative_controls_total": 4,
+      "negative_controls_with_alert": 2
+    },
+    "raw": {
+      "injections_recovered": 4,
+      "injections_total": 6,
+      "mean_protection_fraction": 0.0,
+      "negative_controls_total": 4,
+      "negative_controls_with_alert": 2
+    }
+  },
+  "version": "adaptive_memory_real_injection_v1"
+}

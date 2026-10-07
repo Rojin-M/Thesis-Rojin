@@ -17,7 +17,7 @@ from scripts.research.protocol import load_protocol
 from scripts.research.scoring import CHECKPOINT, NORMALIZER
 from scripts.research.server import ResearchServer
 from scripts.research.store import Store
-from tests.test_research_detection import curve, write_npz
+from tests.support import curve, write_npz
 
 
 @unittest.skipUnless(CHECKPOINT.is_file() and NORMALIZER.is_file(), "Local trained checkpoint/normalizer not committed")
@@ -66,7 +66,7 @@ class VettingHTTPTests(unittest.TestCase):
         self.assertEqual(c["job"]["status"], "succeeded")
         self.assertIn("registry", c["incomplete_evidence"])
         _, report = self.request("GET", f"/api/candidates/{self.cid}/report.md")
-        self.assertIn(b"CNN ranking score", report)
+        self.assertIn(b"Model ranking score", report)
         self.assertIn(b"Review attention", report)
         self.assertIn(b"Uncalibrated", report)
         _, rows = self.request("GET", "/api/candidates")

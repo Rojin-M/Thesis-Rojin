@@ -503,14 +503,50 @@ class Store:
         with self.connection() as db:
             return _one(db, "SELECT * FROM artifacts WHERE id=?", (artifact_id,))
 
-    def list_records(self, table, *, limit=100, offset=0, cohort=None, review_status=None):
+    def list_records(self, table, *, limit=100, offset=0, cohort=None, review_status=None,
+                     sort=None, registry_status=None):
         if table not in ("jobs", "candidates", "releases", "products", "protocols"):
             raise ValidationError("Unsupported list")
         if type(limit) is not int or type(offset) is not int or not 1 <= limit <= 200 or not 0 <= offset <= 1000000:
             raise ValidationError("Invalid pagination")
+        candidate_sorts = {'score_desc', 'score_asc', 'newest', 'oldest', 'updated',
+                           'period_asc', 'period_desc', 'target'}
+        if sort is not None and (table != 'candidates' or not isinstance(sort, str) or sort not in candidate_sorts):
+            raise ValidationError('Invalid candidate sort')
+        if registry_status is not None:
+            from scripts.vetting.registry import AssessmentStatus
+            allowed_registry = {value.value for value in AssessmentStatus} | {'NOT_RUN'}
+            if table != 'candidates' or not isinstance(registry_status, str) or registry_status not in allowed_registry:
+                raise ValidationError('Invalid candidate registry filter')
         parameters, clauses = [], []
+        ordering = 't.created_at DESC,t.id DESC'
         if table == "candidates":
             query = "SELECT t.*,j.cohort,j.status AS job_status FROM candidates t JOIN jobs j ON j.id=t.job_id"
+            # Select the latest evidence even when it is incomplete: an older
+            # complete score/registry result must not determine the ordering.
+            if sort in ('score_desc', 'score_asc'):
+                query += (" LEFT JOIN evidence ms ON ms.rowid=(SELECT MAX(me.rowid) FROM evidence me "
+                          "WHERE me.candidate_id=t.id AND me.kind='model_score')")
+                score = "CASE WHEN ms.state='complete' THEN json_extract(ms.payload_json,'$.score') END"
+                direction = 'DESC' if sort == 'score_desc' else 'ASC'
+                ordering = f'({score}) IS NULL ASC,({score}) {direction},' + ordering
+            elif sort == 'oldest':
+                ordering = 't.created_at ASC,t.id ASC'
+            elif sort == 'updated':
+                ordering = 't.updated_at DESC,' + ordering
+            elif sort in ('period_asc', 'period_desc'):
+                direction = 'ASC' if sort == 'period_asc' else 'DESC'
+                ordering = f"json_extract(t.ephemeris_json,'$.period_days') {direction}," + ordering
+            elif sort == 'target':
+                numeric_target = ("CASE WHEN length(t.target_id)>0 AND t.target_id NOT GLOB '*[^0-9]*' "
+                                  "THEN CAST(t.target_id AS INTEGER) END")
+                ordering = (f'({numeric_target}) IS NULL ASC,({numeric_target}) ASC,'
+                            't.target_id COLLATE NOCASE ASC,' + ordering)
+            if registry_status is not None:
+                query += (" LEFT JOIN evidence rs ON rs.rowid=(SELECT MAX(re.rowid) FROM evidence re "
+                          "WHERE re.candidate_id=t.id AND re.kind='registry')")
+                clauses.append("COALESCE(json_extract(rs.payload_json,'$.status'),'NOT_RUN')=?")
+                parameters.append(registry_status)
         else:
             query = f"SELECT t.* FROM {table} t"
         if cohort is not None:
@@ -525,13 +561,16 @@ class Store:
             parameters.append(review_status)
         if clauses:
             query += " WHERE " + " AND ".join(clauses)
-        query += " ORDER BY t.created_at DESC,t.id DESC LIMIT ? OFFSET ?"
+        # Whitelisted SQL expressions order the entire filtered result before
+        # pagination. User values are always bound parameters, never SQL text.
+        query += f" ORDER BY {ordering} LIMIT ? OFFSET ?"
         with self.connection() as db:
             rows = _rows(db, query, (*parameters, limit, offset))
             if table == "candidates":
                 for row in rows:
                     row["assessment"] = compact_assessment(_rows(db,
-                        "SELECT * FROM evidence WHERE candidate_id=? AND kind IN ('model_score','registry') ORDER BY rowid", (row["id"],)))
+                        "SELECT * FROM evidence WHERE candidate_id=? AND kind IN ('model_score','registry') ORDER BY rowid", (row["id"],)),
+                        mission=row["mission"], cohort=row["cohort"])
             return rows
 
     @staticmethod
@@ -572,10 +611,16 @@ class Store:
                                      "UNMATCHED is not proof of novelty. Missing diagnostics remain incomplete.",
                                      "A completed job records execution, not scientific validation."]
             candidate["review_triage"] = review_flags(candidate)
-            candidate["assessment"] = compact_assessment(candidate["evidence"])
+            candidate["assessment"] = compact_assessment(candidate["evidence"],
+                mission=candidate["mission"], cohort=candidate["cohort"])
+            # Derived display annotation, versioned by its calibration checksum.
+            # Historical model evidence and the candidate's review are unchanged.
+            candidate["probability"] = candidate["assessment"]["probability"]
             return candidate
 
     def summary(self):
+        from .supermodel_status import deployment_status
+        supermodel = deployment_status(self)
         with self.connection() as db:
             return {"schema_version": SCHEMA_VERSION,
                     "jobs_by_status": {r["status"]: r["n"] for r in db.execute("SELECT status,count(*) n FROM jobs GROUP BY status")},
@@ -584,7 +629,8 @@ class Store:
                     "product_count": db.execute("SELECT count(*) FROM products").fetchone()[0],
                     "expired_running_stages": db.execute("SELECT count(*) FROM stages WHERE status='running' AND lease_until<=?", (utc_now(),)).fetchone()[0],
                     "watcher": "bounded_MAST_metadata_and_explicit_pilot", "detection": "bounded_local_blind_bls_v1",
-                    "pixel_photometry": "not_implemented", "tls": "not_implemented",
-                    "scoring": "frozen_shared_v1_CNN_cpu", "vetting": "bounded_diagnostics_and_catalog_cache",
+                    "pixel_photometry": "supermodel_worker_bounded_when_available", "tls": "supermodel_worker_bounded_when_available",
+                    "scoring": "supermodel_v2_with_reference_fallback" if supermodel.get("mode") == "primary" else "frozen_shared_v1_CNN_cpu",
+                    "supermodel": supermodel, "vetting": "bounded_diagnostics_and_catalog_cache",
                     "search_readiness": False,
                     "observed_at": utc_now()}

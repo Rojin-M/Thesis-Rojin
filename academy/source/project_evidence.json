@@ -1,0 +1,670 @@
+{
+  "checked": "2026-09-28",
+  "metric_policy": {
+    "classification": "Compare methods only within a named cohort. AP and ROC AUC describe ranking; accuracy uses threshold 0.5. Brier/NLL depend on calibration. None is a blind planet-confirmation probability.",
+    "detector": "Incremental one-to-one matched injected events, removing original-curve matches. Host denominator remains all registered hosts; event denominator is the protocol retained injected-event count. Control rate = inverted alerts / summed exposure_days * 27.",
+    "uncertainty": "Small fresh samples and reused audits do not establish universal superiority. Paired p-values are unadjusted. Model seed SD is not a confidence interval for planet probability."
+  },
+  "deployment": {
+    "model_name": "frozen_Kepler_shared_v1_CNN_seed42",
+    "class": "scripts.research.scoring.FrozenScorer",
+    "authoritative_evidence_kind": "model_score",
+    "checkpoint_path": "outputs/shared_cnn/kepler/dataset_kepler_shared_v1_cnn_20260915_080811/best_model.pt",
+    "checkpoint_sha256": "7890efd17fc072efb74465a9fbfa6fb8b0192388d91af520961349f0066ba703",
+    "normalizer_path": "data/processed/kepler/shared_v1/kepler_train_normalization.npz",
+    "normalizer_sha256": "6f4ac773f6f2dd6c2200e68b903acb0c7a3f585a593ac2d882c03af03c705dc1",
+    "input_contract": {
+      "name": "shared_v1",
+      "global_bins": 200,
+      "local_bins": 100,
+      "scalar_features": 7,
+      "flat_features": 907,
+      "normalization": "frozen Kepler TRAIN moments"
+    },
+    "semantics": "sigmoid_ranking_score_not_planet_confirmation_probability",
+    "calibration": "not_calibrated_for_blind_search",
+    "source_validation_threshold": 0.7849999999999999,
+    "threshold_use": "recorded_source_validation_F1_only_not_a_search_gate",
+    "limits": [
+      "Records prove completed scoring on 2026-09-26, not a new scoring event on 2026-09-28.",
+      "Experimental comparison scores are appended separately and do not replace authoritative model_score.",
+      "No deployed Transformer, nonlinear stack, neural localizer v3 or recovery hybrid is established by these records."
+    ],
+    "latest_completed_score_at": "2026-09-26T22:54:24.879009Z"
+  },
+  "watcher": {
+    "as_of_utc": "2026-09-28T13:57:36.139457+00:00",
+    "selected_target_count": 18,
+    "scope": "bounded_sample_of_public_TESS_SPOC_observations",
+    "archive_wide_complete": false,
+    "exhausted_reason": "target_selection_full",
+    "correction": "Two fixed control stars describe the September 23 historical setup. Current schema-2 archival_pilot discovers a bounded sample, capped at 18 selected targets, with two products per cycle and a six-hour configured interval. Selection full does not mean the whole archive has been searched.",
+    "schema_version": 2,
+    "cohort": "archival_pilot",
+    "poll_seconds": 21600,
+    "max_products_per_cycle": 2
+  },
+  "historical_dann": {
+    "source": "results/mission_adaptation_pilot/summary.json",
+    "generated_at": "2026-09-23T16:02:43.503039Z",
+    "audit_rows": 82,
+    "audit_host_groups": 79,
+    "seeds": [
+      42,
+      43,
+      44
+    ],
+    "updates_per_fit": 120,
+    "fits": 15,
+    "methods": {
+      "dann": {
+        "mean": 0.6933715821549344,
+        "sd": 0.00027602448669550143,
+        "values": [
+          0.693401393985691,
+          0.6936314906465944,
+          0.6930818618325181
+        ]
+      },
+      "fine_tuned": {
+        "mean": 0.7644444642874241,
+        "sd": 0.01795150409809908,
+        "values": [
+          0.7465778541315504,
+          0.7824796746899395,
+          0.7642758640407821
+        ]
+      },
+      "kepler_only": {
+        "mean": 0.5587534468305261,
+        "sd": 0.03147136678270309,
+        "values": [
+          0.5837345714469147,
+          0.5234067149647096,
+          0.569119054079954
+        ]
+      },
+      "pooled": {
+        "mean": 0.7067378374650864,
+        "sd": 0.012438511854217887,
+        "values": [
+          0.7167731835738648,
+          0.7106187850063452,
+          0.6928215438150493
+        ]
+      },
+      "tess_only": {
+        "mean": 0.7473523036732489,
+        "sd": 0.013121909794847605,
+        "values": [
+          0.7327392337031513,
+          0.7511906754267164,
+          0.7581270018898789
+        ]
+      }
+    },
+    "comparison_inference": {
+      "saved_proposals": 44,
+      "real_known_object_controls": 17,
+      "synthetic_or_transformed_controls": 27,
+      "date": "2026-09-23"
+    },
+    "limits": [
+      "Known catalog ephemerides; not blind recovery",
+      "Short budgets; no convergence claim",
+      "Validation-derived audit; previously consulted benchmark is not an untouched test",
+      "TESS-only weights share frozen Kepler TRAIN normalization",
+      "Kepler-only selects and calibrates on Kepler; other arms on TESS",
+      "Empirical labelled-negative FPR is not survey false-alarm calibration",
+      "DANN uses both missions' labels; no unsupervised-adaptation claim",
+      "Mission head accuracy alone does not prove invariant representations",
+      "Calibrated scores are not planet confirmation probabilities"
+    ],
+    "decision": "Historical short-budget fine-tuning has highest mean AP; DANN benefit was not demonstrated. Fresh Kepler-only arm is not the older deployed frozen CNN. Retain as historical evidence, not current full leaderboard."
+  },
+  "reused_classifier": {
+    "source": "results/crossfit_supermodel_v2/summary.json",
+    "generated_at": "2026-09-28T05:10:47.813175Z",
+    "audit_rows": 82,
+    "positive": 44,
+    "negative": 38,
+    "partitions_rows": {
+      "audit": 82,
+      "calibration": 81,
+      "selection": 162,
+      "train": 538
+    },
+    "experts": [
+      "tess_only",
+      "kepler_only",
+      "fine_tuned",
+      "pooled",
+      "dann",
+      "transformer",
+      "transit_morphology",
+      "stellar_variability",
+      "tls",
+      "aperture_photometry",
+      "difference_image"
+    ],
+    "selected_configuration": {
+      "blend": 0.5,
+      "l2_regularization": 10.0,
+      "max_leaf_nodes": 7,
+      "selection_average_precision": 0.8818776174128418,
+      "selection_brier": 0.1502933668257696,
+      "selection_nll": 0.4736246565941875
+    },
+    "limits": [
+      "The audit is validation-derived and was consulted by earlier experiments",
+      "Selection labels choose tree complexity, regularization and blend strength",
+      "Physical experts use known catalog ephemerides on these labelled examples",
+      "A new frozen host-disjoint evaluation is required for a paper-level claim"
+    ],
+    "decision": "Nonlinear eleven-expert stack leads these AP/AUC comparisons on a reused development/audit cohort. This is not independent confirmation or deployment justification.",
+    "methods": {
+      "crossfit_nonlinear": {
+        "average_precision": 0.8716273788620068,
+        "roc_auc": 0.832535885167464,
+        "n": 82
+      },
+      "stellar_variability": {
+        "average_precision": 0.8630833445673054,
+        "roc_auc": 0.819377990430622,
+        "n": 82
+      },
+      "v4_static_stack": {
+        "average_precision": 0.8613152514966733,
+        "roc_auc": 0.8086124401913876,
+        "n": 82
+      }
+    }
+  },
+  "fresh_classifier": {
+    "source": "outputs/research/fresh_classifier_audit/audit-v1/summary.json",
+    "completed_at": "2026-09-28T13:27:30.382396Z",
+    "registered_candidates": 295,
+    "accepted_candidates": 14,
+    "positive": 3,
+    "negative": 11,
+    "acquisition": {
+      "source": "outputs/research/fresh_classifier_audit/audit-v1/preparation.json",
+      "json_pointer": "/audit",
+      "statuses": {
+        "rejected": 281,
+        "accepted": 14
+      },
+      "rejection_reasons": {
+        "no_public_120s_product": 281
+      },
+      "available_passed_unchanged_preparation": 14,
+      "registered_coverage_fraction": 0.04745762711864407
+    },
+    "calibration_caveat": "Supermodel Brier/NLL use frozen temperature 0.836210480795994; comparator Brier/NLL use raw logits. AP/AUC rank logits. Do not call this a matched-calibration superiority result.",
+    "limits": [
+      "Archive availability and unchanged coverage rules restrict this cohort.",
+      "A small, imbalanced audit cannot establish a general superiority claim.",
+      "Labels are catalog dispositions from a pinned snapshot, not independent follow-up.",
+      "Latest three LC sectors and one pixel sector per host; known ephemerides."
+    ],
+    "claims": {
+      "deployed": false,
+      "large_confirmatory_audit": false,
+      "new_host_validation": true,
+      "weights_or_thresholds_tuned": false
+    },
+    "decision": "Static v4 ranks all 3 positives above 11 negatives (AP/AUC 1); nonlinear has 13/14 correct versus 12/14 for v4 at 0.5. Ranking and threshold accuracy answer different questions; cohort is too small and coverage-selected for a general winner.",
+    "methods": {
+      "crossfit_supermodel": {
+        "average_precision": 0.8333333333333333,
+        "roc_auc": 0.9090909090909091,
+        "brier": 0.10674314753925308,
+        "n": 14,
+        "correct_at_0_5": 13,
+        "at_0_5": {
+          "fn": 1,
+          "fp": 0,
+          "fpr": 0.0,
+          "precision": 1.0,
+          "recall": 0.6666666666666666,
+          "selected": 2,
+          "threshold": 0.5,
+          "tn": 11,
+          "tp": 2
+        },
+        "calibration": "Frozen temperature 0.836210480795994"
+      },
+      "v4_static": {
+        "average_precision": 1.0,
+        "roc_auc": 1.0,
+        "brier": 0.1351477895434869,
+        "n": 14,
+        "correct_at_0_5": 12,
+        "at_0_5": {
+          "fn": 2,
+          "fp": 0,
+          "fpr": 0.0,
+          "precision": 1.0,
+          "recall": 0.3333333333333333,
+          "selected": 1,
+          "threshold": 0.5,
+          "tn": 11,
+          "tp": 1
+        },
+        "calibration": "Raw logits (no matched temperature fit)"
+      }
+    }
+  },
+  "physical_benchmark": {
+    "source": "outputs/research/ai_telescope/physical-benchmark-v1/summary.json",
+    "completed_at": "2026-09-28T12:53:26.563870Z",
+    "registered_hosts": 90,
+    "observable_hosts": 85,
+    "injected_events": 330,
+    "calibration_hosts": 78,
+    "limits": [
+      "Physical limb-darkened circular transit model with synthetic stellar density, fixed limb darkening and empirical static PSF; not real planet discoveries.",
+      "One sector per host; no established background-source rejection, eclipsing-binary rejection or multi-sector sensitivity.",
+      "Inverted-control alerts per exposure are not a survey astrophysical false-positive rate.",
+      "Event matching within half true duration is not necessarily correct orbital-period recovery, especially for single-transit TLS matches.",
+      "Read sensitivity and control burden together; no universal winner across classifier and detector tasks."
+    ],
+    "claims": {
+      "model_training_or_tuning_on_evaluation": false,
+      "planet_classification": false,
+      "survey_false_positive_rate": false,
+      "watcher_deployed": false
+    },
+    "decision": "Original physical audit: v3 fails the budget of 1 control alert/27 exposure-days; v3-v2 host recovery difference not conclusive (paired exact p=0.21875). TLS equals v3 host count and has more event recoveries.",
+    "methods": {
+      "bls": {
+        "incremental_hosts": 1,
+        "incremental_events": 1,
+        "inverted_alerts": 0,
+        "inverted_alerts_per_27_days": 0.0,
+        "control_exposure_days_recomputed": 2070.8886979429517
+      },
+      "tls": {
+        "incremental_hosts": 17,
+        "incremental_events": 88,
+        "inverted_alerts": 45,
+        "inverted_alerts_per_27_days": 0.5867046361336945,
+        "control_exposure_days_recomputed": 2070.8886979429517
+      },
+      "v2": {
+        "incremental_hosts": 13,
+        "incremental_events": 34,
+        "inverted_alerts": 69,
+        "inverted_alerts_per_27_days": 0.8996137754049984,
+        "control_exposure_days_recomputed": 2070.8886979429517
+      },
+      "v3": {
+        "incremental_hosts": 17,
+        "incremental_events": 44,
+        "inverted_alerts": 105,
+        "inverted_alerts_per_27_days": 1.368977484311954,
+        "control_exposure_days_recomputed": 2070.8886979429517
+      }
+    },
+    "thresholds": {
+      "bls": 100.0,
+      "tls": 8.0,
+      "v2": 0.9,
+      "v3": 0.86
+    },
+    "v3_v2_paired_p": 0.21875
+  },
+  "fresh_recovery": {
+    "source": "outputs/research/ai_telescope/recovery-v1/summary.json",
+    "completed_at": "2026-09-28T13:37:52.250186Z",
+    "registered_hosts": 99,
+    "observable_hosts": 96,
+    "injected_events": 326,
+    "calibration_hosts": 78,
+    "limits": [
+      "Physical limb-darkened circular transit model with synthetic stellar density, fixed limb darkening and empirical static PSF; not real planet discoveries.",
+      "One sector per host; no established background-source rejection, eclipsing-binary rejection or multi-sector sensitivity.",
+      "Inverted-control alerts per exposure are not a survey astrophysical false-positive rate.",
+      "Event matching within half true duration is not necessarily correct orbital-period recovery, especially for single-transit TLS matches.",
+      "Read sensitivity and control burden together; no universal winner across classifier and detector tasks."
+    ],
+    "claims": {
+      "classifier_validation": false,
+      "deployed": false,
+      "fresh_host_evaluation": true,
+      "hybrid_within_control_budget": true
+    },
+    "decision": "Recovery changes search and thresholds, not neural weights. Hybrid rejected. All methods miss all 25 registered 500-ppm injections; v3 single-transit 4/33, TLS 3/33 incidental event matches, not recovered single-transit periods.",
+    "methods": {
+      "bls_exact": {
+        "incremental_hosts": 0,
+        "incremental_events": 0,
+        "inverted_alerts": 0,
+        "inverted_alerts_per_27_days": 0.0,
+        "control_exposure_days_recomputed": 2199.044553302694
+      },
+      "hybrid": {
+        "incremental_hosts": 5,
+        "incremental_events": 17,
+        "inverted_alerts": 33,
+        "inverted_alerts_per_27_days": 0.4051759654718354,
+        "control_exposure_days_recomputed": 2199.044553302694
+      },
+      "single_event": {
+        "incremental_hosts": 2,
+        "incremental_events": 4,
+        "inverted_alerts": 34,
+        "inverted_alerts_per_27_days": 0.41745402503158796,
+        "control_exposure_days_recomputed": 2199.044553302694
+      },
+      "tls_exact": {
+        "incremental_hosts": 22,
+        "incremental_events": 105,
+        "inverted_alerts": 32,
+        "inverted_alerts_per_27_days": 0.3928979059120828,
+        "control_exposure_days_recomputed": 2199.044553302694
+      },
+      "v3_calibrated": {
+        "incremental_hosts": 21,
+        "incremental_events": 53,
+        "inverted_alerts": 14,
+        "inverted_alerts_per_27_days": 0.17189283383653622,
+        "control_exposure_days_recomputed": 2199.044553302694
+      },
+      "v3_original": {
+        "incremental_hosts": 21,
+        "incremental_events": 58,
+        "inverted_alerts": 27,
+        "inverted_alerts_per_27_days": 0.33150760811331986,
+        "control_exposure_days_recomputed": 2199.044553302694
+      }
+    },
+    "derived_comparison": {
+      "inverted_control_relative_reduction": 0.4814814814814815,
+      "formula": "1 - (14/27); both methods have the same summed control exposure",
+      "host_count_change": 0,
+      "event_count_change": -5,
+      "both_v3_mean_control_rates_below_budget_1": true,
+      "same_host_count_not_identical_hosts": true,
+      "calibrated_only_hosts": 1,
+      "original_only_hosts": 1
+    },
+    "by_depth": {
+      "0.0005": {
+        "bls_exact": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "hybrid": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "single_event": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "tls_exact": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "v3_calibrated": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "v3_original": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        }
+      },
+      "0.001": {
+        "bls_exact": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "hybrid": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "single_event": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "tls_exact": {
+          "registered_hosts": 25,
+          "incremental_hosts": 6
+        },
+        "v3_calibrated": {
+          "registered_hosts": 25,
+          "incremental_hosts": 4
+        },
+        "v3_original": {
+          "registered_hosts": 25,
+          "incremental_hosts": 3
+        }
+      },
+      "0.002": {
+        "bls_exact": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "hybrid": {
+          "registered_hosts": 25,
+          "incremental_hosts": 1
+        },
+        "single_event": {
+          "registered_hosts": 25,
+          "incremental_hosts": 0
+        },
+        "tls_exact": {
+          "registered_hosts": 25,
+          "incremental_hosts": 5
+        },
+        "v3_calibrated": {
+          "registered_hosts": 25,
+          "incremental_hosts": 5
+        },
+        "v3_original": {
+          "registered_hosts": 25,
+          "incremental_hosts": 5
+        }
+      },
+      "0.005": {
+        "bls_exact": {
+          "registered_hosts": 24,
+          "incremental_hosts": 0
+        },
+        "hybrid": {
+          "registered_hosts": 24,
+          "incremental_hosts": 4
+        },
+        "single_event": {
+          "registered_hosts": 24,
+          "incremental_hosts": 2
+        },
+        "tls_exact": {
+          "registered_hosts": 24,
+          "incremental_hosts": 11
+        },
+        "v3_calibrated": {
+          "registered_hosts": 24,
+          "incremental_hosts": 12
+        },
+        "v3_original": {
+          "registered_hosts": 24,
+          "incremental_hosts": 13
+        }
+      }
+    },
+    "by_mode": {
+      "periodic": {
+        "bls_exact": {
+          "registered_hosts": 33,
+          "incremental_hosts": 0
+        },
+        "hybrid": {
+          "registered_hosts": 33,
+          "incremental_hosts": 2
+        },
+        "single_event": {
+          "registered_hosts": 33,
+          "incremental_hosts": 1
+        },
+        "tls_exact": {
+          "registered_hosts": 33,
+          "incremental_hosts": 12
+        },
+        "v3_calibrated": {
+          "registered_hosts": 33,
+          "incremental_hosts": 8
+        },
+        "v3_original": {
+          "registered_hosts": 33,
+          "incremental_hosts": 7
+        }
+      },
+      "single": {
+        "bls_exact": {
+          "registered_hosts": 33,
+          "incremental_hosts": 0
+        },
+        "hybrid": {
+          "registered_hosts": 33,
+          "incremental_hosts": 1
+        },
+        "single_event": {
+          "registered_hosts": 33,
+          "incremental_hosts": 1
+        },
+        "tls_exact": {
+          "registered_hosts": 33,
+          "incremental_hosts": 3
+        },
+        "v3_calibrated": {
+          "registered_hosts": 33,
+          "incremental_hosts": 4
+        },
+        "v3_original": {
+          "registered_hosts": 33,
+          "incremental_hosts": 4
+        }
+      },
+      "ttv": {
+        "bls_exact": {
+          "registered_hosts": 33,
+          "incremental_hosts": 0
+        },
+        "hybrid": {
+          "registered_hosts": 33,
+          "incremental_hosts": 2
+        },
+        "single_event": {
+          "registered_hosts": 33,
+          "incremental_hosts": 0
+        },
+        "tls_exact": {
+          "registered_hosts": 33,
+          "incremental_hosts": 7
+        },
+        "v3_calibrated": {
+          "registered_hosts": 33,
+          "incremental_hosts": 9
+        },
+        "v3_original": {
+          "registered_hosts": 33,
+          "incremental_hosts": 10
+        }
+      }
+    },
+    "thresholds": {
+      "bls_exact": 231.95611061593218,
+      "hybrid_neural": 0.985,
+      "hybrid_single": 34.468068817779766,
+      "single_event": 32.73197682404179,
+      "tls_exact": 9.663561072185,
+      "v3_calibrated": 0.9,
+      "v3_original": 0.86
+    }
+  },
+  "continuous_history": {
+    "source": "results/ai_telescope_continuous_v3/README.md",
+    "cohort": "reused 79-host trapezoidal audit, 276 events; not the later physical benchmark",
+    "v2": {
+      "threshold": 0.9,
+      "hosts": 21,
+      "events": 41,
+      "control_rate_rounded": 0.745
+    },
+    "v3": {
+      "threshold": 0.86,
+      "hosts": 28,
+      "events": 53,
+      "control_rate_rounded": 0.517
+    },
+    "paired_exact_p_rounded": 0.092,
+    "limits": "Historical exploratory improvement. Do not compare percentages directly with stricter physical injection and one-to-one matching protocol. Later physical and fresh tests now exist; earlier README future-work lists are historical."
+  },
+  "rejected_routing": {
+    "behavioral_v4": {
+      "source": "results/behavioral_supermodel_v4/report.md",
+      "status": "did not beat strongest single expert on both declared audit metrics"
+    },
+    "diagnostic_v5": {
+      "source": "results/behavioral_supermodel_v5/report.md",
+      "status": "dynamic gate selected but did not beat static stack and strongest single expert on both declared metrics"
+    },
+    "crossfit_competence": {
+      "source": "results/crossfit_competence_v1/report.md",
+      "routing_strength": 0.0,
+      "status": "selection returned the static prior; not a successful adaptive router"
+    }
+  },
+  "baseline_calibration_resolution": {
+    "bls": {
+      "events_per_27_days": 0.9206593202856168,
+      "exact_empirical_threshold": 72.59677975066101,
+      "original_coarse_threshold": 100.0,
+      "scope": "calibration-only grid-resolution diagnostic; not an evaluated operating point"
+    },
+    "tls": {
+      "events_per_27_days": 0.9810304232551653,
+      "exact_empirical_threshold": 7.5604120902904,
+      "original_coarse_threshold": 8.0,
+      "scope": "calibration-only grid-resolution diagnostic; not an evaluated operating point"
+    }
+  },
+  "baseline_calibration_resolution_note": "Calibration-only exact old-budget boundaries were not evaluated by rescoring fresh/historical hosts. Exact score boundaries resolve grid mechanics, not low sensitivity from a conservative transfer margin.",
+  "reports": [
+    [
+      "Historical adaptation pilot",
+      "results/mission_adaptation_pilot/README.md"
+    ],
+    [
+      "Reused classifier audit",
+      "results/crossfit_supermodel_v2/report.md"
+    ],
+    [
+      "Fresh classifier audit",
+      "results/fresh_classifier_audit_v1/README.md"
+    ],
+    [
+      "Continuous v2 validation",
+      "results/ai_telescope_continuous_validation_v1/README.md"
+    ],
+    [
+      "Continuous v3 history",
+      "results/ai_telescope_continuous_v3/README.md"
+    ],
+    [
+      "Original physical benchmark",
+      "results/ai_telescope_physical_benchmark_v1/README.md"
+    ],
+    [
+      "Fresh recovery study",
+      "results/ai_telescope_recovery_v1/README.md"
+    ],
+    [
+      "Consolidated limitations",
+      "results/research_fixes_v1/README.md"
+    ]
+  ]
+}

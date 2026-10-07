@@ -1,25 +1,58 @@
-# Active thesis evidence
+# Active public evidence
 
-This directory indexes the evidence retained for the Kepler-to-TESS domain-adaptation and discovery thesis. Live checkpoints, predictions, caches, and reports remain in ignored local `outputs/` and `data/` directories. A [frozen vetting dataset](vetting_snapshot_20260923/README.md) additionally preserves the complete research database, referenced artifacts, selected input light curves and retained inference model for restoration from a clone.
+This folder contains the compact evidence set that supports the current thesis narrative. Older exploratory results and unstable configs have been moved under [archive](../archive/README.md) so the repo can be read and continued from a clear checkpoint.
 
-| Evidence | Role | Main limitation |
-| --- | --- | --- |
-| [Kepler–TESS input audit](tess/input_audit/README.md) | Measures preprocessing and feature-distribution shift | Descriptive; does not prove what caused a model error |
-| [Shared-transfer benchmark](tess/shared_transfer/README.md) | Freezes the Phase-1 CNN reference results | Single seed and previously consulted labelled tests |
-| [Completed mission-adaptation pilot](mission_adaptation_pilot/README.md) | Five approaches × three seeds; comparison scores on 44 saved blind proposals | Short-budget validation-derived audit; DANN benefit not demonstrated; reference scorer retained |
-| [Candidate-registry control](tess/candidate_vetting/README.md) | Verifies recognition of a known confirmed signal in current public catalogs | Catalog matching is not planet validation or proof of novelty |
-| [Blind detection engineering pilot](detection_pilot/README.md) | Searches local light curves and evaluates known TRAIN stars, injections and negatives | Small selected sample; white-noise scores and recovery do not establish survey readiness |
-| [Proposal scoring and vetting pilot](scoring_vetting_pilot/README.md) | Connects 38 existing blind proposals to the actual trained CNN, diagnostics and catalog evidence | Uncalibrated scores; selected controls; incomplete image/contamination and broader registry coverage |
-| [Public release watcher pilot](release_watcher_pilot/README.md) | Verifies official metadata, bounded acquisition/dispatch, budgets and restart deduplication | One cached known control; scoped availability; no new science download or prospective result |
-| [Automatic watcher run](automatic_watcher_run/README.md) | Records the subsequent public download, three added proposals, activity/failure history and 44-proposal snapshot | Two watched known controls; 17 real-data and 27 synthetic proposals; no new-planet claim |
+## Start from the current checkpoint
 
-These are the only active result groups. Earlier practical-work model sweeps are not part of the thesis evidence index.
+| Item | Why it matters |
+| --- | --- |
+| [../MODEL_JOURNEY.md](../MODEL_JOURNEY.md) | Current model choice and decision gate |
+| [../STORYLINE.md](../STORYLINE.md) | The research reasoning and chronology |
+| [../docs/website_guide.md](../docs/website_guide.md) | How the websites and watcher are run |
+| [../configs](../configs) | Active frozen run configs |
+| [../archive](../archive) | Legacy experimental material kept for provenance |
 
-The benchmark and catalog checker answer different questions:
+## Best public evidence set
 
-- Model metrics measure ranking and classification on labelled examples.
-- Registry matching asks whether a compatible public record is present at a recorded time.
-- Blind detection asks whether a periodic proposal can be found without catalog ephemerides; recovery and negative controls measure specific failure modes.
-- Human and observational vetting asks whether an unmatched signal is astrophysical and plausibly planetary.
+These are the result folders to read first when continuing the project:
 
-None of the committed results constitutes a new candidate or confirmed-planet claim. See the [main README](../README.md) for the active workflow and planned `discovery_v1` protocol.
+- [mission_adaptation_pilot](mission_adaptation_pilot/README.md)
+- [crossfit_supermodel_v2](crossfit_supermodel_v2/report.md)
+- [fresh_classifier_audit_v1](fresh_classifier_audit_v1/README.md)
+- [ai_telescope_physical_benchmark_v1](ai_telescope_physical_benchmark_v1/README.md)
+- [ai_telescope_recovery_v1](ai_telescope_recovery_v1/README.md)
+- [vetting_snapshot_20260923](vetting_snapshot_20260923/README.md)
+- [reference_calibration_v1](reference_calibration_v1/README.md)
+- [tess/shared_transfer](tess/shared_transfer/README.md)
+
+## Supporting and non-promoted evidence
+
+These records support the chronology and explain why some approaches were not promoted:
+
+- [Automatic watcher run](automatic_watcher_run/README.md): bounded processing of two known-object controls.
+- [Adaptive-memory pilot](adaptive_memory_pilot_v1/README.md) and [real-photometry follow-up](adaptive_memory_real_v1/README.md): synthetic engineering test followed by a small negative control result.
+- [Continuous-scan validation](ai_telescope_continuous_validation_v1/README.md) and [v3 follow-up](ai_telescope_continuous_v3/README.md): threshold/sensitivity trade-off and an exploratory improvement on a reused audit.
+- [Frozen unseen-host scan](ai_telescope_prospective_v1/README.md): an unlabeled review queue, not an accuracy or discovery result.
+- [Behavioral supermodel v2](behavioral_supermodel_v2/report.md) and [v5](behavioral_supermodel_v5/report.md): exploratory stacks not promoted to candidate scoring.
+- [Frozen prospective host cohort](prospective_cohort_v1/README.md) and [TLS/pixel feasibility pilot](tls_pixel_pilot_v1/README.md): cohort and data-flow records for future work.
+- [25 September target-search snapshot](../archive/legacy-results/new_target_search_20260925/README.md): historical selection and processing record.
+
+## Keep the evidence compact
+
+Each public result should contain:
+
+- README with cohort, model and question
+- evidence.json or equivalent provenance
+- a checksum manifest or hash record
+- the minimum artifact bundle needed to verify the result
+- a brief note on limits and exclusions
+
+Large local outputs remain outside the public repository. Bundles that depend on them state in their README which detailed reports or raw tables are local-only.
+
+## Archive policy
+
+Anything older than the active public evidence set should live under [archive](../archive/README.md), not in the main results index. The archive preserves the research trail without making the repository unreadable.
+
+## Current expectation
+
+The repo is meant to support continuation from a clean checkpoint, not a complete dump of every exploratory branch. If a new result changes the project decision, it should be added as a dated result bundle and then linked from this page.
